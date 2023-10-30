@@ -1,0 +1,3 @@
+class EventDay < ActiveModel
+
+end
