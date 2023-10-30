@@ -1,4 +1,4 @@
-class EventPortionType < ActiveRecord
+class EventPortionType < ApplicationRecord
   table_name = "event_has_portion_type"
 
   belongs_to :event

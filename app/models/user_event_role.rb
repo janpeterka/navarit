@@ -1,4 +1,4 @@
-class UserEventRole < ActiveRecord
+class UserEventRole < ApplicationRecord
   table_name "users_have_event_roles"
   belongs_to :user
   belongs_to :event

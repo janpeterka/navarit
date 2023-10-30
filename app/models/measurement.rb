@@ -1,4 +1,4 @@
-class Measurement < ActiveRecord
+class Measurement < ApplicationRecord
   has_many :ingredients
   has_many :conversions, class_name: "MeasurementConversion", foreign_key: "from_measurement_id"
 

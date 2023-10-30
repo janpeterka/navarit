@@ -1,4 +1,4 @@
-class RecipeIngredient < ActiveRecord
+class RecipeIngredient < ApplicationRecord
   table_name "recipes_have_ingredients"
 
   belongs_to :recipe

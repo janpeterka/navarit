@@ -1,4 +1,4 @@
-class DailyPlanRecipe < ActiveRecord
+class DailyPlanRecipe < ApplicationRecord
   belongs_to :recipe
   belongs_to :daily_plan
 

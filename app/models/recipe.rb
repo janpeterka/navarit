@@ -1,4 +1,4 @@
-class Recipe < ActiveRecord
+class Recipe < ApplicationRecord
   belongs_to :category, class_name: "RecipeCategory"
   belongs_to :author
 

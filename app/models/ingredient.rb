@@ -1,4 +1,4 @@
-class Ingredient < ActiveRecord
+class Ingredient < ApplicationRecord
   belongs_to :category, class_name: "IngredientCategory"
   belongs_to :measurement
 
@@ -9,5 +9,5 @@ class Ingredient < ActiveRecord
 
   scope :lasting, -> { where(is_lasting: true) }
   scope :used, -> { joins(:recipe_ingredients).where("recipe_ingredients.id IS NOT NULL").distinct.any? }
-  scope :public, -> { where(is_public: true) }
+  scope :published, -> { where(is_public: true) }
 end

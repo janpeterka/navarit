@@ -1,4 +1,4 @@
-class User < ActiveRecord
+class User < ApplicationRecord
   has_many :roles, through: :user_roles
   has_many :daily_plans
   has_many :recipes

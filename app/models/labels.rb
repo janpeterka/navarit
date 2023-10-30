@@ -1,4 +1,4 @@
-class Label < ActiveRecord
+class Label < ApplicationRecord
   belongs_to :category, class_name: "LabelCategory"
 
   validates :name, presence: true, uniqueness: true

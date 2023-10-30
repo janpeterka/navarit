@@ -1,4 +1,4 @@
-class Event < ActiveRecord
+class Event < ApplicationRecord
   has_many :daily_plans
   has_many :event_portion_types
   has_many :attendees

@@ -1,4 +1,4 @@
-class PortionType < ActiveRecord
+class PortionType < ApplicationRecord
   belongs_to :author, class_name: "User"
 
   validates :name, presence: true, uniqueness: true

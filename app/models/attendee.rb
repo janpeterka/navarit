@@ -1,4 +1,4 @@
-class Attendee < ActiveRecord
+class Attendee < ApplicationRecord
   belongs_to :event
   belongs_to :portion_type
 

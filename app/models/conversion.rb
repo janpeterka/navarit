@@ -1,4 +1,4 @@
-class Conversion < ActiveRecord
+class Conversion < ApplicationRecord
   table_name = 'measurements_to_measurements'
 
   belongs_to :ingredient

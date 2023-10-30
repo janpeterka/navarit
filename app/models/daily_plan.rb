@@ -1,4 +1,4 @@
-class DailyPlan < ActiveRecord
+class DailyPlan < ApplicationRecord
   belongs_to :event
   belongs_to :author, class_name: 'User'
 
