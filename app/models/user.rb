@@ -6,4 +6,12 @@ class User < ApplicationRecord
   has_many :events, foreign_key: :created_by
   # has_many :events_in_role, through: :user_event_roles, source: :event
   has_many :portion_types
+
+  def name
+    full_name
+  end
+
+  def admin?
+    true
+  end
 end

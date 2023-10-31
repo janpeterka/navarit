@@ -1,0 +1,5 @@
+tr.bg-white.hover:bg-gray-100.group id=dom_id(record, "table-row")
+  - columns.each do |column|
+    td.px-3.py-4.text-sm.whitespace-nowrap.text-gray-500 class=column.css_class
+      - value = render(column.value_for(record, view_context: __vc_original_view_context))
+      = column.link_to_detail? ? admin_link_to(value, record) : value

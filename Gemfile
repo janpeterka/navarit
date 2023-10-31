@@ -15,10 +15,11 @@ gem 'trilogy' # Use trilogy as the database for Active Record
 
 # front-end
 gem 'importmap-rails' # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'jbuilder' # Build JSON APIs with ease [https://github.com/rails/jbuilder]
+# gem 'jbuilder' # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'propshaft'
 gem 'simple_form' # Use SimpleForm for forms
-gem 'slim'
+# gem 'slim'
+gem 'slim-rails'
 gem 'stimulus-rails' # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'tailwindcss-rails'
 gem 'turbo-rails' # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]

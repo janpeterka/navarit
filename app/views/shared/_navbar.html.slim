@@ -1,0 +1,42 @@
+nav.border-gray-200.dark:bg-gray-900.dark:border-gray-700.mt-4.mb-4.hidden.sm:block
+    .flex.flex-wrap.items-center.mx-auto.bg-gray-100.rounded-3xl.py-3.px-4
+        a href="/"
+            / img.h-12.mr-1 src=image_url("logos/logo.png") alt="navarit"
+     
+        ul.flex.font-medium.ms-2.ps-4.cursor-pointer.md:p-0.border.border-gray-100.rounded-lg.md:flex-row.md:space-x-8.md:mt-0.md:border-0.dark:bg-gray-800.md:dark:bg-gray-900.dark:border-gray-700
+            = render "shared/navbar_link", link: "/", icon: "events", text: "domů"
+            = render "shared/navbar_link", link: recipes_path, icon: "events", text: "recepty"
+            = render "shared/navbar_link", link: ingredients_path, icon: "announcements", text: "suroviny"
+            = render "shared/navbar_link", link: "/tasks", icon: "tasks", text: "akce"
+            = render "shared/navbar_link", link: "/arts", icon: "arts", text: "databáze receptů"
+            - if Current.user.admin?
+                a#navbarAdministrationDropdownLink data-dropdown-toggle="navbarAdministrationDropdown" data-dropdown-placement="bottom-end"
+                    li.rounded-md.py-2.px-2.hover:bg-gray-200
+                        span.block.py-4.pl-3.pr-4.text-black.rounded.hover:text-gray-900.md:hover:bg-transparent.md:border-0.md:p-0.dark:text-white.md:dark:hover:text-white.dark:hover:bg-gray-700.dark:hover:text-white.md:dark:hover:bg-transparent
+                            = svg("administration", class: "w-4 h-4 inline me-1")
+                            = "admin"
+                            = svg("dropdown-caret", class: "ml-1 w-4 h-4 inline")
+            
+                    #navbarAdministrationDropdown.z-10.hidden.font-normal.bg-white.divide-y.divide-gray-100.rounded-lg.shadow.w-44.dark:bg-gray-700.dark:divide-gray-600
+                        = render "shared/navbar_link", link: "/members", icon: "members", text: "členstvo"
+                        = render "shared/navbar_link", link: "/accounting", icon: "accounting", text: "účetnictví"
+            
+            = render "shared/navbar_link", link: "/help", icon: "help", text: "pomoc"
+            
+        ul.flex.ml-auto.cursor-pointer
+           a#navbarProfileDropdownLink data-dropdown-toggle="navbarProfileDropdown" data-dropdown-placement="bottom-end"
+                li.rounded-md.py-2.px-2.hover:bg-gray-200
+                    span.block.py-4.pl-3.pr-4.text-black.rounded.hover:text-gray-900.md:hover:bg-transparent.md:border-0.md:p-0.dark:text-white.md:dark:hover:text-white.dark:hover:bg-gray-700.dark:hover:text-white.md:dark:hover:bg-transparent
+                        / = Current.user.profile_picture
+                        = Current.user.name
+                        = svg("dropdown-caret", class: "ml-1 w-4 h-4 inline")
+                
+                #navbarProfileDropdown.z-10.hidden.font-normal.bg-white.divide-y.divide-gray-100.rounded-lg.shadow.dark:bg-gray-700.dark:divide-gray-600.mr-5
+                    = render "shared/navbar_link", link: "/members/#{Current.user.id}", icon: "settings", text: "spravovat můj profil a nastavení"
+                    = render "shared/navbar_link", link: "/accounting", icon: "plus", text: "přidat další skupinu"
+                    - if Current.user.admin?
+                        hr
+                        = render "shared/navbar_link", link: "/a/", icon: "administration", text: "administrace sboria"
+                    hr
+                    = render "shared/navbar_link", link: "/logout", icon: "logout", text: "odhlásit se"
+

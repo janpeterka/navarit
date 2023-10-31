@@ -1,0 +1,21 @@
+div *arguments_with_updated_default_class("flex flex-col my-8", **options)
+  .overflow-x-auto.-my-2
+    .inline-block.min-w-full.py-2.align-middle
+      .overflow-hidden
+        table.min-w-full
+          - unless options[:without_header]
+            thead
+              = render Tables::HeaderRowComponent.new(columns: columns)
+
+          tbody.md:rounded-lg
+            - records.each do |record|
+              = render Tables::RowComponent.new(record: record, columns: columns)
+
+          - if pagy && pagy.pages > 1
+            tfoot
+              tr
+                td colspan=columns.length
+                  .inline-flex.justify-end.items-center.w-full.px-4.py-4.bg-white.border-t.border-gray-300
+                    == helpers.pagy_info(pagy)
+                    |  
+                    == helpers.pagy_nav(pagy, **pagy_options)
