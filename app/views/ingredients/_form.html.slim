@@ -1,0 +1,23 @@
+= form_with(model: ingredient) do |form|
+  div
+    = form.label :name
+    = form.text_field :name
+  div
+    = form.label :description
+    = form.text_field :description
+
+  div
+    = form.collection_select :measurement_id, Measurement.all, :id, :name
+
+  div
+    = form.collection_select :category_id, IngredientCategory.all, :id, :name
+
+  - if ingredient.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(ingredient.errors.count, "error")} prohibited this ingredient from being saved:"
+      ul
+        - ingredient.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.submit

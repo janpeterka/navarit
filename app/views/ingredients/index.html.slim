@@ -1,0 +1,12 @@
+p style="color: green" = notice
+
+h1 Moje suroviny
+
+= link_to "New ingredient", new_ingredient_path
+
+#ingredients
+  - @ingredients.each do |ingredient|
+    == render ingredient
+    p
+      = link_to "Show this ingredient", ingredient
+
