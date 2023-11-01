@@ -1,5 +1,5 @@
 class Conversion < ApplicationRecord
-  table_name = 'measurements_to_measurements'
+  self.table_name = 'measurements_to_measurements'
 
   belongs_to :ingredient
   belongs_to :target_measurement, class_name: 'Measurement'

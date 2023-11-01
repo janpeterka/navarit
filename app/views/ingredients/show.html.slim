@@ -1,10 +1,30 @@
-p style="color: green" = notice
+- content_for :title, @ingredient.name
 
-== render @ingredient
+= button_link "Back to ingredients", ingredients_path
+= button_link "Edit this ingredient", edit_ingredient_path(@ingredient)
 
-div
-  => link_to "Edit this ingredient", edit_ingredient_path(@ingredient)
-  '|
-  =< link_to "Back to ingredients", ingredients_path
+#details
+  = @ingredient.description
+  br
 
-  = button_to "Destroy this ingredient", @ingredient, method: :delete
+  span
+    | měřeno na: 
+    = @ingredient.measurement&.name
+  br
+  span
+    | v kategorii: 
+    = @ingredient.category&.name
+
+  = action_button_to "Destroy this ingredient", @ingredient, method: :delete
+
+#recipes
+  h3.text-xl moje recepty se surovinou
+  - @ingredient.recipes.created_by(Current.user).each do |recipe|
+    li = link_to recipe.name, recipe
+
+  h3.text-xl všechny recepty se surovinou
+  - @ingredient.recipes.each do |recipe|
+    li = link_to recipe.name, recipe
+
+
+

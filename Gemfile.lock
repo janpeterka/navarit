@@ -339,7 +339,6 @@ DEPENDENCIES
   rubocop-rspec
   selenium-webdriver
   simple_form
-  slim
   slim-rails
   sqlite3
   stimulus-rails

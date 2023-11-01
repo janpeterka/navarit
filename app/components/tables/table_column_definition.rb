@@ -46,9 +46,9 @@ module Tables
 
     def raw_value_for(record, view_context:)
       if block
-        view_context.capture { block.call(record) }
+        view_context.capture { block.call(record).presence }
       else
-        record.public_send(method)
+        record.public_send(method).presence
       end
     end
 

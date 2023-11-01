@@ -1,0 +1,30 @@
+- content_for :title, @recipe.name
+
+= button_link "upravit", edit_recipe_path(@recipe)
+
+#details
+  p
+    = @recipe.category&.name
+  p
+    - @recipe.labels.each do |label|
+      span.label.label-primary.me-3 = label.visible_name
+
+#ingredients 
+  h2.text-2xl = "na #{@portion_count} porcí"
+  = table @recipe.recipe_ingredients do |t|
+    = t.column :název do |r_ingredient|
+      = link_to r_ingredient.ingredient.name, r_ingredient.ingredient
+    = t.column :množství do |r_ingredient|
+      = r_ingredient.amount * @portion_count
+      = " "
+      = r_ingredient.ingredient.measurement.name
+
+#description 
+  h2.text-2xl = "Popis"
+  = @recipe.description.html_safe
+
+#tasks
+  h2.text-2xl = "Úkoly"
+  - @recipe.tasks.each do |task|
+    li = task.name
+    / = link_to task, task

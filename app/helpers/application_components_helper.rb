@@ -10,7 +10,7 @@ module ApplicationComponentsHelper
     render Buttons::ButtonLinkComponent.new(name:, path:, **), &
   end
 
-  def action_button_to(name:, path:, **, &)
+  def action_button_to(name, path, **, &)
     render Buttons::ButtonToComponent.new(name:, path:, **), &
   end
 
@@ -18,17 +18,10 @@ module ApplicationComponentsHelper
     render Tables::TableComponent.new(records:, **, &)
   end
 
-  def reaction_button(text:, value:, selected:, path:, **, &)
-    render Reactions::ReactionButtonComponent.new(text:, value:, selected:, path:, **), &
-  end
-
   def form_field(**, &)
     render FormFields::InputFieldComponent.new(**), &
   end
 
-  def reaction_section(object, **)
-    render Reactions::ReactionSectionComponent.new(object, **)
-  end
   # def admin_detail(record, **kwargs, &)
   #   render Details::DetailComponent.new(record:, **kwargs), &
   # end
