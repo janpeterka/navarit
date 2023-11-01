@@ -13,7 +13,7 @@ class Recipe < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :shared, -> { where(is_shared: true) }
+  scope :published, -> { where(is_shared: true) }
   scope :hidden, -> { where(is_hidden: true) }
   scope :visible, -> { where(is_hidden: false) }
   scope :used, -> { joins(:daily_plans).where('daily_plans.id IS NOT NULL').distinct.any? }

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :events
   resources :recipes
+  resources :published_recipes, only: %i[index create destroy]
   resources :ingredients
   resource :dashboard, only: :show
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

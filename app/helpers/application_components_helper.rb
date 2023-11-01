@@ -22,6 +22,10 @@ module ApplicationComponentsHelper
     render FormFields::InputFieldComponent.new(**), &
   end
 
+  def label_badge(label, **, &)
+    render Badges::LabelBadgeComponent.new(label:, **), &
+  end
+
   # def admin_detail(record, **kwargs, &)
   #   render Details::DetailComponent.new(record:, **kwargs), &
   # end

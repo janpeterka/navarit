@@ -8,7 +8,7 @@ nav.mt-4.mb-4
             = render "shared/navbar_link", link: ingredients_path, icon: "plant", text: "suroviny"
             = render "shared/navbar_link", link: recipes_path, icon: "utensils", text: "recepty"
             = render "shared/navbar_link", link: events_path, icon: "calendar", text: "akce"
-            = render "shared/navbar_link", link: "/arts", icon: "book-open", text: "databáze receptů"
+            = render "shared/navbar_link", link: published_recipes_path, icon: "book-open", text: "databáze receptů"
 
         ul.flex.ml-auto.cursor-pointer
            a#navbarProfileDropdownLink data-dropdown-toggle="navbarProfileDropdown" data-dropdown-placement="bottom-end"

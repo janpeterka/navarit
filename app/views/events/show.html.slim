@@ -8,7 +8,7 @@
   = "pro #{@event.people_count} účastníků"
 
 #days
-  .grid.grid-cols-7
+  .grid.grid-cols-7.gaps-4
     - @event.daily_plans.each do |daily_plan|
       div.w-max.border.border-emerald-600.text-center id="#{dom_id(daily_plan)}-card"
         div.text-xl

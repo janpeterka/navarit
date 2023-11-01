@@ -1,0 +1,13 @@
+.border.rounded.border-emerald-500.p-4.m-4
+    .text-center
+        = link_to recipe.name, recipe
+    div
+        = recipe.category&.name
+        span.float-right
+            = recipe.author.full_name
+
+    hr
+    .mt-2
+        - recipe.labels.each do |label|
+            = label_badge(label)
+  

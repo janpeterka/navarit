@@ -1,0 +1,6 @@
+- content_for :title, "sdílené recepty"
+
+#published-recipes
+  .grid.grid-cols-3.gap-4
+    - @published_recipes.each do |recipe|
+      = render partial: "recipes/recipe_card", locals: {recipe: recipe}

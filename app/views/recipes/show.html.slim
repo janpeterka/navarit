@@ -9,7 +9,7 @@
     - @recipe.labels.each do |label|
       span.label.label-primary.me-3 = label.visible_name
 
-#ingredients 
+#ingredients
   h2.text-2xl = "na #{@portion_count} porcí"
   = table @recipe.recipe_ingredients do |t|
     = t.column :název do |r_ingredient|
@@ -17,7 +17,7 @@
     = t.column :množství do |r_ingredient|
       = r_ingredient.amount * @portion_count
       = " "
-      = r_ingredient.ingredient.measurement.name
+      = r_ingredient.ingredient.measurement&.name
 
 #description 
   h2.text-2xl = "Popis"

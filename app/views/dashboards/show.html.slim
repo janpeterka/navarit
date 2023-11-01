@@ -3,10 +3,10 @@
 .grid.grid-cols-3.gap-4.mt-4.text-center
     .border.border-emerald-600.rounded-lg.shadow.p-4
         | založ 
-        / = link_to "novou událost", new_event_path, class: "text-emerald-600 font-bold"
+        = link_to "novou událost", new_event_path, class: "text-emerald-600 font-bold"
     .border.border-emerald-600.rounded-lg.shadow.p-4
         | inspiruj se v 
-        / = link_to "databázi receptů", public_recipes_path, class: "text-emerald-600 font-bold"
+        = link_to "databázi receptů", published_recipes_path, class: "text-emerald-600 font-bold"
     .border.border-emerald-600.rounded-lg.shadow.p-4
         | přidej 
         = link_to "nový recept", new_recipe_path, class: "text-emerald-600 font-bold"
