@@ -23,7 +23,7 @@ html
 
   body.mx-auto.sm:px-4.max-w-screen-2xl
     = render("shared/navbar")
-    h1.text-3xl.text-strong
+    h1.text-3xl.text-strong.mb-2
       - if content_for?(:header)
         = yield(:header)
       - else

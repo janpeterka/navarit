@@ -1,30 +1,34 @@
 - content_for :title, @ingredient.name
 
-= button_link "Back to ingredients", ingredients_path
-= button_link "Edit this ingredient", edit_ingredient_path(@ingredient)
+- content_for :header do 
+  = @ingredient.name
+  span.text-base.float-right
+    = button_link "upravit", edit_ingredient_path(@ingredient)
+    = action_button_to "smazat", @ingredient, method: :delete
 
-#details
-  = @ingredient.description
-  br
+.grid.grid-cols-2
 
-  span
-    | měřeno na: 
-    = @ingredient.measurement&.name
-  br
-  span
-    | v kategorii: 
-    = @ingredient.category&.name
+  #details
+    = @ingredient.description
+    br
 
-  = action_button_to "Destroy this ingredient", @ingredient, method: :delete
+    span
+      | měřeno na: 
+      = @ingredient.measurement&.name
+    br
+    span
+      | v kategorii: 
+      = @ingredient.category&.name
 
-#recipes
-  h3.text-xl moje recepty se surovinou
-  - @ingredient.recipes.created_by(Current.user).each do |recipe|
-    li = link_to recipe.name, recipe
 
-  h3.text-xl všechny recepty se surovinou
-  - @ingredient.recipes.each do |recipe|
-    li = link_to recipe.name, recipe
+  #recipes
+    h3.text-xl moje recepty se surovinou
+    - @ingredient.recipes.created_by(Current.user).each do |recipe|
+      li = link_to recipe.name, recipe
+
+    h3.text-xl všechny recepty se surovinou
+    - @ingredient.recipes.each do |recipe|
+      li = link_to recipe.name, recipe
 
 
 
