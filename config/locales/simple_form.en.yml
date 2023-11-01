@@ -29,3 +29,13 @@ en:
     # prompts:
     #   defaults:
     #     age: 'Select your age'
+
+cs:
+  simple_form:
+    "yes": "ano"
+    "no": "ne"
+    required:
+      text: 'povinné'
+      mark: '*'
+    error_notification:
+      default_message: "Prosím, zkontrolujte následující pole:"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events
   resources :recipes
   resources :ingredients
   resource :dashboard, only: :show

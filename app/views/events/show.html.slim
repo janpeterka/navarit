@@ -1,0 +1,22 @@
+- content_for :title, @event.name
+
+#details
+  = "od #{@event.date_from} do #{@event.date_to}"
+  br
+  = "#{@event.duration} dní"
+  br
+  = "pro #{@event.people_count} účastníků"
+
+#days
+  .grid.grid-cols-7
+    - @event.daily_plans.each do |daily_plan|
+      div.w-max.border.border-emerald-600.text-center id="#{dom_id(daily_plan)}-card"
+        div.text-xl
+          / = link_to "day", daily_plan_path(daily_plan)
+          = I18n.translate("date.day_names")[daily_plan.date.wday]
+          = "(#{daily_plan.date.strftime("%d.%m.%Y")})"
+        div id="#{dom_id(daily_plan)}-recipes"
+        - daily_plan.recipes.each do |recipe|
+          = render partial: "recipes/recipe", locals: {recipe: recipe}
+
+      
