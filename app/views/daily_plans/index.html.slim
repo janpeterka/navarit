@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Daily plans
+
+#daily_plans
+  - @daily_plans.each do |daily_plan|
+    == render daily_plan
+    p
+      = link_to "Show this daily plan", daily_plan
+
+= link_to "New daily plan", new_daily_plan_path

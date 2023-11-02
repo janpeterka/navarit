@@ -1,0 +1,21 @@
+- content_for :title do 
+  = @daily_plan.date.strftime("%e.%m.%Y")
+  = " (#{I18n.translate("date.day_names")[@daily_plan.date.wday]})"
+
+= button_link "zpět na akci", @daily_plan.event
+
+#recipes.mt-3.mb-4
+  ul.col-span-2
+    li.font-bold.mb-1
+      .grid.grid-cols-3
+        div
+          = "jídlo"
+        div
+          = "typ jídla"
+        div
+          = "počet porcí"
+    - @daily_plan.daily_plan_recipes.each do |day_recipe|
+      = render partial: "daily_plans/day_recipe", locals: {day_recipe: }
+
+#tasks
+  h2.text-xl.font-bold úkoly

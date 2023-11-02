@@ -6,7 +6,11 @@ module ApplicationHelper
     file_path = "#{Rails.root.join("app/assets/images/svg/#{name}.svg")}"
     if File.exist?(file_path)
       svg_content = File.read(file_path).html_safe
-      svg_content.sub!('<svg', "<svg class=\"#{classes}\"")
+      if svg_content.include?('class=')
+        svg_content.sub!('<svg class="', "<svg class=\"#{classes} ")
+      else
+        svg_content.sub!('<svg', "<svg class=\"#{classes}\"")
+      end
       svg_content.sub!('<svg', "<svg height=\"#{options[:height]}\"") if options[:height]
       svg_content.sub!('<svg', "<svg width=\"#{options[:height]}\"") if options[:height]
       return svg_content.html_safe

@@ -1,0 +1,10 @@
+h1 Editing daily plan recipe
+
+== render "form", daily_plan_recipe: @daily_plan_recipe
+
+br
+
+div
+  => link_to "Show this daily plan recipe", @daily_plan_recipe
+  '|
+  =< link_to "Back to daily plan recipes", daily_plan_recipes_path

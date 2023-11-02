@@ -1,3 +1,2 @@
 class EventDay < ActiveModel
-
 end

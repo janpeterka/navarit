@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @daily_plan_recipe
+
+div
+  => link_to "Edit this daily plan recipe", edit_daily_plan_recipe_path(@daily_plan_recipe)
+  '|
+  =< link_to "Back to daily plan recipes", daily_plan_recipes_path
+
+  = button_to "Destroy this daily plan recipe", @daily_plan_recipe, method: :delete

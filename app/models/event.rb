@@ -22,7 +22,7 @@ class Event < ApplicationRecord
   scope :current, -> { where('date_from <= ? AND date_to >= ?', Date.today, Date.today) }
 
   def duration
-    (date_to - date_from).to_i
+    (date_to - date_from + 1).to_i
   end
 
   private

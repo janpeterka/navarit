@@ -12,11 +12,12 @@
     - @event.daily_plans.each do |daily_plan|
       div.w-max.border.border-emerald-600.text-center id="#{dom_id(daily_plan)}-card"
         div.text-xl
-          / = link_to "day", daily_plan_path(daily_plan)
-          = I18n.translate("date.day_names")[daily_plan.date.wday]
-          = "(#{daily_plan.date.strftime("%d.%m.%Y")})"
+          = link_to daily_plan_path(daily_plan) do 
+            = "#{I18n.translate("date.day_names")[daily_plan.date.wday]}"
+        = "#{daily_plan.date.strftime("%d.%m.%Y")}"
         div id="#{dom_id(daily_plan)}-recipes"
         - daily_plan.recipes.each do |recipe|
-          = render partial: "recipes/recipe", locals: {recipe: recipe}
+          = link_to recipe.name, recipe, class: "truncate"
+          / = render partial: "recipes/recipe", locals: {recipe: recipe}
 
       

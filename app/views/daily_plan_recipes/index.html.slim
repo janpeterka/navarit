@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Daily plan recipes
+
+#daily_plan_recipes
+  - @daily_plan_recipes.each do |daily_plan_recipe|
+    == render daily_plan_recipe
+    p
+      = link_to "Show this daily plan recipe", daily_plan_recipe
+
+= link_to "New daily plan recipe", new_daily_plan_recipe_path
