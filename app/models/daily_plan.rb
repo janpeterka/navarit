@@ -4,7 +4,7 @@ class DailyPlan < ApplicationRecord
 
   has_many :daily_plan_tasks
   has_many :day_tasks, through: :daily_plan_tasks
-  has_many :daily_plan_recipes, -> { order(order_index: :desc) }
+  has_many :daily_plan_recipes, -> { order(order_index: :asc) }
   has_many :recipes, through: :daily_plan_recipes
 
   validates :date, presence: true

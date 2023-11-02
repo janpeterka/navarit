@@ -22,6 +22,14 @@ class Recipe < ApplicationRecord
   scope :created_by, ->(user) { where(author: user) }
   # scope :draft, -> {joins(:ingredients).where.not("ingredients.id IS NULL").distinct.any? }
 
+  def self.shopping
+    Recipe.find(167)
+  end
+
+  def shopping?
+    id == 167
+  end
+
   def draft?
     ingredients.empty?
   end

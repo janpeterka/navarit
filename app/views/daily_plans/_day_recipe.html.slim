@@ -1,15 +1,18 @@
-li
-    = simple_form_for day_recipe, method: :patch, :html=> {class: "inline grid grid-cols-3", data: { controller: "form" }} do |form|
-        div.cursor-move
-            = svg("move-handle")
-            = day_recipe.recipe.name
-        div
-            = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES, selected: day_recipe.meal_type,
-                         label: false, include_blank: true,
-                         :input_html => { data: { action: "change->form#submit" } }
+li.mb-1
+    .grid.grid-cols-4
+        = simple_form_for day_recipe, method: :patch, :html=> {class: "inline grid grid-cols-3 col-span-3", data: { controller: "form" }} do |form|
+            div.cursor-move
+                = day_recipe.order_index
+                = svg("move-handle")
+                = day_recipe.recipe.name
+            div
+                = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES, selected: day_recipe.meal_type,
+                            label: false, include_blank: true,
+                            :input_html => { data: { action: "change->form#submit" } }
 
+            div
+                = form.input :portion_count, label: false, :input_html => { data: { action: "change->form#submit" } }
+            div
+                = form.submit "uložit", hidden: true
         div
-            = form.input :portion_count, label: false, :input_html => { data: { action: "change->form#submit" } }
-        
-        = form.submit "uložit", hidden: true
-        
+            = action_button_to "smazat", day_recipe, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"

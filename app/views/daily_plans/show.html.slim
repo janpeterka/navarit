@@ -7,7 +7,7 @@
 #recipes.mt-3.mb-4
   ul.col-span-2
     li.font-bold.mb-1
-      .grid.grid-cols-3
+      .grid.grid-cols-4
         div
           = "jídlo"
         div
@@ -16,6 +16,26 @@
           = "počet porcí"
     - @daily_plan.daily_plan_recipes.each do |day_recipe|
       = render partial: "daily_plans/day_recipe", locals: {day_recipe: }
+
+  #add-shopping
+  = action_button_to "přidat nákup", daily_plan_recipes_path(daily_plan_id: @daily_plan, recipe_id: Recipe.shopping, portion_count: 0)
+
+  #add-recipe
+    h2.text-xl.font-bold přidat recept
+    = form_tag daily_plan_recipes_path(daily_plan_id: @daily_plan), method: :post do
+      .grid.grid-cols-4
+        div
+          = select_tag :recipe_id, grouped_options_for_select([['moje recepty',  Current.user.recipes.collect {|v| [ v.name, v.id ] }],
+                                                               ['oblíbené',  Recipe.liked_by(Current.user).collect {|v| [ v.name, v.id ] }],
+                                                               ['veřejné',  Recipe.published.collect {|v| [ v.name, v.id ] }],
+                                                              ]),
+                       class: "w-80"
+          
+
+        div = select_tag :meal_type, options_for_select(DailyPlanRecipe::MEAL_TYPES), include_blank: true
+        div = number_field_tag :portion_count, @daily_plan.event.portion_count
+        div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+
 
 #tasks
   h2.text-xl.font-bold úkoly

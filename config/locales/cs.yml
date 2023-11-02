@@ -10,3 +10,14 @@ cs:
       5: "pátek"
       6: "sobota"
       7: "neděle"
+  # active_record:
+  #   errors:
+  #     models:
+  #       daily_plan_recipe:
+  #         attributes:
+  #           portion_count:
+  #             blank: "počet porcí musí být nastaven"
+  
+  errors:
+    messages:
+      blank: "hodnota musí být vyplněna"

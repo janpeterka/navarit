@@ -3,8 +3,8 @@ html
   head
     title
       = "DEV | " if Rails.env.development?
-      | Sborio | 
-      = yield(:title).presence || "věnuj se umění"
+      | navařit | 
+      = yield(:title).presence
 
     - unless Rails.env.production?
       link rel="canonical" href="https://sborio.cz"
@@ -22,6 +22,7 @@ html
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 
   body.mx-auto.sm:px-4.max-w-screen-2xl
+    = render("shared/flash")
     = render("shared/navbar")
     h1.text-3xl.text-strong.mb-2
       - if content_for?(:header)

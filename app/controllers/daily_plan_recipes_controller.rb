@@ -21,14 +21,13 @@ class DailyPlanRecipesController < ApplicationController
   def create
     @daily_plan_recipe = DailyPlanRecipe.new(daily_plan_recipe_params)
 
-    if @daily_plan_recipe.save
-      redirect_to @daily_plan_recipe, notice: 'Daily plan recipe was successfully created.'
-    else
-      render :new, status: :unprocessable_entity
+    unless @daily_plan_recipe.save
+      flash[:error] = "recept nebyl přidán: #{@daily_plan_recipe.errors.full_messages.join(', ')}"
     end
+
+    redirect_to request.referrer
   end
 
-  # PATCH/PUT /daily_plan_recipes/1
   def update
     if @daily_plan_recipe.update(daily_plan_recipe_params)
       redirect_to request.referrer, notice: 'Daily plan recipe was successfully updated.'
@@ -40,7 +39,8 @@ class DailyPlanRecipesController < ApplicationController
   # DELETE /daily_plan_recipes/1
   def destroy
     @daily_plan_recipe.destroy!
-    redirect_to daily_plan_recipes_url, notice: 'Daily plan recipe was successfully destroyed.', status: :see_other
+
+    redirect_to request.referrer, notice: 'recept byl odebrán'
   end
 
   private

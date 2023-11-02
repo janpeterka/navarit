@@ -25,6 +25,18 @@ class Event < ApplicationRecord
     (date_to - date_from + 1).to_i
   end
 
+  def portion_count
+    portion_count = 0
+    accounted_for_count = 0
+    event_portion_types.each do |ept|
+      portion_count += ept.portion_type.size * ept.count
+      accounted_for_count += ept.count
+    end
+
+    portion_count += (people_count - accounted_for_count) if people_count > accounted_for_count
+    portion_count
+  end
+
   private
 
   def date_to_after_date_from_validation
