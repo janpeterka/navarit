@@ -1,0 +1,7 @@
+p style="color: green" = notice
+
+h1 Liked recipes
+
+= table @liked_recipes do |t|
+  = t.column :name do |recipe|
+    = link_to recipe.name, recipe

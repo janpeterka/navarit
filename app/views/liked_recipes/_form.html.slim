@@ -1,0 +1,10 @@
+= form_with(model: liked_recipe) do |form|
+  - if liked_recipe.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(liked_recipe.errors.count, "error")} prohibited this liked_recipe from being saved:"
+      ul
+        - liked_recipe.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.submit

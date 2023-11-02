@@ -1,0 +1,10 @@
+h1 Editing liked recipe
+
+== render "form", liked_recipe: @liked_recipe
+
+br
+
+div
+  => link_to "Show this liked recipe", @liked_recipe
+  '|
+  =< link_to "Back to liked recipes", liked_recipes_path

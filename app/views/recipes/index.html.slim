@@ -5,9 +5,10 @@
 = table @recipes do |t|
   = t.column :recept do |recipe|
     = link_to recipe.name, recipe, class: "font-bold text-emerald-600"
-    = "(rozpracováno)" if recipe.draft?
+    = " (rozpracováno)" if recipe.draft?
   = t.column :kategorie do |recipe|
     = recipe.category&.name
   = t.column :specifika do |recipe|
-    = recipe.labels.map { |label| label.name }.join(", ")
+    - recipe.labels.each do |label|
+      = label_badge(label, class: "text-black")
 

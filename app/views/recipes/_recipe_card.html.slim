@@ -5,6 +5,9 @@
         = recipe.category&.name
         span.float-right
             = recipe.author.full_name
+    div.mb-1
+        = svg("heart")
+        = recipe.reactions.size
 
     hr
     .mt-2

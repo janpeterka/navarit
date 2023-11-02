@@ -1,32 +1,34 @@
+# frozen_string_literal: true
+
 class PublishedRecipesController < ApplicationController
-  before_action :set_published_recipe, only: %i[destroy]
-
-  # GET /published_recipes
   def index
+    @published_recipe = Recipe.new
     @published_recipes = Recipe.published
+
+    @published_recipes = @published_recipes.where(category: params[:category]) if params[:category].present?
+    @published_recipes = @published_recipes.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
   end
 
-  # POST /published_recipes
   def create
-    @published_recipe = PublishedRecipe.new(published_recipe_params)
+    recipe = Recipe.find(params[:recipe_id])
 
-    if @published_recipe.save
-      redirect_to @published_recipe, notice: 'Published recipe was successfully created.'
+    if recipe.publish!
+      flash[:notice] = 'recept byl zveřejněn'
     else
-      render :new, status: :unprocessable_entity
+      flash[:error] = 'recept nebyl zveřejněn'
     end
+
+    redirect_to request.referrer
   end
 
-  # DELETE /published_recipes/1
   def destroy
-    @published_recipe.destroy!
-    redirect_to published_recipes_url, notice: 'Published recipe was successfully destroyed.', status: :see_other
+    recipe = Recipe.find(params[:id])
+    recipe.unpublish!
+
+    redirect_to request.referrer, notice: 'recept byl zneveřejněn'
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_published_recipe
-    @published_recipe = PublishedRecipe.find(params[:id])
-  end
+  def set_published_recipe; end
 end

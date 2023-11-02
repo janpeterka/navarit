@@ -1,5 +1,17 @@
 - content_for :title, "sdílené recepty"
 
+
+= form_tag published_recipes_path, method: :get do
+  .field
+    = label_tag :name, "Name"
+    = text_field_tag :name, params[:name]
+  .field
+    = label_tag :category, "Category"
+    = select_tag :category, options_from_collection_for_select(RecipeCategory.all, :id, :name, selected: params[:category]), include_blank: true
+  .actions
+    = submit_tag "Filter"
+
+
 #published-recipes
   .grid.grid-cols-3.gap-4
     - @published_recipes.each do |recipe|
