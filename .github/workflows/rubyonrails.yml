@@ -45,20 +45,24 @@ jobs:
     env:
       RAILS_ENV: test
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1 # v1.146.0
-        with:
-          bundler-cache: true
+        # with:
+          # bundler-cache: true
       # Add or replace any other lints here
-      # - name: Security audit dependencies
-        # run: bundler-audit --update
-      # - name: Security audit application code
-      #   run: brakeman -q -w2
-      # - name: Lint Ruby files
-      #   run: rubocop --parallel
+      - name: Security audit dependencies
+        run: bundler-audit --update
+        continue-on-error: true
+      - name: Security audit application code
+        run: brakeman -q -w2
+        continue-on-error: true
+      - name: Lint Ruby files
+        run: rubocop --parallel
+        continue-on-error: true
       - name: Check rails best practices
         run: rails_best_practices 
       
