@@ -82,7 +82,11 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    brakeman (6.0.1)
     builder (3.2.4)
+    bundler-audit (0.9.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 1.0)
     capybara (3.39.2)
       addressable
       matrix
@@ -92,6 +96,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    code_analyzer (0.5.5)
+      sexp_processor
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -104,6 +110,7 @@ GEM
       ruby2_keywords
     error_highlight (0.5.1)
     erubi (1.12.0)
+    erubis (2.7.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -199,6 +206,14 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails_best_practices (1.23.2)
+      activesupport
+      code_analyzer (~> 0.5.5)
+      erubis
+      i18n
+      json
+      require_all (~> 3.0)
+      ruby-progressbar
     railties (7.1.1)
       actionpack (= 7.1.1)
       activesupport (= 7.1.1)
@@ -218,6 +233,7 @@ GEM
     regexp_parser (2.8.2)
     reline (0.3.9)
       io-console (~> 0.5)
+    require_all (3.0.0)
     rexml (3.2.6)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
@@ -273,6 +289,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sexp_processor (4.17.0)
     simple_form (5.3.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -325,6 +342,8 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  brakeman
+  bundler-audit
   capybara
   debug
   error_highlight (>= 0.4.0)
@@ -335,6 +354,7 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 7.1.1)
+  rails_best_practices
   redis (>= 4.0.1)
   rspec-rails
   rubocop
