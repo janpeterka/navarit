@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :daily_plan_tasks
   resources :daily_plan_recipes
   resources :daily_plans
   root 'dashboards#show'

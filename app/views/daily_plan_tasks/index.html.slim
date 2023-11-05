@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Daily plan tasks
+
+#daily_plan_tasks
+  - @daily_plan_tasks.each do |daily_plan_task|
+    == render daily_plan_task
+    p
+      = link_to "Show this daily plan task", daily_plan_task
+
+= link_to "New daily plan task", new_daily_plan_task_path

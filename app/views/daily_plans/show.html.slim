@@ -2,26 +2,25 @@
   = @daily_plan.date.strftime("%e.%m.%Y")
   = " (#{I18n.translate("date.day_names")[@daily_plan.date.wday]})"
 
-= button_link "zpět na akci", @daily_plan.event
+= button_link nil, @daily_plan.event, type: :secondary, class: "group" do
+  = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
+  = "zpět na akci"
 
 #recipes.mt-3.mb-4
   ul.col-span-2
     li.font-bold.mb-1
       .grid.grid-cols-4
-        div
-          = "jídlo"
-        div
-          = "typ jídla"
-        div
-          = "počet porcí"
+        div = "jídlo"
+        div = "typ jídla"
+        div = "počet porcí"
     - @daily_plan.daily_plan_recipes.each do |day_recipe|
       = render partial: "daily_plans/day_recipe", locals: {day_recipe: }
 
-  #add-shopping
-  = action_button_to "přidat nákup", daily_plan_recipes_path(daily_plan_id: @daily_plan, recipe_id: Recipe.shopping, portion_count: 0)
+  #add-shopping.mb-4
+    = action_button_to "přidat nákup", daily_plan_recipes_path(daily_plan_id: @daily_plan, recipe_id: Recipe.shopping, portion_count: 0)
 
-  #add-recipe
-    h2.text-xl.font-bold přidat recept
+  #add-recipe.mb-4
+    h2.text-xl.font-bold.mb-2 přidat recept
     = form_tag daily_plan_recipes_path(daily_plan_id: @daily_plan), method: :post do
       .grid.grid-cols-4
         div
@@ -36,6 +35,6 @@
         div = number_field_tag :portion_count, @daily_plan.event.portion_count
         div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
 
+hr.mb-4
 
-#tasks
-  h2.text-xl.font-bold úkoly
+== render "tasks", daily_plan: @daily_plan

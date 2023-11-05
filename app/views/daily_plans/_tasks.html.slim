@@ -1,0 +1,19 @@
+#tasks
+    h2.text-xl.font-bold úkoly
+    - if daily_plan.day_tasks.any?
+        ul
+            - daily_plan.day_tasks.each do |task|
+                li.mb-1
+                    .grid.grid-cols-4
+                        div = task.name
+                        div.italic = task.description
+                        div
+                            = action_button_to "smazat", task, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"
+    #add-task
+        h2.text-xl.font-bold.mb-2 přidat úkol
+        = form_tag daily_plan_tasks_path(daily_plan_id: daily_plan.id), method: :post, class: "grid grid-cols-4" do
+            div = text_field_tag :name, nil, placeholder: "např. objednat pečivo"
+            div = text_area_tag :description, nil, placeholder: "např. pekárna ve Vrchlabí"
+            
+            div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+

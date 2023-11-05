@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @daily_plan_task
+
+div
+  => link_to "Edit this daily plan task", edit_daily_plan_task_path(@daily_plan_task)
+  '|
+  =< link_to "Back to daily plan tasks", daily_plan_tasks_path
+
+  = button_to "Destroy this daily plan task", @daily_plan_task, method: :delete

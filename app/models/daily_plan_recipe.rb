@@ -13,4 +13,8 @@ class DailyPlanRecipe < ApplicationRecord
   validates :portion_count, presence: true
 
   scope :shopping, -> { joins(:recipe).where('recipes.name = ? OR daily_plan_recipes.meal_type = ?', 'Nákup', 'nákup') }
+
+  def shopping?
+    recipe.shopping?
+  end
 end

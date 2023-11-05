@@ -6,13 +6,12 @@ li.mb-1
                 = svg("move-handle")
                 = day_recipe.recipe.name
             div
+                
                 = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES, selected: day_recipe.meal_type,
                             label: false, include_blank: true,
-                            :input_html => { data: { action: "change->form#submit" } }
+                            :input_html => { data: { action: "change->form#submit" } } unless day_recipe.shopping?
 
-            div
-                = form.input :portion_count, label: false, :input_html => { data: { action: "change->form#submit" } }
-            div
-                = form.submit "uložit", hidden: true
-        div
-            = action_button_to "smazat", day_recipe, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"
+            div = form.input :portion_count, label: false, :input_html => { data: { action: "change->form#submit" } } unless day_recipe.shopping?
+            div = form.submit "uložit", hidden: true
+        
+        div = action_button_to "smazat", day_recipe, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"

@@ -52,6 +52,8 @@ class DailyPlanRecipesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def daily_plan_recipe_params
-    params.require(:daily_plan_recipe).permit(:daily_plan_id, :recipe_id, :meal_type, :portion_count)
+    params.fetch(:daily_plan_recipe, params)
+          .permit(:daily_plan_id, :recipe_id, :meal_type, :portion_count)
+          .transform_values(&:presence).transform_values { _1&.strip }
   end
 end
