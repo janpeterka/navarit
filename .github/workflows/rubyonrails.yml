@@ -23,26 +23,15 @@ jobs:
           MYSQL_DATABASE: rails_test
           MYSQL_USER: rails
           MYSQL_PASSWORD: password
-
-
-      # postgres:
-      #   image: postgres:11-alpine
-      #   ports:
-      #     - "5432:5432"
-      #   env:
-      #     POSTGRES_DB: rails_test
-      #     POSTGRES_USER: rails
-      #     POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
-      # DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
       DATABASE_URL: "trilogy://rails:password@localhost:3306/rails_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       # Add or replace dependency steps here
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
       # Add or replace database setup steps here
@@ -53,12 +42,14 @@ jobs:
         run: bin/rake
 
   lint:
+    env:
+      RAILS_ENV: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        uses: ruby/setup-ruby@v1 # v1.146.0
         with:
           bundler-cache: true
       # Add or replace any other lints here

@@ -77,7 +77,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'sqlite3'
 
-  # github action checks:
+  # github action checks
   gem 'brakeman'
   gem 'bundler-audit'
   gem 'rails_best_practices'
