@@ -14,17 +14,29 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      postgres:
-        image: postgres:11-alpine
+      mariadb:
+        image: mariadb:10.5
         ports:
-          - "5432:5432"
+          - "3306:3306"
         env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: rails_test
+          MYSQL_USER: rails
+          MYSQL_PASSWORD: password
+
+
+      # postgres:
+      #   image: postgres:11-alpine
+      #   ports:
+      #     - "5432:5432"
+      #   env:
+      #     POSTGRES_DB: rails_test
+      #     POSTGRES_USER: rails
+      #     POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      # DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      DATABASE_URL: "mysql2://rails:password@localhost:3306/rails_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
