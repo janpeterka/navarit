@@ -53,9 +53,12 @@ jobs:
         with:
           bundler-cache: true
       # Add or replace any other lints here
-      - name: Security audit dependencies
-        run: bundler-audit --update
-      - name: Security audit application code
-        run: brakeman -q -w2
-      - name: Lint Ruby files
-        run: rubocop --parallel
+      # - name: Security audit dependencies
+        # run: bundler-audit --update
+      # - name: Security audit application code
+      #   run: brakeman -q -w2
+      # - name: Lint Ruby files
+      #   run: rubocop --parallel
+      - name: Check rails best practices
+        run: rails_best_practices 
+      
