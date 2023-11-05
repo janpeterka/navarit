@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This component renders a menu with multiple items.
 class MenuComponent < ApplicationComponent
   renders_many :items, lambda { |name = nil, path, **kwargs, &block|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -9,7 +11,6 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-
 
 ActiveRecord::Schema[7.1].define(version: 0) do
   create_table 'alembic_version', primary_key: 'version_num', id: { type: :string, limit: 32 }, charset: 'utf8mb4',

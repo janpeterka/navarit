@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Conversion < ApplicationRecord
   self.table_name = 'measurements_to_measurements'
 

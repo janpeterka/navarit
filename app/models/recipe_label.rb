@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecipeLabel < ApplicationRecord
   self.table_name = 'recipes_have_labels'
 

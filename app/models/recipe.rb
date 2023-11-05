@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Recipe < ApplicationRecord
   include Recipes::Publishable
   include Recipes::Likeable

@@ -1,7 +1,11 @@
-class Reactions::ReactionSectionComponent < ApplicationComponent
-  attr_reader :object
+# frozen_string_literal: true
 
-  def initialize(object, **)
-    @object = object
+module Reactions
+  class ReactionSectionComponent < ApplicationComponent
+    attr_reader :object
+
+    def initialize(object, **)
+      @object = object
+    end
   end
 end

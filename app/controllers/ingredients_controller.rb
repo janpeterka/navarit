@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IngredientsController < ApplicationController
   before_action :set_ingredient, only: %i[show edit update destroy]
 

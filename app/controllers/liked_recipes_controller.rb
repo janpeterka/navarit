@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikedRecipesController < ApplicationController
   def index
     @liked_recipes = Recipe.liked_by(Current.user)

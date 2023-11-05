@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def svg(name, options = {})
     default_classes = 'inline me-2'
     classes = options[:class].present? ? "#{default_classes} #{options[:class]}" : default_classes
 
-    file_path = "#{Rails.root.join("app/assets/images/svg/#{name}.svg")}"
+    file_path = Rails.root.join("app/assets/images/svg/#{name}.svg").to_s
     if File.exist?(file_path)
       svg_content = File.read(file_path).html_safe
       if svg_content.include?('class=')

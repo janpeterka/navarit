@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_many :roles, through: :user_roles
   has_many :daily_plans

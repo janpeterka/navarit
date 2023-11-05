@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Event < ApplicationRecord
   has_many :daily_plans
   has_many :event_portion_types

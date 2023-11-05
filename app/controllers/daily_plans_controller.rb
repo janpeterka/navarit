@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DailyPlansController < ApplicationController
   before_action :set_daily_plan, only: %i[show edit update destroy]
 

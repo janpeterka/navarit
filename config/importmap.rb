@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Pin npm packages by running ./bin/importmap
 
 pin 'application', preload: true
@@ -14,4 +16,4 @@ pin 'trix'
 # pin 'trix', to: 'https://ga.jspm.io/npm:trix@2.0.7/dist/trix.esm.min.js'
 pin '@rails/actiontext', to: 'actiontext.js'
 # pin '@rails/actiontext', to: 'https://ga.jspm.io/npm:@rails/actiontext@7.1.1/app/assets/javascripts/actiontext.js'
-pin "stimulus" # @3.2.2
+pin 'stimulus' # @3.2.2

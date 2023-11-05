@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DailyPlan < ApplicationRecord
   belongs_to :event
   belongs_to :author, class_name: 'User'
