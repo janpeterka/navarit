@@ -36,7 +36,7 @@ jobs:
     env:
       RAILS_ENV: test
       # DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-      DATABASE_URL: "mysql2://rails:password@localhost:3306/rails_test"
+      DATABASE_URL: "trilogy://rails:password@localhost:3306/rails_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
