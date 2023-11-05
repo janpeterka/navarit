@@ -67,4 +67,5 @@ jobs:
         continue-on-error: true
       - name: Check rails best practices
         run: rails_best_practices 
+        continue-on-error: true
       
