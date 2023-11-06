@@ -1,13 +1,15 @@
 - content_for :title, @event.name
+- local_assigns[:override_title] = true
 
-= button_link "upravit", edit_event_path(@event)
+= turbo_frame_tag dom_id(@event) do
+  h1.text-3xl.text-strong.mb-2
+    = yield :title
+  = button_link "upravit", edit_event_path(@event)
 
-#details
-  = "od #{@event.date_from} do #{@event.date_to}"
-  br
-  = "#{@event.duration} dní"
-  br
-  = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
+  #details
+    div = "od #{@event.date_from} do #{@event.date_to}"
+    div = "#{@event.duration} dní"
+    div = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
 
 #days
   .grid.grid-cols-7.gap-3

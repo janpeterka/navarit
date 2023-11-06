@@ -1,5 +1,6 @@
 cs:
   attendee: "účastník"
+  back: "zpět"
   date:
     day_names:
       0: "neděle"
@@ -51,7 +52,11 @@ cs:
       - month
       - year
 
-  # active_record:
+  active_record:
+    event:
+      one: "akce"
+      other: "akcí"
+
   #   errors:
   #     models:
   #       daily_plan_recipe:

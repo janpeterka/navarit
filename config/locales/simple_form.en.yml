@@ -39,4 +39,12 @@ cs:
       mark: '*'
     error_notification:
       default_message: "Prosím, zkontrolujte následující pole:"
+    labels:
+      defaults:
+        name: "název"
+      event:
+        date_from: "od"
+        date_to: "do"
+        people_count: "počet lidí"
+
     
