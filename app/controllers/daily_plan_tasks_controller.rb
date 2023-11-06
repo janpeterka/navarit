@@ -25,16 +25,18 @@ class DailyPlanTasksController < ApplicationController
 
     flash[:error] = @daily_plan_task.errors.full_messages.to_sentence unless @daily_plan_task.save
 
-    redirect_to request.referer
+    redirect_back_or_to @daily_plan_task.daily_plan
   end
 
   # PATCH/PUT /daily_plan_tasks/1
   def update
     if @daily_plan_task.update(daily_plan_task_params)
-      redirect_to @daily_plan_task, notice: 'Daily plan task was successfully updated.', status: :see_other
+      flash[:notice] = 'Daily plan task was successfully updated.'
     else
-      render :edit, status: :unprocessable_entity
+      flash[:error] = @daily_plan_task.errors.full_messages.to_sentence
     end
+
+    redirect_back_or_to @daily_plan_task.daily_plan
   end
 
   # DELETE /daily_plan_tasks/1
