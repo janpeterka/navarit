@@ -9,13 +9,13 @@ class LikedRecipesController < ApplicationController
     recipe = Recipe.find(params[:recipe_id])
     recipe.like!
 
-    redirect_to request.referrer
+    redirect_back_or_to recipe
   end
 
   def destroy
     recipe = Recipe.find(params[:id])
     recipe.unlike!
 
-    redirect_to request.referrer
+    redirect_back_or_to recipe
   end
 end

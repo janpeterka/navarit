@@ -18,14 +18,14 @@ class PublishedRecipesController < ApplicationController
       flash[:error] = 'recept nebyl zveřejněn'
     end
 
-    redirect_to request.referrer
+    redirect_back_or_to recipe
   end
 
   def destroy
     recipe = Recipe.find(params[:id])
     recipe.unpublish!
 
-    redirect_to request.referrer, notice: 'recept byl zneveřejněn'
+    redirect_back_or_to recipe, notice: 'recept byl zneveřejněn'
   end
 
   private
