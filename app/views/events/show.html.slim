@@ -1,5 +1,7 @@
 - content_for :title, @event.name
 
+= button_link "upravit", edit_event_path(@event)
+
 #details
   = "od #{@event.date_from} do #{@event.date_to}"
   br

@@ -13,8 +13,8 @@ class Event < ApplicationRecord
   validates :date_to, presence: true
   validate :date_to_after_date_from_validation
   validates :people_count, presence: true
-  validates :is_archived, presence: true
-  validates :is_shared, presence: true
+  # validates :is_archived, presence: true
+  # validates :is_shared, presence: true
 
   scope :active, -> { where(is_archived: false) }
   scope :archived, -> { where(is_archived: true) }
@@ -42,7 +42,7 @@ class Event < ApplicationRecord
   private
 
   def date_to_after_date_from_validation
-    return unless date_to.present? && date_from.present? && date_to <= date_from
+    return unless date_to.present? && date_from.present? && date_to < date_from
 
     errors.add(:date_to, 'must be after date from')
   end

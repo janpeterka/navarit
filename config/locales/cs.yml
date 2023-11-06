@@ -10,6 +10,47 @@ cs:
       5: "pátek"
       6: "sobota"
       7: "neděle"
+    abbr_day_names:
+      - ne
+      - po
+      - út
+      - st
+      - čt
+      - pá
+      - so
+    month_names:
+      - ~
+      - leden
+      - únor
+      - březen
+      - duben
+      - květen
+      - červen
+      - červenec
+      - srpen
+      - září
+      - říjen
+      - listopad
+      - prosinec
+    abbr_month_names:
+      - ~
+      - led
+      - úno
+      - bře
+      - dub
+      - kvě
+      - čvn
+      - čvc
+      - srp
+      - zář
+      - říj
+      - lis
+      - pro
+    order:
+      - day
+      - month
+      - year
+
   # active_record:
   #   errors:
   #     models:
@@ -17,6 +58,7 @@ cs:
   #         attributes:
   #           portion_count:
   #             blank: "počet porcí musí být nastaven"
+
   
   errors:
     messages:
