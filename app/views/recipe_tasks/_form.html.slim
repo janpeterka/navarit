@@ -1,0 +1,10 @@
+= form_with(model: recipe_task) do |form|
+  - if recipe_task.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(recipe_task.errors.count, "error")} prohibited this recipe_task from being saved:"
+      ul
+        - recipe_task.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.submit

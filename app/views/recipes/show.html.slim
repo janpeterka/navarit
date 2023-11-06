@@ -1,28 +1,29 @@
 - content_for :title, @recipe.name
 
-- content_for :header do
-  = @recipe.name
-  span.float-right.text-base
-    = action_button_to "smazat", recipe_path(@recipe), method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
-    = button_link "upravit", edit_recipe_path(@recipe)
-    - if @recipe.published?
-      = action_button_to "skrýt", published_recipe_path(@recipe), method: :delete
-    - else
-      = action_button_to "sdílet", published_recipes_path(recipe_id: @recipe.id), method: :post
+div
+  = action_button_to "smazat", recipe_path(@recipe), method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
+  = button_link "upravit", edit_recipe_path(@recipe), class: "mt-0"
+  - if @recipe.published?
+    = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
+  - else
+    = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
 
-#details.mb-4
+#details.mt-3.mb-4
   p
     = @recipe.category&.name
-  div
-    - @recipe.labels.each do |label|
-      = label_badge(label)
-    span.float-right
+  div.mt-2
+    div.flex.flex-wrap id="#{dom_id(@recipe)}-labels"
+      - @recipe.labels.each do |label|
+        div.mb-2 = label_badge(label)
+
+  div 
+      span.float-right
       - if @recipe.liked_by?(Current.user)
         = action_button_to "odebrat z oblíbených", liked_recipe_path(@recipe), method: :delete
       - else
-        = action_button_to "přidat do oblíbených", liked_recipes_path(recipe_id: @recipe), method: :post 
+        = action_button_to "přidat do oblíbených", liked_recipes_path(recipe_id: @recipe), method: :post, icon: "heart"
 
-.grid.grid-cols-3
+.md:grid.md:grid-cols-3
   #ingredients
     = table @recipe.recipe_ingredients do |t|
       = t.column :název do |r_ingredient|
@@ -44,11 +45,8 @@
       h2.text-2xl = "Popis"
       = @recipe.description.html_safe
 
-    #tasks
-      h2.text-2xl = "Úkoly"
-      - @recipe.tasks.each do |task|
-        li = task.name
-        / = link_to task, task
+    = render("tasks", recipe: @recipe)
+    
 
 
-= button_link "pdf", recipe_path(@recipe, format: :pdf)
+/ = button_link "pdf", recipe_path(@recipe, format: :pdf)

@@ -1,5 +1,5 @@
-.border.rounded.border-emerald-500.p-4.m-4
-    .text-center.text-xl.text-emerald-900
+.border.rounded.border-emerald-500.p-4.m-2
+    .text-center.text-xl.text-emerald-900.mb-2.font-semibold
         = link_to recipe.name, recipe
     div
         = recipe.category&.name
@@ -10,7 +10,9 @@
         = recipe.reactions.size
 
     hr
-    .mt-2
+
+
+    div.flex.flex-wrap id="#{dom_id(recipe)}-labels"
         - recipe.labels.each do |label|
             = label_badge(label)
   

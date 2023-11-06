@@ -14,9 +14,9 @@ module Badges
     def set_bg_class
       @bg_class = case label.color
                   when 'highlight'
-                    'bg-yellow-500'
+                    'bg-green-300'
                   when 'strong-highlight'
-                    'bg-red-500'
+                    'bg-orange-300'
                   else
                     'bg-green-500'
                   end

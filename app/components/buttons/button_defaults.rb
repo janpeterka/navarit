@@ -9,15 +9,15 @@ module Buttons
       primary: 'inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded-lg
                 py-1 px-3 leading-normal no-underline border-emerald-600
                 hover:bg-emerald-600 hover:text-white
-                ps-2 pe-2 p-1 me-2 mb-2 lg:mb-0'.squish,
+                ps-2 pe-2 p-1 me-2 mb-2 mt-1'.squish,
       secondary: 'inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded-lg
                 py-1 px-3 leading-normal no-underline border-gray-800
                 hover:bg-gray-600 hover:text-white
-                ps-2 pe-2 p-1 me-2 mb-2 lg:mb-0'.squish,
+                ps-2 pe-2 p-1 me-2 mb-2 mt-1'.squish,
       dangerous: 'inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded-lg
                   py-1 px-3 leading-normal no-underline border-red-600
                   hover:bg-red-600 hover:text-white
-                  ps-2 pe-2 p-1 me-2 mb-2 lg:mb-0'.squish
+                  ps-2 pe-2 p-1 me-2 mb-2 mt-1'.squish
     }.freeze
 
     DEFAULT_CLASSES = DEFAULT_BUTTON_CLASSES.transform_values do |classes|

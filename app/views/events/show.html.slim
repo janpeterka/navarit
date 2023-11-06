@@ -14,15 +14,6 @@
 #days
   .grid.grid-cols-7.gap-3
     - @event.daily_plans.each do |daily_plan|
-      div.border.border-emerald-600.text-center id="#{dom_id(daily_plan)}-card"
-        div.text-xl
-          = link_to daily_plan_path(daily_plan) do 
-            = "#{I18n.translate("date.day_names")[daily_plan.date.wday]}"
-        = "#{daily_plan.date.strftime("%d.%m.%Y")}"
-        div.overflow-hidden id="#{dom_id(daily_plan)}-recipes"
-          - daily_plan.recipes.each do |recipe|
-            = link_to recipe.name, recipe, class: "truncate"
-            br
-          / = render partial: "recipes/recipe", locals: {recipe: recipe}
+      = render("day_card", daily_plan: )
 
       

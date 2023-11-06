@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :recipe_tasks
   resources :daily_plan_tasks
   resources :daily_plan_recipes
   resources :daily_plans
-  root 'dashboards#show'
 
   resources :events
   resources :recipes
@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Defines the root path route ("/")
+  root 'dashboards#show'
 end

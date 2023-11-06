@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Recipe tasks
+
+#recipe_tasks
+  - @recipe_tasks.each do |recipe_task|
+    == render recipe_task
+    p
+      = link_to "Show this recipe task", recipe_task
+
+= link_to "New recipe task", new_recipe_task_path

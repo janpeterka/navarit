@@ -11,10 +11,17 @@ class DailyPlan < ApplicationRecord
   validates :date, presence: true
 
   scope :filled, -> { joins(:recipes).distinct.any? }
+  scope :on_or_after, ->(date) { where('daily_plans.date >= ?', date) }
+  # scope :after, ->(date) { where('daily_plans.date > ?', date) }
 
-  # def tasks
-  #   tasks << day_tasks
-  #   # TODO: tasks from recipes, with correct datelambda
-  #   tasks
-  # end
+  def tasks
+    @tasks = []
+    @tasks << day_tasks.to_a
+    event.daily_plans.on_or_after(date).each_with_index do |plan, index|
+      plan.recipes.each do |recipe|
+        @tasks << recipe.tasks.where(days_before_cooking: index)
+      end
+    end
+    @tasks.flatten!
+  end
 end

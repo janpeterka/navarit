@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @recipe_task
+
+div
+  => link_to "Edit this recipe task", edit_recipe_task_path(@recipe_task)
+  '|
+  =< link_to "Back to recipe tasks", recipe_tasks_path
+
+  = button_to "Destroy this recipe task", @recipe_task, method: :delete

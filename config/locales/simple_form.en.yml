@@ -34,6 +34,7 @@ cs:
   simple_form:
     "yes": "ano"
     "no": "ne"
+    "create": "přidat"
     required:
       text: 'povinné'
       mark: '*'
@@ -42,9 +43,14 @@ cs:
     labels:
       defaults:
         name: "název"
+        description: "popis"
       event:
         date_from: "od"
         date_to: "do"
         people_count: "počet lidí"
+      recipe_task:
+        days_before_cooking: "dní před vařením"
+
+       
 
     

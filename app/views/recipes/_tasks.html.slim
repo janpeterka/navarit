@@ -1,0 +1,29 @@
+#tasks
+    h2.text-2xl = "úkoly"
+    
+    .grid.grid-cols-5.font-bold
+        .col-span-4
+          .grid.grid-cols-3.gap-2
+            span = "název"
+            span = "popis"
+            span = "dní před vařením"
+
+    - recipe.tasks.each do |task|
+        .grid.grid-cols-5
+            = simple_form_for task, method: :patch, html: { class: "inline col-span-4", data: {controller: "form"} } do |form|
+                .grid.grid-cols-3.gap-2
+                    = form.input :name, label: false, :input_html => { data: { action: "change->form#submit" } }
+                    = form.input :description, label: false, :input_html => { data: { action: "change->form#submit" } }
+                    = form.input :days_before_cooking, label: false, :input_html => { data: { action: "change->form#submit" } }
+            = action_button_to "smazat", recipe_task_path(recipe_id: recipe.id, id: task.id), method: :delete, data: { turbo_confirm: "opravdu chceš smazat úkol?" }, type: :dangerous
+
+    = simple_form_for RecipeTask.new, html: {class: "inline"} do |form|
+      .grid.grid-cols-5.gap-2
+        .col-span-4
+          .grid.grid-cols-3.gap-2
+            = form.input :name
+            = form.input :description
+            = form.input :days_before_cooking
+            = form.input :recipe_id, as: :hidden, input_html: { value: recipe.id }
+        div
+          = form.submit "přidat úkol", class: "#{Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]}"

@@ -2,15 +2,6 @@ cs:
   attendee: "účastník"
   back: "zpět"
   date:
-    day_names:
-      0: "neděle"
-      1: "pondělí"
-      2: "úterý"
-      3: "středa"
-      4: "čtvrtek"
-      5: "pátek"
-      6: "sobota"
-      7: "neděle"
     abbr_day_names:
       - ne
       - po
@@ -19,43 +10,14 @@ cs:
       - čt
       - pá
       - so
-    month_names:
-      - ~
-      - leden
-      - únor
-      - březen
-      - duben
-      - květen
-      - červen
-      - červenec
-      - srpen
-      - září
-      - říjen
-      - listopad
-      - prosinec
-    abbr_month_names:
-      - ~
-      - led
-      - úno
-      - bře
-      - dub
-      - kvě
-      - čvn
-      - čvc
-      - srp
-      - zář
-      - říj
-      - lis
-      - pro
-    order:
-      - day
-      - month
-      - year
 
-  active_record:
-    event:
-      one: "akce"
-      other: "akcí"
+  helpers:
+    select:
+      prompt: Prosím vyberte si
+    submit:
+      create: přidat %{model}
+      # submit: Uložit %{model}
+      update: upravit %{model}
 
   #   errors:
   #     models:
