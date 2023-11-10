@@ -38,6 +38,10 @@ cs:
         one: surovina
         few: suroviny
         other: surovin
+      recipe:
+        one: recept
+        few: recepty
+        other: receptů
     attributes:
       ingredient:
         measurement: míra

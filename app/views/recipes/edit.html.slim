@@ -1,10 +1,6 @@
-h1 Editing recipe
+- content_for :title, "upravit #{ @recipe.name }"
 
 == render "form", recipe: @recipe
 
-br
-
 div
-  => link_to "Show this recipe", @recipe
-  '|
-  =< link_to "Back to recipes", recipes_path
+  = link_to "zrušit", recipes_path
