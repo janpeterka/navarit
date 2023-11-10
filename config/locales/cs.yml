@@ -18,6 +18,7 @@ cs:
       create: přidat %{model}
       # submit: Uložit %{model}
       update: upravit %{model}
+    
 
   #   errors:
   #     models:
@@ -30,3 +31,20 @@ cs:
   errors:
     messages:
       blank: "hodnota musí být vyplněna"
+
+  activerecord:
+    models:
+      ingredient:
+        one: surovina
+        few: suroviny
+        other: surovin
+    attributes:
+      ingredient:
+        measurement: míra
+        category: kategorie
+      event:
+        date_from: "od"
+        date_to: "do"
+        people_count: "počet lidí"
+      recipe_task:
+        days_before_cooking: "dní před vařením"

@@ -1,0 +1,14 @@
+cs:
+  simple_form:
+    "yes": "ano"
+    "no": "ne"
+    "create": "přidat"
+    required:
+      text: 'povinné'
+      mark: '*'
+    error_notification:
+      default_message: "Prosím, zkontrolujte následující pole:"
+    labels:
+      defaults:
+        name: "název"
+        description: "popis"

@@ -6,7 +6,7 @@ module Buttons
   module ButtonDefaults
     DEFAULT_BUTTON_TO_FORM_CLASSES = 'inline-flex justify-center items-center'
     DEFAULT_BUTTON_CLASSES = {
-      primary: 'inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded-lg
+      primary: 'inline-block align-middle text-center select-none border border-2 font-normal whitespace-no-wrap rounded-lg
                 py-1 px-3 leading-normal no-underline border-emerald-600
                 hover:bg-emerald-600 hover:text-white
                 ps-2 pe-2 p-1 me-2 mb-2 mt-1'.squish,

@@ -11,6 +11,7 @@ gem 'rails', '~> 7.1.1'
 
 # back-end
 gem 'mysql2'
+gem 'pagy', '~> 6.1' # pagination
 gem 'rails-i18n' # Add support for internationalization (i18n) to Rails [
 gem 'trilogy' # Use trilogy as the database for Active Record
 

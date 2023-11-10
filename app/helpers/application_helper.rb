@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  include Pagy::Frontend
+
   def svg(name, options = {})
     default_classes = 'inline me-2'
     classes = options[:class].present? ? "#{default_classes} #{options[:class]}" : default_classes

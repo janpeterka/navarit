@@ -1,13 +1,19 @@
 - content_for :title, "moje suroviny"
 
-= button_link "přidat surovinu", new_ingredient_path
 
-= table @ingredients do |t|
-  = t.column :name do |ingredient|
-    = link_to ingredient.name, ingredient
-  = t.column :category do |ingredient|
-    - if ingredient.category.present?
+div.me-5
+  - placeholder = Current.user.ingredients.order("RAND()").limit(1).first.name
+  = simple_form_for "", url: ingredients_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "ingredients"}} do |f|
+    = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "keyup->form#submit"}, value: params[:name]}, autofocus: true
+  = button_link "přidat surovinu", new_ingredient_path, class: "float-right"
+
+= turbo_frame_tag :ingredients
+  = table @ingredients do |t|
+    = t.column :name do |ingredient|
+      = link_to ingredient.name, ingredient, class: "font-bold", data: {turbo_frame: "_top"}
+    = t.column :category do |ingredient|
       = ingredient.category&.name
-  = t.column :measurement do |ingredient|
-    - if ingredient.measurement.present?
+    = t.column :measurement do |ingredient|
       = ingredient.measurement&.name
+    = t.pager @pagy
+

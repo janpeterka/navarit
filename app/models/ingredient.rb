@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Ingredient < ApplicationRecord
-  belongs_to :category, class_name: 'IngredientCategory'
-  belongs_to :measurement
+  belongs_to :category, class_name: 'IngredientCategory', optional: true
+  belongs_to :measurement, optional: true
   belongs_to :author, class_name: 'User', foreign_key: :created_by
 
   has_many :recipe_ingredients

@@ -162,6 +162,7 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    pagy (6.1.0)
     parallel (1.23.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -354,6 +355,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   mysql2
+  pagy (~> 6.1)
   propshaft
   puma (>= 5.0)
   rails (~> 7.1.1)
