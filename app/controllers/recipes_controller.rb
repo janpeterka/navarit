@@ -48,7 +48,7 @@ class RecipesController < ApplicationController
   # PATCH/PUT /recipes/1
   def update
     if @recipe.update(recipe_params)
-      redirect_to @recipe, notice: 'Recipe was successfully updated.', status: :see_other
+      redirect_to @recipe, notice: 'recept byl upraven.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -57,7 +57,7 @@ class RecipesController < ApplicationController
   # DELETE /recipes/1
   def destroy
     @recipe.destroy!
-    redirect_to recipes_url, notice: 'Recipe was successfully destroyed.', status: :see_other
+    redirect_to recipes_url, notice: 'recept byl smazán.', status: :see_other
   end
 
   private
@@ -69,6 +69,6 @@ class RecipesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def recipe_params
-    params.fetch(:recipe, {})
+    params.fetch(:recipe, {}).permit(:name, :description, :category_id, :portion_count)
   end
 end

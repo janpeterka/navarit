@@ -1,8 +1,13 @@
 - content_for :title, @recipe.name
 
 div
-  = action_button_to "smazat", recipe_path(@recipe), method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
   = button_link "upravit", edit_recipe_path(@recipe), class: "mt-0"
+
+  - if @recipe.deletable?
+    = action_button_to "smazat", recipe_path(@recipe), method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
+  - else
+    = action_button_to "nelze smazat", recipe_path(@recipe), method: :delete, disabled: true
+
   - if @recipe.published?
     = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
   - else
@@ -45,7 +50,7 @@ div
   div.col-span-2
     #description.mb-3 
       h2.text-2xl = "Popis"
-      = @recipe.description.html_safe
+      = @recipe.description&.html_safe
 
     = render("tasks", recipe: @recipe)
     
