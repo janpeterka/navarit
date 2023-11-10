@@ -4,7 +4,10 @@
   = @ingredient.name
   span.text-base.float-right
     = button_link "upravit", edit_ingredient_path(@ingredient)
-    = action_button_to "smazat", @ingredient, method: :delete
+    - if @ingredient.deletable?
+      = action_button_to "smazat", @ingredient, method: :delete
+    - else
+      = action_button_to "je v receptu, nelze smazat", @ingredient, method: :delete, disabled: true
 
 .grid.grid-cols-2
 

@@ -13,4 +13,16 @@ class Ingredient < ApplicationRecord
   scope :lasting, -> { where(is_lasting: true) }
   scope :used, -> { joins(:recipe_ingredients).where('recipe_ingredients.id IS NOT NULL').distinct.any? }
   scope :published, -> { where(is_public: true) }
+  scope :not_published, -> { where(is_public: false) }
+
+  def published?
+    is_public
+  end
+
+  def deletable?
+    return false if recipes.any?
+    return false if published?
+
+    true
+  end
 end

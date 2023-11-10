@@ -5,7 +5,16 @@ class RecipesController < ApplicationController
 
   # GET /recipes
   def index
-    @recipes = Current.user.recipes
+    @recipes = Current.user.recipes.includes(:category, :labels).order(:name)
+
+    if params[:query].present?
+      query = "%#{params[:query].downcase}%"
+      @recipes = @recipes.where('LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ?
+                                          OR LOWER(labels.visible_name) LIKE ?',
+                                query, query, query).references(:category, :labels)
+    end
+
+    @pagy, @recipes = pagy(@recipes)
   end
 
   # GET /recipes/1
