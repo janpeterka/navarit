@@ -1,9 +1,4 @@
-- content_for :title, "úkoly pro #{@recipe.name}"
-- content_for :header do
-  = "úkoly pro "
-  = link_to(@recipe.name, @recipe, class: "font-bold")
-
-= turbo_frame_tag "#{dom_id(@recipe)}-tasks"
+div
   .grid.grid-cols-5.font-bold
     .col-span-4
       .grid.grid-cols-3.gap-2

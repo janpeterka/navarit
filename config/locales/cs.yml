@@ -1,5 +1,15 @@
 cs:
-  attendee: "účastník"
+  attendee:
+    zero: "účastníků"
+    one: "účastník"
+    few: "účastníci"
+    other: "účastníků"
+  day:
+    zero: "dní"
+    one: "den"
+    few: "dny"
+    more: "dnů"
+    other: "dní"
   back: "zpět"
   date:
     abbr_day_names:

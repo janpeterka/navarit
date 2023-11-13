@@ -1,5 +1,6 @@
 class RecipeTasksController < ApplicationController
   before_action :set_recipe_task, only: %i[show edit update destroy]
+  before_action :set_recipe, only: %i[index]
 
   # GET /recipe_tasks
   def index
@@ -49,6 +50,14 @@ class RecipeTasksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe_task
     @recipe_task = RecipeTask.find(params[:id])
+  end
+
+  def set_recipe
+    @recipe = if params[:recipe_id].present?
+                Recipe.find(params[:recipe_id])
+              else
+                @recipe_task.recipe
+              end
   end
 
   # Only allow a list of trusted parameters through.

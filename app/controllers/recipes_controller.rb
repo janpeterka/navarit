@@ -24,6 +24,7 @@ class RecipesController < ApplicationController
                      else
                        @recipe.portion_count
                      end
+    @edited_section = params[:edited_section]&.to_sym
   end
 
   # GET /recipes/new

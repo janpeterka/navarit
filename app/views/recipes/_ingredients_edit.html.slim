@@ -1,24 +1,19 @@
-- content_for :title, "suroviny pro #{@recipe.name}"
-- content_for :header do
-  = "suroviny pro "
-  = link_to(@recipe.name, @recipe, class: "font-bold")
-
-= turbo_frame_tag "#{dom_id(@recipe)}-ingredients"
+.col-span-12
   #recipe-ingredient.mt-3.mb-4
     ul.col-span-2
       li.font-bold.mb-1
         .grid.grid-cols-4
           div = "surovina"
-          div = "množství (na #{@recipe.portion_count} porcí)"
+          div = "množství (na #{recipe.portion_count} porcí)"
           div = "poznámka"
-      - @recipe_ingredients.each do |recipe_ingredient|
-        = render partial: "recipe_ingredient", locals: {recipe_ingredient: }
+      - recipe_ingredients.each do |recipe_ingredient|
+        = render partial: "recipe_ingredients/recipe_ingredient", locals: {recipe_ingredient: }
 
     #add-ingredient.mb-4
       h2.text-xl.font-bold.mb-2 přidat surovinu
-      = form_tag recipe_ingredients_path(recipe_id: @recipe.id), method: :post do
+      = form_tag recipe_ingredients_path(recipe_id: recipe.id), method: :post do
         .grid.grid-cols-4
-          - unused_ingredients = Current.user.ingredients - @recipe.ingredients
+          - unused_ingredients = Current.user.ingredients - recipe.ingredients
           div.grid.grid-cols-2
             = select_tag :ingredient_id, grouped_options_for_select([['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
                                                                 ['veřejné',  Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }],
@@ -30,4 +25,4 @@
           div = text_area_tag :comment
           div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
 
-  = button_link_to "hotovo!", recipe_path(@recipe), data: {turbo: false}
+  = button_link_to "hotovo!", recipe_path(recipe)

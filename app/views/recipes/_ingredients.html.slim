@@ -1,0 +1,20 @@
+div
+    = table @recipe.recipe_ingredients.sort_by(&:recipe_amount).reverse do |t|
+        = t.column :název do |r_ingredient|
+            = link_to r_ingredient.ingredient.name, r_ingredient.ingredient
+        = t.column "množství na #{@portion_count} porcí" do |r_ingredient|
+            = formatted_amount_with_unit(r_ingredient, @portion_count)
+            = " | "
+            = (r_ingredient.amount * @portion_count).round(1)
+            = " "
+            = r_ingredient.ingredient.measurement&.name
+
+    = button_link_to "upravit suroviny", recipe_path(@recipe, edited_section: :ingredients)
+    br
+    | zobrazit pro
+    br
+    = button_link_to "1 porci", recipe_path(@recipe, portion_count: 1)
+    = button_link_to "12 porcí", recipe_path(@recipe, portion_count: 12)
+    = form_tag recipe_path(@recipe), method: :get, class: "inline", data: {controller: "form", "form-debounce-timeout-value": 0, "turbo-frame": "#{dom_id(@recipe)}-ingredients-"} do
+        = text_field_tag :portion_count, params[:portion_count], class: "w-12 h-8 me-2 border border-green-600 rounded-md", data: {action: "input->form#submit"}, autofocus: true, onfocus: "this.setSelectionRange(this.value.length,this.value.length);"
+        | porcí
