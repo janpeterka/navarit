@@ -1,5 +1,7 @@
 = simple_form_for recipe do |form|
   = form.input :name
+  = form.input :portion_count
+  = form.association :category
 
   - if recipe.errors.any?
     div style="color: red"

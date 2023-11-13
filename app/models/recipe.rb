@@ -4,7 +4,7 @@ class Recipe < ApplicationRecord
   include Recipes::Publishable
   include Recipes::Likeable
 
-  belongs_to :category, class_name: 'RecipeCategory'
+  belongs_to :category, class_name: 'RecipeCategory', optional: true
   belongs_to :author, class_name: 'User', foreign_key: 'created_by'
 
   has_many :recipe_labels, dependent: :destroy
@@ -16,7 +16,8 @@ class Recipe < ApplicationRecord
   has_many :daily_plans, through: :daily_plan_recipes
   has_many :events, through: :daily_plans
 
-  validates :name, presence: true
+  validates_presence_of :name
+  validates :portion_count, numericality: { greater_than: 0 }
 
   scope :hidden, -> { where(is_hidden: true) }
   scope :visible, -> { where(is_hidden: false) }

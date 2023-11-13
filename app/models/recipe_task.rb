@@ -3,5 +3,5 @@
 class RecipeTask < ApplicationRecord
   belongs_to :recipe
 
-  validates :name, presence: true
+  validates_presence_of :name
 end

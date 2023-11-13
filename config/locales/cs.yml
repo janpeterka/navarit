@@ -62,3 +62,6 @@ cs:
         people_count: "počet lidí"
       recipe_task:
         days_before_cooking: "dní před vařením"
+      recipe:
+        portion_count: "počet porcí"
+        category: "kategorie"

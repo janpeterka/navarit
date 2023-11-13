@@ -6,7 +6,7 @@ class RecipeIngredient < ApplicationRecord
   belongs_to :recipe
   belongs_to :ingredient
 
-  validates :amount, presence: true
+  validates_presence_of :amount
 
   scope :measured, -> { where.not(amount: nil) }
 

@@ -22,9 +22,9 @@ class RecipeIngredientsController < ApplicationController
   def create
     @recipe_ingredient = RecipeIngredient.new(updated_params)
 
-    render :new, status: :unprocessable_entity unless @recipe_ingredient.save
+    flash[:error] = 'nepovedlo se přidat surovinu' unless @recipe_ingredient.save
 
-    redirect_back_or_to recipe_ingredients_path(recipe_id: @recipe.id)
+    redirect_back_or_to recipe_path(@recipe)
   end
 
   # PATCH/PUT /recipe_ingredients/1
@@ -35,13 +35,14 @@ class RecipeIngredientsController < ApplicationController
       flash[:error] = 'nepovedlo se upravit surovinu'
     end
 
-    redirect_back_or_to recipe_ingredients_path(recipe_id: @recipe.id)
+    redirect_back_or_to recipe_path(@recipe)
   end
 
   # DELETE /recipe_ingredients/1
   def destroy
     @recipe_ingredient.destroy!
-    redirect_to recipe_ingredients_url, notice: 'Recipe ingredient was successfully destroyed.', status: :see_other
+
+    redirect_back_or_to recipe_path(@recipe_ingredient.recipe), status: :see_other
   end
 
   private

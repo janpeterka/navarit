@@ -1,10 +1,14 @@
 div
+  h2.text-2xl.inline-block.me-3 = "úkoly"
+  span.float-end = button_link_to "hotovo!", recipe_path(@recipe)
+  
   .grid.grid-cols-5.font-bold
     .col-span-4
       .grid.grid-cols-3.gap-2
         span = "název"
         span = "popis"
         span = "dní před vařením"
+
   - @recipe.tasks.each do |task|
     .grid.grid-cols-5
         = simple_form_for task, method: :patch, html: { class: "inline col-span-4", data: {controller: "form"} } do |form|
@@ -24,5 +28,3 @@ div
           = form.input :recipe_id, as: :hidden, input_html: { value: @recipe.id }
       div
         = form.submit "přidat úkol", class: "#{Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]}"
-
-  = button_link_to "hotovo!", recipe_path(@recipe)

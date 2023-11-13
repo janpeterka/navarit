@@ -24,6 +24,7 @@ class RecipesController < ApplicationController
                      else
                        @recipe.portion_count
                      end
+
     @edited_section = params[:edited_section]&.to_sym
   end
 
@@ -40,7 +41,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
 
     if @recipe.save
-      redirect_to @recipe, notice: 'Recipe was successfully created.'
+      redirect_to recipe_path(@recipe, edited_section: :ingredients)
     else
       render :new, status: :unprocessable_entity
     end
