@@ -3,7 +3,7 @@
 - content_for :header do 
   = @ingredient.name
   span.text-base.float-right
-    = button_link "upravit", edit_ingredient_path(@ingredient)
+    = button_link_to "upravit", edit_ingredient_path(@ingredient)
     - if @ingredient.deletable?
       = action_button_to "smazat", @ingredient, method: :delete
     - else

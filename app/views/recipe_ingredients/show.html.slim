@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @recipe_ingredient
+
+div
+  => link_to "Edit this recipe ingredient", edit_recipe_ingredient_path(@recipe_ingredient)
+  '|
+  =< link_to "Back to recipe ingredients", recipe_ingredients_path
+
+  = button_to "Destroy this recipe ingredient", @recipe_ingredient, method: :delete

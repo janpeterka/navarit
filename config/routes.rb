@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :recipe_tasks
+  resources :recipe_ingredients
   resources :daily_plan_tasks
   resources :daily_plan_recipes
   resources :daily_plans

@@ -2,7 +2,7 @@
   = @daily_plan.date.strftime("%e.%m.%Y")
   = " (#{I18n.translate("date.day_names")[@daily_plan.date.wday]})"
 
-= button_link nil, @daily_plan.event, type: :secondary, class: "group" do
+= button_link_to nil, @daily_plan.event, type: :secondary, class: "group" do
   = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
   = "zpět na akci"
 
@@ -23,8 +23,7 @@
     h2.text-xl.font-bold.mb-2 přidat recept
     = form_tag daily_plan_recipes_path(daily_plan_id: @daily_plan), method: :post do
       .grid.grid-cols-4
-        div
-          = select_tag :recipe_id, grouped_options_for_select([['moje recepty',  Current.user.recipes.collect {|v| [ v.name, v.id ] }],
+        div = select_tag :recipe_id, grouped_options_for_select([['moje recepty',  Current.user.recipes.collect {|v| [ v.name, v.id ] }],
                                                                ['oblíbené',  Recipe.liked_by(Current.user).collect {|v| [ v.name, v.id ] }],
                                                                ['veřejné',  Recipe.published.collect {|v| [ v.name, v.id ] }],
                                                               ]),
@@ -34,6 +33,7 @@
         div = select_tag :meal_type, options_for_select(DailyPlanRecipe::MEAL_TYPES), include_blank: true
         div = number_field_tag :portion_count, @daily_plan.event.portion_count
         div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+
 
 hr.mb-4
 

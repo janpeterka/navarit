@@ -5,7 +5,7 @@ div.me-5
   - placeholder = Current.user.ingredients.order("RAND()").limit(1).first.name
   = simple_form_for "", url: ingredients_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "ingredients"}} do |f|
     = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
-  = button_link "přidat surovinu", new_ingredient_path, class: "float-right"
+  = button_link_to "přidat surovinu", new_ingredient_path, class: "float-right"
 
 = turbo_frame_tag :ingredients
   = table @ingredients do |t|

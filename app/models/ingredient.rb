@@ -15,6 +15,14 @@ class Ingredient < ApplicationRecord
   scope :published, -> { where(is_public: true) }
   scope :not_published, -> { where(is_public: false) }
 
+  def name_with_unit
+    if measurement.present?
+      "#{name} (#{measurement.name})"
+    else
+      name
+    end
+  end
+
   def published?
     is_public
   end

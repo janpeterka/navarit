@@ -23,5 +23,10 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
     // require('flowbite/plugin'),
+
+    // Add a custom config for turbo-frame
+    function ({ addVariant }) {
+      addVariant('turbo-frame-complete', 'turbo-frame[complete]&')
+    }
   ]
 }

@@ -6,7 +6,7 @@ module ApplicationComponentsHelper
     render MenuComponent.new(**kwargs), &
   end
 
-  def button_link(name, path, **, &)
+  def button_link_to(name, path, **, &)
     render Buttons::ButtonLinkComponent.new(name:, path:, **), &
   end
 

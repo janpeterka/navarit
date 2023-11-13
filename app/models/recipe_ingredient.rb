@@ -9,4 +9,8 @@ class RecipeIngredient < ApplicationRecord
   validates :amount, presence: true
 
   scope :measured, -> { where.not(amount: nil) }
+
+  def recipe_amount
+    amount * recipe.portion_count
+  end
 end

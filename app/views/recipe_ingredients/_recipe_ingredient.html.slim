@@ -1,0 +1,10 @@
+li.mb-1
+    .grid.grid-cols-4
+        = simple_form_for recipe_ingredient, method: :patch, :html=> {class: "inline grid grid-cols-3 col-span-3", data: { controller: "form" }} do |form|
+            div = recipe_ingredient.ingredient.name
+            div.grid.grid-cols-2
+                = form.input :amount, label: false, :input_html => { data: { action: "change->form#submit" }, value: formatted_amount(recipe_ingredient.recipe_amount)}
+                div.mt-2.me-12 = formatted_unit(recipe_ingredient.recipe_amount, recipe_ingredient.ingredient.measurement)
+            div = form.input :comment, label: false, :input_html => { data: { action: "change->form#submit" } }
+        
+        div = action_button_to "smazat", recipe_ingredient, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }
