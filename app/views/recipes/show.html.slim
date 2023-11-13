@@ -15,6 +15,7 @@ div
 
 #details.mt-3.mb-4
   p.italic = @recipe.category&.name
+  / p.italic = @recipe.author.email
   div.mt-2
     div.flex.flex-wrap id="#{dom_id(@recipe)}-labels"
       - @recipe.labels.each do |label|
@@ -45,3 +46,5 @@ div
       = render "tasks", recipe: @recipe
 
 / = button_link_to "pdf", recipe_path(@recipe, format: :pdf)
+
+= action_button_to 'vytvořit kopii', recipe_duplications_path(@recipe), method: :post

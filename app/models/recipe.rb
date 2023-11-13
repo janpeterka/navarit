@@ -47,4 +47,21 @@ class Recipe < ApplicationRecord
 
     true
   end
+
+  def duplicate
+    duplicate_recipe = dup
+    duplicate_recipe.name = "#{name} (kopie)"
+    duplicate_recipe.is_shared = false
+
+    duplicate_recipe.tasks = tasks.map(&:dup)
+    duplicate_recipe.recipe_labels = recipe_labels.map(&:dup)
+
+    recipe_ingredients.each do |recipe_ingredient|
+      duplicate_recipe_ingredient = recipe_ingredient.dup
+      duplicate_recipe_ingredient.ingredient = recipe_ingredient.ingredient
+      duplicate_recipe.recipe_ingredients << duplicate_recipe_ingredient
+    end
+
+    duplicate_recipe
+  end
 end

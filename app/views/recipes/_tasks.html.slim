@@ -12,8 +12,9 @@ div
         div = task.name
         div.col-span-3.pe-5 = task.description
         div
-          = task.days_before_cooking
-          = " "
-          = t("day", count: task.days_before_cooking)
+          - unless task.days_before_cooking.blank?
+            = task.days_before_cooking
+            = " "
+            = t("day", count: task.days_before_cooking)
 
-  
+    
