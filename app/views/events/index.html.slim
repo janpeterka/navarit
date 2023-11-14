@@ -4,7 +4,7 @@
   h2 budoucí akce
   = table @events.future do |t|
     = t.column :name do |event|
-      = link_to event.name, event
+      = link_to event.name, event, class: "font-bold"
     = t.column :days do |event|
       = "od "
       = event.date_from

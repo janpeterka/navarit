@@ -2,11 +2,22 @@
 
 class PublishedRecipesController < ApplicationController
   def index
-    @published_recipe = Recipe.new
-    @published_recipes = Recipe.published
+    # @published_recipes = Recipe.published.includes(:category, :labels, :reactions)
+    @published_recipes = Recipe.published.includes(:category, :labels)
 
-    @published_recipes = @published_recipes.where(category: params[:category]) if params[:category].present?
-    @published_recipes = @published_recipes.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
+    if params[:query].present?
+      query = "%#{params[:query].downcase}%"
+      @published_recipes = @published_recipes.where('LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ? OR LOWER(labels.visible_name) LIKE ?',
+                                                    query, query, query).references(:category, :labels)
+    end
+
+    # @pagy, @recipes = pagy(@recipes)
+
+    # @published_recipes = @published_recipes.where(category: params[:category]) if params[:category].present?
+    # @published_recipes = @published_recipes.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
+
+    # TODO: this will make trouble with pagination, probably will need to be solved by adding counter cache to reactions
+    @published_recipes = @published_recipes.sort_by { _1.reactions.count }.reverse
   end
 
   def create

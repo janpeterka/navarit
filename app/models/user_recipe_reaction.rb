@@ -5,4 +5,8 @@ class UserRecipeReaction < ApplicationRecord
 
   belongs_to :user
   belongs_to :recipe
+  # TODO: add users.user_recipe_reactions_count
+  # belongs_to :recipe, counter_cache: true
+
+  validates :user, uniqueness: { scope: :recipe }
 end

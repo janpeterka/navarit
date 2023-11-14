@@ -1,18 +1,22 @@
 - content_for :title, "sdílené recepty"
 
 
-= form_tag published_recipes_path, method: :get do
-  .field
-    = label_tag :name, "Name"
-    = text_field_tag :name, params[:name]
-  .field
-    = label_tag :category, "Category"
-    = select_tag :category, options_from_collection_for_select(RecipeCategory.all, :id, :name, selected: params[:category]), include_blank: true
-  .actions
-    = submit_tag "Filter"
+- placeholder = Recipe.published.order("RAND()").limit(1).first.name
+= simple_form_for "", url: published_recipes_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "published_recipes"}} do |f|
+    = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
+
+/ = form_tag published_recipes_path, method: :get do
+/   .field
+/     = label_tag :name, "Name"
+/     = text_field_tag :name, params[:name]
+/   .field
+/     = label_tag :category, "Category"
+/     = select_tag :category, options_from_collection_for_select(RecipeCategory.all, :id, :name, selected: params[:category]), include_blank: true
+/   .actions
+/     = submit_tag "Filter"
 
 
-#published-recipes
+= turbo_frame_tag :published_recipes
   .md:grid.md:grid-cols-3.md:gap-4
     - @published_recipes.each do |recipe|
       = render partial: "recipes/recipe_card", locals: {recipe: recipe}
