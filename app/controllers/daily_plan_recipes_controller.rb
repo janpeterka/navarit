@@ -22,6 +22,7 @@ class DailyPlanRecipesController < ApplicationController
   # POST /daily_plan_recipes
   def create
     @daily_plan_recipe = DailyPlanRecipe.new(daily_plan_recipe_params)
+    @daily_plan_recipe.set_order_index
 
     unless @daily_plan_recipe.save
       flash[:error] = "recept nebyl přidán: #{@daily_plan_recipe.errors.full_messages.join(', ')}"
@@ -41,6 +42,7 @@ class DailyPlanRecipesController < ApplicationController
   # DELETE /daily_plan_recipes/1
   def destroy
     @daily_plan_recipe.destroy!
+    @daily_plan_recipe.normalize_order_indices
 
     redirect_back_or_to @daily_plan_recipe.daily_plan, notice: 'recept byl odebrán'
   end

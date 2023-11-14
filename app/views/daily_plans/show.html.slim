@@ -12,7 +12,7 @@
       .grid.grid-cols-4
         div = "jídlo"
         div = "typ jídla"
-        div = "počet porcí"
+        div = "počet porcí (#{@daily_plan.portion_count})"
     - @daily_plan.daily_plan_recipes.each do |day_recipe|
       = render partial: "daily_plans/day_recipe", locals: {day_recipe: }
 
@@ -31,7 +31,7 @@
           
 
         div = select_tag :meal_type, options_for_select(DailyPlanRecipe::MEAL_TYPES), include_blank: true
-        div = number_field_tag :portion_count, @daily_plan.event.portion_count
+        div = number_field_tag :portion_count, @daily_plan.portion_count
         div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
 
 

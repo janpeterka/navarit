@@ -10,6 +10,8 @@ class DailyPlan < ApplicationRecord
 
   validates :date, presence: true
 
+  delegate :portion_count, to: :event
+
   scope :filled, -> { joins(:recipes).distinct.any? }
   scope :on_or_after, ->(date) { where('daily_plans.date >= ?', date) }
   # scope :after, ->(date) { where('daily_plans.date > ?', date) }
@@ -23,5 +25,11 @@ class DailyPlan < ApplicationRecord
       end
     end
     @tasks.flatten!
+  end
+
+  def normalize_order_indices
+    daily_plan_recipes.each_with_index do |dpr, index|
+      dpr.update!(order_index: index + 1)
+    end
   end
 end
