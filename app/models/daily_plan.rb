@@ -2,7 +2,7 @@
 
 class DailyPlan < ApplicationRecord
   belongs_to :event
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', foreign_key: 'created_by'
 
   has_many :day_tasks, class_name: 'DailyPlanTask'
   has_many :daily_plan_recipes, -> { order(order_index: :asc) }

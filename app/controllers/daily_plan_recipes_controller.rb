@@ -47,6 +47,13 @@ class DailyPlanRecipesController < ApplicationController
     redirect_back_or_to @daily_plan_recipe.daily_plan, notice: 'recept byl odebrán'
   end
 
+  def sort
+    daily_plan_recipe = DailyPlanRecipe.find(params[:daily_plan_recipe_id])
+    new_position = params[:position].to_i
+
+    daily_plan_recipe.move_to(new_position)
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

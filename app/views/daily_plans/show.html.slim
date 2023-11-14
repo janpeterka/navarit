@@ -6,13 +6,13 @@
   = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
   = "zpět na akci"
 
-#recipes.mt-3.mb-4
-  ul.col-span-2
-    li.font-bold.mb-1
-      .grid.grid-cols-4
-        div = "jídlo"
-        div = "typ jídla"
-        div = "počet porcí (#{@daily_plan.portion_count})"
+.mt-3.mb-4 id="#{dom_id(@daily_plan)}-recipes"
+  .font-bold.mb-1
+    .grid.grid-cols-4
+      div = "jídlo"
+      div = "typ jídla"
+      div = "počet porcí (#{@daily_plan.portion_count})"
+  ul.col-span-2 data-controller="sortable"
     - @daily_plan.daily_plan_recipes.each do |day_recipe|
       = render partial: "daily_plans/day_recipe", locals: {day_recipe: }
 
