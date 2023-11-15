@@ -38,8 +38,4 @@ class PublishedRecipesController < ApplicationController
 
     redirect_back_or_to recipe, notice: 'recept byl zneveřejněn'
   end
-
-  private
-
-  def set_published_recipe; end
 end

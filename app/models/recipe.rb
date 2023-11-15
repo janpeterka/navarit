@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Recipe < ApplicationRecord
-  include Recipes::Publishable
+  include Publishable
   include Recipes::Likeable
 
   belongs_to :category, class_name: 'RecipeCategory', optional: true

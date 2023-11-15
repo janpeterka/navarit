@@ -11,6 +11,12 @@
     div = "#{@event.duration} dní"
     div = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
 
+#actions
+  - if @event.published?
+    = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
+  - else
+    = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
+
 #days
   .grid.grid-cols-7.gap-3
     - @event.daily_plans.each do |daily_plan|

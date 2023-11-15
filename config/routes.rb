@@ -11,11 +11,14 @@ Rails.application.routes.draw do
   resources :daily_plans
 
   resources :events
+  resources :published_events, only: %i[index create destroy]
+
   resources :recipes do
     resources :duplications, controller: 'recipe_duplications', only: %i[create]
   end
   resources :published_recipes, only: %i[index create destroy]
   resources :liked_recipes, only: %i[index create destroy]
+
   resources :ingredients
   resource :dashboard, only: :show
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

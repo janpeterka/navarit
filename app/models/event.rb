@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Event < ApplicationRecord
+  include Publishable
+
   has_many :daily_plans
   has_many :event_portion_types
   has_many :attendees
@@ -18,7 +20,7 @@ class Event < ApplicationRecord
 
   scope :active, -> { where(is_archived: false) }
   scope :archived, -> { where(is_archived: true) }
-  scope :shared, -> { where(is_shared: true) }
+  scope :published, -> { where(is_shared: true) }
   scope :future, -> { where('date_from >= ?', Date.today) }
   scope :past, -> { where('date_to < ?', Date.today) }
   scope :current, -> { where('date_from <= ? AND date_to >= ?', Date.today, Date.today) }
