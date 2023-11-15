@@ -51,7 +51,16 @@ class DailyPlanRecipesController < ApplicationController
     daily_plan_recipe = DailyPlanRecipe.find(params[:daily_plan_recipe_id])
     new_position = params[:position].to_i
 
-    daily_plan_recipe.move_to(new_position)
+    daily_plan_recipe.sort_to(new_position)
+  end
+
+  def move
+    daily_plan_recipe = DailyPlanRecipe.find(params[:daily_plan_recipe_id])
+    new_plan = DailyPlan.find(params[:daily_plan_id])
+    new_position = params[:position].to_i
+
+    daily_plan_recipe.update!(daily_plan: new_plan)
+    # daily_plan_recipe.sort_to(new_position)
   end
 
   private

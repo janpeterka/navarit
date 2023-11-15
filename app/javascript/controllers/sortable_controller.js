@@ -13,6 +13,13 @@ export default class extends Sortable {
     options["group"] = this.element.dataset.sortableGroupValue
     options["onAdd"] = this.onAdd
 
+    options["onStart"] = (event) => {
+      event.item.classList.add(...this.element.dataset.sortableDraggingClasses.split(" "))
+    }
+    options["onEnd"] = (event) => {
+      event.item.classList.remove(...this.element.dataset.sortableDraggingClasses.split(" "))
+    }
+
     return options
   }
 
