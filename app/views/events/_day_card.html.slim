@@ -4,10 +4,12 @@ div.border.border-emerald-600.text-center id="#{dom_id(daily_plan)}-card"
             = "#{t("date.day_names")[daily_plan.date.wday]}"
         / = "#{daily_plan.date.strftime("%d.%m.%Y")}"
     
-    div.overflow-hidden id="#{dom_id(daily_plan)}-recipes"
-        - daily_plan.recipes.each do |recipe|
-            = link_to recipe.name, recipe, class: "truncate"
-            br
+    div.overflow-hidden.mb-3 id="#{dom_id(daily_plan)}-recipes"
+        ul.space-y-2.last:mb-3
+            - daily_plan.recipes.each do |recipe|
+                - skew_class = "#{["-",nil].sample}skew-y-#{rand(1..2)}"
+                li.m-2.border.border-emerald-700.hover:bg-emerald-700.hover:text-white.p-2.rounded.shadow.transform.hover:scale-105.transition-transform.duration-200.ease-in-out class="#{skew_class}"
+                    = link_to recipe.name, recipe, class: "truncate"
     
     - if daily_plan.tasks.any?
         hr
