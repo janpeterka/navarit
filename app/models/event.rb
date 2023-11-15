@@ -2,10 +2,11 @@
 
 class Event < ApplicationRecord
   include Publishable
+  include Archivable
 
-  has_many :daily_plans
-  has_many :event_portion_types
-  has_many :attendees
+  has_many :daily_plans, dependent: :destroy
+  has_many :event_portion_types, dependent: :destroy
+  has_many :attendees, dependent: :destroy
 
   has_many :day_recipes, through: :daily_plans
   has_many :recipes, through: :day_recipes
@@ -39,6 +40,10 @@ class Event < ApplicationRecord
 
     portion_count += (people_count - accounted_for_count) if people_count > accounted_for_count
     portion_count
+  end
+
+  def destroyable?
+    !published?
   end
 
   private

@@ -4,7 +4,7 @@
 = turbo_frame_tag dom_id(@event) do
   h1.text-3xl.text-strong.mb-2
     = yield :title
-  = button_link_to "upravit", edit_event_path(@event)
+    = " (archivován)" if @event.archived?
 
   #details
     div = "od #{@event.date_from} do #{@event.date_to}"
@@ -12,10 +12,20 @@
     div = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
 
 #actions
+  = button_link_to "upravit", edit_event_path(@event)
+
   - if @event.published?
     = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
   - else
     = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
+
+  - if @event.archived?
+    = action_button_to "odarchivovat", archived_event_path(@event), method: :delete
+  - else
+    = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post
+
+  = action_button_to "smazat", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, disabled: !@event.destroyable?
+
 
 #days
   .grid.grid-cols-7.gap-3

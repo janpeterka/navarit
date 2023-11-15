@@ -4,8 +4,8 @@ class DailyPlan < ApplicationRecord
   belongs_to :event
   belongs_to :author, class_name: 'User', foreign_key: 'created_by'
 
-  has_many :day_tasks, class_name: 'DailyPlanTask'
-  has_many :daily_plan_recipes, -> { order(order_index: :asc) }
+  has_many :day_tasks, class_name: 'DailyPlanTask', dependent: :destroy
+  has_many :daily_plan_recipes, -> { order(order_index: :asc) }, dependent: :destroy
   has_many :recipes, through: :daily_plan_recipes
 
   validates :date, presence: true

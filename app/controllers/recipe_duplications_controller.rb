@@ -8,6 +8,6 @@ class RecipeDuplicationsController < ApplicationController
 
     flash[:notice] = 'recept byl úspěšně zkopírován.'
 
-    redirect_to recipe_path(recipe, editing_section: :ingredients)
+    redirect_to recipe_path(recipe)
   end
 end

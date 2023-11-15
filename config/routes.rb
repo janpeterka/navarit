@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :events
   resources :published_events, only: %i[index create destroy]
+  resources :archived_events, only: %i[create destroy]
 
   resources :recipes do
     resources :duplications, controller: 'recipe_duplications', only: %i[create]

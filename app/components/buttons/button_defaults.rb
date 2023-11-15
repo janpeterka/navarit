@@ -11,7 +11,7 @@ module Buttons
     DEFAULT_BUTTON_CLASSES = {
       primary: "#{SHARED_DEFAULT_BUTTON_CLASSES}
                 border-emerald-600 hover:bg-emerald-600 hover:text-white
-                disabled:border-cyan-800 disabled:hover:bg-white disabled:hover:text-black".squish,
+                disabled:border-gray-500 disabled:bg-gray-200 disabled:hover:text-black".squish,
       secondary: "#{SHARED_DEFAULT_BUTTON_CLASSES} border-gray-800 hover:bg-gray-600 hover:text-white".squish,
       dangerous: "#{SHARED_DEFAULT_BUTTON_CLASSES} border-red-600 hover:bg-red-600 hover:text-white".squish
     }.freeze

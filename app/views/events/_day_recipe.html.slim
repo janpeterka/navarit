@@ -1,5 +1,5 @@
 - skew_class = "x-#{["-",nil].sample}skew-y-#{rand(1..2)}"
 - offset_class = "x-ml-#{rand(2..4)} x-mr-#{rand(2..4)}"
 
-li.overflow-hidden.p-2.m-2.border.border-emerald-700.rounded.shadow.transform.hover:bg-emerald-700.hover:text-white.hover:scale-105.transition-transform.duration-200.ease-in-out class=" #{skew_class} #{offset_class}" data-sortable-update-url=daily_plan_recipe_sort_path(daily_plan_recipe_id: daily_recipe.id) data-sortable-move-url=daily_plan_recipe_move_path(daily_plan_recipe_id: daily_recipe.id, )
-    = link_to daily_recipe.recipe.name, daily_recipe.recipe, class: "truncate"
+li.overflow-hidden.p-2.m-2.border.border-emerald-700.rounded.shadow.cursor-move.transform.hover:bg-emerald-700.hover:text-white.hover:scale-105.transition-transform.duration-200.ease-in-out class=" #{skew_class} #{offset_class}" data-sortable-update-url=daily_plan_recipe_sort_path(daily_plan_recipe_id: daily_recipe.id) data-sortable-move-url=daily_plan_recipe_move_path(daily_plan_recipe_id: daily_recipe.id, )
+    span.truncate = daily_recipe.recipe.name
