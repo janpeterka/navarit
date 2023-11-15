@@ -27,7 +27,7 @@ class DailyPlanRecipe < ApplicationRecord
     normalize_order_indices
   end
 
-  def move_to(new_position)
+  def sort_to(new_position)
     old_position = order_index
 
     if new_position < old_position # moving up
@@ -38,7 +38,7 @@ class DailyPlanRecipe < ApplicationRecord
     end
 
     if old_position < new_position # moving down
-      daily_plan.daily_plan_recipes.where(order_index: old_position + 1..new_position).each do |dpr|
+      daily_plan.daily_plan_recipes.where(order_index: old_position..new_position).each do |dpr|
         dpr.update(order_index: dpr.order_index - 1)
       end
       update(order_index: new_position)

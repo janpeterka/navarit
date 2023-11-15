@@ -10,6 +10,17 @@ module.exports = {
     "./app/components/**/*.rb"
 
   ],
+  safelist: [
+    {
+      pattern: /skew-y-(1|2|3)/
+    },
+    {
+      pattern: /-skew-y-(1|2|3)/
+    },
+    {
+      pattern: /m(r|l)-[0-9]+/
+    }
+  ],
   theme: {
     extend: {
       fontFamily: {

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :daily_plan_tasks
   resources :daily_plan_recipes do
     patch :sort
+    patch :move
   end
   resources :daily_plans
 
