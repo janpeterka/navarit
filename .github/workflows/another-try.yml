@@ -8,6 +8,19 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DB: kucharka_test
+          MYSQL_USER: kucharka
+          MYSQL_PASSWORD: kucharka
+          MYSQL_ROOT_PASSWORD: kucharka
+        ports:
+          - "3306:3306"
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - uses: actions/checkout@v2
       - name: Setup Ruby 3.2.2
@@ -22,6 +35,7 @@ jobs:
           RAILS_ENV: test
           DATABASE_PORT: 3306
         run: |
+          sudo /etc/init.d/mysql start
           bin/rails db:create
           bin/rails db:schema:load
           bin/rails test
