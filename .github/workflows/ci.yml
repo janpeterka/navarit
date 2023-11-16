@@ -22,6 +22,7 @@ jobs:
           MYSQL_DATABASE: kucharka_test
           MYSQL_USER: kucharka
           MYSQL_PASSWORD: kucharka
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     env:
       RAILS_ENV: test
       DATABASE_URL: "mysql2://kucharka:kucharka@localhost:3306/kucharka_test"
