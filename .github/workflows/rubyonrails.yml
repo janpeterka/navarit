@@ -36,6 +36,8 @@ jobs:
           bundler-cache: true
       # - name: Create database
         # run: bin/rails db:create
+      - name: Start mysql
+        run: sudo /etc/init.d/mysql start
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:setup
