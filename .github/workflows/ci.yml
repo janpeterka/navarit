@@ -6,10 +6,10 @@
 # run tests and linters.
 name: "CI"
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: ['*']
+  push:
+    branches: [main]
 jobs:
   test:
     runs-on: ubuntu-latest
