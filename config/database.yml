@@ -29,6 +29,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  adapter: sqlite3
   database: kucharka_test
   username: kucharka
   password: kucharka
