@@ -2,7 +2,11 @@
 # from https://gorails.com/episodes/github-actions-continuous-integration-ruby-on-rails
 
 name: CI
-on: [push, pull_request]
+on:
+  pull_request:
+    branches: ['*']
+  push:
+    branches: [master]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,7 +21,7 @@ jobs:
           --health-retries 5
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ''
+          POSTGRES_PASSWORD: password
           POSTGRES_DB: kucharka_test
 
     steps:
