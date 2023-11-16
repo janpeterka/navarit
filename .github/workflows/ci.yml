@@ -19,9 +19,9 @@ jobs:
         ports:
           - 3306:3306
         env:
-          POSTGRES_DB: kucharka_test
-          POSTGRES_USER: kucharka
-          POSTGRES_PASSWORD: kucharka
+          MYSQL_DATABASE: kucharka_test
+          MYSQL_USER: kucharka
+          MYSQL_PASSWORD: kucharka
     env:
       RAILS_ENV: test
       DATABASE_URL: "mysql2://kucharka:kucharka@localhost:3306/kucharka_test"
