@@ -32,4 +32,19 @@ class DailyPlan < ApplicationRecord
       dpr.update!(order_index: index + 1)
     end
   end
+
+  def duplicate
+    duplicate_daily_plan = dup
+    duplicate_daily_plan.day_tasks = day_tasks.map(&:dup)
+    duplicate_daily_plan.author = author
+
+    daily_plan_recipes.each do |dpr|
+      duplicate_daily_plan_recipe = dpr.dup
+      duplicate_daily_plan_recipe.daily_plan = duplicate_daily_plan
+      duplicate_daily_plan_recipe.recipe = dpr.recipe
+      duplicate_daily_plan.daily_plan_recipes << duplicate_daily_plan_recipe
+    end
+
+    duplicate_daily_plan
+  end
 end

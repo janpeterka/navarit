@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   end
   resources :daily_plans
 
-  resources :events
+  resources :events do
+    resources :duplications, controller: 'event_duplications', only: %i[create]
+  end
   resources :published_events, only: %i[index create destroy]
   resources :archived_events, only: %i[create destroy]
 

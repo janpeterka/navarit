@@ -63,6 +63,7 @@ group :development do
   # gem "spring"
 
   gem 'error_highlight', '>= 0.4.0', platforms: [:ruby]
+  gem 'factory_bot_rails'
   gem 'rubocop'
   gem 'rubocop-capybara'
   gem 'rubocop-performance'

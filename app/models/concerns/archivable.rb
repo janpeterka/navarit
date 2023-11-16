@@ -5,6 +5,7 @@ module Archivable
 
   included do
     scope :archived, -> { where(is_archived: true) }
+    scope :active, -> { where(is_archived: false) }
   end
 
   def archived?

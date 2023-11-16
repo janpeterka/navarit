@@ -4,12 +4,14 @@ class Event < ApplicationRecord
   include Publishable
   include Archivable
 
+  belongs_to :author, class_name: 'User', foreign_key: 'created_by'
+
   has_many :daily_plans, dependent: :destroy
   has_many :event_portion_types, dependent: :destroy
   has_many :attendees, dependent: :destroy
 
-  has_many :day_recipes, through: :daily_plans
-  has_many :recipes, through: :day_recipes
+  has_many :daily_plan_recipes, through: :daily_plans, source: :daily_plan_recipes
+  has_many :recipes, through: :daily_plan_recipes
 
   validates :name, presence: true
   validates :date_from, presence: true
@@ -19,12 +21,11 @@ class Event < ApplicationRecord
   # validates :is_archived, presence: true
   # validates :is_shared, presence: true
 
-  scope :active, -> { where(is_archived: false) }
-  scope :archived, -> { where(is_archived: true) }
-  scope :published, -> { where(is_shared: true) }
   scope :future, -> { where('date_from >= ?', Date.today) }
   scope :past, -> { where('date_to < ?', Date.today) }
   scope :current, -> { where('date_from <= ? AND date_to >= ?', Date.today, Date.today) }
+
+  after_create :create_daily_plans
 
   def duration
     (date_to - date_from + 1).to_i
@@ -46,11 +47,32 @@ class Event < ApplicationRecord
     !published?
   end
 
+  def duplicate
+    duplicate_event = dup
+    duplicate_event.name = "#{name} (kopie)"
+    duplicate_event.is_shared = false
+
+    daily_plans.each do |dp|
+      duplicate_daily_plan = dp.duplicate
+      duplicate_daily_plan.event = duplicate_event
+    end
+
+    duplicate_event
+  end
+
   private
 
   def date_to_after_date_from_validation
     return unless date_to.present? && date_from.present? && date_to < date_from
 
     errors.add(:date_to, 'must be after date from')
+  end
+
+  def create_daily_plans
+    (date_from..date_to).each do |date|
+      daily_plans << DailyPlan.new(date:, created_by: author.id)
+    end
+
+    self
   end
 end
