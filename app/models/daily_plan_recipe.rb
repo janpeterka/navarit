@@ -46,4 +46,11 @@ class DailyPlanRecipe < ApplicationRecord
 
     daily_plan.normalize_order_indices
   end
+
+  def duplicate
+    duplicate_daily_plan_recipe = dup
+    duplicate_daily_plan_recipe.recipe = recipe
+
+    duplicate_daily_plan_recipe
+  end
 end
