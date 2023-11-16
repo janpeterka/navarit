@@ -1,45 +1,58 @@
-# .github/workflows/ci.yml
-# from https://gorails.com/episodes/github-actions-continuous-integration-ruby-on-rails
-
-name: CI
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
 on:
-  pull_request:
-    branches: ['*']
   push:
-    branches: [master]
+    branches: [ "production" ]
+  pull_request:
+    branches: [ "production" ]
 jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      db:
-        image: postgres:11
-        ports: ['5432:5432']
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
         env:
+          POSTGRES_DB: kucharka_test
           POSTGRES_USER: kucharka
           POSTGRES_PASSWORD: kucharka
-          POSTGRES_DB: kucharka_test
-
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://kucharka:kucharka@localhost:5432/kucharka_test"
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Ruby 3.2.2
-        uses: ruby/setup-ruby@v1
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
         with:
-          ruby-version: 3.2.2
-          bundler: default
           bundler-cache: true
-      - name: Build and run tests
-        env:
-          DATABASE_URL: postgres://kucharka:kucharka@localhost:5432/kucharka_test
-          RAILS_ENV: test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: |
-          sudo apt-get -yqq install libpq-dev
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-          bundle exec rails db:prepare
-          bundle exec rails test
+      # Add or replace database setup steps here
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+      # Add or replace test runners here
+      - name: Run tests
+        run: bin/rake
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+      # Add or replace any other lints here
+      - name: Security audit dependencies
+        run: bin/bundler-audit --update
+      - name: Security audit application code
+        run: bin/brakeman -q -w2
+      - name: Lint Ruby files
+        run: bin/rubocop --parallel
