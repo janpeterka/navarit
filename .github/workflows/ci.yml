@@ -14,17 +14,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      postgres:
-        image: postgres:11-alpine
+      db:
+        image: mysql:8.0
         ports:
-          - "5432:5432"
+          - 3306:3306
         env:
           POSTGRES_DB: kucharka_test
           POSTGRES_USER: kucharka
           POSTGRES_PASSWORD: kucharka
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://kucharka:kucharka@localhost:5432/kucharka_test"
+      DATABASE_URL: "mysql2://kucharka:kucharka@localhost:3306/kucharka_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
