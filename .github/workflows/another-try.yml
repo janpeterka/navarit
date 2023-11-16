@@ -27,11 +27,13 @@ jobs:
           ruby-version: 3.2.2
           bundler: default
           bundler-cache: true
+    
       - name: Run tests
         env:
           RAILS_ENV: test
           DATABASE_PORT: 3306
         run: |
+          sudo /etc/init.d/mysql start
           bin/rails db:create
           bin/rails db:schema:load
           bin/rails test
