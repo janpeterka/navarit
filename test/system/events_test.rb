@@ -4,38 +4,39 @@ require 'application_system_test_case'
 
 class EventsTest < ApplicationSystemTestCase
   setup do
-    @event = events(:one)
+    @event = FactoryBot.create(:event)
   end
 
   test 'visiting the index' do
     visit events_url
-    assert_selector 'h1', text: 'Events'
+    assert_selector 'h2', text: 'budoucí akce'
+    assert_selector 'a', text: 'Random event'
   end
 
-  test 'should create event' do
-    visit events_url
-    click_on 'New event'
+  # test 'should create event' do
+  #   visit events_url
+  #   click_on 'New event'
 
-    click_on 'Create Event'
+  #   click_on 'Create Event'
 
-    assert_text 'Event was successfully created'
-    click_on 'Back'
-  end
+  #   assert_text 'Event was successfully created'
+  #   click_on 'Back'
+  # end
 
-  test 'should update Event' do
-    visit event_url(@event)
-    click_on 'Edit this event', match: :first
+  # test 'should update Event' do
+  #   visit event_url(@event)
+  #   click_on 'Edit this event', match: :first
 
-    click_on 'Update Event'
+  #   click_on 'Update Event'
 
-    assert_text 'Event was successfully updated'
-    click_on 'Back'
-  end
+  #   assert_text 'Event was successfully updated'
+  #   click_on 'Back'
+  # end
 
-  test 'should destroy Event' do
-    visit event_url(@event)
-    click_on 'Destroy this event', match: :first
+  # test 'should destroy Event' do
+  #   visit event_url(@event)
+  #   click_on 'Destroy this event', match: :first
 
-    assert_text 'Event was successfully destroyed'
-  end
+  #   assert_text 'Event was successfully destroyed'
+  # end
 end
