@@ -9,19 +9,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      mysql:
-        image: mysql:8.1
+      postgres:
+        image: postgres:latest
         env:
-        #   MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: kucharka_test
-          MYSQL_USER: kucharka
-          MYSQL_PASSWORD: kucharka
-          MYSQL_ROOT_PASSWORD: kucharka
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports:
-          - "3306:3306"
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-        DATABASE_URL: "mysql2://kucharka:kucharka@127.0.0.1:3306/kucharka_test"
+        RAILS_ENV: test
+        PGHOST: localhost
+        PGUSER: postgres
     steps:
       - uses: actions/checkout@v2
       - name: Setup Ruby 3.2.2
