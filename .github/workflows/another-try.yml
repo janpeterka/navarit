@@ -14,7 +14,7 @@ jobs:
         env:
         #   MYSQL_HOST: 127.0.0.1
           MYSQL_DB: kucharka_test
-          MYSQL_USER: kucharka
+          MYSQL_USER: kucharka@%
           MYSQL_PASSWORD: kucharka
           MYSQL_ROOT_PASSWORD: kucharka
         ports:
