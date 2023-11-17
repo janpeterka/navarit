@@ -8,7 +8,8 @@ class EventTest < ActiveSupport::TestCase
 
     @event = FactoryBot.create(:event)
     @recipe = FactoryBot.build(:hummus_with_carrot)
-    @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first, recipe: @recipe, order_index: 1,
+    @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first,
+                                                       recipe: @recipe, order_index: 1,
                                                        portion_count: @event.portion_count)
     assert_equal @event.date_from, 3.days.from_now.to_date
   end
@@ -20,7 +21,7 @@ class EventTest < ActiveSupport::TestCase
     assert @event.recipes.first == @recipe
   end
 
-  test 'duplicatin' do
+  test 'duplication' do
     new_event = @event.duplicate
 
     assert_equal new_event.name, "#{@event.name} (kopie)"
