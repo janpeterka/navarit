@@ -55,9 +55,29 @@ class Event < ApplicationRecord
     daily_plans.each do |dp|
       duplicate_daily_plan = dp.duplicate
       duplicate_daily_plan.event = duplicate_event
+      # duplicate_event.daily_plans << duplicate_daily_plan
     end
 
     duplicate_event
+  end
+
+  def duplicate_into(target_event)
+    daily_plans.each_with_index do |daily_plan, index|
+      target_event.daily_plans[index].day_tasks = daily_plan.day_tasks.map(&:dup)
+
+      daily_plan.daily_plan_recipes.each do |daily_plan_recipe|
+        dpr = daily_plan_recipe.dup
+        dpr.daily_plan = target_event.daily_plans[index]
+        dpr.recipe = daily_plan_recipe.recipe
+        target_event.daily_plans[index].daily_plan_recipes << dpr
+      end
+    end
+  end
+
+  def duplicate!
+    event = duplicate
+    event.save!
+    event
   end
 
   private

@@ -8,7 +8,7 @@ class DailyPlan < ApplicationRecord
   has_many :daily_plan_recipes, -> { order(order_index: :asc) }, dependent: :destroy
   has_many :recipes, through: :daily_plan_recipes
 
-  validates :date, presence: true
+  validates :date, presence: true, uniqueness: { scope: :event_id }
 
   delegate :portion_count, to: :event
 
@@ -39,9 +39,8 @@ class DailyPlan < ApplicationRecord
     duplicate_daily_plan.author = author
 
     daily_plan_recipes.each do |dpr|
-      duplicate_daily_plan_recipe = dpr.dup
+      duplicate_daily_plan_recipe = dpr.duplicate
       duplicate_daily_plan_recipe.daily_plan = duplicate_daily_plan
-      duplicate_daily_plan_recipe.recipe = dpr.recipe
       duplicate_daily_plan.daily_plan_recipes << duplicate_daily_plan_recipe
     end
 
