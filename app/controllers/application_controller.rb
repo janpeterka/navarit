@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
                      User.find_by(id: session[:user_id])
                    elsif Rails.env.development?
                      User.first
+                   elsif Rails.env.test?
+                     User.first || FactoryBot.create(:user)
                    end
   end
 end
