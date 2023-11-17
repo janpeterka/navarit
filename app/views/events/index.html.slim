@@ -1,5 +1,11 @@
 - content_for :title, 'akce'
 
+div.me-5
+  - placeholder = Current.user.events.order("RAND()").limit(1).first.name
+  = simple_form_for "", url: events_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "recipes"}} do |f|
+    = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
+  = button_link_to "přidat akci", new_event_path, class: "float-right"
+
 #future-events
   h2 budoucí akce
   = table @events.future do |t|
