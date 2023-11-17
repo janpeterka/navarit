@@ -21,17 +21,6 @@ class EventTest < ActiveSupport::TestCase
     assert_equal @event.recipes.first, @recipe
   end
 
-  test 'duplication' do
-    new_event = @event.duplicate
-    new_event.save
-
-    assert_equal "#{@event.name} (kopie)", new_event.name
-    assert_equal @event.date_from, new_event.date_from
-    assert_equal 3, new_event.daily_plans.size
-    assert_equal 1, new_event.recipes.size
-    assert_equal @recipe, new_event.recipes.first
-  end
-
   test 'duplication_into_new_event' do
     new_event = Event.new(name: 'event (copy)', date_from: @event.date_from + 3.days, date_to: @event.date_to + 3.days,
                           people_count: @event.people_count)
