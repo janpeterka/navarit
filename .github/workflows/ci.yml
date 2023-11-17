@@ -41,3 +41,6 @@ jobs:
       # Add or replace test runners here
       - name: Run model tests
         run: bin/rails test test/models
+      
+      - name: Run controller tests selectively
+        run: bin/rails test test/system/events_test
