@@ -9,16 +9,17 @@ class EventTest < ActiveSupport::TestCase
     @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first,
                                                        recipe: @recipe, order_index: 1,
                                                        portion_count: @event.portion_count)
+    @event.daily_plans.first.day_tasks.create(name: 'task 1')
     @event.save
-
-    assert_equal @event.date_from, 3.days.from_now.to_date
   end
 
   test 'creation' do
     assert @event.valid?
-    assert_equal @event.daily_plans.size, 3
-    assert_equal @event.recipes.size, 1
-    assert_equal @event.recipes.first, @recipe
+    assert_equal 3.days.from_now.to_date, @event.date_from
+    assert_equal 3, @event.daily_plans.size
+    assert_equal 1, @event.recipes.size
+    assert_equal 1, @event.daily_plans.first.day_tasks.size
+    assert_equal @recipe, @event.recipes.first
   end
 
   test 'duplication_into_new_event' do
@@ -30,6 +31,7 @@ class EventTest < ActiveSupport::TestCase
 
     assert_equal 3, new_event.daily_plans.size
     assert_equal 1, new_event.recipes.size
+    assert_equal 1, new_event.daily_plans.first.day_tasks.size
     assert_equal @recipe, new_event.recipes.first
   end
 end

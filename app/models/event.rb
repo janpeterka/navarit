@@ -47,20 +47,6 @@ class Event < ApplicationRecord
     !published?
   end
 
-  def duplicate
-    duplicate_event = dup
-    duplicate_event.name = "#{name} (kopie)"
-    duplicate_event.is_shared = false
-
-    daily_plans.each do |dp|
-      duplicate_daily_plan = dp.duplicate
-      duplicate_daily_plan.event = duplicate_event
-      # duplicate_event.daily_plans << duplicate_daily_plan
-    end
-
-    duplicate_event
-  end
-
   def duplicate_into(target_event)
     daily_plans.each_with_index do |daily_plan, index|
       target_event.daily_plans[index].day_tasks = daily_plan.day_tasks.map(&:dup)
