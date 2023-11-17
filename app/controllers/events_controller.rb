@@ -32,11 +32,9 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    if @event.update(event_params)
-      redirect_to @event, notice: 'Event was successfully updated.', status: :see_other
-    else
-      render :edit, status: :unprocessable_entity
-    end
+    render :edit, status: :unprocessable_entity unless @event.update(event_params)
+
+    redirect_to @event
   end
 
   # DELETE /events/1

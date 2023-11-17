@@ -24,9 +24,9 @@
   - else
     = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post
 
-  = action_button_to "kopírovat", event_duplications_path(@event), method: :post
+  = button_link_to "kopírovat", new_event_duplication_path(event_id: @event.id)
 
-  = action_button_to "smazat", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, disabled: !@event.destroyable?
+  = action_button_to "smazat", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, type: :dangerous, disabled: !@event.destroyable?
 
 
 #days

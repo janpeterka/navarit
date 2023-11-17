@@ -2,7 +2,7 @@ div.border.border-2.border-emerald-600.rounded-xl.shadow.text-center id="#{dom_i
     div.text-xl.mt-2
         = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-emerald-700" do 
             = "#{t("date.day_names")[daily_plan.date.wday]}"
-        / = "#{daily_plan.date.strftime("%d.%m.%Y")}"
+        = "#{daily_plan.date.strftime("%d.%m.%Y")}"
     
     div.overflow-hidden.mb-3 id="#{dom_id(daily_plan)}-recipes"
         ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id="#{daily_plan.id}" data-sortable-dragging-classes="bg-emerald-700 text-white"
