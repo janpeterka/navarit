@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OAuth < ApplicationRecord
+class Oauth < ApplicationRecord
   belongs_to :user
 
   validates :provider_user, presence: true

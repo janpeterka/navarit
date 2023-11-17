@@ -8,7 +8,8 @@ class EventTest < ActiveSupport::TestCase
 
     @event = FactoryBot.create(:event)
     @recipe = FactoryBot.build(:hummus_with_carrot)
-    @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first, recipe: @recipe, order_index: 1,
+    @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first,
+                                                       recipe: @recipe, order_index: 1,
                                                        portion_count: @event.portion_count)
     @event.save
 

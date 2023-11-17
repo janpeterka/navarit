@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module FormFields
-  class LabelComponent < BaseComponent
+  class LabelComponent < ::ApplicationComponent
     attr_reader :label
 
     def initialize(label, **html_attributes)

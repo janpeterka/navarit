@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module FormFields
-  class InputFieldComponent < BaseComponent
+  class InputFieldComponent < ::ApplicationComponent
     attr_reader :size
 
     def initialize(size: :base, **html_attributes)

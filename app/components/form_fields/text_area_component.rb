@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module FormFields
-  class TextAreaComponent < BaseComponent
+  class TextAreaComponent < ::ApplicationComponent
     def default_classes(part = :base)
       case part
       when :base
