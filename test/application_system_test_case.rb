@@ -6,8 +6,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
 
   setup do
-    @user = User.find_by(id: 1) || FactoryBot.create(:user)
-    Current.user = @user
+    Current.user = User.find_by(id: 1) || FactoryBot.create(:user)
   end
 
   teardown do

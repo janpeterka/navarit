@@ -4,8 +4,6 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   def setup
-    Current.user = FactoryBot.build(:user)
-
     @event = FactoryBot.create(:event)
     @recipe = FactoryBot.build(:hummus_with_carrot)
     @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first,
