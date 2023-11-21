@@ -23,7 +23,7 @@ class DailyPlanRecipe < ApplicationRecord
   end
 
   def set_order_index
-    self.order_index = daily_plan.daily_plan_recipes.maximum(:order_index) + 1
+    self.order_index = daily_plan.daily_plan_recipes.maximum(:order_index) || 0 + 1
     normalize_order_indices
   end
 

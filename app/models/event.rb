@@ -66,6 +66,10 @@ class Event < ApplicationRecord
     event
   end
 
+  def timetable
+    @timetable ||= EventTimetable.new(self)
+  end
+
   private
 
   def date_to_after_date_from_validation

@@ -1,19 +1,25 @@
-div.border.border-2.border-emerald-600.rounded-xl.shadow.text-center id="#{dom_id(daily_plan)}-card"
+- daily_plan = day.daily_plan.presence
+- day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
+- border_color_class = daily_plan.present? ? "border-emerald-600" : "border-gray-300"
+
+div.border.border-2.rounded-xl.shadow.text-center id="#{day_dom_id}-card" class=border_color_class
     div.text-xl.mt-2
-        = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-emerald-700" do 
-            = "#{t("date.day_names")[daily_plan.date.wday]}"
-        = "#{daily_plan.date.strftime("%d.%m.%Y")}"
+        - if daily_plan.present?
+            = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-emerald-700" do 
+                = "#{t("date.day_names")[day.date.wday]}"
+        p.italic.text-sm = "#{day.date.strftime("%d.%m.%Y")}"
     
-    div.overflow-hidden.mb-3 id="#{dom_id(daily_plan)}-recipes"
-        ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id="#{daily_plan.id}" data-sortable-dragging-classes="bg-emerald-700 text-white"
-            - daily_plan.daily_plan_recipes.each do |daily_recipe|
-                = render "day_recipe", daily_recipe: daily_recipe
+    - if daily_plan.present?
+        div.overflow-hidden.mb-3 id="#{day_dom_id}-recipes"
+            ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-emerald-700 text-white"
+                - daily_plan.daily_plan_recipes.each do |daily_recipe|
+                    = render "day_recipe", daily_recipe: daily_recipe
    
-    - if daily_plan.tasks.any?
+    - if day.tasks.any?
         hr
     
-    div.overflow-hidden id="#{dom_id(daily_plan)}-tasks"
-        - daily_plan.tasks.each do |task|
+    div.overflow-hidden id="#{day_dom_id}-tasks"
+        - day.tasks.each do |task|
             span.italic.overflow-hidden.truncate
                 = task.name
 

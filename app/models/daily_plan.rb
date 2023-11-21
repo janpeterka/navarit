@@ -19,12 +19,21 @@ class DailyPlan < ApplicationRecord
   def tasks
     @tasks = []
     @tasks << day_tasks.to_a
+    @tasks << tasks_from_recipes
+
+    @tasks.flatten!
+  end
+
+  def tasks_from_recipes
+    tasks = []
+
     event.daily_plans.on_or_after(date).each_with_index do |plan, index|
       plan.recipes.each do |recipe|
-        @tasks << recipe.tasks.where(days_before_cooking: index)
+        tasks << recipe.tasks.where(days_before_cooking: index)
       end
     end
-    @tasks.flatten!
+
+    tasks
   end
 
   def normalize_order_indices

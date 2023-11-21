@@ -28,10 +28,9 @@
 
   = action_button_to "smazat", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, type: :dangerous, disabled: !@event.destroyable?
 
-
 #days
   .grid.grid-cols-7.gap-3
-    - @event.daily_plans.each do |daily_plan|
-      = render("day_card", daily_plan: )
+    - @event.timetable.days.each do |day|
+      = render("day_card", day: )
 
       
