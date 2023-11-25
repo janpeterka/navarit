@@ -1,3 +1,6 @@
 = content_for :title, "přidat recept"
 
 == render "form", recipe: @recipe
+
+div
+  = link_to "zrušit", recipes_path

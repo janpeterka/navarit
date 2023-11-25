@@ -4,7 +4,7 @@
 = turbo_frame_tag dom_id(@event) do
   h1.text-3xl.text-strong.mb-2
     = yield :title
-    = " (archivován)" if @event.archived?
+    = " (archivováno)" if @event.archived?
 
   #details
     div = "od #{@event.date_from} do #{@event.date_to}"

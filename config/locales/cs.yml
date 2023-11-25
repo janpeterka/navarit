@@ -23,15 +23,17 @@ cs:
 
   helpers:
     select:
-      prompt: Prosím vyberte si
+      prompt: prosím vyber si
     submit:
       create: přidat %{model}
-      # submit: Uložit %{model}
       update: upravit %{model}
       ingredient:
         create: "přidat surovinu"
         update: "upravit surovinu"
-    
+      event:
+        create: "přidat akci"
+        update: "upravit akci"
+
 
   errors:
     messages:
@@ -58,6 +60,7 @@ cs:
         few: recepty
         other: receptů
       event:
+        one: akce
         few: akce
         other: akcí
     attributes:

@@ -1,5 +1,5 @@
 = default_form_for recipe do |form|
-  = form.input :name, col_span: :full
+  = form.input :name, col_span: :full, autofocus: true
   = form.input :portion_count, col_span: 6
   = form.association :category, col_span: 6
   = form.buttons_section
