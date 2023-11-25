@@ -12,3 +12,5 @@ cs:
       defaults:
         name: "název"
         description: "popis"
+        amount: "množství"
+        comment: "poznámka"

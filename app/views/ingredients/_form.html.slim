@@ -1,8 +1,7 @@
-= simple_form_for @ingredient do |form|
-  = form.input :name
-  = form.input :description
-  = form.association :measurement
-  = form.association :category
-
-  div
+= default_form_for @ingredient do |form|
+  = form.input :name, col_span: :full, autofocus: true
+  = form.input :description, col_span: :full
+  = form.association :measurement, col_span: 6
+  = form.association :category, col_span: 6
+  = form.buttons_section
     = form.submit

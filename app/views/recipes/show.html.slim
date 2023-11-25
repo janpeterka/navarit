@@ -4,7 +4,7 @@ div
   = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0"
 
   - if @recipe.deletable?
-    = action_button_to "smazat", recipe_path(@recipe), method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
+    = action_button_to "smazat", recipe_path(@recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
   - else
     = action_button_to "nelze smazat", recipe_path(@recipe), method: :delete, disabled: true
 

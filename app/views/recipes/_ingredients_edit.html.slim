@@ -2,27 +2,36 @@
   #recipe-ingredient.mt-3.mb-4
     ul.col-span-2
       li.font-bold.mb-1
-        .grid.grid-cols-4
-          div = "surovina"
-          div = "množství (na #{recipe.portion_count} porcí)"
-          div = "poznámka"
+        .grid.grid-cols-12
+          .col-span-4 = "surovina"
+          .col-span-3.ms-2 = "množství (na #{recipe.portion_count} porcí)"
+          .col-span-3.ms-2 = "poznámka"
       - recipe_ingredients.each do |recipe_ingredient|
         = render partial: "recipe_ingredients/recipe_ingredient", locals: {recipe_ingredient: }
 
     #add-ingredient.mb-4
-      h2.text-xl.font-bold.mb-2 přidat surovinu
-      = form_tag recipe_ingredients_path(recipe_id: recipe.id), method: :post do
-        .grid.grid-cols-4
-          - unused_ingredients = Current.user.ingredients - recipe.ingredients
-          div.grid.grid-cols-2
-            = select_tag :ingredient_id, grouped_options_for_select([['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
-                                                                ['veřejné',  Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }],
-                                                                ]),
-                        class: "w-80"
+      = default_form_for "", url: recipe_ingredients_path(recipe_id: recipe.id), method: :post do |form|
+        - unused_ingredients = Current.user.ingredients - recipe.ingredients
+        = form.input :ingredient_id, :as => :grouped_select, collection: [['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
+                                             ['veřejné', Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }]],
+                                             col_span: 4, :group_method => :last, label: false, allow_blank: false
+        = form.input :amount, col_span: 3, label: false
+        = form.input :comment, col_span: 3, required: false, label: false
+        .col-span-2
+          = form.submit "přidat surovinu"
+        
+      / = form_tag recipe_ingredients_path(recipe_id: recipe.id), method: :post do
+      /   .grid.grid-cols-4
+      /     - unused_ingredients = Current.user.ingredients - recipe.ingredients
+      /     div.grid.grid-cols-2
+      /       = select_tag :ingredient_id, grouped_options_for_select([['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
+      /                                                           ['veřejné',  Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }],
+      /                                                           ]),
+      /                   class: "w-80"
             
 
-          div = number_field_tag :amount
-          div = text_area_tag :comment
-          div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+      /     div = number_field_tag :amount
+      /     div = text_area_tag :comment
+      /     div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
 
   = button_link_to "hotovo!", recipe_path(recipe)

@@ -1,41 +1,31 @@
 - content_for :title, 'akce'
 
-div.me-5
+div.me-5.mb-2
   - placeholder = Current.user.events.order("RAND()").limit(1).first.name
   = simple_form_for "", url: events_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "recipes"}} do |f|
     = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
   = button_link_to "přidat akci", new_event_path, class: "float-right"
 
 #future-events
-  h2 budoucí akce
+  h2.text-xl.text-bold.mb-2 budoucí akce
   = table @events.future do |t|
-    = t.column :name do |event|
+    = t.column :název do |event|
       = link_to event.name, event, class: "font-bold"
-    = t.column :days do |event|
-      = "od "
-      = event.date_from
-      = ' do '
-      = event.date_to 
-
+    = t.column :datum do |event|
+      = "od #{event.date_from} do #{event.date_to}"
     
 #past-events
-  h2 skončené akce
+  h2.text-xl.text-bold.mb-2 skončené akce
   = table @events.past do |t|
-    = t.column :name do |event|
+    = t.column :název do |event|
       = link_to event.name, event
-    = t.column :days do |event|
-      = "od "
-      = event.date_from
-      = ' do '
-      = event.date_to 
+    = t.column :datum do |event|
+      = "od #{event.date_from} do #{event.date_to}"
 
 #archived-events
-  h2 archivované akce
+  h2.text-xl.text-bold.mb-2 archivované akce
   = table @events.archived do |t|
-    = t.column :name do |event|
+    = t.column :název do |event|
       = link_to event.name, event
-    = t.column :days do |event|
-      = "od "
-      = event.date_from
-      = ' do '
-      = event.date_to 
+    = t.column :datum do |event|
+      = "od #{event.date_from} do #{event.date_to}"

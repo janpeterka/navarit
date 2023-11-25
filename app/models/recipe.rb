@@ -16,8 +16,8 @@ class Recipe < ApplicationRecord
   has_many :daily_plans, through: :daily_plan_recipes
   has_many :events, through: :daily_plans
 
-  validates_presence_of :name
-  validates :portion_count, numericality: { greater_than: 0 }
+  validates :name, presence: true
+  validates :portion_count, presence: true, numericality: { greater_than: 0 }
 
   scope :hidden, -> { where(is_hidden: true) }
   scope :visible, -> { where(is_hidden: false) }

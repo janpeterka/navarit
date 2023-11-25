@@ -1,8 +1,6 @@
-h1 New recipe
+= content_for :title, "přidat recept"
 
 == render "form", recipe: @recipe
 
-br
-
 div
-  = link_to "Back to recipes", recipes_path
+  = link_to "zrušit", recipes_path
