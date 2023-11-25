@@ -28,6 +28,9 @@ cs:
       create: přidat %{model}
       # submit: Uložit %{model}
       update: upravit %{model}
+      ingredient:
+        create: "přidat surovinu"
+        update: "upravit surovinu"
     
 
   errors:
@@ -54,6 +57,9 @@ cs:
         one: recept
         few: recepty
         other: receptů
+      event:
+        few: akce
+        other: akcí
     attributes:
       ingredient:
         measurement: míra

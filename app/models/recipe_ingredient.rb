@@ -10,6 +10,8 @@ class RecipeIngredient < ApplicationRecord
 
   scope :measured, -> { where.not(amount: nil) }
 
+  delegate :name, to: :ingredient
+
   def recipe_amount
     amount * recipe.portion_count
   end
