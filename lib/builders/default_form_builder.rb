@@ -4,9 +4,9 @@ module Builders
     def input(attribute_name, options = {}, &block)
       # The default Tailwind classes for the various parts of the Simple Form wrapper layout.
 
-      input_class = 'block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-
-      input_class += ' w-full sm:text-sm rounded-md focus:ring-indigo-500 focus:border-emerald-500 ...'
+      input_class = 'block px-2.5 pb-2.5 pt-5 w-full dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none peer'
+      input_class += ' sm:text-sm rounded-md'
+      input_class += ' focus:outline-none focus:ring-0 focus:border-emerald-700'
       input_class += 'text-gray-500 bg-gray-50' if options.dig(:input_html, :disabled)
 
       input_wrapper_class = 'mt-1'
@@ -14,6 +14,12 @@ module Builders
       label_wrapper_class = ''
       hint_class = 'mt-2 text-sm ...'
       error_class = 'mt-2 text-sm text-red-700 ...'
+
+      # set "empty" (but not nil) placeholder for floating labels
+      unless options[:placeholder].present?
+        options[:input_html] =
+          { placeholder: '' }.merge(options[:input_html] || {})
+      end
 
       case options[:as]
       when :boolean
@@ -49,8 +55,10 @@ module Builders
     def label(attribute_name, *args, &block)
       options = args.extract_options!.dup
 
+      default_class = 'absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-emerald-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+
       # default_class = 'block text-sm font-medium'
-      # options = arguments_with_updated_default_class(default_class, **options)
+      options = arguments_with_updated_default_class(default_class, **options)
 
       super(attribute_name, *[args.first, options], &block)
     end

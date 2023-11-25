@@ -30,19 +30,21 @@ cs:
       update: upravit %{model}
     
 
-  #   errors:
-  #     models:
-  #       daily_plan_recipe:
-  #         attributes:
-  #           portion_count:
-  #             blank: "počet porcí musí být nastaven"
-
-  
   errors:
     messages:
       blank: "hodnota musí být vyplněna"
+    attributes:
+      name:
+        blank: "název musí být vyplněn"
 
   activerecord:
+    errors:
+      models:
+        recipe: 
+          attributes:
+            portion_count:
+              blank: "počet porcí musí být nastaven"
+            
     models:
       ingredient:
         one: surovina
