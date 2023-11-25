@@ -2,5 +2,8 @@
   = form.input :name, col_span: :full, autofocus: true
   = form.input :portion_count, col_span: 6
   = form.association :category, col_span: 6
+  = form.association :dietary_labels, col_span: 6, collection: Label.of_category(:dietary), allow_blank: false
+  = form.association :difficulty_labels, col_span: 6, collection: Label.of_category(:difficulty), input_html: {multiple: false}
+
   = form.buttons_section
     = form.submit
