@@ -5,7 +5,7 @@
   span.text-base.float-right
     = button_link_to "upravit", edit_ingredient_path(@ingredient)
     - if @ingredient.deletable?
-      = action_button_to "smazat", @ingredient, method: :delete
+      = action_button_to "smazat", @ingredient, type: :dangerous, method: :delete
     - else
       = action_button_to "je v receptu, nelze smazat", @ingredient, method: :delete, disabled: true
 

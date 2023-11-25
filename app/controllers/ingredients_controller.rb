@@ -27,7 +27,7 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.new(ingredient_params)
 
     if @ingredient.save
-      redirect_to ingredient_url(@ingredient), notice: 'Ingredient was successfully created.'
+      redirect_to ingredient_url(@ingredient)
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class IngredientsController < ApplicationController
 
   def update
     if @ingredient.update(ingredient_params)
-      redirect_to ingredient_url(@ingredient), notice: 'Ingredient was successfully updated.'
+      redirect_to ingredient_url(@ingredient), notice: 'surovina byla upravena'
     else
       render :edit, status: :unprocessable_entity
     end
