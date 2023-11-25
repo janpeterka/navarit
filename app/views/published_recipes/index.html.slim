@@ -1,22 +1,22 @@
 - content_for :title, "sdílené recepty"
 
-
-- placeholder = Recipe.published.order("RAND()").limit(1).first.name
-= simple_form_for "", url: published_recipes_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "published_recipes"}} do |f|
-    = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
-
-/ = form_tag published_recipes_path, method: :get do
-/   .field
-/     = label_tag :name, "Name"
-/     = text_field_tag :name, params[:name]
-/   .field
-/     = label_tag :category, "Category"
-/     = select_tag :category, options_from_collection_for_select(RecipeCategory.all, :id, :name, selected: params[:category]), include_blank: true
-/   .actions
-/     = submit_tag "Filter"
-
+.mb-2
+  - placeholder = Recipe.published.order("RAND()").limit(1).first.name
+  = simple_form_for "", url: published_recipes_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "published_recipes"}} do |f|
+      = f.input :query, label: false, placeholder: "hledej např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
 
 = turbo_frame_tag :published_recipes
   .md:grid.md:grid-cols-3.md:gap-4
+    / - if @published_recipes.empty?
+    /   .col-span-3
+    /     .p-4.rounded-md
+    /       .text-center
+    /         h2.text-bold.mb-2
+    /           / TODO: add empty pot image/icon here
+    /           svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-8 w-8 mx-auto text-gray-400"
+    /             path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              
+    /           = "nic nemůžu najít :("
+
     - @published_recipes.each do |recipe|
       = render partial: "recipes/recipe_card", locals: {recipe: recipe}
