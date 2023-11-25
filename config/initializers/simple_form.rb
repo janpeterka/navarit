@@ -54,7 +54,11 @@ SimpleForm.setup do |config|
 
     ## Inputs
     # b.use :input, class: 'input', error_class: 'is-invalid', valid_class: 'is-valid'
-    b.use :label_input
+    b.wrapper :input_wrapper, tag: :div, class: 'relative' do |component|
+      component.use :input
+      component.use :label,
+                    class: 'absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+    end
     b.use :hint,  wrap_with: { tag: :span, class: :hint }
     b.use :error, wrap_with: { tag: :span, class: :error }
 
@@ -64,6 +68,8 @@ SimpleForm.setup do |config|
     #
     # b.use :full_error, wrap_with: { tag: :span, class: :error }
   end
+
+  # Used for the input fields by default - just tags, styling is done in custom form builders / helpers.
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
@@ -75,7 +81,7 @@ SimpleForm.setup do |config|
   config.boolean_style = :nested
 
   # Default class for buttons
-  config.button_class = 'btn'
+  # config.button_class = 'btn'
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.

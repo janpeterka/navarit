@@ -1,14 +1,6 @@
-= simple_form_for recipe do |form|
-  = form.input :name
-  = form.input :portion_count
-  = form.association :category
-
-  - if recipe.errors.any?
-    div style="color: red"
-      h2 = "#{pluralize(recipe.errors.count, "error")} prohibited this recipe from being saved:"
-      ul
-        - recipe.errors.each do |error|
-          li = error.full_message
-
-  div
+= default_form_for recipe do |form|
+  = form.input :name, col_span: 6, placeholder: ""
+  = form.input :portion_count, col_span: 3, placeholder: "", required: true
+  = form.association :category, col_span: 3, placeholder: ""
+  = form.buttons_section
     = form.submit

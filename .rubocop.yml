@@ -7,3 +7,6 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   Exclude:
     - 'db/schema.rb'
+
+Lint/RedundantSplatExpansion:
+  Enabled: false
