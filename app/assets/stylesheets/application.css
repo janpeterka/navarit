@@ -1,9 +1,8 @@
 /* Application styles */
 
 .highlight {
-  background-color: yellow;
+  background-color: darkgreen;
 }
 .strong-highlight {
-  background-color: red;
-  font-weight: bold;
+  background-color: darkgreen;
 }
