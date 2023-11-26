@@ -1,11 +1,23 @@
 = @event.name
 h2.text-2xl.font-bold nákupy
 - @shopping_list.shoppings.each do |shopping|
-  h3.text-xl = shopping.date.strftime("%d.%m.%Y")
-  - shopping.ingredients_with_usage.each do |ingredient_with_amount|
-    - ingredient = ingredient_with_amount.first
-    = ingredient.name
-    = ingredient.category&.name
-    br
-    = ingredient_with_amount.second
-    br
+  h3.text-xl = "nákup #{shopping.date.strftime("%d. %m. %Y")}"
+
+  table
+    thead
+      tr
+        th.jídlo
+        th.množství
+    tbody
+    - shopping.ingredients_with_usage.group_by {|i| i.first.category }.each do |category, ingredients_with_usage|
+      tr
+        td
+          h4.text-lg.font-bold = category&.name || "nezařazené"
+      - ingredients_with_usage.each do |ingredient_with_usage|
+        - ingredient = ingredient_with_usage.first
+        - usage = ingredient_with_usage.second
+        - amount = usage[:amount]
+
+        tr
+          td.pe-3 = ingredient.name
+          td = "#{amount.round(1)} #{ingredient.measurement.name}"
