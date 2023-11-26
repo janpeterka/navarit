@@ -1,7 +1,10 @@
-= @event.name
-h2.text-2xl.font-bold nákupy
+h2.text-2xl.font-bold nákupy na #{@event.name} 
+= button_link_to nil, @event, type: :secondary, class: "group" do
+  = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
+  = "zpět na akci"
+
 - @shopping_list.shoppings.each do |shopping|
-  h3.text-xl = "nákup #{shopping.date.strftime("%d. %m. %Y")}"
+  h3.text-2xl = "nákup #{shopping.date.strftime("%d. %m. %Y")}"
 
   table
     thead
@@ -11,7 +14,7 @@ h2.text-2xl.font-bold nákupy
     tbody
     - shopping.ingredients_with_usage.group_by {|i| i.first.category }.each do |category, ingredients_with_usage|
       tr
-        td
+        td.pe-10
           h4.text-lg.font-bold = category&.name || "nezařazené"
       - ingredients_with_usage.each do |ingredient_with_usage|
         - ingredient = ingredient_with_usage.first
@@ -19,5 +22,5 @@ h2.text-2xl.font-bold nákupy
         - amount = usage[:amount]
 
         tr
-          td.pe-3 = ingredient.name
+          td = ingredient.name
           td = "#{amount.round(1)} #{ingredient.measurement.name}"
