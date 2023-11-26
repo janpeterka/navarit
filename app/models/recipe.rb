@@ -9,11 +9,17 @@ class Recipe < ApplicationRecord
 
   has_many :recipe_labels, dependent: :destroy
   has_many :labels, through: :recipe_labels
+  has_many :dietary_labels, -> { of_category('dietary') }, through: :recipe_labels, source: :label
+  has_many :difficulty_labels, -> { of_category('difficulty') }, through: :recipe_labels, source: :label
+
   has_many :tasks, class_name: 'RecipeTask', dependent: :destroy
+
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
+
   has_many :daily_plan_recipes
   has_many :daily_plans, through: :daily_plan_recipes
+
   has_many :events, through: :daily_plans
 
   validates :name, presence: true

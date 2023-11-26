@@ -18,7 +18,7 @@ div
   / p.italic = @recipe.author.email
   div.mt-2
     div.flex.flex-wrap id="#{dom_id(@recipe)}-labels"
-      - @recipe.labels.each do |label|
+      - @recipe.labels.sort_by(&:id).each do |label|
         div.mb-2 = label_badge(label)
 
   div 

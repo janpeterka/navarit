@@ -7,4 +7,8 @@ class Label < ApplicationRecord
   validates :visible_name, presence: true, uniqueness: true
 
   scope :of_category, ->(category) { joins(:category).where('label_categories.name = ?', category) }
+
+  def to_label
+    visible_name
+  end
 end
