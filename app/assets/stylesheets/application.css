@@ -1,1 +1,9 @@
 /* Application styles */
+
+.highlight {
+  background-color: yellow;
+}
+.strong-highlight {
+  background-color: red;
+  font-weight: bold;
+}

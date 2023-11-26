@@ -29,16 +29,15 @@ export default class extends Controller {
   }
 
   addBadge(option) {
-    if (option.value == ""){
-      return
-    }
+    if (option.value == ""){ return }
 
     const badge = document.createElement("span");
     badge.innerText = option.innerText;
     badge.classList.add(...this.BADGE_CLASSES.split(" "));
-    // badge.classList.add("border", "border-emerald-300", "me-1", "mb-1");
     badge.dataset.labelBadgeTarget = "badge";
     badge.dataset.labelBadgeValue = option.value;
+    badge.dataset.selectedClass = option.getAttribute("data-label-color-class") || this.SELECTED_CLASS; // Fix: Set the default value to this.SELECTED_CLASS if data-label-color-class is not provided
+    badge.dataset.unselectedClass = this.UNSELECTED_CLASS
     badge.dataset.action = "click->label-badge#toggle";
     this.element.appendChild(badge);
   }
@@ -52,6 +51,7 @@ export default class extends Controller {
   }
 
   toggleMultiple(event) {
+    console.log("toggleMultiple")
     const badge = event.currentTarget;
     const option = this.element.querySelector(`option[value="${badge.dataset.labelBadgeValue}"]`);
     if (option.selected) {
@@ -77,15 +77,15 @@ export default class extends Controller {
     option.selected = false;
 
     if (badge == null){ return }
-    badge.classList.remove(this.SELECTED_CLASS);
-    badge.classList.add(this.UNSELECTED_CLASS);
+    badge.classList.remove(badge.dataset.selectedClass);
+    badge.classList.add(badge.dataset.unselectedClass);
   }
   
   selectOption(option, badge) {
     option.selected = true;
     if (badge == null){ return }
-    badge.classList.remove(this.UNSELECTED_CLASS);
-    badge.classList.add(this.SELECTED_CLASS);
+    badge.classList.remove(badge.dataset.unselectedClass);
+    badge.classList.add(badge.dataset.selectedClass);
   }
 
   setInitialStates() {
@@ -96,9 +96,9 @@ export default class extends Controller {
       }
 
       if (option.selected) {
-        badge.classList.add(this.SELECTED_CLASS);
+        badge.classList.add(badge.dataset.selectedClass);
       } else {
-        badge.classList.add(this.UNSELECTED_CLASS);
+        badge.classList.add(badge.dataset.unselectedClass);
       }
     });
 

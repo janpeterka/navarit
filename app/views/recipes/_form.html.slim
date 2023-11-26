@@ -2,9 +2,9 @@
   = form.input :name, col_span: :full, autofocus: true
   = form.input :portion_count, col_span: 6
   = form.association :category, col_span: 6
-  = form.association :dietary_labels, col_span: 6, collection: Label.of_category(:dietary),
+  = form.association :dietary_labels, collection: Label.of_category(:dietary), col_span: 6,
                      input_wrapper_html: { data: { controller: "label-badge", label_badge_multiple_value: true }}, input_html: { data: { label_badge_target: "select" } }
-  = form.association :difficulty_labels, col_span: 6, collection: Label.of_category(:difficulty),
+  = form.association :difficulty_labels, col_span: 6, collection: Label.of_category(:difficulty).map { |l| [l.visible_name, l.id, {"data-label-color-class": l.color }] },
                      input_wrapper_html: { data: { controller: "label-badge" }}, input_html: { multiple: false, data: { label_badge_target: "select" } }, allow_blank: false
 
   = form.buttons_section
