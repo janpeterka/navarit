@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :duplications, controller: 'event_duplications', only: %i[new create]
+    resource :shopping_list, controller: 'event_shopping_lists', only: %i[show]
   end
   resources :published_events, only: %i[index create destroy]
   resources :archived_events, only: %i[create destroy]

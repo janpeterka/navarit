@@ -1,0 +1,11 @@
+= @event.name
+h2.text-2xl.font-bold nákupy
+- @shopping_list.shoppings.each do |shopping|
+  h3.text-xl = shopping.date.strftime("%d.%m.%Y")
+  - shopping.ingredients_with_usage.each do |ingredient_with_amount|
+    - ingredient = ingredient_with_amount.first
+    = ingredient.name
+    = ingredient.category&.name
+    br
+    = ingredient_with_amount.second
+    br
