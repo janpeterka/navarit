@@ -29,24 +29,30 @@ class Event < ApplicationRecord
 
   def update(params)
     if params[:date_from].present?
-      if params[:date_from].to_date > date_from
-        daily_plans.before(params[:date_from]).destroy_all
-      elsif params[:date_from].to_date < date_from
-        params[:date_from].upto(date_from - 1.day) do |date|
-          daily_plans.create(date:, created_by: author.id)
+      new_date_from = params[:date_from].to_date
+
+      if new_date_from > date_from
+        daily_plans.before(new_date_from).destroy_all
+      elsif new_date_from < date_from
+        new_date_from.upto(date_from - 1.day) do |date|
+          daily_plans.find_or_create_by(date:)
         end
       end
     end
 
     if params[:date_to].present?
-      if params[:date_to].to_date < date_to
-        daily_plans.after(params[:date_to]).destroy_all
-      elsif params[:date_to] > date_to
-        date_to.upto(params[:date_to] - 1.day) do |date|
-          daily_plans.create(date:, created_by: author.id)
+      new_date_to = params[:date_to].to_date
+
+      if new_date_to < date_to
+        daily_plans.after(new_date_to).destroy_all
+      elsif new_date_to > date_to
+        date_to.upto(new_date_to) do |date|
+          daily_plans.find_or_create_by(date:)
         end
       end
     end
+
+    # TODO: portion count
 
     super(params)
   end
