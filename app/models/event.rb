@@ -27,6 +27,30 @@ class Event < ApplicationRecord
 
   after_create :create_daily_plans
 
+  def update(params)
+    if params[:date_from].present?
+      if params[:date_from].to_date > date_from
+        daily_plans.before(params[:date_from]).destroy_all
+      elsif params[:date_from].to_date < date_from
+        params[:date_from].upto(date_from - 1.day) do |date|
+          daily_plans.create(date:, created_by: author.id)
+        end
+      end
+    end
+
+    if params[:date_to].present?
+      if params[:date_to].to_date < date_to
+        daily_plans.after(params[:date_to]).destroy_all
+      elsif params[:date_to] > date_to
+        date_to.upto(params[:date_to] - 1.day) do |date|
+          daily_plans.create(date:, created_by: author.id)
+        end
+      end
+    end
+
+    super(params)
+  end
+
   def duration
     (date_to - date_from + 1).to_i
   end

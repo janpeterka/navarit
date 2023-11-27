@@ -14,7 +14,8 @@ class DailyPlan < ApplicationRecord
 
   scope :filled, -> { joins(:recipes).distinct.any? }
   scope :on_or_after, ->(date) { where('daily_plans.date >= ?', date) }
-  # scope :after, ->(date) { where('daily_plans.date > ?', date) }
+  scope :before, ->(date) { where('daily_plans.date < ?', date) }
+  scope :after, ->(date) { where('daily_plans.date > ?', date) }
 
   def tasks
     @tasks = []
