@@ -27,6 +27,16 @@ class Event < ApplicationRecord
 
   after_create :create_daily_plans
 
+  def update(params)
+    update_date_from(params[:date_from].to_date) if params[:date_from].present?
+    update_date_to(params[:date_to].to_date) if params[:date_to].present?
+
+    # TODO: portion count, editing disabled for now
+    # update_portion_count(params[:portion_count].to_i) if params[:portion_count].present?
+
+    super(params)
+  end
+
   def duration
     (date_to - date_from + 1).to_i
   end
@@ -84,5 +94,29 @@ class Event < ApplicationRecord
     end
 
     self
+  end
+
+  def update_date_from(new_date_from)
+    return if new_date_from == date_from
+
+    if new_date_from > date_from
+      daily_plans.before(new_date_from).destroy_all
+    elsif new_date_from < date_from
+      new_date_from.upto(date_from - 1.day) do |date|
+        daily_plans.find_or_create_by(date:)
+      end
+    end
+  end
+
+  def update_date_to(new_date_to)
+    return if new_date_to == date_to
+
+    if new_date_to < date_to
+      daily_plans.after(new_date_to).destroy_all
+    elsif new_date_to > date_to
+      date_to.upto(new_date_to) do |date|
+        daily_plans.find_or_create_by(date:)
+      end
+    end
   end
 end

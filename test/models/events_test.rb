@@ -22,7 +22,7 @@ class EventTest < ActiveSupport::TestCase
     assert_equal @recipe, @event.recipes.first
   end
 
-  test 'duplication_into_new_event' do
+  test 'duplication' do
     new_event = Event.new(name: 'event (copy)', date_from: @event.date_from + 3.days, date_to: @event.date_to + 3.days,
                           people_count: @event.people_count)
     new_event.save
@@ -33,5 +33,17 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 1, new_event.recipes.size
     assert_equal 1, new_event.daily_plans.first.day_tasks.size
     assert_equal @recipe, new_event.recipes.first
+  end
+
+  test 'update of start date removing days' do
+    @event.update(date_from: @event.date_from + 2.days)
+
+    assert_equal 1, @event.daily_plans.size
+  end
+
+  test 'update of start date adding days' do
+    @event.update(date_from: @event.date_from - 4.days)
+
+    assert_equal 7, @event.daily_plans.size
   end
 end
