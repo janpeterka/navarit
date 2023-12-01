@@ -183,7 +183,6 @@ GEM
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
-    pg (1.5.4)
     propshaft (0.7.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -363,6 +362,7 @@ GEM
 
 PLATFORMS
   x86_64-linux
+  aarch64-linux
 
 DEPENDENCIES
   bootsnap
@@ -377,7 +377,6 @@ DEPENDENCIES
   kamal
   mysql2
   pagy (~> 6.1)
-  pg
   propshaft
   puma (>= 5.0)
   rails (~> 7.1.1)
