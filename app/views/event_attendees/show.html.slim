@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @event_attendee
+
+div
+  => link_to "Edit this event attendee", edit_event_attendee_path(@event_attendee)
+  '|
+  =< link_to "Back to event attendees", event_attendees_path
+
+  = button_to "Destroy this event attendee", @event_attendee, method: :delete

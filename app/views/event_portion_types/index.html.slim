@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Event portion types
+
+#event_portion_types
+  - @event_portion_types.each do |event_portion_type|
+    == render event_portion_type
+    p
+      / = link_to "Show this event portion type", event_portion_type
+/ 
+= link_to "New event portion type", new_event_portion_type_path
