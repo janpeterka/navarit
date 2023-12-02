@@ -14,11 +14,11 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   # socket: /var/run/mysqld/mysqld.sock
+  host: localhost
+  port: 3306
 
 development:
   <<: *default
-  host: localhost
-  port: 3306
   database: kucharka
   username: kucharka
   password: kucharka
@@ -57,6 +57,7 @@ test:
 #
 production:
   <<: *default
-  database: kucharka_on_rails_production
-  username: kucharka_on_rails
-  password: <%= ENV["KUCHARKA_ON_RAILS_DATABASE_PASSWORD"] %>
+  database: kucharka
+  username: kucharka
+  password: <%= ENV["KUCHARKA_DATABASE_PASSWORD"] %>
+  host: kucharka-db

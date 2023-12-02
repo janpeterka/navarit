@@ -6,7 +6,7 @@ image: janpeterka/kucharka
 
 # Deploy to these servers.
 servers:
-  - janpeterka
+  - kucharka
 
 # Credentials for your image host.
 registry:
@@ -26,6 +26,9 @@ env:
 #     DB_HOST: 192.168.0.2
   secret:
     - RAILS_MASTER_KEY
+    - KUCHARKA_DATABASE_PASSWORD
+    - MYSQL_ROOT_PASSWORD
+
 
 # Use a different ssh user than root
 # ssh:
@@ -42,21 +45,21 @@ env:
 #     host: ssh://app@192.168.0.1
 
 # Use accessory services (secrets come from .env).
-# accessories:
-#   db:
-#     image: mysql:8.0
-#     host: 192.168.0.2
-#     port: 3306
-#     env:
-#       clear:
-#         MYSQL_ROOT_HOST: '%'
-#       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-#     directories:
-#       - data:/var/lib/mysql
+accessories:
+  db:
+    image: mysql:8.0
+    host: kucharka
+    port: 3306
+    env:
+      clear:
+        MYSQL_ROOT_HOST: '%'
+      secret:
+        - MYSQL_ROOT_PASSWORD
+    # files:
+      # - config/mysql/production.cnf:/etc/mysql/my.cnf
+      # - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/mysql
 #   redis:
 #     image: redis:7.0
 #     host: 192.168.0.2
