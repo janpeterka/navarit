@@ -2,7 +2,7 @@
 service: kucharka
 
 # Name of the container image.
-image: kucharka
+image: janpeterka/kucharka
 
 # Deploy to these servers.
 servers:
