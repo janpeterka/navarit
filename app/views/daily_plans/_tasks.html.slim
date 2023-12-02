@@ -1,20 +1,18 @@
 #tasks
     h2.text-xl.font-bold úkoly
+
     - if daily_plan.day_tasks.any?
         ul
             - daily_plan.day_tasks.each do |task|
                 li.mb-1
-                    .grid.grid-cols-4
-                        = simple_form_for task, method: :patch, :html=> {class: "inline col-span-2", data: { controller: "form" }} do |form|
-                            div.grid.grid-cols-2
-                                div = form.input :name, label: false, :input_html => { data: { action: "change->form#submit" } }
-                                div.italic
-                                    = form.input :description, label: false, :input_html => { data: { action: "change->form#submit" } }
-                        div = action_button_to "smazat", task, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"
+                    = default_form_for task, url: daily_plan_task_path(daily_plan_id: daily_plan.id, id: task.id), method: :patch, :html=> {class: "inline", data: { controller: "form" }} do |form|
+                        = form.input :name, col_span: 3, :input_html => { data: { action: "change->form#submit" } }
+                        = form.input :description, col_span: 3, :input_html => { class: "italic", data: { action: "change->form#submit" } }
+                        = action_button_to "smazat", task, formaction: daily_plan_task_path(daily_plan_id: daily_plan.id, id: task.id), formmethod: :delete, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"
     #add-task
         h2.text-xl.font-bold.mb-2 přidat úkol
-        = form_tag daily_plan_tasks_path(daily_plan_id: daily_plan.id), method: :post, class: "grid grid-cols-4" do
-            div = text_field_tag :name, nil, placeholder: "např. objednat pečivo"
-            div = text_area_tag :description, nil, placeholder: "např. pekárna ve Vrchlabí"
-            
-            div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+        = default_form_for DailyPlanTask.new, url: daily_plan_tasks_path(daily_plan_id: daily_plan.id) do |form|
+            = form.input :name, col_span: 3
+            = form.input :description, col_span: 3
+            = form.input :daily_plan_id, as: :hidden, input_html: { value: daily_plan.id }
+            = form.submit "přidat" 
