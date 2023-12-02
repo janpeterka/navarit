@@ -42,7 +42,7 @@ class DailyPlanTasksController < ApplicationController
   # DELETE /daily_plan_tasks/1
   def destroy
     @daily_plan_task.destroy!
-    redirect_to daily_plan_tasks_url, notice: 'Daily plan task was successfully destroyed.', status: :see_other
+    redirect_back_or_to @daily_plan_task.daily_plan, status: :see_other
   end
 
   private
