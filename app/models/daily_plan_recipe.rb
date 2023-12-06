@@ -10,38 +10,38 @@ class DailyPlanRecipe < ApplicationRecord
   has_many :tasks, through: :recipe
 
   validates :portion_count, presence: true
-  validates :order_index, presence: true, numericality: { greater_than_or_equal_to: 1 }
+  validates :position, presence: true, numericality: { greater_than_or_equal_to: 1 }
   # uniqueness: { scope: :daily_plan_id }
 
   scope :shopping, -> { joins(:recipe).where('recipes.name = ? OR daily_plan_recipes.meal_type = ?', 'Nákup', 'nákup') }
 
   delegate :normalize_order_indices, to: :daily_plan
-  # before_validation :set_order_index, on: :create
+  # before_validation :set_position, on: :create
 
   def shopping?
     recipe.shopping?
   end
 
-  def set_order_index
-    self.order_index = daily_plan.daily_plan_recipes.maximum(:order_index) || 0 + 1
+  def set_position
+    self.position = daily_plan.daily_plan_recipes.maximum(:position) || 0 + 1
     normalize_order_indices
   end
 
   def sort_to(new_position)
-    old_position = order_index
+    old_position = position
 
     if new_position < old_position # moving up
-      daily_plan.daily_plan_recipes.where(order_index: new_position..old_position).each do |dpr|
-        dpr.update(order_index: dpr.order_index + 1)
+      daily_plan.daily_plan_recipes.where(position: new_position..old_position).each do |dpr|
+        dpr.update(position: dpr.position + 1)
       end
-      update(order_index: new_position)
+      update(position: new_position)
     end
 
     if old_position < new_position # moving down
-      daily_plan.daily_plan_recipes.where(order_index: old_position..new_position).each do |dpr|
-        dpr.update(order_index: dpr.order_index - 1)
+      daily_plan.daily_plan_recipes.where(position: old_position..new_position).each do |dpr|
+        dpr.update(position: dpr.position - 1)
       end
-      update(order_index: new_position)
+      update(position: new_position)
     end
 
     daily_plan.normalize_order_indices
