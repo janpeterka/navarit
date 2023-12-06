@@ -22,7 +22,7 @@ class DailyPlanRecipesController < ApplicationController
   # POST /daily_plan_recipes
   def create
     @daily_plan_recipe = DailyPlanRecipe.new(daily_plan_recipe_params)
-    @daily_plan_recipe.set_order_index
+    @daily_plan_recipe.set_position
 
     unless @daily_plan_recipe.save
       flash[:error] = "recept nebyl přidán: #{@daily_plan_recipe.errors.full_messages.join(', ')}"

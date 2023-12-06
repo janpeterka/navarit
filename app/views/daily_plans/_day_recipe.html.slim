@@ -2,7 +2,7 @@ li.mb-1 data={ "sortable-update-url": daily_plan_recipe_sort_path(daily_plan_rec
     .grid.grid-cols-4
         = simple_form_for day_recipe, method: :patch, :html=> {class: "inline grid grid-cols-3 col-span-3", data: { controller: "form" }} do |form|
             div.cursor-move
-                = day_recipe.order_index
+                = day_recipe.position
                 = svg("move-handle")
                 = day_recipe.recipe.name
             div

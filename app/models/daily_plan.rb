@@ -5,7 +5,7 @@ class DailyPlan < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'created_by'
 
   has_many :day_tasks, class_name: 'DailyPlanTask', dependent: :destroy
-  has_many :daily_plan_recipes, -> { order(order_index: :asc) }, dependent: :destroy
+  has_many :daily_plan_recipes, -> { order(position: :asc) }, dependent: :destroy
   has_many :recipes, through: :daily_plan_recipes
 
   validates :date, presence: true, uniqueness: { scope: :event_id }
@@ -39,7 +39,7 @@ class DailyPlan < ApplicationRecord
 
   def normalize_order_indices
     daily_plan_recipes.each_with_index do |dpr, index|
-      dpr.update!(order_index: index + 1)
+      dpr.update!(position: index + 1)
     end
   end
 
