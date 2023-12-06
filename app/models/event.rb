@@ -6,7 +6,7 @@ class Event < ApplicationRecord
 
   belongs_to :author, class_name: 'User', foreign_key: 'created_by'
 
-  has_many :daily_plans, dependent: :destroy
+  has_many :daily_plans, -> { order(date: :asc) }, dependent: :destroy
   has_many :event_portion_types, dependent: :destroy
   has_many :attendees, dependent: :destroy
 

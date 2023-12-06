@@ -15,12 +15,9 @@ class DailyPlanRecipe < ApplicationRecord
 
   scope :shopping, -> { joins(:recipe).where('recipes.name = ? OR daily_plan_recipes.meal_type = ?', 'Nákup', 'nákup') }
 
-  delegate :normalize_order_indices, to: :daily_plan
+  delegate :normalize_order_indices, :date, to: :daily_plan
+  delegate :shopping?, to: :recipe
   # before_validation :set_position, on: :create
-
-  def shopping?
-    recipe.shopping?
-  end
 
   def set_position
     self.position = daily_plan.daily_plan_recipes.maximum(:position) || 0 + 1
@@ -52,5 +49,15 @@ class DailyPlanRecipe < ApplicationRecord
     duplicate_daily_plan_recipe.recipe = recipe
 
     duplicate_daily_plan_recipe
+  end
+
+  def ingredients_with_amounts
+    ingredients_with_amounts = {}
+
+    recipe.recipe_ingredients.each do |recipe_ingredient|
+      ingredients_with_amounts[recipe_ingredient.ingredient] = recipe_ingredient.amount * portion_count
+    end
+
+    ingredients_with_amounts
   end
 end

@@ -69,14 +69,12 @@ group :development do
   gem 'rubocop-capybara'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
-  gem 'rubocop-rspec'
   gem 'tailwind-sorter', '~> 0.3.0', require: false # tailwind class sorter by Matouš Borák
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
-  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'sqlite3'
 
