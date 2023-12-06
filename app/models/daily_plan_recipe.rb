@@ -15,7 +15,7 @@ class DailyPlanRecipe < ApplicationRecord
 
   scope :shopping, -> { joins(:recipe).where('recipes.name = ? OR daily_plan_recipes.meal_type = ?', 'Nákup', 'nákup') }
 
-  delegate :normalize_order_indices, to: :daily_plan
+  delegate :normalize_order_indices, :date, to: :daily_plan
   delegate :shopping?, to: :recipe
   # before_validation :set_order_index, on: :create
 

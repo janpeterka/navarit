@@ -2,6 +2,7 @@
 
 module ApplicationHelper
   include Pagy::Frontend
+  include DateHelper
 
   def svg(name, options = {})
     default_classes = 'inline me-2'

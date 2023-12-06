@@ -12,18 +12,18 @@ class EventShoppingList
   def shoppings
     shoppings = []
 
-    lasting_ingredients_shopping = LastingIngredientShopping.new(@event.date_from - 1.day)
+    lasting_ingredients_shopping = LastingIngredientShopping.new(@event.date_from - 1.day, @event)
     shoppings << lasting_ingredients_shopping
 
     # initial shopping
-    shopping = Shopping.new(@event.date_from - 1.day)
+    shopping = Shopping.new(@event.date_from - 1.day, @event)
 
     @event.daily_plans.includes(:daily_plan_recipes).each do |daily_plan|
       daily_plan.daily_plan_recipes.each do |daily_plan_recipe|
         if daily_plan_recipe.shopping?
           # finish previous shopping
           shoppings << shopping
-          shopping = Shopping.new(daily_plan.date)
+          shopping = Shopping.new(daily_plan.date, @event)
         else
           shopping.day_recipes << daily_plan_recipe
         end
@@ -36,7 +36,11 @@ class EventShoppingList
 end
 
 class Shopping
+  include DateHelper
+
   attr_accessor :event, :date, :day_recipes
+
+  def name = "nákup (#{formatted_date(@date)} - #{weekday_name(@date)}"
 
   def initialize(date, event)
     @date = date
@@ -53,7 +57,7 @@ class Shopping
 
         ingredients_with_usage[ingredient] ||= { amount: 0, recipes: {} }
         ingredients_with_usage[ingredient][:amount] += amount
-        ingredients_with_usage[ingredient][:recipes][day_recipe.id] = { recipe_id: day_recipe.recipe.id, amount: }
+        ingredients_with_usage[ingredient][:recipes][day_recipe.id] = { day_recipe:, amount: }
       end
     end
 
@@ -62,6 +66,8 @@ class Shopping
 end
 
 class LastingIngredientShopping < Shopping
+  def name = 'nákup trvanlivých surovin'
+
   def ingredients_with_usage
     ingredients_with_usage = {}
 
@@ -72,8 +78,10 @@ class LastingIngredientShopping < Shopping
         ingredients_with_usage[ingredient] ||= { amount: 0, recipes: {} }
         ingredients_with_usage[ingredient][:amount] += amount
         ingredients_with_usage[ingredient][:recipes][daily_plan_recipe.id] =
-          { recipe_id: daily_plan_recipe.recipe.id, amount: }
+          { day_recipe: daily_plan_recipe, amount: }
       end
     end
+
+    ingredients_with_usage
   end
 end
