@@ -18,7 +18,7 @@
       h2.text-xl.font-bold.mb-2 přidat surovinu
       = form_tag recipe_ingredients_path(recipe_id: @recipe.id), method: :post do
         .grid.grid-cols-4
-          - unused_ingredients = Current.user.ingredients - @recipe.ingredients
+          - unused_ingredients = current_user.ingredients - @recipe.ingredients
           div.grid.grid-cols-2
             = select_tag :ingredient_id, grouped_options_for_select([['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
                                                                 ['veřejné',  Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }],

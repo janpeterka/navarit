@@ -2,7 +2,7 @@
 
 class LikedRecipesController < ApplicationController
   def index
-    @liked_recipes = Recipe.liked_by(Current.user)
+    @liked_recipes = Recipe.liked_by(current_user)
   end
 
   def create

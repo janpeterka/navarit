@@ -4,7 +4,7 @@ class IngredientsController < ApplicationController
   before_action :set_ingredient, only: %i[show edit update destroy]
 
   def index
-    @ingredients = Current.user.ingredients.includes(:category, :measurement).order(:name)
+    @ingredients = current_user.ingredients.includes(:category, :measurement).order(:name)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"

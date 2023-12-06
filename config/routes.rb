@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :recipe_ingredients
+  devise_for :users
+
   resource :dashboard, only: :show
 
   resources :daily_plan_recipes do
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
   resources :published_recipes, only: %i[index create destroy]
   resources :liked_recipes, only: %i[index create destroy]
 
+  resources :recipe_ingredients
   resources :ingredients
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

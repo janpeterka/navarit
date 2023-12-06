@@ -6,7 +6,7 @@ class ApplicationRecord < ActiveRecord::Base
   before_validation :set_created_by, on: :create
 
   def set_created_by
-    self.created_by = Current.user.id if Current.user && respond_to?(:created_by)
-    self.author = Current.user if Current.user && respond_to?(:author)
+    self.created_by = current_user.id if current_user && respond_to?(:created_by)
+    self.author = current_user if current_user && respond_to?(:author)
   end
 end

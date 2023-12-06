@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
 
   # GET /recipes
   def index
-    @recipes = Current.user.recipes.includes(:category, :labels).order(:name)
+    @recipes = current_user.recipes.includes(:category, :labels).order(:name)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"

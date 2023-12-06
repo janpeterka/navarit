@@ -26,7 +26,7 @@
 
   #recipes
     h3.text-xl moje recepty se surovinou
-    - @ingredient.recipes.created_by(Current.user).each do |recipe|
+    - @ingredient.recipes.created_by(current_user).each do |recipe|
       li = link_to recipe.name, recipe
 
     h3.text-xl všechny recepty se surovinou

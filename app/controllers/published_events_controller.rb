@@ -5,7 +5,7 @@ class PublishedEventsController < ApplicationController
 
   # GET /events
   def index
-    @events = Current.user.events
+    @events = current_user.events
   end
 
   # POST /events

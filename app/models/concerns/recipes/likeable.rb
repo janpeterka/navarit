@@ -15,11 +15,11 @@ module Recipes
     end
 
     def like!
-      reactions.create(user: Current.user)
+      reactions.create(user: current_user)
     end
 
     def unlike!
-      reactions.where(user: Current.user).destroy_all
+      reactions.where(user: current_user).destroy_all
     end
   end
 end
