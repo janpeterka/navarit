@@ -15,6 +15,8 @@ class Ingredient < ApplicationRecord
   scope :published, -> { where(is_public: true) }
   scope :not_published, -> { where(is_public: false) }
 
+  delegate :lasting?, to: :category
+
   def name_with_unit
     if measurement.present?
       "#{name} (#{measurement.name})"
