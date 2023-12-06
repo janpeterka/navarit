@@ -6,20 +6,18 @@ ruby '3.2.2'
 
 gem 'rails', '~> 7.1.1'
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-# gem 'sprockets-rails'
-
 # back-end
+gem 'devise' # Flexible authentication solution for Rails with Warden
 gem 'mysql2'
 gem 'pagy', '~> 6.1' # pagination
 gem 'pg' # Use PostgreSQL as the database for Active Record
-gem 'rails-i18n' # Add support for internationalization (i18n) to Rails [
+gem 'propshaft'
+gem 'rails-i18n' # Add support for internationalization (i18n) to Rails
 gem 'trilogy' # Use trilogy as the database for Active Record
 
 # front-end
 gem 'importmap-rails' # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 # gem 'jbuilder' # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem 'propshaft'
 gem 'simple_form' # Use SimpleForm for forms
 # gem 'slim'
 gem 'slim-rails'
