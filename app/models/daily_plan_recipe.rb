@@ -17,7 +17,7 @@ class DailyPlanRecipe < ApplicationRecord
 
   delegate :normalize_order_indices, :date, to: :daily_plan
   delegate :shopping?, to: :recipe
-  # before_validation :set_order_index, on: :create
+  # before_validation :set_position, on: :create
 
   def set_position
     self.position = daily_plan.daily_plan_recipes.maximum(:position) || 0 + 1

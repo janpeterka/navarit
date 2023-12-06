@@ -4,7 +4,10 @@ li.mb-1 data={ "sortable-update-url": daily_plan_recipe_sort_path(daily_plan_rec
             div.cursor-move
                 = day_recipe.position
                 = svg("move-handle")
-                = link_to day_recipe.recipe.name, day_recipe.recipe
+                - if day_recipe.recipe.shopping?
+                    span = day_recipe.recipe.name
+                - else
+                    = link_to day_recipe.recipe.name, day_recipe.recipe
             div
                 
                 = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES, selected: day_recipe.meal_type,
