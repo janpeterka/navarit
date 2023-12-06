@@ -40,7 +40,7 @@ class Shopping
 
   attr_accessor :event, :date, :day_recipes
 
-  def name = "nákup (#{formatted_date(@date)} - #{weekday_name(@date)}"
+  def name = "nákup (#{formatted_date(@date)} - #{weekday_name(@date)})"
 
   def initialize(date, event)
     @date = date
