@@ -59,5 +59,6 @@ production:
   <<: *default
   database: kucharka
   username: kucharka
-  password: <%= ENV["KUCHARKA_DATABASE_PASSWORD"] %>
-  host: kucharka-db
+  password: <%= ENV["MYSQL_PASSWORD"] %>
+  # host: kucharka-db
+  host: 10.0.60.33
