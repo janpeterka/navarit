@@ -1,1 +1,8 @@
 /* Application styles */
+
+.highlight {
+  background-color: darkgreen;
+}
+.strong-highlight {
+  background-color: darkgreen;
+}

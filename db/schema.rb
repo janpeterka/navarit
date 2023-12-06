@@ -54,7 +54,7 @@ ActiveRecord::Schema[7.1].define(version: 0) do
                                            force: :cascade do |t|
     t.integer 'recipe_id', null: false
     t.integer 'daily_plan_id', null: false
-    t.integer 'order_index'
+    t.integer 'position'
     t.datetime 'created_at', precision: nil
     t.column 'meal_type',
              "enum('snídaně','dopolední svačina','oběd','odpolední svačina','večeře','programové','jiné','nákup')"
