@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 class DeviseCreateUsers < ActiveRecord::Migration[7.1]
-  def change
-    rename_column :users, :password, :flask_password
+  def up
+    rename_column :users, :password, :temp_password
+
+    User.where(email: '').destroy_all
 
     change_table :users do |t|
       ## Database authenticatable
       # t.string :email,              null: false, default: ''
       t.string :encrypted_password, null: false, default: ''
+      t.string :legacy_password, null: true, default: ''
 
       ## Recoverable
       t.string   :reset_password_token
@@ -41,9 +44,12 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
     add_index :users, :reset_password_token, unique: true
     add_index :users, :confirmation_token,   unique: true
     # # add_index :users, :unlock_token,         unique: true
-
     User.all.each do |user|
-      user.update!(encrypted_password: user.flask_password | 'x')
+      user.update!(legacy_password: user.temp_password, encrypted_password: user.temp_password || 'x')
     end
+
+    rename_column :users, :temp_password, :password
   end
+
+  def down; end
 end

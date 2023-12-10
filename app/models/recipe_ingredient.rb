@@ -13,6 +13,8 @@ class RecipeIngredient < ApplicationRecord
   delegate :name, to: :ingredient
 
   def recipe_amount
+    return 0 if amount.nil?
+
     amount * recipe.portion_count
   end
 end

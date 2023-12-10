@@ -4,10 +4,6 @@ div
             = link_to r_ingredient.ingredient.name, r_ingredient.ingredient
         = t.column "množství na #{@portion_count} porcí" do |r_ingredient|
             = formatted_amount_with_unit(r_ingredient, @portion_count)
-            = " | "
-            = (r_ingredient.amount * @portion_count).round(1)
-            = " "
-            = r_ingredient.ingredient.measurement&.name
 
     = button_link_to "upravit suroviny", recipe_path(@recipe, edited_section: :ingredients)
     br

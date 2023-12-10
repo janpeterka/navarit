@@ -27,5 +27,5 @@ nav.mt-4.mb-4
                         = render "shared/navbar_link", link: "/a/", icon: "administration", text: "administrace"
                     hr
                     = render "shared/navbar_link", link: "/sign_out", icon: "logout", text: "odhlásit se"
-                    = button_to destroy_user_session_path, method: :delete
+                    = button_to "odhlásit se", destroy_user_session_path, method: :delete
 
