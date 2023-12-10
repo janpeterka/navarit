@@ -7,10 +7,10 @@ ruby '3.2.2'
 gem 'rails', '~> 7.1.1'
 
 # back-end
+gem 'cancancan' # The authorization Gem for Ruby on Rails
 gem 'devise' # Flexible authentication solution for Rails with Warden
 gem 'mysql2'
 gem 'pagy', '~> 6.1' # pagination
-# gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'propshaft'
 gem 'rails-i18n' # Add support for internationalization (i18n) to Rails
 gem 'trilogy' # Use trilogy as the database for Active Record

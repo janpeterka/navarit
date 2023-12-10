@@ -22,6 +22,7 @@ class PublishedRecipesController < PublicApplicationController
 
   def create
     recipe = Recipe.find(params[:recipe_id])
+    authorize! :manage, recipe
 
     if recipe.publish!
       flash[:notice] = 'recept byl zveřejněn'
@@ -34,6 +35,8 @@ class PublishedRecipesController < PublicApplicationController
 
   def destroy
     recipe = Recipe.find(params[:id])
+    authorize! :manage, recipe
+
     recipe.unpublish!
 
     redirect_back_or_to recipe, notice: 'recept byl zneveřejněn'

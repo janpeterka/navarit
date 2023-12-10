@@ -20,7 +20,7 @@ class RecipeTasksController < ApplicationController
 
   # POST /recipe_tasks
   def create
-    @recipe_task = RecipeTask.new(recipe_task_params)
+    @recipe_task = @recipe.tasks.new(recipe_task_params)
 
     flash[:error] = 'něco se nepovedlo' unless @recipe_task.save
 
