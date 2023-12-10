@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show edit update destroy]
+  load_and_authorize_resource
 
   # GET /events
   def index
@@ -44,11 +44,6 @@ class EventsController < ApplicationController
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_event
-    @event = Event.find(params[:id])
-  end
 
   # Only allow a list of trusted parameters through.
   def event_params
