@@ -1,0 +1,35 @@
+h2.text-2xl.font-bold nákupy na #{@event.name} 
+= button_link_to nil, @event, type: :secondary, class: "group" do
+  = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
+  = "zpět na akci"
+
+- @shopping_list.shoppings.each do |shopping|
+  h3.text-2xl = shopping.name
+
+  table
+    thead
+      tr
+        th.jídlo
+        th.množství
+    tbody
+    - shopping.ingredients_with_usage.group_by {|i| i.first.category }.each do |category, ingredients_with_usage|
+      tr.pe-12
+        td
+          h4.text-lg.font-bold = category&.name || "nezařazené"
+      - ingredients_with_usage.each do |ingredient_with_usage|
+        - ingredient = ingredient_with_usage.first
+        - usage = ingredient_with_usage.second
+        - amount = usage[:amount]
+
+        tr
+          td = ingredient.name
+          td = "#{amount.round(1)} #{ingredient.measurement.name}"
+
+        - usage[:recipes].each do |day_recipe_with_values|
+          - day_recipe = day_recipe_with_values.second[:day_recipe]
+          - amount = day_recipe_with_values.second[:amount]
+          tr.italic
+            td.ps-4.pe-24
+              = day_recipe.recipe.name
+              = " (#{formatted_date(day_recipe.date)} - #{weekday_name(day_recipe.date)})"
+            td = "#{amount.round(1)} #{ingredient.measurement.name}"

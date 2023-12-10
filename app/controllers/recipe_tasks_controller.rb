@@ -62,6 +62,6 @@ class RecipeTasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def recipe_task_params
-    params.fetch(:recipe_task, {}).permit(:name, :description, :days_before_cooking, :recipe_id)
+    params.fetch(:recipe_task, params).permit(:name, :description, :days_before_cooking, :recipe_id)
   end
 end

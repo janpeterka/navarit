@@ -12,4 +12,10 @@ FactoryBot.define do
       end
     end
   end
+
+  factory :shopping, class: Recipe do
+    id { 167 }
+    name { 'Shopping' }
+    portion_count { 1 }
+  end
 end

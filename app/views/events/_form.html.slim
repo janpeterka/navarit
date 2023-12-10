@@ -2,6 +2,6 @@
   = form.input :name, col_span: :full, autofocus: true
   = form.input :date_from, as: :date, col_span: 3
   = form.input :date_to, as: :date, col_span: 3
-  = form.input :people_count, col_span: 3
+  = form.input :people_count, col_span: 3, disabled: event.persisted?
   = form.buttons_section
     = form.submit
