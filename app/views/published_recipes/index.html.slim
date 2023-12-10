@@ -1,7 +1,7 @@
 - content_for :title, "sdílené recepty"
 
 .mb-2
-  - placeholder = Recipe.published.order("RAND()").limit(1).first.name
+  - placeholder = Recipe.published.order("RAND()").limit(1).first&.name
   = simple_form_for "", url: published_recipes_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "published_recipes"}} do |f|
       = f.input :query, label: false, placeholder: "hledej např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
 

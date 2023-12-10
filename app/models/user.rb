@@ -14,6 +14,8 @@ class User < ApplicationRecord
   # has_many :events_in_role, through: :user_event_roles, source: :event
   has_many :portion_types
 
+  before_validation :set_legacy_columns, on: :create
+
   def name
     full_name
   end
@@ -58,5 +60,10 @@ class User < ApplicationRecord
     digest = OpenSSL::Digest.new('sha512')
     hmac = OpenSSL::HMAC.digest(digest, salt, password)
     Base64.encode64(hmac).chomp.gsub(/\n/, '')
+  end
+
+  def set_legacy_columns
+    self.active = true
+    self.fs_uniquifier = SecureRandom.hex(16)
   end
 end
