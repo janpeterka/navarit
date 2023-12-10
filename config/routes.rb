@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resource :dashboard, only: :show
+  resource :index, only: :show
 
   resources :daily_plan_recipes do
     patch :sort
@@ -37,5 +38,5 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Defines the root path route ("/")
-  root 'dashboards#show'
+  root 'index#show'
 end

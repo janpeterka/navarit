@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class PublishedRecipesController < ApplicationController
+class PublishedRecipesController < PublicApplicationController
   def index
     # @published_recipes = Recipe.published.includes(:category, :labels, :reactions)
-    @published_recipes = Recipe.published.includes(:category, :labels)
+    @published_recipes = Recipe.published.includes(:category, :labels, :reactions)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
       @published_recipes = @published_recipes.where('LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ? OR LOWER(labels.visible_name) LIKE ?',
-                                                    query, query, query).references(:category, :labels)
+                                                    query, query, query).references(:category, :labels, :reactions)
     end
 
     # @pagy, @recipes = pagy(@recipes)
