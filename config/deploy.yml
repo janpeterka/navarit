@@ -1,0 +1,119 @@
+# Name of your application. Used to uniquely configure containers.
+service: kucharka
+
+# Name of the container image.
+image: janpeterka/kucharka
+
+# Deploy to these servers.
+servers:
+  - kucharka
+  # web:
+    # hosts:
+      # - kucharka
+    # options:
+      # "network": "kucharka-network"
+
+
+networks:
+  - kucharka-network
+
+# Credentials for your image host.
+registry:
+  server: ghcr.io
+  username: janpeterka
+
+  # Always use an access token rather than real password when possible.
+  password:
+    - KAMAL_REGISTRY_TOKEN
+
+# Inject ENV variables into containers (secrets come from .env).
+# Remember to run `kamal env push` after making changes!
+env:
+#   clear:
+#     DB_HOST: 192.168.0.2
+  secret:
+    - RAILS_MASTER_KEY
+    - MYSQL_ROOT_PASSWORD
+    - MYSQL_PASSWORD
+
+
+# Use a different ssh user than root
+# ssh:
+#   user: app
+
+# Configure builder setup.
+# builder:
+#   args:
+#     RUBY_VERSION: 3.2.0
+#   secrets:
+#     - GITHUB_TOKEN
+#   remote:
+#     arch: amd64
+#     host: ssh://app@192.168.0.1
+
+# Use accessory services (secrets come from .env).
+accessories:
+  db:
+    image: mysql
+    host: kucharka
+    port: 3306
+    # TODO: dont tunnel port
+    # port: 127.0.0.1:3306:3306
+
+    env:
+      clear:
+        MYSQL_ROOT_HOST: '%'
+        MYSQL_DATABASE: kucharka
+        MYSQL_USER: kucharka
+      secret:
+        - MYSQL_ROOT_PASSWORD
+        - MYSQL_PASSWORD
+      
+    # files:
+      # - config/mysql/production.cnf:/etc/mysql/my.cnf
+      # - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/mysql
+    options:
+      network: "kucharka-network"
+#   redis:
+#     image: redis:7.0
+#     host: 192.168.0.2
+#     port: 6379
+#     directories:
+#       - data:/data
+
+# Configure custom arguments for Traefik
+# traefik:
+  # labels:
+    # traefik.docker.network: "kucharka-network"
+#   args:
+#     accesslog: true
+#     accesslog.format: json
+
+# Configure a custom healthcheck (default is /up on port 3000)
+# healthcheck:
+#   path: /healthz
+#   port: 4000
+
+# Bridge fingerprinted assets, like JS and CSS, between versions to avoid
+# hitting 404 on in-flight requests. Combines all files from new and old
+# version inside the asset_path.
+# asset_path: /rails/public/assets
+
+# Configure rolling deploys by setting a wait time between batches of restarts.
+# boot:
+#   limit: 10 # Can also specify as a percentage of total hosts, such as "25%"
+#   wait: 2
+
+# Configure the role used to determine the primary_host. This host takes
+# deploy locks, runs health checks during the deploy, and follow logs, etc.
+#
+# Caution: there's no support for role renaming yet, so be careful to cleanup
+#          the previous role on the deployed hosts.
+# primary_role: web
+
+# Controls if we abort when see a role with no hosts. Disabling this may be
+# useful for more complex deploy configurations.
+#
+# allow_empty_roles: false

@@ -12,7 +12,7 @@ gem 'rails', '~> 7.1.1'
 # back-end
 gem 'mysql2'
 gem 'pagy', '~> 6.1' # pagination
-gem 'pg' # Use PostgreSQL as the database for Active Record
+# gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'rails-i18n' # Add support for internationalization (i18n) to Rails [
 gem 'trilogy' # Use trilogy as the database for Active Record
 
@@ -32,7 +32,7 @@ gem 'view_component'
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 
 # devops
-# gem 'kamal'
+gem 'kamal'
 gem 'puma', '>= 5.0' # Use the Puma web server [https://github.com/puma/puma]
 
 # other
