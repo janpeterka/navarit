@@ -60,4 +60,5 @@ production:
   database: kucharka
   username: kucharka
   password: <%= ENV["MYSQL_PASSWORD"] %>
-  host: kucharka-db
+  # host: kucharka-db
+  host: 10.0.60.33

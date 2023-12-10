@@ -6,11 +6,12 @@ image: janpeterka/kucharka
 
 # Deploy to these servers.
 servers:
-  web:
-    hosts:
-      - kucharka
-    options:
-      "network": "kucharka-network"
+  - kucharka
+  # web:
+    # hosts:
+      # - kucharka
+    # options:
+      # "network": "kucharka-network"
 
 
 networks:
@@ -84,6 +85,8 @@ accessories:
 
 # Configure custom arguments for Traefik
 # traefik:
+  # labels:
+    # traefik.docker.network: "kucharka-network"
 #   args:
 #     accesslog: true
 #     accesslog.format: json
