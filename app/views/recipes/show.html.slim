@@ -1,6 +1,7 @@
 - content_for :title, @recipe.name
+- local_assigns[:header_class] = "inline-block"
 
-div
+- content_for :header_right do
   = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0"
 
   - if @recipe.deletable?

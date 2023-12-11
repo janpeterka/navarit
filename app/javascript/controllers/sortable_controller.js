@@ -13,11 +13,13 @@ export default class extends Sortable {
     options["group"] = this.element.dataset.sortableGroupValue
     options["onAdd"] = this.onAdd
 
-    options["onStart"] = (event) => {
-      event.item.classList.add(...this.element.dataset.sortableDraggingClasses.split(" "))
-    }
-    options["onEnd"] = (event) => {
-      event.item.classList.remove(...this.element.dataset.sortableDraggingClasses.split(" "))
+    if (this.element.dataset.sortableDraggingClasses){
+      options["onStart"] = (event) => {
+        event.item.classList.add(...this.element.dataset.sortableDraggingClasses.split(" "))
+      }
+      options["onEnd"] = (event) => {
+        event.item.classList.remove(...this.element.dataset.sortableDraggingClasses.split(" "))
+      }
     }
 
     return options
@@ -35,7 +37,7 @@ export default class extends Sortable {
     data.append(param, newIndex + 1)
     data.append("daily_plan_id", listId)
 
-    return await patch(moveUrl, { body: data, responseKind: this.responseKindValue })
+    await patch(moveUrl, { body: data, responseKind: this.responseKindValue })
   }
 
 }

@@ -1,13 +1,12 @@
 - content_for :title, @ingredient.name
+- local_assigns[:header_class] = "inline-block"
 
-- content_for :header do 
-  = @ingredient.name
-  span.text-base.float-right
-    = button_link_to "upravit", edit_ingredient_path(@ingredient)
-    - if @ingredient.deletable?
-      = action_button_to "smazat", @ingredient, type: :dangerous, method: :delete
-    - else
-      = action_button_to "je v receptu, nelze smazat", @ingredient, method: :delete, disabled: true
+- content_for :header_right do
+  = button_link_to "upravit", edit_ingredient_path(@ingredient)
+  - if @ingredient.deletable?
+    = action_button_to "smazat", @ingredient, type: :dangerous, method: :delete
+  - else
+    = action_button_to "je v receptu, nelze smazat", @ingredient, method: :delete, disabled: true
 
 .grid.grid-cols-2
 

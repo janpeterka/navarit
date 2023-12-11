@@ -1,6 +1,7 @@
 - daily_plan = day.daily_plan.presence
 - day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
 - border_color_class = daily_plan.present? ? "border-emerald-600" : "border-gray-300"
+- border_color_class += " hidden md:inline" unless daily_plan.present?
 
 div.border.border-2.rounded-xl.shadow.text-center id="#{day_dom_id}-card" class=border_color_class
     div.text-xl.mt-2
@@ -14,7 +15,7 @@ div.border.border-2.rounded-xl.shadow.text-center id="#{day_dom_id}-card" class=
     
     - if daily_plan.present?
         div.overflow-hidden.mb-3 id="#{day_dom_id}-recipes"
-            ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-emerald-700 text-white"
+            ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-emerald-500 text-white"
                 - daily_plan.daily_plan_recipes.each do |daily_recipe|
                     = render "day_recipe", daily_recipe: daily_recipe
    
