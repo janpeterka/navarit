@@ -4,10 +4,11 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    can :create, User
     can :read, Recipe, is_shared: true
     can :read, Ingredient, is_public: true
 
-    nil unless user.present?
+    return unless user.present?
 
     can :read, :all, author: user
     can :manage, :all, author: user
