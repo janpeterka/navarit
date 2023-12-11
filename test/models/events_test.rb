@@ -24,8 +24,8 @@ class EventTest < ActiveSupport::TestCase
 
   test 'duplication' do
     new_event = Event.new(name: 'event (copy)', date_from: @event.date_from + 3.days, date_to: @event.date_to + 3.days,
-                          people_count: @event.people_count)
-    new_event.save
+                          people_count: @event.people_count, created_by: 1)
+    new_event.save!
 
     @event.duplicate_into(new_event)
 
