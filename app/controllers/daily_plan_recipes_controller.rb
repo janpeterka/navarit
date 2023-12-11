@@ -2,6 +2,7 @@
 
 class DailyPlanRecipesController < ApplicationController
   before_action :set_daily_plan_recipe, only: %i[show edit update destroy]
+  before_action :set_daily_plan, only: %i[create]
 
   # GET /daily_plan_recipes
   def index
@@ -21,8 +22,7 @@ class DailyPlanRecipesController < ApplicationController
 
   # POST /daily_plan_recipes
   def create
-    @daily_plan_recipe = DailyPlanRecipe.new(daily_plan_recipe_params)
-    @daily_plan_recipe.set_position
+    @daily_plan_recipe = @daily_plan.daily_plan_recipes.new(daily_plan_recipe_params)
 
     unless @daily_plan_recipe.save
       flash[:error] = "recept nebyl přidán: #{@daily_plan_recipe.errors.full_messages.join(', ')}"
@@ -41,8 +41,7 @@ class DailyPlanRecipesController < ApplicationController
 
   # DELETE /daily_plan_recipes/1
   def destroy
-    @daily_plan_recipe.destroy!
-    @daily_plan_recipe.normalize_order_indices
+    @daily_plan_recipe.destroy
 
     redirect_back_or_to @daily_plan_recipe.daily_plan, notice: 'recept byl odebrán'
   end
@@ -51,7 +50,7 @@ class DailyPlanRecipesController < ApplicationController
     daily_plan_recipe = DailyPlanRecipe.find(params[:daily_plan_recipe_id])
     new_position = params[:position].to_i
 
-    daily_plan_recipe.sort_to(new_position)
+    daily_plan_recipe.insert_at(new_position)
   end
 
   def move
@@ -59,8 +58,9 @@ class DailyPlanRecipesController < ApplicationController
     new_plan = DailyPlan.find(params[:daily_plan_id])
     new_position = params[:position].to_i
 
-    daily_plan_recipe.update!(daily_plan: new_plan)
-    # daily_plan_recipe.sort_to(new_position)
+    daily_plan_recipe.remove_from_list
+    daily_plan_recipe.update(daily_plan: new_plan)
+    daily_plan_recipe.insert_at(new_position)
   end
 
   private
@@ -68,6 +68,10 @@ class DailyPlanRecipesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_daily_plan_recipe
     @daily_plan_recipe = DailyPlanRecipe.find(params[:id])
+  end
+
+  def set_daily_plan
+    @daily_plan = DailyPlan.find(params[:daily_plan_id])
   end
 
   # Only allow a list of trusted parameters through.

@@ -37,12 +37,6 @@ class DailyPlan < ApplicationRecord
     tasks
   end
 
-  def normalize_order_indices
-    daily_plan_recipes.each_with_index do |dpr, index|
-      dpr.update!(position: index + 1)
-    end
-  end
-
   def duplicate
     duplicate_daily_plan = dup
     duplicate_daily_plan.day_tasks = day_tasks.map(&:dup)
