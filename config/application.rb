@@ -27,5 +27,7 @@ module KucharkaOnRails
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :cs
     config.i18n.available_locales = :cs, :en
+
+    config.action_dispatch.rescue_responses.merge!('CanCan::AccessDenied' => :not_found)
   end
 end

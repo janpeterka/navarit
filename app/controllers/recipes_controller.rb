@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class RecipesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_recipe, only: %i[show edit update destroy]
 
   # GET /recipes
   def index
-    @recipes = Current.user.recipes.includes(:category, :labels).order(:name)
+    @recipes = current_user.recipes.includes(:category, :labels).order(:name)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
@@ -38,7 +39,7 @@ class RecipesController < ApplicationController
 
   # POST /recipes
   def create
-    @recipe = Recipe.new(recipe_params)
+    @recipe = current_user.recipes.new(recipe_params)
 
     if @recipe.save
       redirect_to recipe_path(@recipe, edited_section: :ingredients)

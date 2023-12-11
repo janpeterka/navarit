@@ -23,8 +23,8 @@
     h2.text-xl.font-bold.mb-2 přidat recept
     = form_tag daily_plan_recipes_path(daily_plan_id: @daily_plan), method: :post do
       .grid.grid-cols-4
-        div = select_tag :recipe_id, grouped_options_for_select([['moje recepty',  Current.user.recipes.collect {|v| [ v.name, v.id ] }],
-                                                               ['oblíbené',  Recipe.liked_by(Current.user).collect {|v| [ v.name, v.id ] }],
+        div = select_tag :recipe_id, grouped_options_for_select([['moje recepty',  current_user.recipes.collect {|v| [ v.name, v.id ] }],
+                                                               ['oblíbené',  Recipe.liked_by(current_user).collect {|v| [ v.name, v.id ] }],
                                                                ['veřejné',  Recipe.published.collect {|v| [ v.name, v.id ] }],
                                                               ]),
                        class: "w-80"

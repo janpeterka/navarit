@@ -7,7 +7,7 @@
             span.float-right
                 = recipe.author.full_name
         .mb-1
-            - if recipe.liked_by?(Current.user)
+            - if recipe.liked_by?(current_user)
                 = button_to liked_recipe_path(recipe), method: :delete, class: "inline-block" do
                     = svg("heart-filled")
                     = recipe.reactions.size

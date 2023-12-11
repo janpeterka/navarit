@@ -14,12 +14,12 @@ module Recipes
       reactions.where(user:).any?
     end
 
-    def like!
-      reactions.create(user: Current.user)
+    def like!(user)
+      reactions.create(user:)
     end
 
-    def unlike!
-      reactions.where(user: Current.user).destroy_all
+    def unlike!(user)
+      reactions.where(user:).destroy_all
     end
   end
 end

@@ -11,8 +11,7 @@ class EventDuplicationsController < ApplicationController
 
     new_date_to = original_event.date_to + date_offset
 
-    event = Event.new(event_params.merge(date_to: new_date_to, name: "#{original_event.name} (kopie)"))
-    event.save
+    event = current_user.events.create(event_params.merge(date_to: new_date_to, name: "#{original_event.name} (kopie)"))
 
     original_event.duplicate_into(event)
     event.save

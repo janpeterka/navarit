@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :recipe_ingredients
+  devise_for :users
+
   resource :dashboard, only: :show
+  resource :index, only: :show
 
   resources :daily_plan_recipes do
     patch :sort
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
   resources :published_recipes, only: %i[index create destroy]
   resources :liked_recipes, only: %i[index create destroy]
 
+  resources :recipe_ingredients
   resources :ingredients
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -35,5 +38,5 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Defines the root path route ("/")
-  root 'dashboards#show'
+  root 'index#show'
 end

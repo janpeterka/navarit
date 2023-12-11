@@ -5,6 +5,7 @@ FactoryBot.define do
     id { 1 }
     name { 'Hummus with carrot' }
     portion_count { 3 }
+    created_by { 1 }
     ingredients { [FactoryBot.build(:hummus), FactoryBot.build(:carrot)] }
     after(:build) do |recipe|
       recipe.recipe_ingredients.each do |ri|
@@ -16,6 +17,7 @@ FactoryBot.define do
   factory :shopping, class: Recipe do
     id { 167 }
     name { 'Shopping' }
+    created_by { 1 }
     portion_count { 1 }
   end
 end

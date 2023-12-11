@@ -4,6 +4,8 @@ module RecipeIngredientsHelper
   # portion count is normally counted from recipe, but in case user is viewing recipe with different portion count,
   #  it can be passed as optional parameter
   def formatted_amount_with_unit(recipe_ingredient, portion_count = recipe_ingredient.recipe.portion_count)
+    return "0 #{recipe_ingredient.ingredient.measurement&.name}" if recipe_ingredient.amount.nil?
+
     amount = recipe_ingredient.amount * portion_count
     measurement = recipe_ingredient.ingredient.measurement
 
