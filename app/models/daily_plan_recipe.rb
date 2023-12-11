@@ -7,42 +7,16 @@ class DailyPlanRecipe < ApplicationRecord
 
   belongs_to :recipe
   belongs_to :daily_plan
+  acts_as_list scope: :daily_plan
   has_many :tasks, through: :recipe
 
   validates :portion_count, presence: true
-  validates :position, presence: true, numericality: { greater_than_or_equal_to: 1 }
-  # uniqueness: { scope: :daily_plan_id }
+  # validates :position, presence: true, numericality: { greater_than_or_equal_to: 1 } # this is not validated, as it is set by acts_as_list after validations
 
   scope :shopping, -> { joins(:recipe).where('recipes.name = ? OR daily_plan_recipes.meal_type = ?', 'Nákup', 'nákup') }
 
-  delegate :normalize_order_indices, :date, to: :daily_plan
+  delegate :date, to: :daily_plan
   delegate :shopping?, to: :recipe
-  # before_validation :set_position, on: :create
-
-  def set_position
-    self.position = daily_plan.daily_plan_recipes.maximum(:position) || 0 + 1
-    normalize_order_indices
-  end
-
-  def sort_to(new_position)
-    old_position = position
-
-    if new_position < old_position # moving up
-      daily_plan.daily_plan_recipes.where(position: new_position..old_position).each do |dpr|
-        dpr.update(position: dpr.position + 1)
-      end
-      update(position: new_position)
-    end
-
-    if old_position < new_position # moving down
-      daily_plan.daily_plan_recipes.where(position: old_position..new_position).each do |dpr|
-        dpr.update(position: dpr.position - 1)
-      end
-      update(position: new_position)
-    end
-
-    daily_plan.normalize_order_indices
-  end
 
   def duplicate
     duplicate_daily_plan_recipe = dup
