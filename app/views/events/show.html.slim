@@ -15,6 +15,10 @@
   = button_link_to "upravit", edit_event_path(@event)
 
   - if @event.published?
+    span data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno"}
+      span.hidden data={ "clipboard-target": "source" } = @event.public_url
+      = button_tag "veřejný link", data: { clipboard_target: "button", action: "clipboard#copy" }
+    
     = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
   - else
     = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post

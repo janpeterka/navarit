@@ -1,0 +1,50 @@
+- content_for :title, @event.name
+- local_assigns[:override_title] = true
+
+= turbo_frame_tag dom_id(@event) do
+  h1.text-3xl.text-strong.mb-2
+    = yield :title
+    = " (archivováno)" if @event.archived?
+
+  #details
+    div = "od #{@event.date_from} do #{@event.date_to}"
+    div = "#{@event.duration} dní"
+    div = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
+
+#days
+  .grid.grid-cols-7.gap-3
+    - @event.timetable.days.each do |day|
+        - daily_plan = day.daily_plan.presence
+        - day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
+        - border_color_class = daily_plan.present? ? "border-emerald-600" : "border-gray-300"
+
+        div.border.border-2.rounded-xl.shadow.text-center id="#{day_dom_id}-card" class=border_color_class
+            div.text-xl.mt-2
+                - if daily_plan.present?
+                    = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-emerald-700" do 
+                        = weekday_name(day.date)
+
+                - else
+                    = weekday_name(day.date)
+                p.italic.text-sm = formatted_date(day.date)
+            
+            - if daily_plan.present?
+                div.overflow-hidden.mb-3 id="#{day_dom_id}-recipes"
+                    ul.space-y-2.first:mt-2.last:mb-3
+                        - daily_plan.daily_plan_recipes.each do |daily_recipe|
+                            li.overflow-hidden.p-2.m-2.border.border-emerald-700.rounded.shadow
+                                span.truncate = daily_recipe.recipe.name
+        
+            - if day.tasks.any?
+                hr
+            
+            div.overflow-hidden id="#{day_dom_id}-tasks"
+                - day.tasks.each do |task|
+                    span.italic.overflow-hidden.truncate
+                        = task.name
+
+                    br
+
+
+= button_link_to "nákupní seznam", event_shopping_list_path(@event)
+      

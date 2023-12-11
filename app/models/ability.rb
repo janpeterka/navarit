@@ -7,6 +7,7 @@ class Ability
     can :create, User
     can :read, Recipe, is_shared: true
     can :read, Ingredient, is_public: true
+    can :read, Event, is_shared: true
 
     return unless user.present?
 

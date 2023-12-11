@@ -20,3 +20,4 @@ pin 'stimulus' # @3.2.2
 pin "stimulus-sortable" # @4.1.1
 pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.8
 pin "sortablejs" # @1.15.0
+pin "stimulus-clipboard" # @4.0.1
