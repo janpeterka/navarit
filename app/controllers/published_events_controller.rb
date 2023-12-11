@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-class PublishedEventsController < ApplicationController
+class PublishedEventsController < PublicApplicationController
   before_action :set_event, only: %i[create destroy]
 
-  # GET /events
-  def index
-    @events = current_user.events
+  def show
+    @event = Event.load_from_hash(params[:id])
+
+    return unless current_user.present? && can?(:read, @event)
+
+    redirect_to @event
   end
 
   # POST /events
