@@ -3,6 +3,7 @@
 class EventCookbook
   include ActiveModel::Model
   include DateHelper
+  include PrawnHelper
   include ::RecipeIngredientsHelper
 
   attr_reader :event
@@ -23,7 +24,7 @@ class EventCookbook
 
     document.font 'DejaVu'
 
-    @event.daily_plans.each do |day| # rubocop:disable Metrics/BlockLength
+    @event.daily_plans.each do |day|
       document.start_new_page unless document.page_number == 1
 
       document.text "#{weekday_name(day.date)} #{formatted_date(day.date)}", size: 18, style: :bold
@@ -32,11 +33,11 @@ class EventCookbook
       day.daily_plan_recipes.each do |daily_recipe|
         recipe = daily_recipe.recipe
         document.text recipe.name, size: 16, style: :bold
-        document.text "(pro #{daily_recipe.portion_count.to_i} lidí)", size: 10,
-                                                                       style: :italic
+        document.text "(pro #{daily_recipe.portion_count.to_i} lidí)", size: 10, style: :italic
         document.move_down 7
         document.markup recipe.description&.html_safe
         document.move_down 10
+
         document.text 'suroviny:', style: :bold
         ingredient_data = []
         daily_recipe.recipe.recipe_ingredients.each do |recipe_ingredient|
@@ -45,12 +46,12 @@ class EventCookbook
                               formatted_amount_with_unit(recipe_ingredient,
                                                          daily_recipe.portion_count)]
         end
-        table = Prawn::Table.new(ingredient_data, document, cell_style: { borders: [], padding: 2 },
-                                                            column_widths: [document.bounds.width / 2, document.bounds.width / 2])
-        document.start_new_page if document.cursor < table.height
+        # table = Prawn::Table.new(ingredient_data, document, cell_style: { borders: [], padding: 2 },
+        #                                                     column_widths: [document.bounds.width / 2, document.bounds.width / 2])
+        # document.start_new_page if document.cursor < table.height
+        # table.draw
+        table(ingredient_data, document)
 
-        document.table(ingredient_data, cell_style: { borders: [], padding: 2 },
-                                        column_widths: [document.bounds.width / 2, document.bounds.width / 2])
         document.move_down 10
       end
       document.move_down 20
