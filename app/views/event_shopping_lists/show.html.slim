@@ -1,10 +1,10 @@
-h2.text-2xl.font-bold nákupy na #{@event.name} 
+h1.text-2xl.font-bold nákupy na #{@event.name} 
 = button_link_to nil, @event, type: :secondary, class: "group" do
   = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
   = "zpět na akci"
 
 - @shopping_list.shoppings.each do |shopping|
-  h3.text-2xl = shopping.name
+  h2.text-2xl = shopping.name
 
   table
     thead
