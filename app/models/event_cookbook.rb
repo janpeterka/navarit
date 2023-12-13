@@ -8,7 +8,7 @@ class EventCookbook
   attr_reader :event
 
   def initialize(event)
-    @event = Event.includes(daily_plans: { daily_plan_recipes: :recipe }).find(event.id)
+    @event = Event.includes(daily_plans: { daily_plan_recipes: { recipe: { recipe_ingredients: { ingredient: :measurement } } } }).find(event.id)
   end
 
   def pdf # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -23,7 +23,7 @@ class EventCookbook
 
     document.font 'DejaVu'
 
-    @event.daily_plans.each do |day|
+    @event.daily_plans.each do |day| # rubocop:disable Metrics/BlockLength
       document.start_new_page unless document.page_number == 1
 
       document.text "#{weekday_name(day.date)} #{formatted_date(day.date)}", size: 18, style: :bold
@@ -45,6 +45,10 @@ class EventCookbook
                               formatted_amount_with_unit(recipe_ingredient,
                                                          daily_recipe.portion_count)]
         end
+        table = Prawn::Table.new(ingredient_data, document, cell_style: { borders: [], padding: 2 },
+                                                            column_widths: [document.bounds.width / 2, document.bounds.width / 2])
+        document.start_new_page if document.cursor < table.height
+
         document.table(ingredient_data, cell_style: { borders: [], padding: 2 },
                                         column_widths: [document.bounds.width / 2, document.bounds.width / 2])
         document.move_down 10
