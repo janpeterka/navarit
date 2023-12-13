@@ -1,15 +1,16 @@
-module PrawnHelper
-  def table(data, document, same_size_columns: true)
-    table_options = {}
-    column_widths = []
-    data.first.size.times do |_i|
-      column_widths << document.bounds.width / data.first.size
-    end
-    table_options[:column_widths] = column_widths if same_size_columns
-    # if same_size_columns
+# frozen_string_literal: true
 
-    table = Prawn::Table.new(data, document, cell_style: { borders: [], padding: 2 }, **table_options)
-    document.start_new_page if document.cursor < table.height
+module PrawnHelper
+  def table(data, document:, same_size_columns: true, keep_together: true, table_options: {}) # rubocop:disable Metrics/AbcSize
+    if same_size_columns && table_options[:column_widths].nil?
+      table_options[:column_widths] = Array.new(data.first.size, document.bounds.width / data.first.size)
+    end
+    table_options[:cell_style] = { borders: [], padding: 2 }
+
+    table = Prawn::Table.new(data, document, **table_options)
+
+    document.start_new_page if keep_together && document.cursor < table.height
+
     table.draw
   end
 end

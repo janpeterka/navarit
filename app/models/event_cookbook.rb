@@ -9,7 +9,8 @@ class EventCookbook
   attr_reader :event
 
   def initialize(event)
-    @event = Event.includes(daily_plans: { daily_plan_recipes: { recipe: { recipe_ingredients: { ingredient: :measurement } } } }).find(event.id)
+    @event = Event.includes(daily_plans: { daily_plan_recipes: { recipe: { recipe_ingredients: { ingredient: :measurement } } } }) # rubocop:disable Layout/LineLength
+                  .find(event.id)
   end
 
   def pdf # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -43,14 +44,11 @@ class EventCookbook
         daily_recipe.recipe.recipe_ingredients.each do |recipe_ingredient|
           ingredient = recipe_ingredient.ingredient
           ingredient_data << [ingredient.name,
-                              formatted_amount_with_unit(recipe_ingredient,
-                                                         daily_recipe.portion_count)]
+                              formatted_amount_with_unit(recipe_ingredient, daily_recipe.portion_count),
+                              recipe_ingredient.comment]
         end
-        # table = Prawn::Table.new(ingredient_data, document, cell_style: { borders: [], padding: 2 },
-        #                                                     column_widths: [document.bounds.width / 2, document.bounds.width / 2])
-        # document.start_new_page if document.cursor < table.height
-        # table.draw
-        table(ingredient_data, document)
+
+        table(ingredient_data, document:)
 
         document.move_down 10
       end
