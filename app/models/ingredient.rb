@@ -35,4 +35,10 @@ class Ingredient < ApplicationRecord
 
     true
   end
+
+  def measurement_name
+    return '' unless measurement.present?
+
+    measurement.name
+  end
 end

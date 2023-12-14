@@ -9,7 +9,7 @@ module Recipes
     def shrimpy_ingredients_table(document, daily_recipe:)
       document.text 'suroviny:', style: :bold
 
-      shrimp_table(ingredients_table_data(daily_recipe), document:)
+      shrimpy_table(ingredients_table_data(daily_recipe), document:)
 
       document.move_down 10
     end

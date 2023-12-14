@@ -2,14 +2,16 @@
 
 class EventShoppingList
   include ActiveModel::Model
+  include PrawnHelper
 
   attr_accessor :event
 
   def initialize(event)
-    @event = event
+    @event = Event.includes(daily_plans: { daily_plan_recipes: { recipe: { recipe_ingredients: { ingredient: :measurement } } } }) # rubocop:disable Layout/LineLength
+                  .find(event.id)
   end
 
-  def shoppings
+  def shoppings # rubocop:disable Metrics/AbcSize
     shoppings = []
 
     lasting_ingredients_shopping = LastingIngredientShopping.new(@event.date_from - 1.day, @event)
@@ -33,10 +35,22 @@ class EventShoppingList
 
     shoppings
   end
+
+  def pdf
+    document = shrimpy_document(title: "Nákupní seznam na #{@event.name}")
+
+    shoppings.each do |shopping|
+      shopping.shrimpy_print(document)
+    end
+
+    document
+  end
 end
 
 class Shopping
   include DateHelper
+  include PrawnHelper
+  include ::RecipeIngredientsHelper
 
   attr_accessor :event, :date, :day_recipes
 
@@ -62,6 +76,33 @@ class Shopping
     end
 
     ingredients_with_usage
+  end
+
+  def shrimpy_print(document)
+    document.start_new_page unless document.page_number == 1
+
+    document.text name, size: 18, style: :bold
+
+    shrimpy_ingredients_table(document)
+  end
+
+  def shrimpy_ingredients_table(document)
+    ingredients_with_usage.group_by { |i| i.first.category }.each do |category, ingredients_with_usage|
+      document.text category&.name || 'ostatní', size: 12, style: :bold
+      shrimpy_table(ingredients_table_data(ingredients_with_usage), document:, keep_together: false)
+      document.move_down 7
+    end
+  end
+
+  private
+
+  def ingredients_table_data(ingredients_with_usage)
+    data = []
+    ingredients_with_usage.each do |ingredient, usage|
+      data << [ingredient.name,
+               formatted_amount_and_unit(amount: usage[:amount].to_i, measurement: ingredient.measurement)]
+    end
+    data
   end
 end
 
