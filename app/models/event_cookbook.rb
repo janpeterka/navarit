@@ -39,18 +39,7 @@ class EventCookbook
         document.markup recipe.description&.html_safe
         document.move_down 10
 
-        document.text 'suroviny:', style: :bold
-        ingredient_data = []
-        daily_recipe.recipe.recipe_ingredients.each do |recipe_ingredient|
-          ingredient = recipe_ingredient.ingredient
-          ingredient_data << [ingredient.name,
-                              formatted_amount_with_unit(recipe_ingredient, daily_recipe.portion_count),
-                              recipe_ingredient.comment]
-        end
-
-        shrimp_table(ingredient_data, document:)
-
-        document.move_down 10
+        recipe.shrimpy_ingredients_table(document, daily_recipe:)
       end
       document.move_down 20
     end

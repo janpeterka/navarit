@@ -3,6 +3,7 @@
 class Recipe < ApplicationRecord
   include Publishable
   include Recipes::Likeable
+  include Recipes::Prawnable
 
   belongs_to :category, class_name: 'RecipeCategory', optional: true
   belongs_to :author, class_name: 'User', foreign_key: 'created_by'
