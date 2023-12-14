@@ -25,6 +25,9 @@ class EventCookbook
 
     document.font 'DejaVu'
 
+    document.text "Kuchařka na #{event.name}", size: 20, style: :bold, align: :center
+    document.move_down 10
+
     @event.daily_plans.each do |day|
       document.start_new_page unless document.page_number == 1
 
