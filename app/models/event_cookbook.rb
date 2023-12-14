@@ -23,6 +23,8 @@ class EventCookbook
       document.move_down 15
 
       day.daily_plan_recipes.each do |daily_recipe|
+        next if daily_recipe.shopping?
+
         recipe = daily_recipe.recipe
         document.text recipe.name, size: 16, style: :bold
         document.text "(pro #{daily_recipe.portion_count.to_i} lidí)", size: 10, style: :italic
@@ -30,7 +32,7 @@ class EventCookbook
         document.markup recipe.description&.html_safe
         document.move_down 10
 
-        recipe.shrimpy_ingredients_table(document, daily_recipe:)
+        recipe.shrimpy_ingredients_table(document, daily_recipe:) if recipe.recipe_ingredients.any?
       end
       document.move_down 20
     end
