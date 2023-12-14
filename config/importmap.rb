@@ -11,13 +11,13 @@ pin '@rails/actioncable/src', to: 'https://ga.jspm.io/npm:@rails/actioncable@7.1
 
 pin '@hotwired/stimulus', to: 'https://ga.jspm.io/npm:@hotwired/stimulus@3.2.2/dist/stimulus.js'
 
-# trix editor
-pin 'trix'
-# pin 'trix', to: 'https://ga.jspm.io/npm:trix@2.0.7/dist/trix.esm.min.js'
-pin '@rails/actiontext', to: 'actiontext.js'
-# pin '@rails/actiontext', to: 'https://ga.jspm.io/npm:@rails/actiontext@7.1.1/app/assets/javascripts/actiontext.js'
+# stimulus controllers
 pin 'stimulus' # @3.2.2
-pin "stimulus-sortable" # @4.1.1
-pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.8
-pin "sortablejs" # @1.15.0
-pin "stimulus-clipboard" # @4.0.1
+pin 'stimulus-sortable' # @4.1.1
+pin '@rails/request.js', to: '@rails--request.js.js' # @0.0.8
+pin 'sortablejs' # @1.15.0
+pin 'stimulus-clipboard' # @4.0.1
+
+# rich text
+pin 'trix'
+pin '@rails/actiontext', to: 'actiontext.js'

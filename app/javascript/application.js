@@ -6,3 +6,6 @@ import "controllers";
 // import 'trix';
 // import "@rails/actiontext"; // needed for trix
 // import "tributejs";
+
+import "trix"
+import "@rails/actiontext"

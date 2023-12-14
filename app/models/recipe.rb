@@ -23,6 +23,8 @@ class Recipe < ApplicationRecord
 
   has_many :events, through: :daily_plans
 
+  has_rich_text :procedure
+
   validates :name, presence: true
   validates :portion_count, presence: true, numericality: { greater_than: 0 }
 
