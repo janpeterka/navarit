@@ -13,20 +13,8 @@ class EventCookbook
                   .find(event.id)
   end
 
-  def pdf # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    document = Prawn::Document.new(margin: 30, page_size: 'A4', page_layout: :portrait)
-
-    document.font_families.update('DejaVu' => {
-                                    normal: "#{Rails.root}/fonts/dejavu/ttf/DejaVuSans.ttf",
-                                    bold: "#{Rails.root}/fonts/dejavu/ttf/DejaVuSans-Bold.ttf",
-                                    italic: "#{Rails.root}/fonts/dejavu/ttf/DejaVuSans-Oblique.ttf",
-                                    bold_italic: "#{Rails.root}/fonts/dejavu/ttf/DejaVuSans-BoldOblique.ttf"
-                                  })
-
-    document.font 'DejaVu'
-
-    document.text "Kuchařka na #{event.name}", size: 20, style: :bold, align: :center
-    document.move_down 10
+  def pdf # rubocop:disable Metrics/AbcSize
+    document = shrimpy_document(title: "Kuchařka na #{event.name}")
 
     @event.daily_plans.each do |day|
       document.start_new_page unless document.page_number == 1

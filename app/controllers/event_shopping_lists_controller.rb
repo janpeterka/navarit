@@ -5,10 +5,14 @@ class EventShoppingListsController < ApplicationController
     @event = Event.find(params[:event_id])
     @shopping_list = EventShoppingList.new(@event)
 
-    # respond_to do |format|
-    #   format.html
-    #   format.pdf do
-    #   end
-    # end
+    respond_to do |format|
+      format.html
+      format.pdf do
+        send_data @shopping_list.pdf.render,
+                  filename: "#{@event.name}_shopping_list.pdf",
+                  type: 'application/pdf',
+                  disposition: 'inline'
+      end
+    end
   end
 end

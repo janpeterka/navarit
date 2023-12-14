@@ -9,6 +9,10 @@ module RecipeIngredientsHelper
     amount = recipe_ingredient.amount * portion_count
     measurement = recipe_ingredient.ingredient.measurement
 
+    formatted_amount_and_unit(amount:, measurement:)
+  end
+
+  def formatted_amount_and_unit(amount:, measurement:)
     return "#{formatted_amount(amount)} #{measurement&.name}" if measurement&.thousand_fold.blank?
 
     case amount
