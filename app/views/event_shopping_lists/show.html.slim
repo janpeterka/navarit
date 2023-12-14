@@ -1,10 +1,10 @@
-h2.text-2xl.font-bold nákupy na #{@event.name} 
+h1.text-2xl.font-bold nákupy na #{@event.name} 
 = button_link_to nil, @event, type: :secondary, class: "group" do
   = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
   = "zpět na akci"
 
 - @shopping_list.shoppings.each do |shopping|
-  h3.text-2xl = shopping.name
+  h2.text-2xl = shopping.name
 
   table
     thead
@@ -23,7 +23,7 @@ h2.text-2xl.font-bold nákupy na #{@event.name}
 
         tr
           td = ingredient.name
-          td = "#{amount.round(1)} #{ingredient.measurement.name}"
+          td = "#{amount.round(1)} #{ingredient.measurement&.name}"
 
         - usage[:recipes].each do |day_recipe_with_values|
           - day_recipe = day_recipe_with_values.second[:day_recipe]
@@ -32,4 +32,4 @@ h2.text-2xl.font-bold nákupy na #{@event.name}
             td.ps-4.pe-24
               = day_recipe.recipe.name
               = " (#{formatted_date(day_recipe.date)} - #{weekday_name(day_recipe.date)})"
-            td = "#{amount.round(1)} #{ingredient.measurement.name}"
+            td = "#{amount.round(1)} #{ingredient.measurement&.name}"

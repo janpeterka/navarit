@@ -41,5 +41,6 @@
       = render("day_card", day: )
 
 
-= button_link_to "nákupní seznam", event_shopping_list_path(@event)
+= button_link_to "nákupní seznam", event_shopping_list_path(@event), target: "_blank"
+= button_link_to "kuchařka (pdf)", event_cookbook_path(@event, format: :pdf), target: "_blank"
       

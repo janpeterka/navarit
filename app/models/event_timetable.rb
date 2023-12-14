@@ -30,10 +30,6 @@ class EventTimetable
       day.tasks.flatten!
     end
 
-    # p @days
-
     @weeks = @days.to_a.in_groups_of(7)
-
-    # p @weeks
   end
 end

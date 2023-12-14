@@ -21,10 +21,14 @@ gem 'importmap-rails' # Use JavaScript with ESM import maps [https://github.com/
 # gem 'jbuilder' # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'simple_form' # Use SimpleForm for forms
 # gem 'slim'
+gem 'prawn' # Fast, Nimble PDF Generation For Ruby
+gem 'prawn-grouping' # Keep elements together on a page
+gem 'prawn-markup' # Render HTML and Markdown in Prawn PDFs
 gem 'slim-rails'
 gem 'stimulus-rails' # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'tailwindcss-rails'
 gem 'turbo-rails' # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+
 gem 'view_component'
 
 # security

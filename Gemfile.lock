@@ -195,6 +195,18 @@ GEM
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
+    pdf-core (0.9.0)
+    prawn (2.4.0)
+      pdf-core (~> 0.9.0)
+      ttfunk (~> 1.7)
+    prawn-grouping (0.2.0)
+      prawn (>= 2.0.0)
+    prawn-markup (1.0.0)
+      nokogiri
+      prawn
+      prawn-table
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     propshaft (0.7.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -330,6 +342,7 @@ GEM
     tilt (2.3.0)
     timeout (0.4.0)
     trilogy (2.6.0)
+    ttfunk (1.7.0)
     turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -377,6 +390,9 @@ DEPENDENCIES
   kamal
   mysql2
   pagy (~> 6.1)
+  prawn
+  prawn-grouping
+  prawn-markup
   propshaft
   puma (>= 5.0)
   rails (~> 7.1.1)

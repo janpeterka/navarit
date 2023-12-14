@@ -1,0 +1,11 @@
+/ h1.text-2xl.font-bold kuchařka na #{@event.name} 
+
+= button_link_to nil, @event, type: :secondary, class: "group" do
+  = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
+  = "zpět na akci"
+
+- @event.daily_plans.each do |daily_plan|
+    h2.text-2xl = formatted_date(daily_plan.date)
+    - daily_plan.recipes.each do |recipe|
+        h3.text-xl.font-bold = recipe.name
+        p = recipe.description&.html_safe
