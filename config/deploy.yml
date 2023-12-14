@@ -35,6 +35,7 @@ env:
     - RAILS_MASTER_KEY
     - MYSQL_ROOT_PASSWORD
     - MYSQL_PASSWORD
+    - LEGACY_SECURITY_SALT
 
 
 # Use a different ssh user than root
