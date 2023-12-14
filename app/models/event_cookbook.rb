@@ -48,7 +48,7 @@ class EventCookbook
                               recipe_ingredient.comment]
         end
 
-        table(ingredient_data, document:)
+        shrimp_table(ingredient_data, document:)
 
         document.move_down 10
       end
