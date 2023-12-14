@@ -25,7 +25,7 @@ class IngredientsController < ApplicationController
   def edit; end
 
   def create
-    @ingredient = Ingredient.new(ingredient_params)
+    @ingredient = current_user.ingredients.new(ingredient_params)
 
     if @ingredient.save
       redirect_to ingredient_url(@ingredient)
