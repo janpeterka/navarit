@@ -11,7 +11,7 @@ div.me-5.mb-2
     h2.text-xl.text-bold.mb-2 budoucí akce
     = table @events.future do |t|
       = t.column :název do |event|
-        = link_to event.name, event, class: "font-bold"
+        = link_to event.name, event, class: "font-bold", data: {turbo_frame: "_top"}
       = t.column :datum do |event|
         = "od #{event.date_from} do #{event.date_to}"
       
@@ -19,7 +19,7 @@ div.me-5.mb-2
     h2.text-xl.text-bold.mb-2 skončené akce
     = table @events.past do |t|
       = t.column :název do |event|
-        = link_to event.name, event
+        = link_to event.name, event, data: {turbo_frame: "_top"}
       = t.column :datum do |event|
         = "od #{event.date_from} do #{event.date_to}"
 
@@ -27,6 +27,6 @@ div.me-5.mb-2
     h2.text-xl.text-bold.mb-2 archivované akce
     = table @events.archived do |t|
       = t.column :název do |event|
-        = link_to event.name, event
+        = link_to event.name, event, data: {turbo_frame: "_top"}
       = t.column :datum do |event|
         = "od #{event.date_from} do #{event.date_to}"
