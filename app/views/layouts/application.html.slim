@@ -24,7 +24,12 @@ html
 
   body.mx-auto.sm:px-4.max-w-screen-2xl
     = render("shared/flash")
-    = render("shared/navbar")
+
+    / TODO: this is here because Devise is using this layout, not public
+    - if current_user.present?
+      = render("shared/navbar")
+    - else
+      = render("shared/public_navbar")
 
     - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
       div
