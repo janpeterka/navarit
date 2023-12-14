@@ -37,9 +37,16 @@
 
 
   div.col-span-2
-    #description.mb-3 
-      h2.text-2xl = "Popis"
-      = @recipe.description&.html_safe
+    #procedure.mb-3 
+      h2.text-2xl.inline-block.me-2 = "Popis"
+      - if @edited_section == :procedure
+        = form_for @recipe do |form|
+          = form.rich_text_area :procedure, data: { controller: "trix" }, value: @recipe.procedure.presence
+          = form.submit "uložit", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+      - else
+        span.float-end = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure)
+        = @recipe.procedure
+
 
     - if @edited_section == :tasks
       = render "tasks_edit", recipe: @recipe, tasks: @recipe.tasks

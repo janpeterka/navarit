@@ -29,7 +29,7 @@ class EventCookbook
         document.text recipe.name, size: 16, style: :bold
         document.text "(pro #{daily_recipe.portion_count.to_i} lidí)", size: 10, style: :italic
         document.move_down 7
-        document.markup recipe.description&.html_safe
+        document.markup recipe.procedure
         document.move_down 10
 
         recipe.shrimpy_ingredients_table(document, daily_recipe:) if recipe.recipe_ingredients.any?
