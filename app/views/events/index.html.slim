@@ -2,30 +2,31 @@
 
 div.me-5.mb-2
   - placeholder = current_user.events.order("RAND()").limit(1).first&.name
-  = simple_form_for "", url: events_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "recipes"}} do |f|
+  = simple_form_for "", url: events_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "events"}} do |f|
     = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
   = button_link_to "přidat akci", new_event_path, class: "float-right"
 
-#future-events
-  h2.text-xl.text-bold.mb-2 budoucí akce
-  = table @events.future do |t|
-    = t.column :název do |event|
-      = link_to event.name, event, class: "font-bold"
-    = t.column :datum do |event|
-      = "od #{event.date_from} do #{event.date_to}"
-    
-#past-events
-  h2.text-xl.text-bold.mb-2 skončené akce
-  = table @events.past do |t|
-    = t.column :název do |event|
-      = link_to event.name, event
-    = t.column :datum do |event|
-      = "od #{event.date_from} do #{event.date_to}"
+= turbo_frame_tag :events
+  #future-events
+    h2.text-xl.text-bold.mb-2 budoucí akce
+    = table @events.future do |t|
+      = t.column :název do |event|
+        = link_to event.name, event, class: "font-bold"
+      = t.column :datum do |event|
+        = "od #{event.date_from} do #{event.date_to}"
+      
+  #past-events
+    h2.text-xl.text-bold.mb-2 skončené akce
+    = table @events.past do |t|
+      = t.column :název do |event|
+        = link_to event.name, event
+      = t.column :datum do |event|
+        = "od #{event.date_from} do #{event.date_to}"
 
-#archived-events
-  h2.text-xl.text-bold.mb-2 archivované akce
-  = table @events.archived do |t|
-    = t.column :název do |event|
-      = link_to event.name, event
-    = t.column :datum do |event|
-      = "od #{event.date_from} do #{event.date_to}"
+  #archived-events
+    h2.text-xl.text-bold.mb-2 archivované akce
+    = table @events.archived do |t|
+      = t.column :název do |event|
+        = link_to event.name, event
+      = t.column :datum do |event|
+        = "od #{event.date_from} do #{event.date_to}"

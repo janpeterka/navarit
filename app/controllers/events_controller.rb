@@ -6,6 +6,11 @@ class EventsController < ApplicationController
   # GET /events
   def index
     @events = current_user.events
+
+    return unless params[:query].present?
+
+    query = "%#{params[:query].downcase}%"
+    @events = @events.where('LOWER(events.name) LIKE ?', query)
   end
 
   # GET /events/1
