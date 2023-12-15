@@ -45,13 +45,15 @@ class User < ApplicationRecord
     hashed_password = ::BCrypt::Engine.hash_secret(hmaced_password, bcrypt_password.salt)
 
     Devise.secure_compare(hashed_password, encrypted_password)
+  rescue BCrypt::Errors::InvalidHash
+    false
   end
 
   def self.get_hmac(password)
     require 'openssl'
     require 'base64'
 
-    salt = ENV['LEGACY_SECURITY_SALT'] || 'manereinmontibus'
+    salt = Rails.application.credentials || ENV['LEGACY_SECURITY_SALT']
 
     if salt.nil?
       raise "The configuration value `LEGACY_SECURITY_SALT` must not be None when the value of `SECURITY_PASSWORD_HASH` is set to #{ENV['SECURITY_PASSWORD_HASH']}"
