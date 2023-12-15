@@ -85,12 +85,12 @@ accessories:
 #       - data:/data
 
 # Configure custom arguments for Traefik
-# traefik:
+traefik:
   # labels:
     # traefik.docker.network: "kucharka-network"
-#   args:
-#     accesslog: true
-#     accesslog.format: json
+  args:
+    accesslog: true
+    accesslog.format: json
 
 # Configure a custom healthcheck (default is /up on port 3000)
 # healthcheck:
