@@ -2,8 +2,6 @@
 
 class DeviseCreateUsers < ActiveRecord::Migration[7.1]
   def up
-    rename_column :users, :password, :temp_password
-
     User.where(email: '').destroy_all
 
     change_table :users do |t|
@@ -45,7 +43,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
     add_index :users, :confirmation_token,   unique: true
     # # add_index :users, :unlock_token,         unique: true
     User.all.each do |user|
-      user.update!(legacy_password: user.temp_password, encrypted_password: user.temp_password || 'x')
+      user.update!(legacy_password: user.read_attribute(:password),
+                   encrypted_password: user.read_attribute(:password) || 'x')
     end
 
     rename_column :users, :temp_password, :password

@@ -39,13 +39,13 @@ class User < ApplicationRecord
   # private
 
   def flask_security_compare(password)
-    bcrypt_password = BCrypt::Password.new(legacy_password)
+    bcrypt_password = ::BCrypt::Password.new(legacy_password)
 
     hmaced_password = User.get_hmac(password)
     hashed_password = ::BCrypt::Engine.hash_secret(hmaced_password, bcrypt_password.salt)
 
     Devise.secure_compare(hashed_password, encrypted_password)
-  rescue BCrypt::Errors::InvalidHash
+  rescue ::BCrypt::Errors::InvalidHash
     false
   end
 
@@ -53,11 +53,9 @@ class User < ApplicationRecord
     require 'openssl'
     require 'base64'
 
-    salt = Rails.application.credentials || ENV['LEGACY_SECURITY_SALT']
+    salt = Rails.application.credentials.LEGACY_SECURITY_SALT || ENV['LEGACY_SECURITY_SALT']
 
-    if salt.nil?
-      raise "The configuration value `LEGACY_SECURITY_SALT` must not be None when the value of `SECURITY_PASSWORD_HASH` is set to #{ENV['SECURITY_PASSWORD_HASH']}"
-    end
+    raise 'The configuration value `LEGACY_SECURITY_SALT` must not be None' if salt.nil?
 
     digest = OpenSSL::Digest.new('sha512')
     hmac = OpenSSL::HMAC.digest(digest, salt, password)
