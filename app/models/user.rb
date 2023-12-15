@@ -27,8 +27,9 @@ class User < ApplicationRecord
   def valid_password?(password)
     if Devise::Encryptor.compare(self.class, encrypted_password, password)
       true
-    elsif flask_security_compare(password)
+    elsif legacy_valid_password?(password)
       self.password = password
+      self.legacy_password = nil
       save!
       true
     else
@@ -38,14 +39,15 @@ class User < ApplicationRecord
 
   # private
 
-  def flask_security_compare(password)
-    bcrypt_password = ::BCrypt::Password.new(legacy_password)
+  def legacy_valid_password?(password)
+    require 'bcrypt'
+    bcrypt_password = BCrypt::Password.new(legacy_password)
 
     hmaced_password = User.get_hmac(password)
-    hashed_password = ::BCrypt::Engine.hash_secret(hmaced_password, bcrypt_password.salt)
+    hashed_password = BCrypt::Engine.hash_secret(hmaced_password, bcrypt_password.salt)
 
-    Devise.secure_compare(hashed_password, encrypted_password)
-  rescue ::BCrypt::Errors::InvalidHash
+    Devise.secure_compare(hashed_password, legacy_password)
+  rescue BCrypt::Errors::InvalidHash
     false
   end
 
