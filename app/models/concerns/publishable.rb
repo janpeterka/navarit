@@ -29,8 +29,7 @@ module Publishable
   end
 
   def public_url
-    Rails.application.routes.url_helpers.send("published_#{self.class.name.downcase}_url", obfuscated_id,
-                                              host: Rails.application.config.action_mailer.default_url_options[:host])
+    Rails.application.routes.url_helpers.send("published_#{self.class.name.downcase}_url", obfuscated_id)
   end
 
   private
