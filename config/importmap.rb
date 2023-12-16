@@ -21,3 +21,5 @@ pin 'stimulus-clipboard' # @4.0.1
 # rich text
 pin 'trix'
 pin '@rails/actiontext', to: 'actiontext.js'
+
+# pin 'flowbite', to: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.turbo.min.js'
