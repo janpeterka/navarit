@@ -8,4 +8,8 @@
                      input_wrapper_html: { data: { controller: "label-badge" }}, input_html: { multiple: false, data: { label_badge_target: "select" } }, allow_blank: false
 
   = form.buttons_section
+    - path = recipe.persisted? ? recipe_path(recipe) : recipes_path
+    = button_link_to "", path, type: :secondary do
+      = svg("left-caret", class: "h-4 w-4 mr-2")
+      | zpět
     = form.submit

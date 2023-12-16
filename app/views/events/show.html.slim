@@ -9,7 +9,6 @@
   = button_link_to "upravit", edit_event_path(@event) if can? :update, @event
   = action_button_to "smazat", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, type: :dangerous, disabled: !@event.destroyable? if can? :destroy, @event
 
-
 #details
   div = "od #{formatted_date(@event.date_from)} do #{formatted_date(@event.date_to)}"
   div = "#{@event.duration} dní"

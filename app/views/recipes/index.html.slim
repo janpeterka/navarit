@@ -1,11 +1,11 @@
 - content_for :title, "recepty"
 
+- content_for :header_right do
+  = button_link_to "přidat recept", new_recipe_path
 
 div.me-5
   - placeholder = current_user.recipes.order("RAND()").limit(1).first&.name
-  = simple_form_for "", url: recipes_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "recipes"}} do |f|
-    = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
-  = button_link_to "přidat recept", new_recipe_path, class: "float-right"
+  = searchbox(placeholder: placeholder, path: recipes_path, target_turbo_frame: :recipes)
 
 = turbo_frame_tag :recipes
   = table @recipes do |t|

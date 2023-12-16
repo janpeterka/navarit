@@ -9,7 +9,7 @@ export default class extends Controller {
 
   SELECTED_CLASS = "bg-emerald-500";
   UNSELECTED_CLASS = "bg-white";
-  BADGE_CLASSES = "border border-2 rounded-md border-emerald-500 p-1 me-1 mb-1 select-none cursor-pointer";
+  BADGE_CLASSES = "inline-block border border-2 rounded-md border-emerald-500 p-1 me-1 mb-1 select-none cursor-pointer";
 
   connect() {
     this.addBadges();
@@ -31,7 +31,7 @@ export default class extends Controller {
   addBadge(option) {
     if (option.value == ""){ return }
 
-    const badge = document.createElement("span");
+    const badge = document.createElement("div");
     badge.innerText = option.innerText;
     badge.classList.add(...this.BADGE_CLASSES.split(" "));
     badge.dataset.labelBadgeTarget = "badge";

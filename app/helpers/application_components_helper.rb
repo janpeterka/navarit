@@ -26,6 +26,10 @@ module ApplicationComponentsHelper
     render Badges::LabelBadgeComponent.new(label:, **), &
   end
 
+  def searchbox(placeholder:, path:, target_turbo_frame: nil, **, &)
+    render SearchboxComponent.new(placeholder:, path:, target_turbo_frame:), &
+  end
+
   # def admin_detail(record, **kwargs, &)
   #   render Details::DetailComponent.new(record:, **kwargs), &
   # end
