@@ -34,4 +34,4 @@ html
         - else
           = yield(:title)
     = yield
-    / = render("shared/mobile_navbar")
+    = render("shared/mobile_navbar") if current_user.present?

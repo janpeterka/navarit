@@ -1,22 +1,18 @@
-div.left-0.z-50.w-full.bg-white.border-t.border-gray-200.dark:bg-gray-700.dark:border-gray-600.sm:hidden
-    #expandable-menu.fixed.bottom-20.grid.h-40.w-full.bg-white.max-w-lg.grid-cols-5.mx-auto.font-medium.hidden
-        = render "shared/mobile_navbar_link", text: "nástěnka", path: "/dashboard", icon: "dashboard"
-        = render "shared/mobile_navbar_link", text: "oznámení", path: "/notifications", icon: "reporter"
-        = render "shared/mobile_navbar_link", text: "události", path: events_path, icon: "events"
-        = render "shared/mobile_navbar_link", text: "příspěvky", path: announcements_path, icon: "announcements"
-        = render "shared/mobile_navbar_link", text: "nástěnka", path: "/dashboard", icon: "dashboard"
-        = render "shared/mobile_navbar_link", text: "oznámení", path: "/notifications", icon: "reporter"
-        = render "shared/mobile_navbar_link", text: "události", path: events_path, icon: "events"
-        = render "shared/mobile_navbar_link", text: "příspěvky", path: announcements_path, icon: "announcements"
+div.fixed.bottom-0.left-0.z-50.w-full.bg-white.border-t.border-gray-200.dark:border-gray-600.sm:hidden
+    #expandable-menu.fixed.bottom-20.grid.py-4.w-full.bg-white.max-w-lg.grid-cols-5.mx-auto.font-medium.hidden.border.border-gray-300
+        = render "shared/mobile_navbar_link", text: "suroviny", path: ingredients_path, icon: "plant"
+        span.hover:bg-gray-200.dark:hover:bg-gray-800
+            = button_to destroy_user_session_path, method: :delete, form_class: "inline" do
+                = svg("logout", class: "mx-auto mb-1 pt-2 w-full", height: "2.5rem")
+                | odhlásit se
     
-    .fixed.bottom-0.grid.w-full.h-20.max-w-lg.bg-white.grid-cols-5.mx-auto.font-medium
-        = render "shared/mobile_navbar_link", text: "nástěnka", path: "/dashboard", icon: "dashboard"
-        = render "shared/mobile_navbar_link", text: "oznámení", path: "/notifications", icon: "reporter"
-        = render "shared/mobile_navbar_link", text: "události", path: events_path, icon: "events"
-        = render "shared/mobile_navbar_link", text: "příspěvky", path: announcements_path, icon: "announcements"
+    .fixed.bottom-0.grid.w-full.h-20.max-w-lg.bg-white.grid-cols-5.mx-auto.font-small.text-xs.border.border-gray-300
+        = render "shared/mobile_navbar_link", text: "nástěnka", path: dashboard_path, icon: "dashboard"
+        = render "shared/mobile_navbar_link", text: "recepty", path: recipes_path, icon: "utensils"
+        = render "shared/mobile_navbar_link", text: "události", path: events_path, icon: "calendar"
+        = render "shared/mobile_navbar_link", text: "databáze", path: published_recipes_path, icon: "book-open"
 
-        button.hover:bg-gray-50.dark:hover:bg-gray-800 data-collapse-toggle="expandable-menu"
-            = svg("grid", class: "mx-auto mb-1 pt-2", height: "2.5rem")
+        button.hover:bg-gray-200.dark:hover:bg-gray-800.text-center data-collapse-toggle="expandable-menu"
+            = svg("grid", class: "mx-auto mb-1 pt-2 w-full", height: "2.5rem")
             span.text-sm.text-center.dark:text-gray-400.group-hover:text-blue-600.dark:group-hover:text-blue-500
                 | další
-        

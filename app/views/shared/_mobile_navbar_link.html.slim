@@ -1,5 +1,5 @@
-button.hover:bg-gray-50.dark:hover:bg-gray-800
+button.hover:bg-gray-200.dark:hover:bg-gray-800
     = link_to(path, class: "text-sm text-center text-dark dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500")
-        = svg(icon, class: "mx-auto mb-1 pt-2", height: "2.5rem")
+        = svg(icon, class: "mx-auto mb-1 pt-2 w-full", height: "2.5rem")
         span.text-sm.text-center.dark:text-gray-400.group-hover:text-blue-600.dark:group-hover:text-blue-500
             = text if local_assigns[:text].present?
