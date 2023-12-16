@@ -32,6 +32,7 @@ class Recipe < ApplicationRecord
   scope :visible, -> { where(is_hidden: false) }
   scope :used, -> { joins(:daily_plans).where('daily_plans.id IS NOT NULL').distinct.any? }
   scope :created_by, ->(user) { where(author: user) }
+  scope :not_created_by, ->(user) { where.not(author: user) }
   # scope :draft, -> {joins(:ingredients).where.not("ingredients.id IS NULL").distinct.any? }
 
   def self.shopping

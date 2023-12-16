@@ -1,16 +1,16 @@
 - content_for :title, "nástěnka"
 
-.grid.grid-cols-3.gap-4.mt-4.text-center
-    .border.border-emerald-600.rounded-lg.shadow.p-4
+.sm:grid.sm:grid-cols-3.gap-4.mt-4.text-center
+    .border.border-emerald-600.rounded-lg.shadow.p-4.mb-3.mx-2.sm:mx-0
         - if @nearest_future_event.present?
             | podívej se na svou nejbližší akci: 
             = link_to @nearest_future_event.name, @nearest_future_event, class: "text-emerald-600 font-bold"    
         - else
             | založ 
             = link_to "novou událost", new_event_path, class: "text-emerald-600 font-bold"
-    .border.border-emerald-600.rounded-lg.shadow.p-4
+    .border.border-emerald-600.rounded-lg.shadow.p-4.mb-3.mx-2.sm:mx-0
         | inspiruj se v 
         = link_to "databázi receptů", published_recipes_path, class: "text-emerald-600 font-bold"
-    .border.border-emerald-600.rounded-lg.shadow.p-4
+    .border.border-emerald-600.rounded-lg.shadow.p-4.mb-3.mx-2.sm:mx-0
         | přidej 
         = link_to "nový recept", new_recipe_path, class: "text-emerald-600 font-bold"

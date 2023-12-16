@@ -22,7 +22,7 @@ html
     / meta name="turbo-refresh-method" content="morph"
     / meta name="turbo-refresh-scroll" content="preserve"
 
-  body.mx-auto.sm:px-4.max-w-screen-2xl
+  body.mx-2.sm:mx-auto.sm:px-4.max-w-screen-2xl
     = render("shared/flash")
 
     / TODO: this is here because Devise is using this layout, not public
@@ -33,7 +33,7 @@ html
 
     - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
       div
-        h1.text-3xl.text-strong.mb-2 class="#{local_assigns[:header_class]}"
+        h1.text-3xl.text-strong.mb-2 class="#{local_assigns[:header_class]} #{'inline-block' if content_for?(:header_right) }"
           - if content_for?(:header)
             = yield(:header)
           - else

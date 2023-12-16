@@ -1,5 +1,4 @@
 - content_for :title, @recipe.name
-- local_assigns[:header_class] = "inline-block"
 
 - content_for :header_right do
   = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0"

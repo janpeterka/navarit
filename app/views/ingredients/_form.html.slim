@@ -4,4 +4,7 @@
   = form.association :measurement, col_span: 6
   = form.association :category, col_span: 6
   = form.buttons_section
+    = button_link_to "", ingredient_path(@ingredient), type: :secondary do
+      = svg("left-caret", class: "h-4 w-4 mr-2")
+      | zpět
     = form.submit
