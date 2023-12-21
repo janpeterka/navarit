@@ -11,7 +11,9 @@ gem 'acts_as_list' # ActsAsList is a small extension to the ActiveRecord::Base c
 gem 'cancancan' # The authorization Gem for Ruby on Rails
 gem 'devise' # Flexible authentication solution for Rails with Warden
 gem 'mysql2'
-gem 'pagy', '~> 6.1' # pagination
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection' # This is used to solve "Authenticity error", as described in https://stackoverflow.com/questions/66086606/could-not-authenticate-you-from-googleoauth2-because-authenticity-error
+gem 'pagy', '~> 6.1' # Pagination support
 gem 'propshaft'
 gem 'rails-i18n' # Add support for internationalization (i18n) to Rails
 gem 'trilogy' # Use trilogy as the database for Active Record
