@@ -26,9 +26,9 @@ module Builders
         input_class = 'focus:ring-indigo-500 ...'
 
         options[:boolean_style] ||= :inline
-        options[:wrapper] ||= :plain_boolean
+        # options[:wrapper] ||= :plain_boolean
 
-        input_wrapper_class = 'flex h-10 ...'
+        # input_wrapper_class = 'flex h-10 ...'
 
       when :file
         input_class = 'block w-full file:px-4 file:py-2 ...'
