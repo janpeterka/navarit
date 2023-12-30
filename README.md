@@ -1,24 +1,13 @@
-# README
+# navařit
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Webová aplikace pro (nejen) skautské kuchaře, která pomáhá s tvorbou a správou jídelníčku, receptů a čehokoli dalšího při vaření na táborech, kurzech a dalších akcích (zejména) pro větší množství účastníků.
 
-Things you may want to cover:
+Nová verze aplikace v Rails/Ruby, původně vyvíjena ve Flasku/Python [zde](https://github.com/janpeterka/kucharka).
 
-* Ruby version
+Aplikace je stále ve vývoji, přijímám jakékoli nápady, připomínky, bugreporty, spoluvývojáře.
 
-* System dependencies
+---
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#  Code quality
+[![CodeScene Code Health](https://codescene.io/projects/47733/status-badges/code-health)](https://codescene.io/projects/47733)
+[![CodeScene System Mastery](https://codescene.io/projects/47733/status-badges/system-mastery)](https://codescene.io/projects/47733)
