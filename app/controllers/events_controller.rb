@@ -26,7 +26,7 @@ class EventsController < ApplicationController
 
   # POST /events
   def create
-    @event = Event.new(event_params)
+    current_user.events.new(event_params)
 
     if @event.save
       redirect_to @event, notice: 'Event was successfully created.'
