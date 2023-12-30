@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include User::Omniauthable
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :trackable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :roles, through: :user_roles
   has_many :daily_plans

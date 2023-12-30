@@ -11,6 +11,9 @@ cs:
     more: "dnů"
     other: "dní"
   back: "zpět"
+  sign_in: "přihlásit se"
+  sign_up: "registrovat se"
+  forgotten_password: "zapomenuté heslo"
   date:
     abbr_day_names:
       - ne
