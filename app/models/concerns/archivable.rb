@@ -5,7 +5,9 @@ module Archivable
 
   included do
     scope :archived, -> { where(is_archived: true) }
-    scope :active, -> { where(is_archived: false) }
+    scope :active, lambda {
+                     where(is_archived: false).or(where(is_archived: nil))
+                   } # TODO: as of now, is_archived can be NULL, so this is needed.
   end
 
   def archived?
