@@ -7,4 +7,6 @@ class EventPortionType < ApplicationRecord
   belongs_to :portion_type
 
   validates :count, presence: true
+
+  delegate :name, :size, to: :portion_type
 end

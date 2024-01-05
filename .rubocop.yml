@@ -10,3 +10,6 @@ Metrics/BlockLength:
 
 Lint/RedundantSplatExpansion:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false

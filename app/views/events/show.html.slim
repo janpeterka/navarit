@@ -12,7 +12,11 @@
 #details
   div = "od #{formatted_date(@event.date_from)} do #{formatted_date(@event.date_to)}"
   div = "#{@event.duration} dní"
-  div = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
+  div
+    = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
+    
+  #attendance.inline.float-right
+    = link_to "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)", event_portion_types_path(@event)
 
 #actions
   - if @event.archived?

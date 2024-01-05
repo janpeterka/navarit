@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @event_portion_type
+
+div
+  => link_to "Edit this event portion type", edit_event_portion_type_path(@event_portion_type)
+  '|
+  =< link_to "Back to event portion types", event_portion_types_path
+
+  = button_to "Destroy this event portion type", @event_portion_type, method: :delete

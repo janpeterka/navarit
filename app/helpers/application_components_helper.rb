@@ -30,6 +30,11 @@ module ApplicationComponentsHelper
     render SearchboxComponent.new(placeholder:, path:, target_turbo_frame:), &
   end
 
+  def heading(content, level = :h2, **)
+    default_classes = { h2: 'text-xl font-bold mb-2' }
+    "<#{level} class='#{default_classes[level]}'>#{content}</#{level}>".html_safe
+  end
+
   # def admin_detail(record, **kwargs, &)
   #   render Details::DetailComponent.new(record:, **kwargs), &
   # end

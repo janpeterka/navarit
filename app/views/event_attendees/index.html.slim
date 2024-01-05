@@ -1,0 +1,11 @@
+h1 Event attendees
+
+= render "event_attendance/menu"
+
+#event_attendees
+  - @event_attendees.each do |event_attendee|
+    == render event_attendee
+    p
+      = link_to "Show this event attendee", event_attendee
+
+/ = link_to "New event attendee", new_event_attendee_path
