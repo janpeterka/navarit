@@ -1,6 +1,6 @@
 div
   h2.text-2xl.inline-block.me-3 = "úkoly"
-  span.float-end = button_link_to "upravit úkoly", recipe_path(recipe, edited_section: :tasks)
+  span.float-end = button_link_to "upravit úkoly", recipe_path(recipe, edited_section: :tasks) if can? :update, recipe
   
   .grid.grid-cols-5.font-bold
     span = "název"

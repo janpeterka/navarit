@@ -5,7 +5,7 @@ div
         = t.column "množství na #{@portion_count} porcí" do |r_ingredient|
             = formatted_amount_with_unit(r_ingredient, @portion_count)
 
-    = button_link_to "upravit suroviny", recipe_path(@recipe, edited_section: :ingredients)
+    = button_link_to "upravit suroviny", recipe_path(@recipe, edited_section: :ingredients) if can? :update, @recipe
     br
     | zobrazit pro
     br

@@ -1,17 +1,19 @@
 - content_for :title, @recipe.name
 
 - content_for :header_right do
-  = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0"
+  = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0" if can? :update, @recipe
 
-  - if @recipe.deletable?
-    = action_button_to "smazat", recipe_path(@recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
-  - else
-    = action_button_to "nelze smazat", recipe_path(@recipe), method: :delete, disabled: true
+  - if can? :delete, @recipe
+    - if @recipe.deletable?
+      = action_button_to "smazat", recipe_path(@recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
+    - else
+      = action_button_to "nelze smazat", recipe_path(@recipe), method: :delete, disabled: true
 
-  - if @recipe.published?
-    = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
-  - else
-    = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
+  - if can? :update, @recipe
+    - if @recipe.published?
+      = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
+    - else
+      = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
 
 #details.mt-3.mb-4
   p.italic = @recipe.category&.name
@@ -43,7 +45,7 @@
           = form.rich_text_area :procedure, data: { controller: "trix" }, value: @recipe.procedure.presence
           = form.submit "uložit", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
       - else
-        span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure)
+        span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure) if can? :update, @recipe
         = @recipe.procedure
 
 
