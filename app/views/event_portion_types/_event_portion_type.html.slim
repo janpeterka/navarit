@@ -5,16 +5,25 @@
 
 
 div.p-2.m-2 id="#{dom_id event_portion_type}"
-    - if portion_type.persisted?
+    - if portion_type.persisted? && event_portion_type.persisted?
         = default_form_for event_portion_type, url: , method: , html: { data: { controller: "form" }} do |form|
             = form.input :name, col_span: 5, disabled: true
             = form.input :size, col_span: 3, disabled: true
             = form.input :count, col_span: 3, :input_html => { data: { action: "change->form#submit" } }
-            = button_link_to "Smazat", event_portion_type_path(event_id: event_portion_type.event_id, id: event_portion_type.portion_type_id), type: :dangerous, data: {turbo_method: :delete, confirm: "Opravdu smazat?" } if event_portion_type.persisted?
+            = button_link_to "smazat", event_portion_type_path(event_id: event_portion_type.event_id, id: event_portion_type.portion_type_id), type: :dangerous, data: {turbo_method: :delete, turbo_confirm: "Opravdu smazat?" }
+    
+    - elsif portion_type.persisted?
+        = default_form_for event_portion_type, url: , method: , html: { data: { controller: "form" }} do |form|
+            = form.input :name, col_span: 5, disabled: true
+            = form.input :size, col_span: 3, disabled: true
+            = form.input :count, col_span: 3
+            = form.submit "přidat"
+
     - else
         = default_form_for event_portion_type, url: , method: , html: { data: { controller: "form" }} do |form|
-            = form.input :name, col_span: 5
-            = form.input :size, col_span: 3
-            = form.input :count, col_span: 3
-            = form.submit "vytvořit"
+            / required must be explicitly stated here, as it's param of portion_type, not event_portion_type
+            = form.input :name, col_span: 5, required: true 
+            = form.input :size, col_span: 3, required: true
+            = form.input :count, col_span: 3, required: true
+            = form.submit "přidat"
     

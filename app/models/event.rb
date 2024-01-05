@@ -3,6 +3,7 @@
 class Event < ApplicationRecord
   include Publishable
   include Archivable
+  include Event::HasPortionTypes
 
   belongs_to :author, class_name: 'User', foreign_key: 'created_by'
 
@@ -41,23 +42,11 @@ class Event < ApplicationRecord
     (date_to - date_from + 1).to_i
   end
 
-  def portion_count
-    portion_count = 0
-    accounted_for_count = 0
-    event_portion_types.each do |ept|
-      portion_count += ept.portion_type.size * ept.count
-      accounted_for_count += ept.count
-    end
-
-    portion_count += (people_count - accounted_for_count) if people_count > accounted_for_count
-    portion_count
-  end
-
   def destroyable?
     !published?
   end
 
-  def duplicate_into(target_event)
+  def duplicate_into(target_event) # rubocop:disable Metrics/AbcSize
     daily_plans.each_with_index do |daily_plan, index|
       target_event.daily_plans[index].day_tasks = daily_plan.day_tasks.map(&:dup)
 

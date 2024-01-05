@@ -1,6 +1,12 @@
-- content_for :title, "Event Portion Types"
+- content_for :title, "velikosti porcí"
 
 div id="#{dom_id(@event)}-portion-types"
+  span = "celkem lidí: #{@event.people_count}"
+  br
+  span = "ve skupinách započteno: #{@event.portion_type_attendee_count}"
+  br
+  span = "počet porcí: #{@event.portion_count}"
+
   h2 = "Typy porcí pro událost"
   - @event_portion_types.each do |event_portion_type|
     == render event_portion_type
