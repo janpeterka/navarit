@@ -1,5 +1,7 @@
 - content_for :title, "velikosti porcí"
 
+= render "event_attendance/menu"
+
 div id="#{dom_id(@event)}-portion-types"
   span = "celkem lidí: #{@event.people_count}"
   br
