@@ -26,7 +26,7 @@ class RecipesController < ApplicationController
                        @recipe.portion_count
                      end
 
-    @edited_section = params[:edited_section]&.to_sym
+    @edited_section = params[:edited_section]&.to_sym if can? :edit, @recipe
   end
 
   # GET /recipes/new
