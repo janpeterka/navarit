@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :ingredients, foreign_key: :created_by
   has_many :events, foreign_key: :created_by
   # has_many :events_in_role, through: :user_event_roles, source: :event
-  has_many :portion_types
+  has_many :portion_types, foreign_key: :created_by
 
   before_validation :set_legacy_columns, on: :create
 

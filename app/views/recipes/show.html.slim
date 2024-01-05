@@ -43,7 +43,7 @@
           = form.rich_text_area :procedure, data: { controller: "trix" }, value: @recipe.procedure.presence
           = form.submit "uložit", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
       - else
-        span.float-end = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure)
+        span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure)
         = @recipe.procedure
 
 

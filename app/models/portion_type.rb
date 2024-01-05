@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PortionType < ApplicationRecord
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', foreign_key: :created_by
 
   validates :name, presence: true, uniqueness: true
   validates :size, presence: true, numericality: { greater_than: 0 }

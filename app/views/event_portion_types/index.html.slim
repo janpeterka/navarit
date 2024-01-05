@@ -1,11 +1,12 @@
-p style="color: green" = notice
+- content_for :title, "Event Portion Types"
 
-h1 Event portion types
-
-#event_portion_types
+div id="#{dom_id(@event)}-portion-types"
+  h3 = "Typy porcí pro událost"
   - @event_portion_types.each do |event_portion_type|
     == render event_portion_type
-    p
-      / = link_to "Show this event portion type", event_portion_type
-/ 
-= link_to "New event portion type", new_event_portion_type_path
+  h3 = "Jinde použité typy porcí"
+  - @unused_portion_types.each do |portion_type|
+    == render "event_portion_type", portion_type: , event: @event
+  
+  / h3 = "Přidat nový typ porcí"
+  / == render "form", event: @event

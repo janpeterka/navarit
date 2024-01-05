@@ -66,6 +66,8 @@ cs:
         one: akce
         few: akce
         other: akcí
+      event_portion_type:
+        one: "typ porce"
     attributes:
       ingredient:
         measurement: míra
@@ -79,3 +81,6 @@ cs:
       recipe:
         portion_count: "počet porcí"
         category: "kategorie"
+      event_portion_type:
+        count: počet
+        size: velikost
