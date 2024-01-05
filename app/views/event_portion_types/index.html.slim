@@ -3,17 +3,15 @@
 div id="#{dom_id(@event)}-portion-types"
   span = "celkem lidí: #{@event.people_count}"
   br
-  span = "ve skupinách započteno: #{@event.portion_type_attendee_count}"
-  br
   span = "počet porcí: #{@event.portion_count}"
 
-  h2 = "Typy porcí pro událost"
+  = heading("Typy porcí pro událost")
   - @event_portion_types.each do |event_portion_type|
     == render event_portion_type
 
-  h2 = "Jinde použité typy porcí"
+  = heading("Jinde použité typy porcí")
   - @unused_portion_types.each do |portion_type|
     == render "event_portion_type", portion_type: , event: @event
   
-  h2 = "Přidat nový typ porcí"
+  = heading("Přidat nový typ porcí")
   == render "event_portion_type", portion_type: PortionType.new, event: @event
