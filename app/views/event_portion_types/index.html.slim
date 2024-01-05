@@ -1,12 +1,13 @@
 - content_for :title, "Event Portion Types"
 
 div id="#{dom_id(@event)}-portion-types"
-  h3 = "Typy porcí pro událost"
+  h2 = "Typy porcí pro událost"
   - @event_portion_types.each do |event_portion_type|
     == render event_portion_type
-  h3 = "Jinde použité typy porcí"
+
+  h2 = "Jinde použité typy porcí"
   - @unused_portion_types.each do |portion_type|
     == render "event_portion_type", portion_type: , event: @event
   
-  / h3 = "Přidat nový typ porcí"
-  / == render "form", event: @event
+  h2 = "Přidat nový typ porcí"
+  == render "event_portion_type", portion_type: PortionType.new, event: @event

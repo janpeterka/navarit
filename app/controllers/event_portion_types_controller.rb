@@ -20,8 +20,13 @@ class EventPortionTypesController < ApplicationController
   def edit; end
 
   # POST /event_portion_types
-  def create
-    @portion_type = PortionType.find(params[:portion_type_id])
+  def create # rubocop:disable Metrics/AbcSize
+    @portion_type = PortionType.find_by(id: params[:portion_type_id])
+    if @portion_type.nil?
+      @portion_type = current_user.portion_types.create!(name: portion_type_params[:name],
+                                                         size: portion_type_params[:size])
+    end
+
     @event_portion_type = @event.event_portion_types.new(event_portion_type_params.merge(portion_type: @portion_type))
 
     if @event_portion_type.save
@@ -63,6 +68,10 @@ class EventPortionTypesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_portion_type_params
-    params.fetch(:event_portion_type, {}).permit(:event_id, :portion_type_id, :name, :count, :size)
+    params.fetch(:event_portion_type, {}).permit(:event_id, :portion_type_id, :count)
+  end
+
+  def portion_type_params
+    params.fetch(:event_portion_type, {}).permit(:name, :size)
   end
 end

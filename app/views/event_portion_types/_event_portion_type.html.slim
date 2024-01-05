@@ -1,11 +1,20 @@
 - event_portion_type ||= EventPortionType.new(portion_type: portion_type, event: event)
+- portion_type ||= event_portion_type.portion_type
 - method = event_portion_type.persisted? ? :patch : :post
 - url = event_portion_type.persisted? ? event_portion_type_path(event_id: event_portion_type.event_id, id: event_portion_type.portion_type_id) : event_portion_types_path(event_id: event_portion_type.event_id, portion_type_id: event_portion_type.portion_type_id)
 
-div.border.border-emerald-700.p-2.m-2 id="#{dom_id event_portion_type}"
-    = default_form_for event_portion_type, url: , method: , html: { data: { controller: "form" }} do |form|
-        = form.input :name, col_span: 5, disabled: true
-        = form.input :size, col_span: 3, disabled: true
-        = form.input :count, col_span: 3, :input_html => { data: { action: "change->form#submit" } }
-        = button_link_to "Smazat", event_portion_type_path(event_id: event_portion_type.event_id, id: event_portion_type.portion_type_id), type: :dangerous, data: {turbo_method: :delete, confirm: "Opravdu smazat?" } if event_portion_type.persisted?
 
+div.p-2.m-2 id="#{dom_id event_portion_type}"
+    - if portion_type.persisted?
+        = default_form_for event_portion_type, url: , method: , html: { data: { controller: "form" }} do |form|
+            = form.input :name, col_span: 5, disabled: true
+            = form.input :size, col_span: 3, disabled: true
+            = form.input :count, col_span: 3, :input_html => { data: { action: "change->form#submit" } }
+            = button_link_to "Smazat", event_portion_type_path(event_id: event_portion_type.event_id, id: event_portion_type.portion_type_id), type: :dangerous, data: {turbo_method: :delete, confirm: "Opravdu smazat?" } if event_portion_type.persisted?
+    - else
+        = default_form_for event_portion_type, url: , method: , html: { data: { controller: "form" }} do |form|
+            = form.input :name, col_span: 5
+            = form.input :size, col_span: 3
+            = form.input :count, col_span: 3
+            = form.submit "vytvořit"
+    
