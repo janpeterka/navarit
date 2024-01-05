@@ -1,6 +1,3 @@
 - content_for :title, "upravit #{ @recipe.name }"
 
 == render "form", recipe: @recipe
-
-div
-  = link_to "zrušit", recipe_path(@recipe)

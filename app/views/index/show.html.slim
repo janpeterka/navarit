@@ -1,81 +1,62 @@
 h1.text-4xl.text-center.mt-4.mb-4 skautská kuchařka
 
-/     = t(".title")
+div.text-center
+    | tvůj pomocník při vaření pro hodně lidí.
+    br
+    span.italic
+        | nebo i málo lidí.
+    br
+    | na táboře, kurzu, víkendovce nebo doma.
+    br
+    | pro skauty i neskauty
 
 
-/ <div class="font-montserrat text-larger">
-/     <div class="mb-5 text-center" >
-/         <p class="mb-2">
-/             <h2 class="mt-2 color-primary font-comfortaa-bb">
-/                 navařit
-/             </h2>
-/             <h3 class="text-muted font-comfortaa-b text-smaller">
-/                 skautská kuchařka
-/             </h3>
+= heading("s čím ti pomůže?", class: "text-center mt-4 mb-4")
+div#features.text-center
+    div#meal-plan.grid.grid-cols-1.md:grid-cols-2.mt-3
+        div
+            = heading("poskládat si jídelníček", :h3)
+            p
+                | poskládej si jídelníček akce a měj kompletní přehled.
+                br
+                | exportuj si seznam receptů nebo plán na táborový den.
+        div
+            = image_tag "frontpage/event.png", class: "img-fluid"
 
-/             tvůj pomocník při vaření pro hodně lidí. <br>
-/             <i>nebo i málo lidí.</i> <br>
-/             na táboře, kurzu, víkendovce nebo doma. <br>
-/             pro skauty i neskauty <br>
-/         </p>
-/     </div>
-    
-/     <hr>
+    hr
+        
 
-/     <div class="mb-5 text-center row">
-/         <h2 class="color-primary font-comfortaa-bb"> s čím ti pomůže? </h2>
-/ 	    <div>
-/             <div class="row">
-/                 <div class="col-12 col-md-6">
-/                     <h4 class="color-primary font-comfortaa-b mt-4"> poskládej si jídelníček </h4>
-/         	        poskládej si jídelníček akce a měj kompletní přehled.<br>
-/                     exportuj si seznam receptů nebo plán na táborový den.
-/                 </div>
+    div#shopping-list.grid.grid-cols-1.md:grid-cols-2.mt-3
+        div
+            = heading("naplánovat nákup", :h3)
+            p
+                | vytvoření nákupního seznamu na jedno kliknutí? jasně!
+        div
+            = image_tag "frontpage/shopping_list.png", class: "img-fluid"
 
-/                 <div class="col-12 col-md-6">
-/                     <img src="{{ url_for('static', filename='public/event.png') }}" class="img-fluid">
-/                 </div>
-/             </div>
+    hr
 
-/             <hr>
+    div#recipes.grid.grid-cols-1.md:grid-cols-2.mt-3
+        div
+            = heading("mít zásobárnu receptů", :h3)
+            p
+                | měj po ruce svoje osvědčené recepty.
+        div
+            = image_tag "frontpage/my_recipes.png", class: "img-fluid"
 
-/             <div class="row mt-2">
-/                 <div class="col-12 col-md-6">
-/                     <h4 class="color-primary font-comfortaa-b mt-4"> jdi na nákup </h4>
-/                     <em>navařit</em> ti vytvoří nákupní seznam.
-/                 </div>
-/                 <div class="col-12 col-md-6">
-/                     <img src="{{ url_for('static', filename='public/shopping_list.png') }}" class="img-fluid">
-/                 </div>
-/             </div>
+    hr
 
-/             <hr>
+    div#public-recipes.grid.grid-cols-1.md:grid-cols-2.mt-3.mb-20
+        div
+            = heading("nechat se inspirovat", :h3)
+            p
+                | nebo použij recepty ze 
+                = link_to "společné databáze", published_recipes_path, style: "font-weight: 550;"
+                | .
+        div
+            = image_tag "frontpage/public_recipes.png", class: "img-fluid"
 
-/             <div class="row mt-2">
-/                 <div class="col-12 col-md-6">
-/                     <h4 class="color-primary font-comfortaa-b mt-4"> tvoje zásobárna receptů </h4>
-/                     měj po ruce svoje osvědčené recepty.
-/                 </div>
-/                 <div class="col-12 col-md-6">
-/                     <img src="{{ url_for('static', filename='public/my_recipes.png') }}" class="img-fluid">
-/                 </div>
-/             </div>
-
-/             <hr>
-
-/             <div class="row mt-2">
-/                 <div class="col-12 col-md-6">
-/                     <h4 class="color-primary font-comfortaa-b mt-4"> nech se inspirovat </h4>
-/                     nebo použij recepty ze <a href="{{ url_for('PublicRecipeView:public_index') }}" style="font-weight: 550;"> společné databáze</a>. 
-/                 </div>
-/                 <div class="col-12 col-md-6">
-/                     <img src="{{ url_for('static', filename='public/recipes.png') }}" class="img-fluid">
-/                 </div>
-/             </div>
-/ 	    </div>
-/ 	</div>
-	
-/ 	<hr>
+	/ hr
     
 /     <div class="mb-5">
 /         <div class="row">
@@ -95,8 +76,9 @@ h1.text-4xl.text-center.mt-4.mb-4 skautská kuchařka
 
 / </div>
 
-footer.fixed.bottom-2.text-sm
-    | s 💚 vyrobil 
-    = link_to "Obr ", "https://jpeterka.cz", target: "_blank", class: "text-emerald-900"
-    | pro 
-    = link_to "Fons Beníšky", "https://fons.skauting.cz", target: "_blank", class: "text-emerald-900"
+footer.fixed.w-full.bottom-0.pb-3.pt-7.text-sm.ms-2.bg-gradient-to-b.from-transparent.via-white.to-white
+    div.pt-2 
+        | s 💚 vyrobil 
+        = link_to "Obr ", "https://jpeterka.cz", target: "_blank", class: "text-emerald-900"
+        | pro 
+        = link_to "Fons Beníšky", "https://fons.skauting.cz", target: "_blank", class: "text-emerald-900"
