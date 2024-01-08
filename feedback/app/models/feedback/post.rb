@@ -25,4 +25,9 @@ class Feedback::Post < Feedback::ApplicationRecord
 
     synchronize!
   end
+
+  def issue_comments
+    @connector = Feedback::Connectors::Github.new
+    @connector.comments(self)
+  end
 end
