@@ -1,0 +1,13 @@
+Welcome to feedback page!
+<br>
+You already gave us <%= @posts.size %> feedbacks, thanks!
+
+<p>
+Send new feedback:
+<%= render "form" %>
+
+<p>
+Feedbacks:
+<% @posts.each do |post| %>
+    <%= render "post", post: post %>
+<% end %>

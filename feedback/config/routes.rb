@@ -1,7 +1,7 @@
 Feedback::Engine.routes.draw do
-  root to: 'post#index'
+  root to: 'posts#index'
 
-  resources :post, only: %i[index new create show] do
-    resources :comment, only: %i[index new create]
+  resources :posts, only: %i[index new create show] do
+    resources :comments, only: %i[index new create]
   end
 end

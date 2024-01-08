@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :events, foreign_key: :created_by
   # has_many :events_in_role, through: :user_event_roles, source: :event
   has_many :portion_types, foreign_key: :created_by
+  has_many :feedback_posts, class_name: 'Feedback::Post'
 
   before_validation :set_legacy_columns, on: :create
 
