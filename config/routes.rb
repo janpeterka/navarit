@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
+  mount Feedback::Engine, at: '/feedback'
+
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   resource :dashboard, only: :show
