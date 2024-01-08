@@ -1,4 +1,6 @@
 class Feedback::PostsController < Feedback::ApplicationController
+  before_action :load_post, only: %i[show]
+
   def index
     @posts = Feedback::Post.created_by(current_user)
   end
@@ -14,11 +16,22 @@ class Feedback::PostsController < Feedback::ApplicationController
       p @post.errors
       redirect_to feedback.posts_path, status: :unprocessable_entity
     end
+
+    @post.upload!
   end
 
   def show; end
 
+  def synchronize
+    @post = Feedback::Post.find(params[:post_id])
+    @post.synchronize!
+  end
+
   private
+
+  def load_post
+    @post = Feedback::Post.find(params[:id])
+  end
 
   def post_params
     params.require(:post).permit(:description)

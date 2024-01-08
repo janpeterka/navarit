@@ -2,4 +2,12 @@
     Description: <%= post.description %>
     <br>
     Status: <%= post.status %>
+    <br>
+    Last synchronized: <%= post.last_synchronized_at %>
+    <br>
+    <% if post.issue_url.present? %>
+        You can see it <a href=<%= post.issue_url %>> here </a>
+    <% end %>
+
+    <%= button_to "synchronize", post_synchronize_path(post) %>
 </div>

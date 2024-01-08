@@ -11,4 +11,18 @@ class Feedback::Post < Feedback::ApplicationRecord
   def title
     "Feedback ##{id} from #{creator.name}"
   end
+
+  def synchronize!
+    @connector = Feedback::Connectors::Github.new
+    @connector.synchronize_post(self)
+
+    update(last_synchronized_at: Time.zone.now)
+  end
+
+  def upload!
+    @connector = Feedback::Connectors::Github.new
+    @connector.upload_post(self)
+
+    synchronize!
+  end
 end
