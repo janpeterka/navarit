@@ -5,12 +5,12 @@
 <h2> Comments </h2>
 
 <% @post.comments.each do |comment| %>
-    <%= render "comments/comment", comment: %>
+    <%= render "feedback/comments/comment", comment: %>
 <% end %>
 
 <br>
 
-<%= render "comments/form", post: @post %>
+<%= render "feedback/comments/form", post: @post %>
 
 <br>
 

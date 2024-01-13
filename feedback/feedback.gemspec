@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Jan Peterka']
   spec.email       = ['jan.peterka@hey.com']
   spec.homepage    = 'https://github.com/janpeterka/kucharka-on-rails'
-  spec.summary     = 'Summary of Feedback.'
-  spec.description = 'Description of Feedback.'
+  spec.summary     = 'Plugin for collecting feedback from users.'
+  spec.description = 'Collectiong feedback made easy. Store feedback in your app and synchronize it with your issue tracker'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.
