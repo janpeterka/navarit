@@ -16,3 +16,9 @@ Style/ClassAndModuleChildren:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
