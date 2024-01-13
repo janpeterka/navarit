@@ -9,7 +9,6 @@ class Feedback::Comment < Feedback::ApplicationRecord
   end
 
   def upload!
-    @connector = Feedback::Connectors::Github.new
-    @connector.upload_comment(self)
+    Feedback::CommentUploader.new.perform(id)
   end
 end
