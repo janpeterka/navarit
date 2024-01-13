@@ -1,0 +1,19 @@
+cs:
+  synchronize: "Synchronizovat"
+  Welcome: "Vítejte na stránce se zpětnou vazbou!"
+  "Send feedback": "Poslat novou zpětnou vazbu"
+
+  activerecord:
+    models:
+      feedback/post:
+        one: "příspěvek"
+        few: "příspěvky"
+        other: "příspěvků"
+
+    attributes:
+      feedback/post:
+        title: "Název"
+        description: "Obsah"
+      feedback/comment:
+        content: "Obsah"
+    
