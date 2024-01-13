@@ -122,6 +122,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_145955) do
     t.bigint "post_id", null: false
     t.bigint "user_id"
     t.datetime "last_synchronized_at"
+    t.integer "comment_id"
+    t.string "comment_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_feedback_comments_on_post_id"

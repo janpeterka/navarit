@@ -1,9 +1,9 @@
 class Feedback::Connectors::Github < Feedback::Connectors::Base
   attr_reader :client, :repository, :repository_name
 
-  PUBLIC_COMMENT_PREFIX = '@feedback'
+  PUBLIC_COMMENT_PREFIX = '#feedback:'.freeze
 
-  def initialize
+  def initialize # rubocop:disable Lint/MissingSuper
     require 'octokit'
     @client = ::Octokit::Client.new(access_token: ENV['FEEDBACK_GITHUB_ACCESS_TOKEN'])
     @repository_name ||= ENV['FEEDBACK_GITHUB_REPOSITORY']
@@ -11,7 +11,8 @@ class Feedback::Connectors::Github < Feedback::Connectors::Base
   end
 
   def upload_post(post)
-    response = @client.create_issue(@repository_name, post.description)
+    response = @client.create_issue(@repository_name, post.description.truncate(30), post.description,
+                                    labels: ['feedback'])
     post.update(issue_id: response.number, issue_url: response.html_url, status: :open)
   end
 
@@ -20,9 +21,17 @@ class Feedback::Connectors::Github < Feedback::Connectors::Base
 
     post.update(status: issue.state.to_sym)
 
-    # issue.comments.each do |comment|
-    #   next if post.
-    # end
+    comments = @client.issue_comments(@repository_name, post.issue_id)
+
+    comments.each do |comment|
+      next unless comment.body.starts_with?(PUBLIC_COMMENT_PREFIX)
+      next if comment.id.in?(post.comments.map(&:comment_id))
+
+      # it's a new comment!
+      new_comment = post.comments.create(comment_url: comment.url,  comment_id: comment.id,
+                                         content: comment.body.gsub!(PUBLIC_COMMENT_PREFIX, "") , user_id: nil)
+      new_comment.save!
+    end
   end
 
   def issues_by(creator)
@@ -33,13 +42,8 @@ class Feedback::Connectors::Github < Feedback::Connectors::Base
     end
   end
 
-  def comments(post)
-    comments = @client.issue_comments(@repository_name, post.issue_id)
-
-    public_comments = comments.select { _1.body.starts_with?(PUBLIC_COMMENT_PREFIX) }
-
-    return public_comments
+  def upload_comment(comment)
+    response = @client.add_comment(@repository_name, comment.post.issue_id, comment.content_with_creator_info)
+    comment.update(comment_url: response.html_url, comment_id: response.id)
   end
-
-  # def upload_comment(post)
 end

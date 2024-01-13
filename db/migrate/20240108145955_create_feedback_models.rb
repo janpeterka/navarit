@@ -16,6 +16,8 @@ class CreateFeedbackModels < ActiveRecord::Migration[7.1]
       t.references :post, null: false
       t.references :user
       t.datetime :last_synchronized_at
+      t.integer :comment_id
+      t.string :comment_url
 
       t.timestamps
     end

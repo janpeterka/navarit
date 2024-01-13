@@ -2,7 +2,7 @@
 
     On <%= comment.created_at.strftime("%A, %B %e, %Y at %l:%M %p") %>
 
-    <strong> <%= comment.user&.name || "App Admin" %> </strong> said:
+    <strong> <%= comment.creator&.name || "App Admin" %> </strong> said:
 
     <%= comment.content %>
 </div>
