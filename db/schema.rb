@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_08_145955) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -115,6 +115,29 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
     t.integer "updated_by"
     t.index ["created_by"], name: "ix_events_created_by"
     t.index ["updated_by"], name: "fk_events_updated_by_users"
+  end
+
+  create_table "feedback_comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "content"
+    t.bigint "post_id", null: false
+    t.bigint "user_id"
+    t.datetime "last_synchronized_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_feedback_comments_on_post_id"
+    t.index ["user_id"], name: "index_feedback_comments_on_user_id"
+  end
+
+  create_table "feedback_posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "last_synchronized_at"
+    t.integer "status"
+    t.integer "issue_id"
+    t.string "issue_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_feedback_posts_on_user_id"
   end
 
   create_table "files", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|

@@ -1,4 +1,4 @@
-class CreateFeedbackPost < ActiveRecord::Migration[7.1]
+class CreateFeedbackModels < ActiveRecord::Migration[7.1]
   def change
     create_table :feedback_posts do |t|
       t.text :description
@@ -7,6 +7,15 @@ class CreateFeedbackPost < ActiveRecord::Migration[7.1]
       t.integer :status
       t.integer :issue_id
       t.string :issue_url
+
+      t.timestamps
+    end
+
+    create_table :feedback_comments do |t|
+      t.text :content
+      t.references :post, null: false
+      t.references :user
+      t.datetime :last_synchronized_at
 
       t.timestamps
     end

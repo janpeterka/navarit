@@ -1,0 +1,17 @@
+<%= render @post %>
+
+<br>
+
+<h2> Comments </h2>
+
+<% @post.comments.each do |comment| %>
+    <%= render "comments/comment", comment: %>
+<% end %>
+
+<br>
+
+<%= render "comments/form", post: @post %>
+
+<br>
+
+Back to <%== link_to("feedback", posts_path) %>
