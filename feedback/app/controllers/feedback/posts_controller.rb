@@ -16,7 +16,7 @@ class Feedback::PostsController < Feedback::ApplicationController
       redirect_to feedback.posts_path, status: :unprocessable_entity
     end
 
-    Feedback::PostUploader.new.perform(@post.id)
+    @post.upload!
   end
 
   def show; end
@@ -24,6 +24,7 @@ class Feedback::PostsController < Feedback::ApplicationController
   def synchronize
     @post = Feedback::Post.find(params[:post_id])
     @post.synchronize!
+
     redirect_back_or_to @post, status: :see_other
   end
 

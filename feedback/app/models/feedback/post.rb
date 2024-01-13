@@ -13,16 +13,10 @@ class Feedback::Post < Feedback::ApplicationRecord
   end
 
   def synchronize!
-    @connector = Feedback::Connectors::Github.new
-    @connector.synchronize_post(self)
-
-    update(last_synchronized_at: Time.zone.now)
+    Feedback::PostSynchronizer.new.perform(id)
   end
 
   def upload!
-    @connector = Feedback::Connectors::Github.new
-    @connector.upload_post(self)
-
-    synchronize!
+    Feedback::PostUploader.new.perform(id)
   end
 end

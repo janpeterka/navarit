@@ -7,25 +7,11 @@ class Feedback::Connectors::Base
     raise NotImplementedError
   end
 
-  def sync_post(post)
+  def synchronize_post(post)
     raise NotImplementedError
   end
 
   def upload_comment(comment)
     raise NotImplementedError
-  end
-
-  def sync_comment(comment)
-    raise NotImplementedError
-  end
-
-  def issues_by(creator)
-    issues = []
-
-    creator.feedback_posts.map(&:issue_id).each do |issue_id|
-      issues << @client.issue(@repository_name, issue_id)
-    end
-
-    issues
   end
 end

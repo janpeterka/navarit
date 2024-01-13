@@ -16,7 +16,7 @@ class Feedback::Connectors::Github < Feedback::Connectors::Base
     post.update(issue_id: response.number, issue_url: response.html_url, status: :open)
   end
 
-  def synchronize_post(post)
+  def synchronize_post(post) # rubocop:disable Metrics/AbcSize
     issue = @client.issue(@repository_name, post.issue_id)
 
     post.update(status: issue.state.to_sym)
@@ -35,11 +35,7 @@ class Feedback::Connectors::Github < Feedback::Connectors::Base
   end
 
   def issues_by(creator)
-    issues = []
-
-    creator.feedback_posts.map(&:issue_id).each do |issue_id|
-      issues << @client.issue(@repository_name, issue_id)
-    end
+    creator.feedback_posts.map { |post| @client.issue(@repository_name, post.issue_id) }
   end
 
   def upload_comment(comment)
