@@ -4,6 +4,7 @@ cs:
   "Send feedback": "Poslat novou zpětnou vazbu"
   "My feedback": "Moje zpětná vazba"
   "Show more": "Zobrazit více"
+  Back: "Zpět"
 
   activerecord:
     models:
