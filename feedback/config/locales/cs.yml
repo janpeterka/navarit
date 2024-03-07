@@ -2,6 +2,8 @@ cs:
   synchronize: "Synchronizovat"
   Welcome: "Vítejte na stránce se zpětnou vazbou!"
   "Send feedback": "Poslat novou zpětnou vazbu"
+  "My feedback": "Moje zpětná vazba"
+  "Show more": "Zobrazit více"
 
   activerecord:
     models:

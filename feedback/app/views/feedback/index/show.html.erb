@@ -6,8 +6,6 @@
 
 <%= render "feedback/posts/form" %>
 
-<p>
-    
-<% @posts.each do |post| %>
-    <%= render "feedback/posts/post", post: post %>
-<% end %>
+<p style="margin-top: 2rem;">
+
+<%= link_to t("My feedback"), posts_path %>

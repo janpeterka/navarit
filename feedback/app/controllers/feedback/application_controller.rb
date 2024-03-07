@@ -1,5 +1,5 @@
 module Feedback
   class ApplicationController < ::ApplicationController
-    layout 'application'
+    # layout 'application'
   end
 end
