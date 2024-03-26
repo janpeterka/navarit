@@ -43,4 +43,6 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   # Defines the root path route ("/")
   root 'index#show'
+
+  mount Lookbook::Engine, at: '/a/lookbook'
 end
