@@ -19,4 +19,4 @@
     /           = "nic nemůžu najít :("
 
     - @published_recipes.each do |recipe|
-      = render partial: "recipes/recipe_card", locals: {recipe: recipe}
+      = render "recipes/recipe_card", recipe:, class: "h-full"
