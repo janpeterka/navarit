@@ -9,9 +9,14 @@ module Buttons
                                                                                                      **options)
       updated_options2 = helpers.arguments_with_updated_default_class(DEFAULT_BUTTON_CLASSES[type],
                                                                       **updated_options)
+
       if content
+        content.prepend(helpers.icon(@icon)) if @icon.present?
+
         button_to(path, **updated_options2) { content }
       else
+        @name = helpers.safe_join([helpers.icon(@icon), @name]) if @icon.present?
+
         button_to(name, path, **updated_options2)
       end
     end

@@ -37,6 +37,10 @@ module ApplicationComponentsHelper
     "<#{level} class='#{classes}'>#{content}</#{level}>".html_safe
   end
 
+  def icon(icon, **)
+    svg(icon, **)
+  end
+
   # def admin_detail(record, **kwargs, &)
   #   render Details::DetailComponent.new(record:, **kwargs), &
   # end

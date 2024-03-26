@@ -1,15 +1,17 @@
-= render Buttons::ButtonLinkComponent.new(name: "normal", path: "#")
+h1 Using components
+
+= render Buttons::ButtonLinkComponent.new(name: "normal", path: "#")        
 = render Buttons::ButtonLinkComponent.new(name: "secondary", path: "#", type: :secondary)
-= render Buttons::ButtonLinkComponent.new(name: "delete!", path: "#", type: :dangerous)
+= render Buttons::ButtonLinkComponent.new(name: "plain", path: "#", type: :plain)
+/ = render Buttons::ButtonLinkComponent.new(name: "delete!", path: "#", type: :dangerous)
 
 h1 Using helpers
 
 = button_link_to "normal", "#"
 = button_link_to "secondary", "#", type: :secondary
-= button_link_to "delete!", "#", type: :dangerous
 
 h1 With icons
 
 = button_link_to "normal", "#", icon: "plus"
-= button_link_to "secondary", "#", icon: "check", type: :secondary
-= button_link_to "delete!", "#", icon: "trash", type: :dangerous
+= button_link_to "secondary", "#", icon: "plus", type: :secondary
+/ = button_link_to "delete!", "#", icon: "trash", type: :dangerous
