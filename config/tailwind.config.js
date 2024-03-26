@@ -29,6 +29,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        peach: {
+          100: "#F8ECE5",
+          300: "#F5C19F",
+          500: "#F8A66B"
+
+        }
+      },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },

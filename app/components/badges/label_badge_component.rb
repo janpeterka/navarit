@@ -18,7 +18,7 @@ module Badges
                   when 'strong-highlight'
                     'bg-orange-300'
                   else
-                    'bg-green-500'
+                    'bg-peach-300'
                   end
     end
   end
