@@ -6,7 +6,7 @@
       = f.input :query, label: false, placeholder: "hledej např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
 
 = turbo_frame_tag :published_recipes
-  .md:grid.md:grid-cols-3.md:gap-4
+  .md:grid.md:grid-cols-3.md:gap-4.auto-rows-fr
     / - if @published_recipes.empty?
     /   .col-span-3
     /     .p-4.rounded-md

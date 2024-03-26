@@ -14,6 +14,9 @@ class Event < ApplicationRecord
   has_many :daily_plan_recipes, through: :daily_plans, source: :daily_plan_recipes
   has_many :recipes, through: :daily_plan_recipes
 
+  alias_attribute :begins_at, :date_from
+  alias_attribute :ends_at, :date_to
+
   validates :name, presence: true
   validates :date_from, presence: true
   validates :date_to, presence: true

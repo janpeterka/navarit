@@ -1,0 +1,17 @@
+- object_class = Data.define(:title, :description, :detail)
+- object = object_class.new(title: "Card title", description: "Card description", detail: "card detail")
+
+= render CardComponent.new(object) do |card|
+  = card.with_heading do
+    = object.title
+
+  = card.with_details do
+    = object.detail
+  
+  = card.with_actions do
+    = button_link_to 'Action', '#'
+    = button_link_to 'Another action', '#', type: :secondary
+    = action_button_to 'Something else', '#', method: :delete
+
+  = card.with_body do
+    = object.description

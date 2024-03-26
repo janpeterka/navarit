@@ -35,7 +35,8 @@ html
 
     - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
       div
-        h1.text-3xl.text-strong.mb-2 class="#{local_assigns[:header_class]} #{'inline-block' if content_for?(:header_right) }"
+        = 
+        h1.text-3xl.text-strong.mb-2 class="#{@header_class.presence} #{'inline-block' if content_for?(:header_right) }"
           - if content_for?(:header)
             = yield(:header)
           - else

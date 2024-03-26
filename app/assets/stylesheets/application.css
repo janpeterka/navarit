@@ -1,5 +1,9 @@
 /* Application styles */
 
+body {
+  background-color: #F8ECE5;
+}
+
 .highlight {
   background-color: darkgreen;
 }
