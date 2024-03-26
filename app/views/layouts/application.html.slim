@@ -26,7 +26,9 @@ html
     = render("shared/flash")
 
     / TODO: this is here because Devise is using this layout, not public
-    - if current_user.present?
+    - if request.path.include?("/lookbook/")
+      = ""
+    - elsif current_user.present?
       = render("shared/navbar")
     - else
       = render("shared/public_navbar")
