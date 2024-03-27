@@ -9,7 +9,7 @@
     = f.input :category_id, label: "kategorie", collection: RecipeCategory.all, col_span: 3, required: false, input_html: {data: {action: "change->form#submit"}}
     = f.input :dietary_label_id, label: "dietní omezení", collection: Label.of_category(:dietary), col_span: 3, required: false, input_html: {data: {action: "change->form#submit"}}
 
-    = f.input :sorting, label: "řazení", collection: [["od nejoblíbenějších", :favorite], ["A -> Z", :alphabetically], ["od nejnovějších", :newest], ["od nejstarších", :oldest]], col_span: 3, input_html: {data: {action: "change->form#submit"}}
+    = f.input :sorting, label: "řazení", collection: [["od nejoblíbenějších", :favorite], ["A -> Z", :alphabetically], ["od nejnovějších", :newest], ["od nejstarších", :oldest]], col_span: 3, input_html: {data: {action: "change->form#submit"}}, required: false, include_blank: false
 
 
 = turbo_frame_tag :published_recipes

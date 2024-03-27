@@ -12,7 +12,7 @@ class Ability
     return unless user.present?
 
     can :read, :all, author: user
-    can :manage, :all, author: user
+    can %i[manage publish], :all, author: user
 
     # Define abilities for the user here. For example:
     #

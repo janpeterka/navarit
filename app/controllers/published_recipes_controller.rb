@@ -11,14 +11,10 @@ class PublishedRecipesController < PublicApplicationController
                                                     query, query, query).references(:category, :labels, :reactions)
     end
 
-    # @pagy, @recipes = pagy(@recipes)
-
     @published_recipes = @published_recipes.where(category_id: params[:category_id]) if params[:category_id].present?
 
-    # @published_recipes = @published_recipes.where(category: params[:category]) if params[:category].present?
-    # @published_recipes = @published_recipes.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
-
     if params[:dietary_label_id].present?
+      @published_recipes = @published_recipes.joins(:labels).where(labels: Label.find(params[:dietary_label_id]))
     end
 
     case params[:sorting]&.to_sym
@@ -34,11 +30,13 @@ class PublishedRecipesController < PublicApplicationController
     else
       @published_recipes
     end
+
+    # @pagy, @recipes = pagy(@recipes)
   end
 
   def create
     recipe = Recipe.find(params[:recipe_id])
-    authorize! :manage, recipe
+    authorize! :publish, recipe
 
     if recipe.publish!
       flash[:notice] = 'recept byl zveřejněn'
@@ -51,7 +49,7 @@ class PublishedRecipesController < PublicApplicationController
 
   def destroy
     recipe = Recipe.find(params[:id])
-    authorize! :manage, recipe
+    authorize! :publish, recipe
 
     recipe.unpublish!
 
