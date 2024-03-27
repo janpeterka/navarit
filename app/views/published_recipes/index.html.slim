@@ -1,9 +1,16 @@
 - content_for :title, "sdílené recepty"
 
-.mb-2
+.mb-6
   - placeholder = Recipe.published.order("RAND()").limit(1).first&.name
-  = simple_form_for "", url: published_recipes_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "published_recipes"}} do |f|
-      = f.input :query, label: false, placeholder: "hledej např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
+  = default_form_for "", url: published_recipes_path, method: :get, html: {class: "inline-block", data: {"controller": "form", "turbo-frame": "published_recipes"}} do |f|
+    = f.input :query, label: false, placeholder: "hledej např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true, col_span: 10
+    = f.submit "Hledat", col_span: 2
+
+    = f.input :category_id, label: "kategorie", collection: RecipeCategory.all, col_span: 3, required: false, input_html: {data: {action: "change->form#submit"}}
+    = f.input :dietary_label_id, label: "dietní omezení", collection: Label.of_category(:dietary), col_span: 3, required: false, input_html: {data: {action: "change->form#submit"}}
+
+    = f.input :sorting, label: "řazení", collection: [["od nejoblíbenějších", :favorite], ["A -> Z", :alphabetically], ["od nejnovějších", :newest], ["od nejstarších", :oldest]], col_span: 3, input_html: {data: {action: "change->form#submit"}}
+
 
 = turbo_frame_tag :published_recipes
   .md:grid.md:grid-cols-3.md:gap-4.auto-rows-fr
