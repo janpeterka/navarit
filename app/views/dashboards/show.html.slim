@@ -7,17 +7,8 @@ div.mt-8
     = heading("nadcházející akce".upcase, :h2)
 
 .sm:grid.sm:grid-cols-3.gap-4.mt-4
-    = render CardComponent.new(nil, class: "mt-2") do |card|
-        - if @nearest_future_event.present? 
-            = card.with_heading do
-                = link_to @nearest_future_event.name, @nearest_future_event
-            = card.with_body do
-                = "#{@nearest_future_event.begins_at.to_fs(:simple)} - #{@nearest_future_event.ends_at.to_fs(:simple)}"
-                br
-                = "#{@nearest_future_event.duration} dní"
-        - else
-            = "založ "
-            = link_to "novou událost", new_event_path
+    - if @nearest_future_event.present?
+        = render "events/card", event: @nearest_future_event
 
 = heading("nejnovější recepty".upcase, :h2)
 

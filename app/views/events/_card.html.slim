@@ -1,0 +1,9 @@
+/# locals: (event:, classes: "")
+
+= render CardComponent.new(event, class: classes) do |card|
+    = card.with_heading do
+        = link_to event.name, event
+    = card.with_body do
+        = "#{event.begins_at.to_fs(:simple)} - #{event.ends_at.to_fs(:simple)}"
+        br
+        = "#{event.duration} dní"
