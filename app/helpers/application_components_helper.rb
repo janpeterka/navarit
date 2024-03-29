@@ -37,8 +37,8 @@ module ApplicationComponentsHelper
     "<#{level} class='#{classes}'>#{content}</#{level}>".html_safe
   end
 
-  def icon(icon, **)
-    svg(icon, **)
+  def icon(name, **options)
+    phosphor_icon(name, class: "inline #{options.delete(:class)}", **options)
   end
 
   # def admin_detail(record, **kwargs, &)

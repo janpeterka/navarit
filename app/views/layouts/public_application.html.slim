@@ -21,17 +21,22 @@ html
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 
-  body.mx-auto.sm:px-4.max-w-screen-2xl
+  body
     = render("shared/flash")
+
     - if current_user.present?
       = render("shared/navbar")
     - else
       = render("shared/public_navbar")
-    - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
-      h1.text-3xl.text-strong.mb-2
-        - if content_for?(:header)
-          = yield(:header)
-        - else
-          = yield(:title)
-    = yield
+
+    .mx-auto.sm:px-4.max-w-screen-2xl
+
+      - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
+        h1.text-3xl.text-strong.mb-2
+          - if content_for?(:header)
+            = yield(:header)
+          - else
+            = yield(:title)
+      = yield
+    
     = render("shared/mobile_navbar") if current_user.present?

@@ -22,7 +22,7 @@ html
     / meta name="turbo-refresh-method" content="morph"
     / meta name="turbo-refresh-scroll" content="preserve"
 
-  body.mx-2.sm:mx-auto.sm:px-4.max-w-screen-2xl
+  body
     = render("shared/flash")
 
     / TODO: this is here because Devise is using this layout, not public
@@ -33,18 +33,20 @@ html
     - else
       = render("shared/public_navbar")
 
-    - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
-      div
-        = 
-        h1.text-3xl.text-strong.mb-2 class="#{@header_class.presence} #{'inline-block' if content_for?(:header_right) }"
-          - if content_for?(:header)
-            = yield(:header)
-          - else
-            = yield(:title)
-        span.float-right
-          - if content_for?(:header_right)
-            = yield(:header_right)
-          - else
-            = yield(:header_right)
-    = yield
+    .md:container.md:mx-auto.mx-3
+      - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
+        div
+          = 
+          h1.text-3xl.text-strong.mb-2 class="#{@header_class.presence} #{'inline-block' if content_for?(:header_right) }"
+            - if content_for?(:header)
+              = yield(:header)
+            - else
+              = yield(:title)
+          span.float-right
+            - if content_for?(:header_right)
+              = yield(:header_right)
+            - else
+              = yield(:header_right)
+      = yield
+
     = render("shared/mobile_navbar") if current_user.present?
