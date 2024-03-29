@@ -1,5 +1,8 @@
 import { application } from "controllers/application"
 
+import ClickableController from "controllers/clickable_controller"
+application.register("clickable", ClickableController)
+
 import FormController from "controllers/form_controller"
 application.register("form", FormController)
 
