@@ -7,7 +7,9 @@
 = turbo_frame_tag :events
   #future-events
     .flex.justify-between
-      = heading("nadcházející akce", :h2)
+      h2.mt-6.mb-3
+        = icon(:calendar, class: "mr-2")
+        = "nadcházející akce".upcase
       = button_link_to "nová akce", new_event_path, data: {turbo_frame: "_top"}
 
     .md:grid.grid-cols-2.gap-2
@@ -15,7 +17,9 @@
         = render "events/card", event:
 
   #past-events
-    = heading("skončené akce", :h2)
+    h2.mt-4.mb-3
+      = icon(:archive, class: "mr-2")
+      = "skončené akce".upcase
     .md:grid.grid-cols-2.gap-2
       - @events.active.past.each do |event|
         = render "events/card", event:

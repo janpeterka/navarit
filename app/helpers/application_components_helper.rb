@@ -6,12 +6,21 @@ module ApplicationComponentsHelper
     render MenuComponent.new(**kwargs), &
   end
 
-  def button_link_to(name, path, **, &)
-    render Buttons::ButtonLinkComponent.new(name:, path:, **), &
+  def button_link_to(name, path, icon: nil, **, &)
+    icon ||= :pencil if path.include?('/edit')
+    icon ||= :plus if path.include?('/new')
+
+    render Buttons::ButtonLinkComponent.new(name:, path:, icon:, **), &
   end
 
-  def action_button_to(name, path, **, &)
-    render Buttons::ButtonToComponent.new(name:, path:, **), &
+  def action_button_to(name, path, icon: nil, **kwargs, &)
+    case kwargs[:method]
+    when :delete
+      kwargs[:type] ||= :dangerous
+      icon ||= :trash
+    end
+
+    render Buttons::ButtonToComponent.new(name:, path:, icon:, **kwargs), &
   end
 
   def table(records, **, &)
@@ -30,8 +39,8 @@ module ApplicationComponentsHelper
     render SearchboxComponent.new(placeholder:, path:, target_turbo_frame:), &
   end
 
-  def heading(content, level = :h2, **kwargs)
-    default_classes = { h2: 'text-xl font-bold mb-2', h3: 'font-bold mb-2' }
+  def heading(content, level = :h2, **kwargs, &)
+    default_classes = {}
     classes = "#{default_classes[level]} #{kwargs[:class]}"
 
     "<#{level} class='#{classes}'>#{content}</#{level}>".html_safe

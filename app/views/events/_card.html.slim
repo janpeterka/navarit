@@ -5,6 +5,9 @@ div data={"controller": "clickable", "clickable-url-value": event_path(event)}
         = card.with_heading do
             = link_to event.name, event
         = card.with_body do
-            = "#{event.begins_at.to_fs(:simple)} - #{event.ends_at.to_fs(:simple)}"
-            br
-            = "#{event.duration} dní"
+            .mb-2
+                = icon("calendar-blank", class: "mr-3")
+                = "#{event.begins_at.to_fs(:simple)} - #{event.ends_at.to_fs(:simple)}"
+            .
+                = icon(:timer, class: "mr-3")
+                = "#{event.duration} dní"

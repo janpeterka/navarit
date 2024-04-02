@@ -4,6 +4,19 @@ body {
   background-color: #F8ECE5;
 }
 
+h2 {
+  /* @apply text-xl */
+  font-size: 1.25rem; 
+  line-height: 1.75rem; 
+  /* @apply mb-2 */
+  margin-bottom: 0.5rem; 
+}
+
+h3 {
+  /* @apply mb-2 */
+  margin-bottom: 0.5rem; 
+}
+
 .highlight {
   background-color: darkgreen;
 }
