@@ -47,7 +47,9 @@ module ApplicationComponentsHelper
   end
 
   def icon(name, **options)
-    phosphor_icon(name, class: "inline #{options.delete(:class)}", **options)
+    default_classes = 'inline mr-1'
+
+    phosphor_icon(name, class: "#{default_classes} #{options.delete(:class)}", **options)
   end
 
   # def admin_detail(record, **kwargs, &)

@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   include Publishable
   include Archivable
   include Event::HasPortionTypes
+  include Event::Collaboration
 
   belongs_to :author, class_name: 'User', foreign_key: 'created_by'
 

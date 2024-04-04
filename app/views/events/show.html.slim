@@ -1,50 +1,88 @@
-
 - content_for :title, @event.name
+
+- content_for :breadcrumbs do
+  = link_to("akce", events_path, class: "hover:underline text-ocean-800")
+  = " > "
+  = @event.name
 
 - content_for :header do
   = yield :title
   = " (archivováno)" if @event.archived?
 
 - content_for :header_right do
-  = button_link_to "upravit", edit_event_path(@event) if can? :update, @event
-  = action_button_to "smazat", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, type: :dangerous, disabled: !@event.destroyable? if can? :destroy, @event
+  / WIP - sharing, collaborations 
+  button.px-3.py-2.m-2.rounded-3xl.bg-peach-300 data-modal-target="#{dom_id(@event)}-sharing-modal" data-modal-toggle="#{dom_id(@event)}-sharing-modal"
+    - if @event.published?
+      = icon("eye", class: "mr-1")
+      = "zveřejněná akce"
+    - else
+      = icon("lock", class: "mr-1")
+      = "soukromá akce"
 
-#details
-  div = "od #{formatted_date(@event.date_from)} do #{formatted_date(@event.date_to)}"
-  div = "#{@event.duration} dní"
+  = render "shared/modal", id: "#{dom_id(@event)}-sharing-modal", title: "Nastavení sdílení", buttons: false do
+    - if @event.published?
+      p = "Tato akce je zveřejněná, může si ji prohlédnout kdokoli s patřičným odkazem. Zde je veřejný odkaz:"
+      
+      p data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno"}
+        span.hidden data={ "clipboard-target": "source" } = @event.public_url
+        = button_tag "veřejný odkaz", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
+      
+      = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
+    - else
+      p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s patřičným odkazem."
+      = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
+  
+  span
+    - @event.involved_users.each do |user|
+      span.p-3.me-1.rounded-full.border.border-peach-300
+        = user.initials
+ 
+    span.p-3.rounded-full.border.border-peach-300
+      = icon("user-plus") 
+
+    
+
+#details.flex.justify-between.mt-6.mb-3
   div
+    = "#{formatted_date(@event.date_from)} - #{formatted_date(@event.date_to)} (#{@event.duration} dní)"
+  div
+    button.font-medium.cursor-pointer.inline.p-2.mx-2.rounded-md.hover:bg-ocean-100 data-modal-target="#{dom_id(@event)}-exports" data-modal-toggle="#{dom_id(@event)}-exports"
+      = icon("printer", class: "mr-1")
+      = "export/tisk"
+
+    = render "exports_modal", event: @event
+
+    ul.cursor-pointer.inline.p-2.mx-2.rounded-md.hover:bg-ocean-100
+      button id="eventMoreOptionsDropdownButton" data-dropdown-toggle="eventMoreOptionsDropdown" class="font-medium rounded-lg px-5 py-2.5 text-center" type="button"
+        = icon("dots-three-circle", class: "mr-1")
+        = "další možnosti"
+
+      div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+        ul class="px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
+          li = button_link_to "zkopírovat akci", new_event_duplication_path(event_id: @event.id)
+          li = button_link_to "upravit", edit_event_path(@event) if can? :update, @event
+          li = action_button_to "smazat akci", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, type: :plain, disabled: !@event.destroyable? if can? :destroy, @event
+          li
+            - if @event.archived?
+              = action_button_to "odarchivovat", archived_event_path(@event), method: :delete
+            - else
+              = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post
+
+#attendance.mb-3
+  details.border.border-gray-500.rounded-lg.p-3.hover:border-2.hover:border-ocean-700
+    summary.text-lg strávníci a velikost porcí
     = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
     
-  #attendance.inline.float-right
-    = link_to "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)", event_portion_types_path(@event)
+    = table @event.event_portion_types do |t|
+      = t.column :name
+      = t.column :size do |portion_type|
+        = "#{(portion_type.size * 100).to_i}%"
+      = t.column :count do |portion_type|
+        = "#{portion_type.count}X"
 
-#actions
-  - if @event.archived?
-    = action_button_to "odarchivovat", archived_event_path(@event), method: :delete
-  - else
-    = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post
-
-  - if @event.published?
-    span data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno"}
-      span.hidden data={ "clipboard-target": "source" } = @event.public_url
-      = button_tag "veřejný link", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
-    
-    = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
-  - else
-    = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
-
-
-  = button_link_to "kopírovat", new_event_duplication_path(event_id: @event.id)
-
+    = button_link_to "upravit", event_portion_types_path(@event)
 
 = turbo_frame_tag id="#{dom_id(@event)}-days"
   .grid.md:grid-cols-7.gap-3
     - @event.timetable.days.each do |day|
       = render("day_card", day: )
-
-div.mt-2
-  h2.text-xl = "Exporty"
-  = button_link_to "nákupní seznam", event_shopping_list_path(@event), target: "_blank"
-  = button_link_to "nákupní seznam (pdf)", event_shopping_list_path(@event, format: :pdf), target: "_blank"
-  = button_link_to "kuchařka (pdf)", event_cookbook_path(@event, format: :pdf), target: "_blank"
-      

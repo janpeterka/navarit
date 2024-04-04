@@ -22,6 +22,10 @@ class User < ApplicationRecord
     full_name
   end
 
+  def initials
+    full_name.split(' ').map(&:first).join.upcase
+  end
+
   def admin?
     true
   end

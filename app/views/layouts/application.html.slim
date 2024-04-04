@@ -34,6 +34,10 @@ html
       = render("shared/public_navbar")
 
     .md:container.md:mx-auto.mx-3
+      - if content_for?(:breadcrumbs)
+        div.mb-5.font-bolder
+          = yield(:breadcrumbs)
+
       - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
         div
           = 
@@ -47,6 +51,7 @@ html
               = yield(:header_right)
             - else
               = yield(:header_right)
+
       = yield
 
     = render("shared/mobile_navbar") if current_user.present?
