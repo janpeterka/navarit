@@ -69,7 +69,7 @@
               = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post
 
 #attendance.mb-3
-  details.border.border-gray-500.rounded-lg.p-3.hover:border-2.hover:border-ocean-700
+  details.border.border-gray-500.rounded-lg.p-3.border-2.hover:border-ocean-700
     summary.text-lg strávníci a velikost porcí
     = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
     
@@ -83,6 +83,9 @@
     = button_link_to "upravit", event_portion_types_path(@event)
 
 = turbo_frame_tag id="#{dom_id(@event)}-days"
-  .grid.md:grid-cols-7.gap-3
-    - @event.timetable.days.each do |day|
-      = render("day_card", day: )
+  .grid.md:grid-cols-7.gap-2.md:gap-0.md:border.border-b-0.border-gray-500.mb-7
+    - @event.timetable.days.in_groups_of(7) do |day_batch|
+      - day_batch.each do |day|
+        = render("day_card", day: )
+      - day_batch.each do |day|
+        = render("day_task_card", day:)

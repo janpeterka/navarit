@@ -1,0 +1,13 @@
+/# locals: (day:)
+
+- daily_plan = day.daily_plan.presence
+- day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
+- border_color_class = daily_plan.present? ? "bg-peach-200" : "bg-peach-100"
+- border_color_class += " hidden md:inline" unless daily_plan.present?
+
+div id="#{day_dom_id}-tasks" class="#{'md:border-t border-gray-400' if daily_plan.present?}"
+  - day.tasks.each do |task|
+    span.italic.overflow-hidden.truncate
+      = task.name
+
+    br
