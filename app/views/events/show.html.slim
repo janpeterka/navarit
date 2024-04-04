@@ -83,9 +83,14 @@
     = button_link_to "upravit", event_portion_types_path(@event)
 
 = turbo_frame_tag id="#{dom_id(@event)}-days"
-  .grid.md:grid-cols-7.gap-2.md:gap-0.md:border.border-b-0.border-gray-500.mb-7
+  .md:grid-cols-7.md:gap-0.md:border.border-b-0.border-gray-500.mb-7.hidden.md:grid
     - @event.timetable.days.in_groups_of(7) do |day_batch|
       - day_batch.each do |day|
         = render("day_card", day: )
       - day_batch.each do |day|
         = render("day_task_card", day:)
+
+  .grid.md:hidden
+    - @event.timetable.days.each do |day|
+      = render("day_card", day: )
+      = render("day_task_card", day:)

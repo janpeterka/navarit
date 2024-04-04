@@ -5,8 +5,8 @@
 - border_color_class = daily_plan.present? ? "bg-peach-200" : "bg-peach-100"
 - border_color_class += " hidden md:inline" unless daily_plan.present?
 
-div.md:border-b.md:border-gray-500 id="#{day_dom_id}-card" class=border_color_class
-  div.text-xl.mt-2
+div id="#{day_dom_id}-card" class=border_color_class
+  div.text-xl.mt-2.ps-2
     - if daily_plan.present?
       = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-emerald-700", data: {turbo: false} do 
         = weekday_name(day.date)

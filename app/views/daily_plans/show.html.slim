@@ -2,7 +2,7 @@
   = @daily_plan.date.strftime("%e.%m.%Y")
   = " (#{I18n.translate("date.day_names")[@daily_plan.date.wday]})"
 
-= button_link_to nil, @daily_plan.event, type: :secondary, class: "group" do
+= button_link_to nil, event_path(@daily_plan.event), type: :secondary, class: "group" do
   = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
   = "zpět na akci"
 

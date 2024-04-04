@@ -1,5 +1,10 @@
 - content_for :title, @recipe.name
 
+- content_for :breadcrumbs do
+  = link_to("recepty", recipes_path, class: "hover:underline text-ocean-800")
+  = " > "
+  = @recipe.name
+
 - content_for :header_right do
   = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0" if can? :update, @recipe
 
