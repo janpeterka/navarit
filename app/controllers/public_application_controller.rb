@@ -2,4 +2,6 @@
 
 class PublicApplicationController < ActionController::Base
   include Pagy::Backend
+
+  layout 'application'
 end

@@ -3,7 +3,7 @@ html
   head
     title
       = "DEV | " if Rails.env.development?
-      | navařit |
+      = "navařit | "
       = yield(:title).presence
 
     meta name="viewport" content="width=device-width,initial-scale=1"
@@ -33,19 +33,20 @@ html
     - else
       = render("shared/public_navbar")
 
-    .md:container.md:mx-auto.mx-3
+    .md:container.md:mx-auto.mx-3.mb-24
       - if content_for?(:breadcrumbs)
-        div.mb-5.font-bolder
+
+        .mb-5.font-bolder
           = yield(:breadcrumbs)
 
       - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
         div
-          =
-          h1.text-3xl.text-strong.mb-2 class="#{@header_class.presence} #{'inline-block' if content_for?(:header_right) }"
+          h1.text-3xl.text-strong.mb-2 class="#{@header_class.presence} #{"inline-block" if content_for?(:header_right) }"
             - if content_for?(:header)
               = yield(:header)
             - else
               = yield(:title)
+
           span.float-right
             - if content_for?(:header_right)
               = yield(:header_right)
