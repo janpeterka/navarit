@@ -7,6 +7,6 @@ module Event::Collaboration
   end
 
   def involved_users
-    [author] + collaborators
+    [ author ] + collaborators
   end
 end

@@ -6,7 +6,7 @@ class RecipeDuplicationsController < ApplicationController
     recipe = original_recipe.duplicate
     recipe.save!
 
-    flash[:notice] = 'recept byl úspěšně zkopírován.'
+    flash[:notice] = "recept byl úspěšně zkopírován."
 
     redirect_to recipe_path(recipe)
   end

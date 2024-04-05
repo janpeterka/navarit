@@ -88,7 +88,7 @@ class Shopping
 
   def shrimpy_ingredients_table(document)
     ingredients_with_usage.group_by { |i| i.first.category }.each do |category, ingredients_with_usage|
-      document.text category&.name || 'ostatní', size: 12, style: :bold
+      document.text category&.name || "ostatní", size: 12, style: :bold
       shrimpy_table(ingredients_table_data(ingredients_with_usage), document:, keep_together: false)
       document.move_down 7
     end
@@ -99,15 +99,15 @@ class Shopping
   def ingredients_table_data(ingredients_with_usage)
     data = []
     ingredients_with_usage.each do |ingredient, usage|
-      data << [ingredient.name,
-               formatted_amount_and_unit(amount: usage[:amount].to_i, measurement: ingredient.measurement)]
+      data << [ ingredient.name,
+               formatted_amount_and_unit(amount: usage[:amount].to_i, measurement: ingredient.measurement) ]
     end
     data
   end
 end
 
 class LastingIngredientShopping < Shopping
-  def name = 'nákup trvanlivých surovin'
+  def name = "nákup trvanlivých surovin"
 
   def ingredients_with_usage
     ingredients_with_usage = {}

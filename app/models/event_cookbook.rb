@@ -37,10 +37,10 @@ class EventCookbook
       document.move_down 20
     end
 
-    document.number_pages '<page> / <total>', {
+    document.number_pages "<page> / <total>", {
       start_count_at: 1,
       page_filter: :all,
-      at: [document.bounds.right - 30, 0],
+      at: [ document.bounds.right - 30, 0 ],
       align: :center,
       size: 10
     }

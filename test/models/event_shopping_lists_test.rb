@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class EventShoppingListTest < ActiveSupport::TestCase
   def setup
@@ -13,11 +13,11 @@ class EventShoppingListTest < ActiveSupport::TestCase
     @event_shopping_list = EventShoppingList.new(@event)
   end
 
-  test 'event without specified shoppings having 2 shoppings' do
+  test "event without specified shoppings having 2 shoppings" do
     assert_equal 2, @event_shopping_list.shoppings.count
   end
 
-  test 'event with 1 specified shopping having 3 shoppings' do
+  test "event with 1 specified shopping having 3 shoppings" do
     shopping = FactoryBot.create(:shopping)
     @event.daily_plans.third.daily_plan_recipes.create!(daily_plan: @event.daily_plans.first,
                                                         recipe: shopping, portion_count: 1, position: 1)

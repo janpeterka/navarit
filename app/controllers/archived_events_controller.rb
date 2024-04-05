@@ -6,7 +6,7 @@ class ArchivedEventsController < ApplicationController
   # POST /events
   def create
     @event.archive!
-    flash[:notice] = 'akce byla archivována'
+    flash[:notice] = "akce byla archivována"
 
     redirect_back_or_to @event
   end
@@ -14,7 +14,7 @@ class ArchivedEventsController < ApplicationController
   # DELETE /events/1
   def destroy
     @event.restore!
-    flash[:notice] = 'akce byla obnovena'
+    flash[:notice] = "akce byla obnovena"
 
     redirect_back_or_to @event
   end

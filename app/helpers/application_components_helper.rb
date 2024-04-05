@@ -7,8 +7,8 @@ module ApplicationComponentsHelper
   end
 
   def button_link_to(name, path, icon: nil, **, &)
-    icon ||= :pencil if path.include?('/edit')
-    icon ||= :plus if path.include?('/new')
+    icon ||= :pencil if path.include?("/edit")
+    icon ||= :plus if path.include?("/new")
 
     render Buttons::ButtonLinkComponent.new(name:, path:, icon:, **), &
   end
@@ -47,7 +47,7 @@ module ApplicationComponentsHelper
   end
 
   def icon(name, **options)
-    default_classes = 'inline mr-1'
+    default_classes = "inline mr-1"
 
     phosphor_icon(name, class: "#{default_classes} #{options.delete(:class)}", **options)
   end
@@ -133,14 +133,14 @@ module ApplicationComponentsHelper
     class_key = :"#{prefix}class"
 
     if kwargs[remove_key].present?
-      classes = (classes.split - kwargs[remove_key].split).join(' ')
+      classes = (classes.split - kwargs[remove_key].split).join(" ")
       kwargs.delete(remove_key)
     end
 
     # simple_form sometimes uses array of classes instead of strings
-    kwargs[class_key] = kwargs[class_key].map(&:to_s).join(' ') if kwargs[class_key].is_a?(Array)
+    kwargs[class_key] = kwargs[class_key].map(&:to_s).join(" ") if kwargs[class_key].is_a?(Array)
 
-    kwargs[class_key] = (classes.split + kwargs[class_key].to_s.split).join(' ')
+    kwargs[class_key] = (classes.split + kwargs[class_key].to_s.split).join(" ")
     kwargs
   end
 end

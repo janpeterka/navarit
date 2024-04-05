@@ -4,7 +4,7 @@
 # Instead, this is a module containing the default button classes.
 module Buttons
   module ButtonDefaults
-    DEFAULT_BUTTON_TO_FORM_CLASSES = 'inline-flex justify-center items-center'
+    DEFAULT_BUTTON_TO_FORM_CLASSES = "inline-flex justify-center items-center"
     SHARED_DEFAULT_BUTTON_CLASSES = "inline-block align-middle text-center select-none
                                      font-normal whitespace-no-wrap rounded-lg
                                      py-1 px-3 leading-normal no-underline ps-2 pe-2 p-1 me-2 mb-2 mt-1

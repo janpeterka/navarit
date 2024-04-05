@@ -29,7 +29,7 @@ class EventPortionTypesController < ApplicationController
     end
 
     if portion_count_difference > @event.portion_type_remaining_attendee_count
-      flash[:error] = 'nemůžeš přidat víc lidí než je volných míst'
+      flash[:error] = "nemůžeš přidat víc lidí než je volných míst"
       redirect_back_or_to @event
       return
     end
@@ -40,7 +40,7 @@ class EventPortionTypesController < ApplicationController
       redirect_back_or_to @event.event_portion_types, notice: "počet lidí pro #{@portion_type.name} byl změněn.",
                                                       status: :see_other
     else
-      flash[:error] = 'něco se nepovedlo'
+      flash[:error] = "něco se nepovedlo"
       redirect_back_or_to @event.event_portion_types, status: :see_other
       # this will be back with turbo-frame added
       # render :new, status: :unprocessable_entity
@@ -50,7 +50,7 @@ class EventPortionTypesController < ApplicationController
   # PATCH/PUT /event_portion_types/1
   def update
     if portion_count_difference > @event.portion_type_remaining_attendee_count
-      flash[:error] = 'nemůžeš nastavit víc lidí než je volných míst'
+      flash[:error] = "nemůžeš nastavit víc lidí než je volných míst"
       redirect_back_or_to @event_portion_type.event
       return
     end
@@ -66,7 +66,7 @@ class EventPortionTypesController < ApplicationController
   # DELETE /event_portion_types/1
   def destroy
     @event_portion_type.destroy!
-    redirect_to event_portion_types_url, notice: 'Event portion type was successfully destroyed.', status: :see_other
+    redirect_to event_portion_types_url, notice: "Event portion type was successfully destroyed.", status: :see_other
   end
 
   private

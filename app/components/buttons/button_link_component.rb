@@ -7,7 +7,7 @@ module Buttons
     attr_reader :name, :path, :icon, :type, :updated_options, :options
 
     def initialize(name:, path:, icon: nil, type: :primary, **options)
-      raise ArgumentError, 'Unsupported button type' if DEFAULT_BUTTON_CLASSES.keys.exclude?(type)
+      raise ArgumentError, "Unsupported button type" if DEFAULT_BUTTON_CLASSES.keys.exclude?(type)
 
       super
 

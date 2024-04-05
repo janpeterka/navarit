@@ -12,8 +12,8 @@ class EventCookbooksController < ApplicationController
       format.pdf do
         send_data @cookbook.pdf.render,
                   filename: "#{@event.name.underscore.gsub(' ', '_')}_cookbook.pdf",
-                  type: 'application/pdf',
-                  disposition: 'inline'
+                  type: "application/pdf",
+                  disposition: "inline"
       end
     end
   end

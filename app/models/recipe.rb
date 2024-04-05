@@ -5,15 +5,15 @@ class Recipe < ApplicationRecord
   include Recipes::Likeable
   include Recipes::Prawnable
 
-  belongs_to :category, class_name: 'RecipeCategory', optional: true
-  belongs_to :author, class_name: 'User', foreign_key: 'created_by'
+  belongs_to :category, class_name: "RecipeCategory", optional: true
+  belongs_to :author, class_name: "User", foreign_key: "created_by"
 
   has_many :recipe_labels, dependent: :destroy
   has_many :labels, through: :recipe_labels
-  has_many :dietary_labels, -> { of_category('dietary') }, through: :recipe_labels, source: :label
-  has_many :difficulty_labels, -> { of_category('difficulty') }, through: :recipe_labels, source: :label
+  has_many :dietary_labels, -> { of_category("dietary") }, through: :recipe_labels, source: :label
+  has_many :difficulty_labels, -> { of_category("difficulty") }, through: :recipe_labels, source: :label
 
-  has_many :tasks, class_name: 'RecipeTask', dependent: :destroy
+  has_many :tasks, class_name: "RecipeTask", dependent: :destroy
 
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
@@ -30,7 +30,7 @@ class Recipe < ApplicationRecord
 
   scope :hidden, -> { where(is_hidden: true) }
   scope :visible, -> { where(is_hidden: false) }
-  scope :used, -> { joins(:daily_plans).where('daily_plans.id IS NOT NULL').distinct.any? }
+  scope :used, -> { joins(:daily_plans).where("daily_plans.id IS NOT NULL").distinct.any? }
   scope :created_by, ->(user) { where(author: user) }
   scope :not_created_by, ->(user) { where.not(author: user) }
   # scope :draft, -> {joins(:ingredients).where.not("ingredients.id IS NULL").distinct.any? }

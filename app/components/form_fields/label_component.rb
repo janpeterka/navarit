@@ -12,7 +12,7 @@ module FormFields
     def default_classes(part = :base)
       case part
       when :base
-        'block mb-2 text-sm font-medium text-gray-900'
+        "block mb-2 text-sm font-medium text-gray-900"
       else
         raise "Unknown part: #{part}"
       end

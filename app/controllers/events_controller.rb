@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     return unless params[:query].present?
 
     query = "%#{params[:query].downcase}%"
-    @events = @events.where('LOWER(events.name) LIKE ?', query)
+    @events = @events.where("LOWER(events.name) LIKE ?", query)
   end
 
   # GET /events/1
@@ -29,7 +29,7 @@ class EventsController < ApplicationController
     current_user.events.new(event_params)
 
     if @event.save
-      redirect_to @event, notice: 'Event was successfully created.'
+      redirect_to @event, notice: "Event was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -45,7 +45,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   def destroy
     @event.destroy!
-    redirect_to events_url, notice: 'Event was successfully destroyed.', status: :see_other
+    redirect_to events_url, notice: "Event was successfully destroyed.", status: :see_other
   end
 
   private

@@ -33,7 +33,7 @@ class DailyPlanRecipesController < ApplicationController
 
   def update
     if @daily_plan_recipe.update(daily_plan_recipe_params)
-      redirect_back_or_to @daily_plan_recipe.daily_plan, notice: 'Daily plan recipe was successfully updated.'
+      redirect_back_or_to @daily_plan_recipe.daily_plan, notice: "Daily plan recipe was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class DailyPlanRecipesController < ApplicationController
   def destroy
     @daily_plan_recipe.destroy
 
-    redirect_back_or_to @daily_plan_recipe.daily_plan, notice: 'recept byl odebrán'
+    redirect_back_or_to @daily_plan_recipe.daily_plan, notice: "recept byl odebrán"
   end
 
   def sort

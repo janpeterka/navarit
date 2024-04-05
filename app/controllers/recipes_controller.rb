@@ -22,9 +22,9 @@ class RecipesController < ApplicationController
   def show
     @portion_count = if params[:portion_count].present?
                        params[:portion_count].to_i
-                     else
+    else
                        @recipe.portion_count
-                     end
+    end
 
     @edited_section = params[:edited_section]&.to_sym if can? :edit, @recipe
   end
@@ -51,7 +51,7 @@ class RecipesController < ApplicationController
   # PATCH/PUT /recipes/1
   def update
     if @recipe.update(recipe_params)
-      redirect_to @recipe, notice: 'recept byl upraven.', status: :see_other
+      redirect_to @recipe, notice: "recept byl upraven.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -60,7 +60,7 @@ class RecipesController < ApplicationController
   # DELETE /recipes/1
   def destroy
     @recipe.destroy!
-    redirect_to recipes_url, notice: 'recept byl smazán.', status: :see_other
+    redirect_to recipes_url, notice: "recept byl smazán.", status: :see_other
   end
 
   private

@@ -22,7 +22,7 @@ class RecipeTasksController < ApplicationController
   def create
     @recipe_task = @recipe.tasks.new(recipe_task_params)
 
-    flash[:error] = 'něco se nepovedlo' unless @recipe_task.save
+    flash[:error] = "něco se nepovedlo" unless @recipe_task.save
 
     redirect_back_or_to @recipe_task.recipe
   end
@@ -30,9 +30,9 @@ class RecipeTasksController < ApplicationController
   # PATCH/PUT /recipe_tasks/1
   def update
     if @recipe_task.update(recipe_task_params)
-      flash[:notice] = 'úkol upraven'
+      flash[:notice] = "úkol upraven"
     else
-      flash[:error] = 'něco se nepovedlo'
+      flash[:error] = "něco se nepovedlo"
     end
 
     redirect_back_or_to @recipe_task.recipe
@@ -55,9 +55,9 @@ class RecipeTasksController < ApplicationController
   def set_recipe
     @recipe = if params[:recipe_id].present?
                 Recipe.find(params[:recipe_id])
-              else
+    else
                 @recipe_task.recipe
-              end
+    end
   end
 
   # Only allow a list of trusted parameters through.

@@ -10,8 +10,8 @@ class EventShoppingListsController < ApplicationController
       format.pdf do
         send_data @shopping_list.pdf.render,
                   filename: "#{@event.name.underscore.gsub(' ', '_')}_shopping_list.pdf",
-                  type: 'application/pdf',
-                  disposition: 'inline'
+                  type: "application/pdf",
+                  disposition: "inline"
       end
     end
   end

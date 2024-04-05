@@ -3,13 +3,13 @@
 FactoryBot.define do
   factory :hummus, class: Ingredient do
     id { 1 }
-    name { 'Hummus' }
+    name { "Hummus" }
     created_by { 1 }
   end
 
   factory :carrot, class: Ingredient do
     id { 2 }
-    name { 'Carrot' }
+    name { "Carrot" }
     created_by { 1 }
   end
 end

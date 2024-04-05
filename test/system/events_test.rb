@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require "application_system_test_case"
 
 class EventsTest < ApplicationSystemTestCase
   setup do
     @event = FactoryBot.create(:event)
   end
 
-  test 'visiting the index' do
+  test "visiting the index" do
     visit events_url
-    assert_selector 'h2', text: 'budoucí akce'
-    assert_selector 'a', text: 'Random event'
+    assert_selector "h2", text: "budoucí akce"
+    assert_selector "a", text: "Random event"
   end
 
   # test 'should create event' do

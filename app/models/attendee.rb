@@ -9,5 +9,5 @@ class Attendee < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :with_portion_type, ->(portion_type) { joins(:portion_type).where('portion_types.name = ?', portion_type) }
+  scope :with_portion_type, ->(portion_type) { joins(:portion_type).where("portion_types.name = ?", portion_type) }
 end

@@ -33,7 +33,7 @@ class DailyPlansController < ApplicationController
   # PATCH/PUT /daily_plans/1
   def update
     if @daily_plan.update(daily_plan_params)
-      redirect_to @daily_plan, notice: 'Daily plan was successfully updated.', status: :see_other
+      redirect_to @daily_plan, notice: "Daily plan was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end

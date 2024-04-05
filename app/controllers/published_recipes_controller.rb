@@ -7,7 +7,7 @@ class PublishedRecipesController < PublicApplicationController
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
-      @published_recipes = @published_recipes.where('LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ? OR LOWER(labels.visible_name) LIKE ?',
+      @published_recipes = @published_recipes.where("LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ? OR LOWER(labels.visible_name) LIKE ?",
                                                     query, query, query).references(:category, :labels, :reactions)
     end
 
@@ -39,9 +39,9 @@ class PublishedRecipesController < PublicApplicationController
     authorize! :publish, recipe
 
     if recipe.publish!
-      flash[:notice] = 'recept byl zveřejněn'
+      flash[:notice] = "recept byl zveřejněn"
     else
-      flash[:error] = 'recept nebyl zveřejněn'
+      flash[:error] = "recept nebyl zveřejněn"
     end
 
     redirect_back_or_to recipe
@@ -53,6 +53,6 @@ class PublishedRecipesController < PublicApplicationController
 
     recipe.unpublish!
 
-    redirect_back_or_to recipe, notice: 'recept byl zneveřejněn'
+    redirect_back_or_to recipe, notice: "recept byl zneveřejněn"
   end
 end
