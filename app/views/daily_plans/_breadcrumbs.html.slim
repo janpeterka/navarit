@@ -1,0 +1,8 @@
+/# locals: (daily_plan:)
+
+- content_for :breadcrumbs do
+  = link_to "akce", events_path, class: "hover:underline"
+  = " > "
+  = link_to daily_plan.event.name, event_path(daily_plan.event), class: "hover:underline"
+  = " > "
+  = "plán pro #{daily_plan.date.to_formatted_s(:date)}"

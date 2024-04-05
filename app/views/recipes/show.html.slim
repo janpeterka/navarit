@@ -1,32 +1,37 @@
 - content_for :title, @recipe.name
 
-- content_for :breadcrumbs do
-  = link_to("recepty", recipes_path, class: "hover:underline text-ocean-800")
-  = " > "
-  = @recipe.name
-
-- content_for :header_right do
-  = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0" if can? :update, @recipe
-
-  - if can? :delete, @recipe
-    - if @recipe.deletable?
-      = action_button_to "smazat", recipe_path(@recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
-    - else
-      = action_button_to "nelze smazat", recipe_path(@recipe), method: :delete, disabled: true
-
-  - if can? :update, @recipe
-    - if @recipe.published?
-      = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
-    - else
-      = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
+= render "breadcrumbs", recipe: @recipe
 
 #details.mt-3.mb-4
   p.italic = @recipe.category&.name
   / p.italic = @recipe.author.email
-  div.mt-2
+  div.mt-2.flex.justify-between
     div.flex.flex-wrap id="#{dom_id(@recipe)}-labels"
       - @recipe.labels.sort_by(&:id).each do |label|
         div.mb-2 = label_badge(label)
+
+    div
+      ul.cursor-pointer.inline.p-2.mx-2.rounded-md.hover:bg-ocean-100
+      button id="eventMoreOptionsDropdownButton" data-dropdown-toggle="eventMoreOptionsDropdown" class="font-medium rounded-lg px-5 py-2.5 text-center" type="button"
+        = icon("dots-three-circle", class: "mr-1")
+        = "další možnosti"
+
+      div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+        ul class="px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
+          li = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0" if can? :update, @recipe
+          - if can? :delete, @recipe
+            li = action_button_to "smazat", recipe_path(@recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }, disabled: !@recipe.deletable?
+
+          - if can? :update, @recipe
+            li
+              - if @recipe.published?
+                = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
+              - else
+                = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
+          
+          li = action_button_to 'vytvořit kopii', recipe_duplications_path(@recipe), method: :post 
+
+
 
   div 
       span.float-right
@@ -60,5 +65,3 @@
       = render "tasks", recipe: @recipe
 
 / = button_link_to "pdf", recipe_path(@recipe, format: :pdf)
-
-= action_button_to 'vytvořit kopii', recipe_duplications_path(@recipe), method: :post 

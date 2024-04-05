@@ -1,10 +1,9 @@
 - content_for :title do 
-  = @daily_plan.date.strftime("%e.%m.%Y")
-  = " (#{I18n.translate("date.day_names")[@daily_plan.date.wday]})"
+  = I18n.translate("date.day_names")[@daily_plan.date.wday]
+  = " "
+  = @daily_plan.date.to_formatted_s(:date)
 
-= button_link_to nil, event_path(@daily_plan.event), type: :secondary, class: "group" do
-  = svg("left-caret", class: "group-hover:fill-current group-hover:text-white")
-  = "zpět na akci"
+= render "breadcrumbs", daily_plan: @daily_plan
 
 .mt-3.mb-4 id="#{dom_id(@daily_plan)}-recipes"
   .font-bold.mb-1

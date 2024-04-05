@@ -3,7 +3,7 @@
 - daily_plan = day.daily_plan.presence
 - day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
 
-div id="#{day_dom_id}-card" class="#{daily_plan.present? ? "bg-peach-200" : "bg-peach-100 hidden md:inline"}"
+div.group id="#{day_dom_id}-card" class="#{daily_plan.present? ? "bg-peach-200" : "bg-peach-100 hidden md:inline"}"
   div.text-xl.mt-2.ps-2
     - if daily_plan.present?
       = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-ocean-700", data: {turbo: false} do 
@@ -16,7 +16,10 @@ div id="#{day_dom_id}-card" class="#{daily_plan.present? ? "bg-peach-200" : "bg-
         
   - if daily_plan.present?
     div id="#{day_dom_id}-recipes"
-      ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-emerald-500 text-white"
+      ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-peach-500"
         - daily_plan.daily_plan_recipes.each do |daily_recipe|
           = render "day_recipe", daily_recipe: 
-    
+
+        li.px-3.hidden.group-hover:inline
+          = button_link_to "přidat recept", daily_plan_path(daily_plan), icon: :plus, type: :secondary, data: {turbo_frame: "_top"}
+  
