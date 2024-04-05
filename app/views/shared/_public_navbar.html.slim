@@ -2,7 +2,7 @@ nav.mt-4.mb-4
   .flex.flex-wrap.items-center.py-3.px-4.mx-auto.border.border-0.border-b-2.border-green-900
     a href="/"
       / img.h-12.mr-1 src=image_url("logos/logo.png") alt="navarit"
-   
+
     ul.flex.font-medium.ms-2.ps-4.cursor-pointer.md:p-0.border.border-gray-100.rounded-lg.md:flex-row.md:space-x-8.md:mt-0.md:border-0.dark:bg-gray-800.md:dark:bg-gray-900.dark:border-gray-700
       = render "shared/navbar_link", link: new_user_session_path, text: "přihlásit se"
       = render "shared/navbar_link", link: new_user_registration_path, text: "registrovat se"

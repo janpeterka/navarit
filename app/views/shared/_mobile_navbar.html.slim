@@ -5,7 +5,7 @@ div.fixed.bottom-0.left-0.z-50.w-full.bg-white.border-t.border-gray-200.dark:bor
             = button_to destroy_user_session_path, method: :delete, form_class: "inline" do
                 = svg("logout", class: "mx-auto mb-1 pt-2 w-full", height: "2.5rem")
                 | odhlásit se
-    
+
     .fixed.bottom-0.grid.w-full.h-20.max-w-xl.bg-white.grid-cols-5.mx-auto.font-small.text-xs.border.border-gray-300
         = render "shared/mobile_navbar_link", text: "nástěnka", path: dashboard_path, icon: "dashboard"
         = render "shared/mobile_navbar_link", text: "recepty", path: recipes_path, icon: "utensils"

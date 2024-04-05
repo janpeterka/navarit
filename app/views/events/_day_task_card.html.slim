@@ -10,7 +10,7 @@ div.border-b.border-gray-400.pb-5 id="#{day_dom_id}-tasks" class="#{'md:border-t
     - if day.date == day.daily_plan.event.begins_at.to_date || day.date.wday == 1
       h2.text-lg.bg-peach-200.px-2.hidden.md:visible style="position: absolute; top: -0.85rem; left: 1rem;"
         = "úkoly"
- 
+
   div.pt-4.ps-2
     - day.tasks.each do |task|
       span.italic.overflow-hidden.truncate.pt-2

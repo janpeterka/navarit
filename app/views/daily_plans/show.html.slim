@@ -1,4 +1,4 @@
-- content_for :title do 
+- content_for :title do
   = I18n.translate("date.day_names")[@daily_plan.date.wday]
   = " "
   = @daily_plan.date.to_formatted_s(:date)
@@ -27,7 +27,7 @@
                                                                ['veřejné',  Recipe.published.collect {|v| [ v.name, v.id ] }],
                                                               ]),
                        class: "w-80"
-          
+
 
         div = select_tag :meal_type, options_for_select(DailyPlanRecipe::MEAL_TYPES), include_blank: true
         div = number_field_tag :portion_count, @daily_plan.portion_count

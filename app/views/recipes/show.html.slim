@@ -28,12 +28,12 @@
                 = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
               - else
                 = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
-          
-          li = action_button_to 'vytvořit kopii', recipe_duplications_path(@recipe), method: :post 
+
+          li = action_button_to 'vytvořit kopii', recipe_duplications_path(@recipe), method: :post
 
 
 
-  div 
+  div
       span.float-right
       - if @recipe.liked_by?(current_user)
         = action_button_to "odebrat z oblíbených", liked_recipe_path(@recipe), method: :delete
@@ -48,7 +48,7 @@
 
 
   div.col-span-2
-    #procedure.mb-3 
+    #procedure.mb-3
       h2.text-2xl.inline-block.me-2 = "Popis"
       - if @edited_section == :procedure
         = form_for @recipe do |form|

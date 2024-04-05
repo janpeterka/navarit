@@ -21,6 +21,6 @@ div id="#{dom_id(@event)}-portion-types"
   = heading("Jinde použité typy porcí")
   - @unused_portion_types.each do |portion_type|
     == render "event_portion_type", portion_type: , event: @event
-  
+
   = heading("Přidat nový typ porcí")
   == render "event_portion_type", portion_type: PortionType.new, event: @event

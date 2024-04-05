@@ -29,4 +29,3 @@ inherit_gem:
 
 Layout/TrailingWhitespace:
   Enabled: true
-  AutoCorrect: true

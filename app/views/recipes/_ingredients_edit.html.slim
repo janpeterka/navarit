@@ -19,7 +19,7 @@
         = form.input :comment, col_span: 3, required: false, label: false
         .col-span-2
           = form.submit "přidat surovinu"
-        
+
       / = form_tag recipe_ingredients_path(recipe_id: recipe.id), method: :post do
       /   .grid.grid-cols-4
       /     - unused_ingredients = current_user.ingredients - recipe.ingredients
@@ -28,7 +28,7 @@
       /                                                           ['veřejné',  Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }],
       /                                                           ]),
       /                   class: "w-80"
-            
+
 
       /     div = number_field_tag :amount
       /     div = text_area_tag :comment

@@ -6,25 +6,25 @@ body {
 
 h2 {
   /* @apply text-xl */
-  font-size: 1.25rem; 
-  line-height: 1.75rem; 
+  font-size: 1.25rem;
+  line-height: 1.75rem;
   /* @apply mb-2 */
-  margin-bottom: 0.5rem; 
+  margin-bottom: 0.5rem;
 }
 
 h3 {
   /* @apply mb-2 */
-  margin-bottom: 0.5rem; 
+  margin-bottom: 0.5rem;
 }
 
 a {
   color: #085366; /* ocean-700 */
 }
 
-
 .highlight {
   background-color: darkgreen;
 }
+
 .strong-highlight {
   background-color: darkgreen;
 }

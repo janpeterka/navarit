@@ -48,11 +48,11 @@ cs:
   activerecord:
     errors:
       models:
-        recipe: 
+        recipe:
           attributes:
             portion_count:
               blank: "počet porcí musí být nastaven"
-            
+
     models:
       ingredient:
         one: surovina

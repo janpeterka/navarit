@@ -3,12 +3,12 @@ html
   head
     title
       = "DEV | " if Rails.env.development?
-      | navařit | 
+      | navařit |
       = yield(:title).presence
 
     - unless Rails.env.production?
       link rel="canonical" href="https://skautskakucharka.cz"
-      
+
     meta name="viewport" content="width=device-width,initial-scale=1"
     = csrf_meta_tags
     = csp_meta_tag
@@ -38,5 +38,5 @@ html
           - else
             = yield(:title)
       = yield
-    
+
     = render("shared/mobile_navbar") if current_user.present?

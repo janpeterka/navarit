@@ -10,7 +10,7 @@
   = " (archivováno)" if @event.archived?
 
 - content_for :header_right do
-  / WIP - sharing, collaborations 
+  / WIP - sharing, collaborations
   button.px-3.py-2.m-2.rounded-3xl.bg-peach-300 data-modal-target="#{dom_id(@event)}-sharing-modal" data-modal-toggle="#{dom_id(@event)}-sharing-modal"
     - if @event.published?
       = icon("eye", class: "mr-1")
@@ -22,25 +22,25 @@
   = render "shared/modal", id: "#{dom_id(@event)}-sharing-modal", title: "Nastavení sdílení", buttons: false do
     - if @event.published?
       p = "Tato akce je zveřejněná, může si ji prohlédnout kdokoli s patřičným odkazem. Zde je veřejný odkaz:"
-      
+
       p data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno"}
         span.hidden data={ "clipboard-target": "source" } = @event.public_url
         = button_tag "veřejný odkaz", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
-      
+
       = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
     - else
       p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s patřičným odkazem."
       = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
-  
+
   span
     - @event.involved_users.each do |user|
       span.p-3.me-1.rounded-full.border.border-peach-300
         = user.initials
- 
-    span.p-3.rounded-full.border.border-peach-300
-      = icon("user-plus") 
 
-    
+    span.p-3.rounded-full.border.border-peach-300
+      = icon("user-plus")
+
+
 
 #details.flex.justify-between.mt-6.mb-3
   div
@@ -72,7 +72,7 @@
   details.border.border-gray-500.rounded-lg.p-3.border-2.hover:border-ocean-700
     summary.text-lg strávníci a velikost porcí
     = "pro #{@event.people_count} účastníků (#{@event.portion_count} porcí)"
-    
+
     = table @event.event_portion_types do |t|
       = t.column :name
       = t.column :size do |portion_type|
