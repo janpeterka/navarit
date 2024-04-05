@@ -21,16 +21,15 @@ gem 'trilogy' # Use trilogy as the database for Active Record
 
 # front-end
 gem 'importmap-rails' # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'simple_form' # Use SimpleForm for forms
-gem "phosphor_icons", "~> 0.2.0"
+gem 'phosphor_icons', '~> 0.2.0'
 gem 'prawn' # Fast, Nimble PDF Generation For Ruby
 gem 'prawn-grouping' # Keep elements together on a page
 gem 'prawn-markup' # Render HTML and Markdown in Prawn PDFs
+gem 'simple_form' # Use SimpleForm for forms
 gem 'slim-rails'
 gem 'stimulus-rails' # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'tailwindcss-rails'
 gem 'turbo-rails' # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-
 
 gem 'lookbook'
 gem 'view_component'
@@ -77,6 +76,8 @@ group :development do
   gem 'rubocop-capybara'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
+  gem 'rubocop-rails-omakase'
+  gem 'slim_lint'
   gem 'tailwind-sorter', '~> 0.3.0', require: false # tailwind class sorter by Matouš Borák
 end
 
