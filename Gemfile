@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.2.2"
+ruby "3.3.0"
 
 gem "rails", "~> 7.1.3"
 
@@ -79,6 +79,7 @@ group :development do
   gem "rubocop-rails-omakase"
   gem "slim_lint"
   gem "tailwind-sorter", "~> 0.3.0", require: false # tailwind class sorter by Matouš Borák
+  gem "overcommit"
 end
 
 group :test do
