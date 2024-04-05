@@ -28,7 +28,7 @@ class PublishedRecipesController < PublicApplicationController
     when :oldest
       @published_recipes = @published_recipes.order(:created_at)
     else
-      @published_recipes
+      @published_recipes = @published_recipes.sort_by { _1.reactions.count }.reverse
     end
 
     # @pagy, @recipes = pagy(@recipes)

@@ -46,10 +46,18 @@ module ApplicationComponentsHelper
     "<#{level} class='#{classes}'>#{content}</#{level}>".html_safe
   end
 
-  def icon(name, **options)
+  ALLOWED_ICON_STYLES = %i[regular bold light duotone fill thin].freeze
+
+  def icon(name, style: :regular, **options)
+    # allowed styles: regular (default), bold, light, duotone, fill and thin.
+
+    unless style.in?(ALLOWED_ICON_STYLES)
+      raise ArgumentError, "Invalid icon style: #{style}. Valid styles are #{ALLOWED_ICON_STYLES.join(', ')}."
+    end
+
     default_classes = "inline mr-1"
 
-    phosphor_icon(name, class: "#{default_classes} #{options.delete(:class)}", **options)
+    phosphor_icon(name, class: "#{default_classes} #{options.delete(:class)}", style:, **options)
   end
 
   # def admin_detail(record, **kwargs, &)

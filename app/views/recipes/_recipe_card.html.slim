@@ -6,11 +6,11 @@
                 .text-right
                     - if recipe.liked_by?(current_user)
                         = button_to liked_recipe_path(recipe), method: :delete, class: "inline-block" do
-                            = svg("heart-filled", class: "text-red")
+                            = icon("heart", style: :fill, class: "animate-heartbeat")
                             = recipe.reactions.size
                     - else
                         = button_to liked_recipes_path(recipe_id: recipe.id), method: :post, class: "inline-block" do
-                            = svg("heart")
+                            = icon("heart", class: "animate-heartbeat")
                             = recipe.reactions.size
 
         = card.with_body do
