@@ -11,6 +11,6 @@ div
     br
     = button_link_to "1 porci", recipe_path(@recipe, portion_count: 1)
     = button_link_to "12 porcí", recipe_path(@recipe, portion_count: 12)
-    = form_tag recipe_path(@recipe), method: :get, class: "inline", data: {controller: "form", "form-debounce-timeout-value": 0, "turbo-frame": "#{dom_id(@recipe)}-ingredients-"} do
-        = text_field_tag :portion_count, params[:portion_count], class: "w-12 h-8 me-2 border border-green-600 rounded-md", data: {action: "input->form#submit"}, autofocus: request.url.include?("?portion_count") , onfocus: "this.setSelectionRange(this.value.length,this.value.length);"
+    = form_tag recipe_path(@recipe), method: :get, class: "inline", data: { controller: "form", "form-debounce-timeout-value": 0, "turbo-frame": "#{dom_id(@recipe)}-ingredients-" } do
+        = text_field_tag :portion_count, params[:portion_count], class: "w-12 h-8 me-2 border border-green-600 rounded-md", data: { action: "input->form#submit" }, autofocus: request.url.include?("?portion_count"), onfocus: "this.setSelectionRange(this.value.length,this.value.length);"
         | porcí

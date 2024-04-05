@@ -4,10 +4,11 @@
       li.font-bold.mb-1
         .grid.grid-cols-12
           .col-span-4 = "surovina"
-          .col-span-3.ms-2 = "množství (na #{recipe.portion_count} porcí)"
+          .col-span-3.ms-2 = "množství (na #{ recipe.portion_count } porcí)"
           .col-span-3.ms-2 = "poznámka"
+
       - recipe_ingredients.each do |recipe_ingredient|
-        = render partial: "recipe_ingredients/recipe_ingredient", locals: {recipe_ingredient: }
+        = render partial: "recipe_ingredients/recipe_ingredient", locals: { recipe_ingredient: }
 
     #add-ingredient.mb-4
       = default_form_for "", url: recipe_ingredients_path(recipe_id: recipe.id), method: :post do |form|

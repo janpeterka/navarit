@@ -10,14 +10,14 @@ div
         span = "dní před vařením"
 
   - @recipe.tasks.each do |task|
-    div.h-24
-      = default_form_for task, url: recipe_task_path(recipe_id: @recipe.id, id: task.id), method: :patch, html: { class: "inline", data: {controller: "form"} } do |form|
-        = form.input :name, label: false, col_span: 3, :input_html => { data: { action: "change->form#submit" }}
-        = form.input :days_before_cooking, col_span: 3, label: false, :input_html => { data: { action: "change->form#submit" } }
-        = form.input :description, label: false, col_span: 3, :input_html => { data: { action: "change->form#submit" } }
+    .h-24
+      = default_form_for task, url: recipe_task_path(recipe_id: @recipe.id, id: task.id), method: :patch, html: { class: "inline", data: { controller: "form" } } do |form|
+        = form.input :name, label: false, col_span: 3, input_html: { data: { action: "change->form#submit" } }
+        = form.input :days_before_cooking, col_span: 3, label: false, input_html: { data: { action: "change->form#submit" } }
+        = form.input :description, label: false, col_span: 3, input_html: { data: { action: "change->form#submit" } }
         = action_button_to "smazat", task, formaction: recipe_task_path(recipe_id: @recipe.id, id: task.id), formmethod: :delete, data: { turbo_confirm: "opravdu chceš smazat úkol?" }, type: :dangerous, class: "w-full"
 
-  = default_form_for RecipeTask.new, url: recipe_tasks_path(recipe_id: @recipe.id), html: {class: "inline"} do |form|
+  = default_form_for RecipeTask.new, url: recipe_tasks_path(recipe_id: @recipe.id), html: { class: "inline" } do |form|
     = form.input :name, col_span: 3
     = form.input :days_before_cooking, col_span: 3
     = form.input :description, col_span: 3

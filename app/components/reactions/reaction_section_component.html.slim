@@ -1,9 +1,0 @@
-- ["thumbs-up", "thumbs-down", "hate", "love", "laugh"].each do |reaction|
-    - reactions = object.reactions.where(text: reaction)
-    - current_member_reaction = reactions.select{_1.member == Current.member}.first
-    - if current_member_reaction.present?
-        - path = announcement_reaction_path(object.id, id: current_member_reaction.id, text: reaction)
-    - else
-        - path = announcement_reactions_path(object.id, text: reaction)
-
-    = reaction_button text: reaction, value: reactions.size, selected: current_member_reaction.present?, path:
