@@ -4,14 +4,17 @@
 # Instead, this is a module containing the default button classes.
 module Buttons
   module ButtonDefaults
-    DEFAULT_BUTTON_TO_FORM_CLASSES = "inline-flex justify-center items-center"
+    DEFAULT_BUTTON_TO_FORM_CLASSES = "inline-flex justify-center items-center".freeze
     SHARED_DEFAULT_BUTTON_CLASSES = "inline-block align-middle text-center select-none
                                      font-normal whitespace-no-wrap rounded-lg
-                                     py-1 px-3 leading-normal no-underline ps-2 pe-2 p-1 me-2 mb-2 mt-1
+                                     leading-normal no-underline me-2 mb-2 mt-1
                                      border border-2
                                      focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-ocean-300
                                      disabled:bg-gray-200
-                                    ".squish
+                                    ".squish.freeze
+    BIG_BUTTON_CLASSES = "py-1 px-3 ps-2 pe-2".freeze
+    SMALL_BUTTON_CLASSES = "py-0.5 px-2 ps-1 pe-1".freeze
+
     DEFAULT_BUTTON_CLASSES = {
       primary: "#{SHARED_DEFAULT_BUTTON_CLASSES}
                 text-white bg-ocean-500 border-ocean-500
@@ -22,7 +25,7 @@ module Buttons
                   text-ocean-500 border-ocean-500
                   hover:bg-ocean-700 hover:text-white hover:border-ocean-700
                 ".squish,
-      plain: "#{SHARED_DEFAULT_BUTTON_CLASSES}
+      plain: "#{SHARED_DEFAULT_BUTTON_CLASSES} #{SMALL_BUTTON_CLASSES}
               border-transparent text-ocean-500
               hover:bg-ocean-100
       ".squish,

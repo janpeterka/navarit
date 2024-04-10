@@ -11,7 +11,15 @@
         .mb-2 = label_badge(label)
 
     div
-      ul.cursor-pointer.inline.p-2.mx-2.rounded-md.hover:bg-ocean-100
+      span.float-right
+      - if @recipe.liked_by?(current_user)
+        = action_button_to "odebrat z oblíbených", liked_recipe_path(@recipe), method: :delete
+      - else
+        = action_button_to "přidat do oblíbených", liked_recipes_path(recipe_id: @recipe), method: :post, icon: "heart"
+
+      - unless @recipe.author == current_user
+        = action_button_to "zkopírovat do mých receptů", recipe_duplications_path(@recipe), method: :post
+
       button id="eventMoreOptionsDropdownButton" data-dropdown-toggle="eventMoreOptionsDropdown" class="font-medium rounded-lg px-5 py-2.5 text-center" type="button"
         = icon("dots-three-circle", class: "mr-1")
         = "další možnosti"
@@ -30,13 +38,6 @@
                 = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
 
           li = action_button_to "vytvořit kopii", recipe_duplications_path(@recipe), method: :post
-
-  div
-      span.float-right
-      - if @recipe.liked_by?(current_user)
-        = action_button_to "odebrat z oblíbených", liked_recipe_path(@recipe), method: :delete
-      - else
-        = action_button_to "přidat do oblíbených", liked_recipes_path(recipe_id: @recipe), method: :post, icon: "heart"
 
 .md:grid.md:grid-cols-3
   - if @edited_section == :ingredients

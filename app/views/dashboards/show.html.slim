@@ -3,14 +3,22 @@
 - @header_class = "mt-6"
 - content_for :header, "vítej ve Skautské kuchařce"
 
-div.mt-8
-    = heading("nadcházející akce".upcase, :h2)
+.grid.grid-cols-3
+    .mt-8.flex.justify-between.group
+        h2.mt-2
+            = icon(:calendar)
+            = "nadcházející akce".upcase
+
+        span.invisible.group-hover:visible
+            = button_link_to "nová akce", new_event_path, type: :plain, data: { turbo_frame: "_top" }
 
 .sm:grid.sm:grid-cols-3.gap-4.mt-4
     - if @nearest_future_event.present?
         = render "events/card", event: @nearest_future_event
 
-= heading("nejnovější recepty".upcase, :h2)
+h2.mt-2
+    = icon("book-open")
+    = "nejnovější recepty".upcase
 
 .sm:grid.sm:grid-cols-3.gap-4.mt-4
     - @showcased_public_recipes.each do |recipe|

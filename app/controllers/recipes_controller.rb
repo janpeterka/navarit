@@ -18,13 +18,12 @@ class RecipesController < ApplicationController
     @pagy, @recipes = pagy(@recipes)
   end
 
-  # GET /recipes/1
   def show
     @portion_count = if params[:portion_count].present?
-                       params[:portion_count].to_i
-    else
-                       @recipe.portion_count
-    end
+                      params[:portion_count].to_i
+                     else
+                      @recipe.portion_count
+                     end
 
     @edited_section = params[:edited_section]&.to_sym if can? :edit, @recipe
   end

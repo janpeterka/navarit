@@ -1,17 +1,17 @@
 /# locals: (day:)
 
 - daily_plan = day.daily_plan.presence
-- day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
+- day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : "placeholder-day"
 - border_color_class = daily_plan.present? ? "bg-peach-200" : "bg-peach-100"
 - border_color_class += " hidden md:inline" unless daily_plan.present?
 
-div.border-b.border-gray-400.pb-5 id="#{day_dom_id}-tasks" class="#{'md:border-t border-gray-400' if daily_plan.present?} #{border_color_class}" style="position: relative;"
+.border-b.border-gray-400.pb-5 id="#{day_dom_id}-tasks" class="#{"md:border-t border-gray-400" if daily_plan.present?} #{border_color_class}" style="position: relative;"
   - if daily_plan.present?
     - if day.date == day.daily_plan.event.begins_at.to_date || day.date.wday == 1
-      h2.text-lg.bg-peach-200.px-2.hidden.md:visible style="position: absolute; top: -0.85rem; left: 1rem;"
+      h2.text-lg.bg-peach-200.px-2.invisible.md:visible style="position: absolute; top: -0.85rem; left: 1rem;"
         = "úkoly"
 
-  div.pt-4.ps-2
+  .pt-4.ps-2
     - day.tasks.each do |task|
       span.italic.overflow-hidden.truncate.pt-2
         = task.name

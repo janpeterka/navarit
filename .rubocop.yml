@@ -30,3 +30,7 @@ inherit_gem:
 
 Layout/TrailingWhitespace:
   Enabled: true
+
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented

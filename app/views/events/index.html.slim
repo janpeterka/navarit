@@ -1,4 +1,4 @@
-- content_for :title, 'akce'
+- content_for :title, "akce"
 
 / div.me-5.mb-2.float-right
 /   - placeholder = current_user.events.order("RAND()").limit(1).first&.name
@@ -7,10 +7,11 @@
 = turbo_frame_tag :events
   #future-events
     .flex.justify-between
-      h2.mt-6.mb-3
+      h2.mt-6.mb-3p
         = icon(:calendar, class: "mr-2")
         = "nadcházející akce".upcase
-      = button_link_to "nová akce", new_event_path, data: {turbo_frame: "_top"}
+
+      = button_link_to "nová akce", new_event_path, data: { turbo_frame: "_top" }
 
     .md:grid.grid-cols-2.gap-2
       - @events.active.future.each do |event|
