@@ -5,9 +5,9 @@ div
   .grid.grid-cols-5.font-bold
     .col-span-4
       .grid.grid-cols-3.gap-2
-        span = "popis"
         span = "název"
         span = "dní před vařením"
+        span = "popis"
 
   - @recipe.tasks.each do |task|
     .h-24
@@ -22,4 +22,4 @@ div
     = form.input :days_before_cooking, col_span: 3
     = form.input :description, col_span: 3
     = form.input :recipe_id, as: :hidden, input_html: { value: @recipe.id }
-    = form.submit "přidat úkol", class: "#{Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]}"
+    = form.submit "přidat úkol", class: "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:small]}", col_span: 2

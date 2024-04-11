@@ -1,6 +1,6 @@
 class RecipeTasksController < ApplicationController
   before_action :set_recipe_task, only: %i[show edit update destroy]
-  before_action :set_recipe, only: %i[index]
+  before_action :set_recipe, only: %i[index create]
 
   # GET /recipe_tasks
   def index
@@ -38,11 +38,10 @@ class RecipeTasksController < ApplicationController
     redirect_back_or_to @recipe_task.recipe
   end
 
-  # DELETE /recipe_tasks/1
   def destroy
     @recipe_task.destroy!
 
-    redirect_back_or_to @recipe_task.recipe
+    redirect_back_or_to @recipe_task.recipe, status: :see_other
   end
 
   private
