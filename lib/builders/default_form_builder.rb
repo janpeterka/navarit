@@ -79,7 +79,8 @@ module Builders
 
     # Renders a submit button.
     def submit(value = nil, options = {})
-      default_classes = Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+      default_classes = Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]
+      default_classes += " #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
       # default_classes = 'px-4 py-2 text-sm font-medium border border-emerald-700 rounded-md ...'
 
       button_options = convert_col_span_argument_to_class(key: nil, **options)

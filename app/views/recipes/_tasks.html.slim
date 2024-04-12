@@ -4,7 +4,7 @@ div
     span.float-end = button_link_to "upravit úkoly", recipe_path(recipe, edited_section: :tasks)
 
   - if recipe.tasks.empty?
-    = render CardComponent.new(class: "w-1/3 border-gray-300", shadow: false) do |c|
+    = render CardComponent.new(class: "sm:w-1/3 border-gray-300", shadow: false) do |c|
       = c.with_body do
        span.italic = "recept nemá žádné úkoly"
   - else
