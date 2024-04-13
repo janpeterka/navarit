@@ -23,29 +23,7 @@
       - unless @recipe.author == current_user
         = action_button_to "zkopírovat do mých receptů", recipe_duplications_path(@recipe), method: :post, icon: :copy, type: :plain
 
-      button.dropdown-button id="eventMoreOptionsDropdownButton" data-dropdown-toggle="eventMoreOptionsDropdown" class="font-medium rounded-lg px-5 py-2.5 text-center" type="button"
-        = icon("dots-three-circle", class: "mr-1")
-        = "další možnosti"
-
-      div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-        ul class="px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
-          - if can? :update, @recipe
-            li = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0"
-
-          - if can? :delete, @recipe
-            li = action_button_to "smazat", recipe_path(@recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }, disabled: !@recipe.deletable?
-
-          - if can? :update, @recipe
-            li
-              - if @recipe.published?
-                = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
-              - else
-                = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
-
-          - if @recipe.author == current_user
-            li = action_button_to "vytvořit kopii", recipe_duplications_path(@recipe), method: :post
-
-            / li.hidden.italic.only:inline = "Není k dispozici žádná další možnost"
+      = render "more_options_dropdown", recipe: @recipe
 
 .md:grid.md:grid-cols-3
   .pr-16
