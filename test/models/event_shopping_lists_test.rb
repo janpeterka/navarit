@@ -4,8 +4,8 @@ require "test_helper"
 
 class EventShoppingListTest < ActiveSupport::TestCase
   def setup
-    @event = FactoryBot.create(:event_with_shoppings)
-    @recipe = FactoryBot.build(:hummus_with_carrot)
+    @event = FactoryBot.create(:event_with_shoppings, author: User.first)
+    @recipe = FactoryBot.build(:hummus_with_carrot, author: User.first)
     @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first,
                                                        recipe: @recipe, position: 1,
                                                        portion_count: @event.portion_count)
@@ -18,7 +18,7 @@ class EventShoppingListTest < ActiveSupport::TestCase
   end
 
   test "event with 1 specified shopping having 3 shoppings" do
-    shopping = FactoryBot.create(:shopping)
+    shopping = FactoryBot.create(:shopping, author: User.first)
     @event.daily_plans.third.daily_plan_recipes.create!(daily_plan: @event.daily_plans.first,
                                                         recipe: shopping, portion_count: 1, position: 1)
     assert_equal 3, EventShoppingList.new(@event).shoppings.count

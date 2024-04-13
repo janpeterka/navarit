@@ -6,7 +6,7 @@ FactoryBot.define do
     name { "Hummus with carrot" }
     portion_count { 3 }
     created_by { 1 }
-    ingredients { [ FactoryBot.build(:hummus), FactoryBot.build(:carrot) ] }
+    ingredients { [ FactoryBot.build(:hummus, author:), FactoryBot.build(:carrot, author:) ] }
     after(:build) do |recipe|
       recipe.recipe_ingredients.each do |ri|
         ri.amount = 1

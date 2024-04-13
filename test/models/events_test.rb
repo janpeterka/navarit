@@ -4,8 +4,11 @@ require "test_helper"
 
 class EventTest < ActiveSupport::TestCase
   def setup
-    @event = FactoryBot.create(:event)
-    @recipe = FactoryBot.build(:hummus_with_carrot)
+    @event = FactoryBot.create(:event, author: User.first)
+    @recipe = FactoryBot.build(:hummus_with_carrot, author: User.first)
+    @recipe.ingredients.each do |ri|
+      ri.author = User.first
+    end
     @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first,
                                                        recipe: @recipe, position: 1,
                                                        portion_count: @event.portion_count)
@@ -24,7 +27,7 @@ class EventTest < ActiveSupport::TestCase
 
   test "duplication" do
     new_event = Event.new(name: "event (copy)", date_from: @event.date_from + 3.days, date_to: @event.date_to + 3.days,
-                          people_count: @event.people_count, created_by: 1)
+                          people_count: @event.people_count, author: User.first)
     new_event.save!
 
     @event.duplicate_into(new_event)
