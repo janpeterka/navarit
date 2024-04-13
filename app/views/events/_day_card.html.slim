@@ -15,10 +15,13 @@
       = day.date.strftime(" %d.%m.")
 
   - if daily_plan.present?
-    div id="#{day_dom_id}-recipes"
-      ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-peach-500"
+    .pb-2 id="#{day_dom_id}-recipes"
+      ul.space-y-2.first:mt-2.last:mb-3 data-controller="#{"sortable" if can? :update, day.daily_plan}" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-peach-500"
+        li.h-12.invisible.hidden.last:block
         - daily_plan.daily_plan_recipes.each do |daily_recipe|
           = render "day_recipe", daily_recipe:
 
-        li.px-3.invisible.group-hover:visible
-          = button_link_to "přidat recept", daily_plan_path(daily_plan), icon: :plus, type: :secondary, data: { turbo_frame: "_top" }
+      - if can? :update, daily_plan
+        ul
+          li.px-3.invisible.group-hover:visible
+            = button_link_to "přidat recept", daily_plan_path(daily_plan), icon: :plus, type: :secondary, data: { turbo_frame: "_top" }

@@ -1,27 +1,13 @@
-# frozen_string_literal: true
-
 class DailyPlanRecipesController < ApplicationController
   before_action :set_daily_plan_recipe, only: %i[show edit update destroy]
   before_action :set_daily_plan, only: %i[create]
 
-  # GET /daily_plan_recipes
-  def index
-    @daily_plan_recipes = DailyPlanRecipe.all
-  end
-
-  # GET /daily_plan_recipes/1
-  def show; end
-
-  # GET /daily_plan_recipes/new
-  def new
-    @daily_plan_recipe = DailyPlanRecipe.new
-  end
-
-  # GET /daily_plan_recipes/1/edit
-  def edit; end
-
-  # POST /daily_plan_recipes
   def create
+    unless can? :update, @daily_plan
+      flash[:error] = "Nemáte oprávnění přidat recept do tohoto plánu"
+      return redirect_back_or_to @daily_plan
+    end
+
     @daily_plan_recipe = @daily_plan.daily_plan_recipes.new(daily_plan_recipe_params)
 
     unless @daily_plan_recipe.save
@@ -32,6 +18,11 @@ class DailyPlanRecipesController < ApplicationController
   end
 
   def update
+    unless can? :update, @daily_plan_recipe.daily_plan
+      flash[:error] = "Nemáte oprávnění upravit recept"
+      return redirect_back_or_to @daily_plan_recipe.daily_plan
+    end
+
     if @daily_plan_recipe.update(daily_plan_recipe_params)
       redirect_back_or_to @daily_plan_recipe.daily_plan, notice: "Daily plan recipe was successfully updated."
     else
@@ -39,8 +30,12 @@ class DailyPlanRecipesController < ApplicationController
     end
   end
 
-  # DELETE /daily_plan_recipes/1
   def destroy
+    unless can? :update, @daily_plan_recipe.daily_plan
+      flash[:error] = "Nemáte oprávnění přidat recept do tohoto plánu"
+      return redirect_back_or_to @daily_plan_recipe.daily_plan
+    end
+
     @daily_plan_recipe.destroy
 
     redirect_back_or_to @daily_plan_recipe.daily_plan, notice: "recept byl odebrán"
@@ -48,6 +43,12 @@ class DailyPlanRecipesController < ApplicationController
 
   def sort
     daily_plan_recipe = DailyPlanRecipe.find(params[:daily_plan_recipe_id])
+
+    unless can? :update, daily_plan_recipe.daily_plan
+      flash[:error] = "Nemáte oprávnění přesunout recept v tomto plánu"
+      return redirect_back_or_to daily_plan_recipe.daily_plan
+    end
+
     new_position = params[:position].to_i
 
     daily_plan_recipe.insert_at(new_position)
@@ -55,6 +56,12 @@ class DailyPlanRecipesController < ApplicationController
 
   def move
     daily_plan_recipe = DailyPlanRecipe.find(params[:daily_plan_recipe_id])
+
+    unless can? :update, daily_plan_recipe.daily_plan
+      flash[:error] = "Nemáte oprávnění přesunout recept v tomto plánu"
+      return redirect_back_or_to ddaily_plan_recipe.daily_plan
+    end
+
     new_plan = DailyPlan.find(params[:daily_plan_id])
     new_position = params[:position].to_i
 

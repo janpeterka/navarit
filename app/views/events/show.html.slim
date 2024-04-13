@@ -21,18 +21,26 @@
         = icon("lock", class: "mr-1")
         = "soukromá akce"
 
-    = render "shared/modal", id: "#{dom_id(@event)}-sharing-modal", title: "Nastavení sdílení", buttons: false do
-      - if @event.published?
-        p = "Tato akce je zveřejněná, může si ji prohlédnout kdokoli s patřičným odkazem. Zde je veřejný odkaz:"
+    = render "shared/modal", id: "#{dom_id(@event)}-sharing-modal", title: "nastavení sdílení", buttons: false do
+      - if can? :update, @event
+        - if @event.published?
+          p = "Tato akce je zveřejněná, může si ji prohlédnout kdokoli s patřičným odkazem. Zde je veřejný odkaz:"
 
-        p data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno"}
-          span.hidden data={ "clipboard-target": "source" } = @event.public_url
-          = button_tag "veřejný odkaz", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
+          p data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno"}
+            span.hidden data={ "clipboard-target": "source" } = @event.public_url
+            = button_tag "veřejný odkaz", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
 
-        = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
+          = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
+        - else
+          p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s patřičným odkazem."
+          = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
+
+        - if @event.user_event_roles.any?
+          h2.text-lg.mt-4 = "kdo další má práva?"
+          - @event.user_event_roles.each do |role|
+            div = "#{role.user.name} (#{role.role})"
       - else
-        p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s patřičným odkazem."
-        = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
+        p = "nemáš práva k této akci"
 
     span
       - @event.involved_users.each do |user|
@@ -86,7 +94,7 @@
       = t.column :počet do |portion_type|
         = "#{portion_type.count}X"
 
-    = button_link_to "upravit", event_portion_types_path(@event)
+    = button_link_to "upravit", event_portion_types_path(@event) if can? :update, @event
 
 = turbo_frame_tag id="#{dom_id(@event)}-days"
   .md:grid-cols-7.md:gap-0.md:border.border-b-0.border-gray-500.mb-7.hidden.md:grid

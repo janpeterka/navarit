@@ -1,9 +1,13 @@
 /# locals: (event:, classes: "")
 
-div data={"controller": "clickable", "clickable-url-value": event_path(event)}
+div data={ "controller": "clickable", "clickable-url-value": event_path(event) }
     = render CardComponent.new(event, class: classes, wrapper_link: event_path(event)) do |card|
         = card.with_heading do
             = link_to event.name, event
+
+            - if event.role_for(current_user) == :viewer
+                = icon("eye", class: "ml-2 text-ocean-500")
+
         = card.with_body do
             .mb-2
                 = icon("calendar-blank", class: "mr-3")

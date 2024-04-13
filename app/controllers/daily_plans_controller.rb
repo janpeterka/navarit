@@ -2,6 +2,7 @@
 
 class DailyPlansController < ApplicationController
   before_action :set_daily_plan, only: %i[show edit update]
+  authorize_resource :daily_plan
 
   # GET /daily_plans
   # def index

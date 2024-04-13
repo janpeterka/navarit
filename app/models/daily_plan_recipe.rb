@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DailyPlanRecipe < ApplicationRecord
   self.table_name = "daily_plans_have_recipes"
 

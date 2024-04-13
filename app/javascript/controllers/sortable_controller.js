@@ -12,6 +12,7 @@ export default class extends Sortable {
     let options = super.options
     options["group"] = this.element.dataset.sortableGroupValue
     options["onAdd"] = this.onAdd
+    options["draggable"] = ".sortable-item"
 
     if (this.element.dataset.sortableDraggingClasses){
       options["onStart"] = (event) => {

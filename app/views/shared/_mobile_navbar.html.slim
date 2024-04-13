@@ -1,6 +1,6 @@
 .fixed.bottom-0.left-0.z-50.w-full.bg-ocean-700.text-white.border-t.border-gray-200.sm:hidden
     #expandable-menu.fixed.bottom-20.grid.py-4.w-full.text-white.bg-ocean-700.max-w-xl.grid-cols-5.mx-auto.font-medium.hidden.border.border-gray-300
-        = render "shared/mobile_navbar_link", text: "suroviny", path: ingredients_path, icon: "plant"
+        = render "shared/mobile_navbar_link", text: "suroviny", path: ingredients_path, icon: :carrot
         span.hover:bg-gray-200.dark:hover:bg-gray-800
             = button_to destroy_user_session_path, method: :delete, form_class: "inline" do
                 = svg("logout", class: "mx-auto mb-1 pt-2 w-full", height: "2.5rem")
@@ -8,9 +8,9 @@
 
     .fixed.bottom-0.grid.w-full.h-20.max-w-xl.text-white.bg-ocean-700.grid-cols-5.mx-auto.font-small.text-xs.border.border-gray-300
         = render "shared/mobile_navbar_link", text: "nástěnka", path: dashboard_path, icon: :house
-        = render "shared/mobile_navbar_link", text: "recepty", path: recipes_path, icon: :notepad
-        = render "shared/mobile_navbar_link", text: "události", path: events_path, icon: :calendar
+        = render "shared/mobile_navbar_link", text: "akce", path: events_path, icon: :calendar
         = render "shared/mobile_navbar_link", text: "databáze", path: published_recipes_path, icon: "book-open"
+        = render "shared/mobile_navbar_link", text: "moje", path: recipes_path, icon: :notepad
 
         button.hover:bg-gray-200.dark:hover:bg-gray-800.text-center data-collapse-toggle="expandable-menu"
             = svg("grid", class: "mx-auto mb-1 pt-2 w-full", height: "2.5rem")
