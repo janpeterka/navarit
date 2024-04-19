@@ -4,8 +4,5 @@
   = form.input :date_to, as: :date, col_span: 3
   = form.input :people_count, col_span: 3, disabled: event.persisted?
   = form.buttons_section
-    - path = event.persisted? ? event_path(event) : events_path
-    = button_link_to "", path, type: :secondary do
-      = svg("left-caret", class: "h-4 w-4 mr-2")
-      | zpět
+    = form.cancel_link(path: request.referrer)
     = form.submit

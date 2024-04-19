@@ -4,9 +4,5 @@
   = form.association :measurement, col_span: 6
   = form.association :category, col_span: 6
   = form.buttons_section
-    - path = ingredient.persisted? ? ingredient_path(ingredient) : ingredients_path
-    = button_link_to "", path, type: :secondary do
-      = svg("left-caret", class: "h-4 w-4 mr-2")
-      | zpět
-
+    = form.cancel_link
     = form.submit
