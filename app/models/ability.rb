@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
@@ -17,10 +15,11 @@ class Ability
     can :read, Event, id: user.events_in_role.pluck(:id)
     can :read, DailyPlan, event: { id: user.events_in_role.pluck(:id) }
 
-    # can :read, :all, author: user
     can %i[manage publish], Recipe, author: user
     can %i[manage publish], Ingredient, author: user
     can %i[manage publish], Event, author: user
+    cannot %i[update], Event, is_archived: true
     can %i[manage publish], DailyPlan, author: user
+    cannot %i[update], DailyPlan, event: { is_archived: true }
   end
 end

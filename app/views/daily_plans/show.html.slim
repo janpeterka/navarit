@@ -5,7 +5,7 @@
 
 = render "breadcrumbs", daily_plan: @daily_plan
 
-.mt-3.mb-16 id="#{dom_id(@daily_plan)}-recipes"
+.mt-3.mb-16.text-xl id="#{dom_id(@daily_plan)}-recipes"
   .mb-5
     .grid.grid-cols-12
       .col-span-2.text-2xl
@@ -16,7 +16,6 @@
       .col-span-2
         - if can? :update, @daily_plan
           = action_button_to "přidat nákup", daily_plan_recipes_path(daily_plan_id: @daily_plan, recipe_id: Recipe.shopping, portion_count: 0), icon: :shopping_cart, type: :plain
-      / div = "počet porcí (#{@daily_plan.portion_count})"
   ul data-controller="sortable"
     - @daily_plan.daily_plan_recipes.each do |day_recipe|
       = render "day_recipe", day_recipe:
@@ -26,14 +25,9 @@
       = default_form_for DailyPlanRecipe.new(daily_plan: @daily_plan, portion_count: @daily_plan.portion_count), url: daily_plan_recipes_path(daily_plan_id: @daily_plan), html: { data: { controller: "form" } } do |form|
         .col-span-1
         .col-span-4
-          = combobox_tag "recipe_id", [ [ "moje recepty",  current_user.recipes.collect { |v| [ v.name, v.id ] } ],
-                                                                   [ "oblíbené",  Recipe.liked_by(current_user).collect { |v| [ v.name, v.id ] } ],
-                                                                   [ "veřejné",  Recipe.published.collect { |v| [ v.name, v.id ] } ] ]
-        / = combobox_tag "recipe_id", as: :grouped_select, combobox_iot: [ [ "moje recepty",  current_user.recipes.collect { |v| [ v.name, v.id ] } ],
-                                                                   [ "oblíbené",  Recipe.liked_by(current_user).collect { |v| [ v.name, v.id ] } ],
-                                                                   [ "veřejné",  Recipe.published.collect { |v| [ v.name, v.id ] } ] ],
-                                 group_method: :last, label: "recept", col_span: 4, input_html: { data: { action: "change->form#submit" } }
-        = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES, include_blank: true, col_span: 3
+          = combobox_tag "recipe_id", @usable_recipes, data: { action: "hw-combobox:selection->form#submitIfValue" }
+        = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES, include_blank: true, col_span: 3, label: false
         = form.input :portion_count, col_span: 2
+        = form.submit "přidat", col_span: 2
 
 == render "tasks", daily_plan: @daily_plan

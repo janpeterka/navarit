@@ -4,13 +4,12 @@ class DailyPlansController < ApplicationController
   before_action :set_daily_plan, only: %i[show edit update]
   authorize_resource :daily_plan
 
-  # GET /daily_plans
-  # def index
-  #   @daily_plans = DailyPlan.all
-  # end
-
-  # GET /daily_plans/1
-  def show; end
+  def show
+    @usable_recipes = [ [ "moje recepty",  current_user.recipes.collect { |v| [ v.name, v.id ] } ],
+                        [ "oblíbené",  Recipe.liked_by(current_user).collect { |v| [ v.name, v.id ] } ],
+                        [ "veřejné",  Recipe.published.collect { |v| [ v.name, v.id ] } ]
+                      ]
+  end
 
   # # GET /daily_plans/new
   # def new

@@ -8,7 +8,7 @@ class DailyPlanRecipesController < ApplicationController
       return redirect_back_or_to @daily_plan
     end
 
-    @daily_plan_recipe = @daily_plan.daily_plan_recipes.new(daily_plan_recipe_params)
+    @daily_plan_recipe = @daily_plan.daily_plan_recipes.new(daily_plan_recipe_params.merge(recipe_id: params[:recipe_id]))
 
     unless @daily_plan_recipe.save
       flash[:error] = "recept nebyl přidán: #{@daily_plan_recipe.errors.full_messages.join(', ')}"
@@ -84,7 +84,7 @@ class DailyPlanRecipesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def daily_plan_recipe_params
     params.fetch(:daily_plan_recipe, params)
-          .permit(:daily_plan_id, :recipe_id, :meal_type, :portion_count)
+          .permit(:daily_plan_id, :meal_type, :portion_count)
           .transform_values(&:presence).transform_values { _1&.strip }
   end
 end
