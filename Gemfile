@@ -30,6 +30,7 @@ gem "slim-rails"
 gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "tailwindcss-rails"
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "hotwire_combobox"
 
 gem "lookbook"
 gem "view_component"

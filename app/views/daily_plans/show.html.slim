@@ -25,7 +25,11 @@
     #add-recipe
       = default_form_for DailyPlanRecipe.new(daily_plan: @daily_plan, portion_count: @daily_plan.portion_count), url: daily_plan_recipes_path(daily_plan_id: @daily_plan), html: { data: { controller: "form" } } do |form|
         .col-span-1
-        = form.input :recipe_id, as: :grouped_select, collection: [ [ "moje recepty",  current_user.recipes.collect { |v| [ v.name, v.id ] } ],
+        .col-span-4
+          = combobox_tag "recipe_id", [ [ "moje recepty",  current_user.recipes.collect { |v| [ v.name, v.id ] } ],
+                                                                   [ "oblíbené",  Recipe.liked_by(current_user).collect { |v| [ v.name, v.id ] } ],
+                                                                   [ "veřejné",  Recipe.published.collect { |v| [ v.name, v.id ] } ] ]
+        / = combobox_tag "recipe_id", as: :grouped_select, combobox_iot: [ [ "moje recepty",  current_user.recipes.collect { |v| [ v.name, v.id ] } ],
                                                                    [ "oblíbené",  Recipe.liked_by(current_user).collect { |v| [ v.name, v.id ] } ],
                                                                    [ "veřejné",  Recipe.published.collect { |v| [ v.name, v.id ] } ] ],
                                  group_method: :last, label: "recept", col_span: 4, input_html: { data: { action: "change->form#submit" } }
