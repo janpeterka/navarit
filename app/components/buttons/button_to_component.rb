@@ -5,13 +5,17 @@ module Buttons
   class ButtonToComponent < ButtonLinkComponent
     def call
       options[:form_class] ||= DEFAULT_BUTTON_TO_FORM_CLASSES
-      updated_options = helpers.arguments_with_updated_default_class(DEFAULT_BUTTON_TO_FORM_CLASSES, prefix: 'form',
+      updated_options = helpers.arguments_with_updated_default_class(DEFAULT_BUTTON_TO_FORM_CLASSES, prefix: "form",
                                                                                                      **options)
-      updated_options2 = helpers.arguments_with_updated_default_class(DEFAULT_BUTTON_CLASSES[type],
-                                                                      **updated_options)
+      updated_options2 = helpers.arguments_with_updated_default_class(classes, **updated_options)
+
       if content
+        content.prepend(helpers.icon(@icon)) if @icon.present?
+
         button_to(path, **updated_options2) { content }
       else
+        @name = helpers.safe_join([ helpers.icon(@icon), @name ]) if @icon.present?
+
         button_to(name, path, **updated_options2)
       end
     end

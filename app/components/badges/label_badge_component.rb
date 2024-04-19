@@ -8,18 +8,18 @@ module Badges
       super
       @label = label
       @kwargs = kwargs
-      set_bg_class
+      @bg_class = bg_class
     end
 
-    def set_bg_class
-      @bg_class = case label.color
-                  when 'highlight'
-                    'bg-green-300'
-                  when 'strong-highlight'
-                    'bg-orange-300'
-                  else
-                    'bg-green-500'
-                  end
+    def bg_class
+      case label.color
+      when "highlight"
+        "bg-green-300"
+      when "strong-highlight"
+        "bg-orange-300"
+      else
+        "bg-peach-300"
+      end
     end
   end
 end

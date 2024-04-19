@@ -31,7 +31,7 @@ module Values
       when :date
         value&.to_formatted_s(:app_date)
       when :number
-        number_with_delimiter(value, delimiter: ' ')
+        number_with_delimiter(value, delimiter: " ")
       when :currency
         helpers.currency_amount(value)
       when :truncated_text

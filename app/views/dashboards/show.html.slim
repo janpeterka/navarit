@@ -1,16 +1,27 @@
 - content_for :title, "nástěnka"
 
-.sm:grid.sm:grid-cols-3.gap-4.mt-4.text-center
-    .border.border-emerald-600.rounded-lg.shadow.p-4.mb-3.mx-2.sm:mx-0
-        - if @nearest_future_event.present?
-            | podívej se na svou nejbližší akci: 
-            = link_to @nearest_future_event.name, @nearest_future_event, class: "text-emerald-600 font-bold"    
-        - else
-            | založ 
-            = link_to "novou událost", new_event_path, class: "text-emerald-600 font-bold"
-    .border.border-emerald-600.rounded-lg.shadow.p-4.mb-3.mx-2.sm:mx-0
-        | inspiruj se v 
-        = link_to "databázi receptů", published_recipes_path, class: "text-emerald-600 font-bold"
-    .border.border-emerald-600.rounded-lg.shadow.p-4.mb-3.mx-2.sm:mx-0
-        | přidej 
-        = link_to "nový recept", new_recipe_path, class: "text-emerald-600 font-bold"
+- @header_class = "mt-6"
+- content_for :header, "vítej ve Skautské kuchařce"
+
+.grid.grid-cols-3
+    .mt-8.flex.justify-between.group
+        h2.mt-2
+            = icon(:calendar)
+            = "nadcházející akce".upcase
+
+        span.invisible.group-hover:visible
+            = button_link_to "nová akce", new_event_path, type: :plain, data: { turbo_frame: "_top" }
+
+.sm:grid.sm:grid-cols-3.gap-4.mt-4
+    - if @nearest_future_event.present?
+        = render "events/card", event: @nearest_future_event
+
+h2.mt-2
+    = icon("book-open")
+    = "nejnovější recepty".upcase
+
+.sm:grid.sm:grid-cols-3.gap-4.mt-4
+    - @showcased_public_recipes.each do |recipe|
+        = render "recipes/recipe_card", recipe:, class: "h-full"
+
+    = link_to("další recepty", published_recipes_path)

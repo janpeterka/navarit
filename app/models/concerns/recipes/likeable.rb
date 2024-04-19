@@ -5,9 +5,9 @@ module Recipes
     extend ActiveSupport::Concern
 
     included do
-      has_many :reactions, class_name: 'UserRecipeReaction', dependent: :destroy
+      has_many :reactions, class_name: "UserRecipeReaction", dependent: :destroy
 
-      scope :liked_by, ->(user) { joins(:reactions).where('users_have_recipes_reaction.user_id = ?', user.id) }
+      scope :liked_by, ->(user) { joins(:reactions).where("users_have_recipes_reaction.user_id = ?", user.id) }
     end
 
     def liked_by?(user)

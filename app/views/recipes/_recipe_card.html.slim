@@ -1,24 +1,24 @@
 = turbo_frame_tag dom_id(recipe)
-    .border.rounded.border-emerald-500.p-4.m-2.h-full
-        .text-center.text-xl.text-emerald-900.mb-2.font-semibold
-            = link_to recipe.name, recipe, data: {turbo: false}
-        div
-            = recipe.category&.name
-            span.float-right
-                = recipe.author.full_name
-        .mb-1
-            - if recipe.liked_by?(current_user)
-                = button_to liked_recipe_path(recipe), method: :delete, class: "inline-block" do
-                    = svg("heart-filled")
-                    = recipe.reactions.size
-            - else
-                = button_to liked_recipes_path(recipe_id: recipe.id), method: :post, class: "inline-block" do
-                    = svg("heart")
-                    = recipe.reactions.size
+    = render CardComponent.new(recipe, class: local_assigns[:class]) do |card|
+        = card.with_heading do
+            .grid.grid-cols-2
+                = link_to(recipe.name, recipe, data: { turbo_frame: "_top" })
+                .text-right
+                    - if recipe.liked_by?(current_user)
+                        = button_to liked_recipe_path(recipe), method: :delete, class: "inline-block" do
+                            = icon("heart", style: :fill, class: "animate-heartbeat")
+                            = recipe.reactions.size
+                    - else
+                        = button_to liked_recipes_path(recipe_id: recipe.id), method: :post, class: "inline-block" do
+                            = icon("heart", class: "animate-heartbeat")
+                            = recipe.reactions.size
 
-        hr
+        = card.with_body do
+            .grid.grid-cols-2
+                = recipe.category&.name
+                .text-right
+                    = recipe.author.name
 
-        .mt-2.flex.flex-wrap id="#{dom_id(recipe)}-labels"
-            - recipe.labels.each do |label|
-                = label_badge(label)
-    
+            .mt-2.flex.flex-wrap
+                - recipe.labels.each do |label|
+                    = label_badge(label)

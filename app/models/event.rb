@@ -4,8 +4,9 @@ class Event < ApplicationRecord
   include Publishable
   include Archivable
   include Event::HasPortionTypes
+  include Event::Collaboration
 
-  belongs_to :author, class_name: 'User', foreign_key: 'created_by'
+  belongs_to :author, class_name: "User", foreign_key: "created_by"
 
   has_many :daily_plans, -> { order(date: :asc) }, dependent: :destroy
   has_many :event_portion_types, dependent: :destroy
@@ -13,6 +14,9 @@ class Event < ApplicationRecord
 
   has_many :daily_plan_recipes, through: :daily_plans, source: :daily_plan_recipes
   has_many :recipes, through: :daily_plan_recipes
+
+  alias_attribute :begins_at, :date_from
+  alias_attribute :ends_at, :date_to
 
   validates :name, presence: true
   validates :date_from, presence: true
@@ -22,9 +26,9 @@ class Event < ApplicationRecord
   # validates :is_archived, presence: true
   # validates :is_shared, presence: true
 
-  scope :future, -> { where('date_from >= ?', Date.today) }
-  scope :past, -> { where('date_to < ?', Date.today) }
-  scope :current, -> { where('date_from <= ? AND date_to >= ?', Date.today, Date.today) }
+  scope :future, -> { where("date_from >= ?", Date.today) }
+  scope :past, -> { where("date_to < ?", Date.today) }
+  scope :current, -> { where("date_from <= ? AND date_to >= ?", Date.today, Date.today) }
 
   after_create :create_daily_plans
 
@@ -74,7 +78,7 @@ class Event < ApplicationRecord
   def date_to_after_date_from_validation
     return unless date_to.present? && date_from.present? && date_to < date_from
 
-    errors.add(:date_to, 'must be after date from')
+    errors.add(:date_to, "must be after date from")
   end
 
   def create_daily_plans

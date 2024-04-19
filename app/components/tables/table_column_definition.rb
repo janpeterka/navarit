@@ -18,7 +18,7 @@ module Tables
     # @param block Use a custom block to get the value. The block will be yielded with the record as the parameter.
     def initialize(method = nil, header: nil, title: nil, link_to_detail: false, format: nil, **options, &block)
       if method.nil? && block.nil?
-        raise ArgumentError, 'You must provide either the `method` parameter or a block, or both.'
+        raise ArgumentError, "You must provide either the `method` parameter or a block, or both."
       end
 
       @method = method
@@ -29,7 +29,7 @@ module Tables
       @css_class, @header_class = apply_classes_for_options(**options)
       @block = block
 
-      @format ||= :id if @method.to_s == 'id' && !@block
+      @format ||= :id if @method.to_s == "id" && !@block
     end
 
     # Returns the proper instantiated component for this column and record value.
@@ -53,15 +53,15 @@ module Tables
     end
 
     def apply_classes_for_options(**options)
-      value_class = options[:class] || ''
-      header_class = options[:header_class] || ''
+      value_class = options[:class] || ""
+      header_class = options[:header_class] || ""
 
       if options[:align] == :right
-        value_class << ' text-right'
-        header_class << ' text-right'
+        value_class << " text-right"
+        header_class << " text-right"
       end
 
-      [value_class, header_class]
+      [ value_class, header_class ]
     end
   end
 end

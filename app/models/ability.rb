@@ -1,42 +1,25 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
     can :create, User
-    can :read, Recipe, is_shared: true
+
     can :read, Ingredient, is_public: true
+    can :read, Recipe, is_shared: true
     can :read, Event, is_shared: true
+
+    can :read, DailyPlan, event: { is_shared: true }
 
     return unless user.present?
 
-    can :read, :all, author: user
-    can :manage, :all, author: user
+    can :read, Event, id: user.events_in_role.pluck(:id)
+    can :read, DailyPlan, event: { id: user.events_in_role.pluck(:id) }
 
-    # Define abilities for the user here. For example:
-    #
-    #   return unless user.present?
-    #   can :read, :all
-    #   return unless user.admin?
-    #   can :manage, :all
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, published: true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
+    can %i[manage publish], Recipe, author: user
+    can %i[manage publish], Ingredient, author: user
+    can %i[manage publish], Event, author: user
+    cannot %i[update], Event, is_archived: true
+    can %i[manage publish], DailyPlan, author: user
+    cannot %i[update], DailyPlan, event: { is_archived: true }
   end
 end

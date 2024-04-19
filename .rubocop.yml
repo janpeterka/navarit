@@ -1,24 +1,35 @@
-Style/Documentation:
-  Enabled: false
+# Omakase Ruby styling for Rails
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
 
-Metrics/MethodLength:
-  Max: 30
+# Style/Documentation:
+#   Enabled: false
 
-Metrics/BlockLength:
-  Exclude:
-    - 'db/schema.rb'
+# Metrics/MethodLength:
+#   Max: 30
 
-Lint/RedundantSplatExpansion:
-  Enabled: false
+# Metrics/BlockLength:
+#   Exclude:
+#     - 'db/schema.rb'
 
-Style/ClassAndModuleChildren:
-  Enabled: false
+# Lint/RedundantSplatExpansion:
+#   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
+# Style/ClassAndModuleChildren:
+#   Enabled: false
 
-Lint/UnusedMethodArgument:
-  Enabled: false
+# Style/FrozenStringLiteralComment:
+#   Enabled: false
 
-Lint/MissingSuper:
-  Enabled: false
+# Lint/UnusedMethodArgument:
+#   Enabled: false
+
+# Lint/MissingSuper:
+#   Enabled: false
+
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented

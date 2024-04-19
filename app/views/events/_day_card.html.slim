@@ -1,30 +1,27 @@
+/# locals: (day:)
+
 - daily_plan = day.daily_plan.presence
 - day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
-- border_color_class = daily_plan.present? ? "border-emerald-600" : "border-gray-300"
-- border_color_class += " hidden md:inline" unless daily_plan.present?
 
-div.border.border-2.rounded-xl.shadow.text-center.w-full id="#{day_dom_id}-card" class=border_color_class
-    div.text-xl.mt-2
-        - if daily_plan.present?
-            = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-emerald-700", data: {turbo: false} do 
-                = weekday_name(day.date)
-
-        - else
-            = weekday_name(day.date)
-        p.italic.text-sm = formatted_date(day.date)
-    
+.group id="#{day_dom_id}-card" class="#{daily_plan.present? ? "bg-peach-200" : "bg-peach-100 hidden md:inline"}"
+  .text-xl.mt-2.ps-2
     - if daily_plan.present?
-        div.overflow-hidden.mb-3 id="#{day_dom_id}-recipes"
-            ul.space-y-2.first:mt-2.last:mb-3 data-controller="sortable" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-emerald-500 text-white"
-                - daily_plan.daily_plan_recipes.each do |daily_recipe|
-                    = render "day_recipe", daily_recipe: daily_recipe
-   
-    - if day.tasks.any?
-        hr
-    
-    div.overflow-hidden id="#{day_dom_id}-tasks"
-        - day.tasks.each do |task|
-            span.italic.overflow-hidden.truncate
-                = task.name
+      = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-ocean-700", data: { turbo: false } do
+        = weekday_name(day.date)
+        = day.date.strftime(" %d.%m.")
 
-            br
+    - else
+      = weekday_name(day.date)
+      = day.date.strftime(" %d.%m.")
+
+  - if daily_plan.present?
+    .pb-2 id="#{day_dom_id}-recipes"
+      ul.space-y-2.first:mt-2.last:mb-3 data-controller="#{"sortable" if can? :update, day.daily_plan}" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-peach-500"
+        / li.h-12.invisible.hidden.last:block
+        - daily_plan.daily_plan_recipes.each do |daily_recipe|
+          = render "day_recipe", daily_recipe:
+
+      - if can? :update, daily_plan
+        ul
+          li.px-3.invisible.group-hover:visible
+            = button_link_to "přidat recept", daily_plan_path(daily_plan), icon: :plus, type: :secondary, data: { turbo_frame: "_top" }

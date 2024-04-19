@@ -22,7 +22,7 @@ class RecipeIngredientsController < ApplicationController
   def create
     @recipe_ingredient = RecipeIngredient.new(updated_params)
 
-    flash[:error] = 'nepovedlo se přidat surovinu' unless @recipe_ingredient.save
+    flash[:error] = "nepovedlo se přidat surovinu" unless @recipe_ingredient.save
 
     redirect_back_or_to recipe_path(@recipe)
   end
@@ -30,9 +30,9 @@ class RecipeIngredientsController < ApplicationController
   # PATCH/PUT /recipe_ingredients/1
   def update
     if @recipe_ingredient.update(updated_params)
-      flash[:notice] = 'upraveno'
+      flash[:notice] = "upraveno"
     else
-      flash[:error] = 'nepovedlo se upravit surovinu'
+      flash[:error] = "nepovedlo se upravit surovinu"
     end
 
     redirect_back_or_to recipe_path(@recipe)
@@ -50,7 +50,7 @@ class RecipeIngredientsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe_ingredient
     # TODO: add id to RecipeIngredient
-    recipe_id, ingredient_id = params[:id].split('_')
+    recipe_id, ingredient_id = params[:id].split("_")
     @recipe_ingredient = RecipeIngredient.where(recipe_id:, ingredient_id:).first
   end
 

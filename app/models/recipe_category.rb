@@ -5,5 +5,5 @@ class RecipeCategory < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  scope :used, -> { joins(:recipes).where('recipes.id IS NOT NULL').distinct.any? }
+  scope :used, -> { joins(:recipes).where("recipes.id IS NOT NULL").distinct.any? }
 end

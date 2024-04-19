@@ -4,10 +4,11 @@
       li.font-bold.mb-1
         .grid.grid-cols-12
           .col-span-4 = "surovina"
-          .col-span-3.ms-2 = "množství (na #{recipe.portion_count} porcí)"
+          .col-span-3.ms-2 = "množství (na #{ recipe.portion_count } porcí)"
           .col-span-3.ms-2 = "poznámka"
+
       - recipe_ingredients.each do |recipe_ingredient|
-        = render partial: "recipe_ingredients/recipe_ingredient", locals: {recipe_ingredient: }
+        = render partial: "recipe_ingredients/recipe_ingredient", locals: { recipe_ingredient: }
 
     #add-ingredient.mb-4
       = default_form_for "", url: recipe_ingredients_path(recipe_id: recipe.id), method: :post do |form|
@@ -19,7 +20,7 @@
         = form.input :comment, col_span: 3, required: false, label: false
         .col-span-2
           = form.submit "přidat surovinu"
-        
+
       / = form_tag recipe_ingredients_path(recipe_id: recipe.id), method: :post do
       /   .grid.grid-cols-4
       /     - unused_ingredients = current_user.ingredients - recipe.ingredients
@@ -28,7 +29,7 @@
       /                                                           ['veřejné',  Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }],
       /                                                           ]),
       /                   class: "w-80"
-            
+
 
       /     div = number_field_tag :amount
       /     div = text_area_tag :comment

@@ -9,7 +9,7 @@ class IngredientsController < ApplicationController
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
-      @ingredients = @ingredients.where('LOWER(ingredients.name) LIKE ? OR LOWER(ingredient_categories.name) LIKE ?',
+      @ingredients = @ingredients.where("LOWER(ingredients.name) LIKE ? OR LOWER(ingredient_categories.name) LIKE ?",
                                         query, query).references(:category)
     end
 
@@ -36,7 +36,7 @@ class IngredientsController < ApplicationController
 
   def update
     if @ingredient.update(ingredient_params)
-      redirect_to ingredient_url(@ingredient), notice: 'surovina byla upravena'
+      redirect_to ingredient_url(@ingredient), notice: "surovina byla upravena"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -45,7 +45,7 @@ class IngredientsController < ApplicationController
   def destroy
     @ingredient.destroy!
 
-    redirect_to ingredients_url, notice: 'Ingredient was successfully destroyed.'
+    redirect_to ingredients_url, notice: "Ingredient was successfully destroyed."
   end
 
   private

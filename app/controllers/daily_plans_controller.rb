@@ -2,14 +2,14 @@
 
 class DailyPlansController < ApplicationController
   before_action :set_daily_plan, only: %i[show edit update]
+  authorize_resource :daily_plan
 
-  # GET /daily_plans
-  # def index
-  #   @daily_plans = DailyPlan.all
-  # end
-
-  # GET /daily_plans/1
-  def show; end
+  def show
+    @usable_recipes = [ [ "moje recepty",  current_user.recipes.collect { |v| [ v.name, v.id ] } ],
+                        [ "oblíbené",  Recipe.liked_by(current_user).collect { |v| [ v.name, v.id ] } ],
+                        [ "veřejné",  Recipe.published.collect { |v| [ v.name, v.id ] } ]
+                      ]
+  end
 
   # # GET /daily_plans/new
   # def new
@@ -33,7 +33,7 @@ class DailyPlansController < ApplicationController
   # PATCH/PUT /daily_plans/1
   def update
     if @daily_plan.update(daily_plan_params)
-      redirect_to @daily_plan, notice: 'Daily plan was successfully updated.', status: :see_other
+      redirect_to @daily_plan, notice: "Daily plan was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end

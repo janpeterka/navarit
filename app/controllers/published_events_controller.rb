@@ -14,7 +14,7 @@ class PublishedEventsController < PublicApplicationController
   # POST /events
   def create
     @event.publish!
-    flash[:notice] = 'akce byla zveřejněna'
+    flash[:notice] = "akce byla zveřejněna"
 
     redirect_back_or_to @event
   end
@@ -22,7 +22,7 @@ class PublishedEventsController < PublicApplicationController
   # DELETE /events/1
   def destroy
     @event.unpublish!
-    flash[:notice] = 'akce byla skryta'
+    flash[:notice] = "akce byla skryta"
 
     redirect_back_or_to @event
   end

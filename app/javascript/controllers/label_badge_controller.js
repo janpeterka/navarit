@@ -80,7 +80,7 @@ export default class extends Controller {
     badge.classList.remove(badge.dataset.selectedClass);
     badge.classList.add(badge.dataset.unselectedClass);
   }
-  
+
   selectOption(option, badge) {
     option.selected = true;
     if (badge == null){ return }

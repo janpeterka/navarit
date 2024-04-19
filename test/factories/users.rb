@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :user do
-    id { 1 }
+    sequence(:id) { |n| n }
     sequence(:email) { |n| "user-#{n}@navarit.cz" }
-    password { 'passwordpassword' }
+    password { "passwordpassword" }
     active { true }
     sequence(:fs_uniquifier) { |n| n }
   end

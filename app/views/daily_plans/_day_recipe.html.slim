@@ -1,20 +1,35 @@
-li.mb-1 data={ "sortable-update-url": daily_plan_recipe_sort_path(daily_plan_recipe_id: day_recipe.id) }
-    .grid.grid-cols-4
-        = simple_form_for day_recipe, method: :patch, :html=> {class: "inline grid grid-cols-3 col-span-3", data: { controller: "form" }} do |form|
-            div.cursor-move
+/# locals: (day_recipe:)
+- if can? :update, day_recipe.daily_plan
+    li class="mb-1 border-b-2 py-4 text-xl" data={ "sortable-update-url": daily_plan_recipe_sort_path(daily_plan_recipe_id: day_recipe.id) }
+        = default_form_for day_recipe, method: :patch, html: { class: "inline", data: { controller: "form" } } do |form|
+            .cursor-move.col-span-1
                 / = day_recipe.position
-                = svg("move-handle")
+                = icon(:equals, height: 36)
+            .col-span-4
                 - if day_recipe.recipe.shopping?
                     span = day_recipe.recipe.name
                 - else
                     = link_to day_recipe.recipe.name, day_recipe.recipe
-            div
-                
-                = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES, selected: day_recipe.meal_type,
-                            label: false, include_blank: true,
-                            :input_html => { data: { action: "change->form#submit" } } unless day_recipe.shopping?
+            = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES,
+                            label: false, include_blank: true, col_span: 3,
+                            input_html: { data: { action: "change->form#submit" } } unless day_recipe.shopping?
 
-            div = form.input :portion_count, label: false, :input_html => { data: { action: "change->form#submit" } } unless day_recipe.shopping?
-            div = form.submit "uložit", hidden: true
-        
-        div = action_button_to "smazat", day_recipe, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"
+            = form.input :portion_count, col_span: 2, input_html: { data: { action: "change->form#submit" } } unless day_recipe.shopping?
+            .col-span-2
+                = action_button_to "smazat", day_recipe, type: :dangerous, formmethod: :delete, data: { turbo_confirm: "opravdu smazat?" }, icon: :trash, type: :plain
+
+- else
+    li.mb-1
+        .grid.grid-cols-4
+            .inline.grid.grid-cols-3.col-span-3
+                div
+                    - if day_recipe.recipe.shopping?
+                        span = day_recipe.recipe.name
+                    - else
+                        = link_to day_recipe.recipe.name, day_recipe.recipe
+
+                div = day_recipe.meal_type
+                div = day_recipe.portion_count unless day_recipe.shopping?
+                div
+
+            div

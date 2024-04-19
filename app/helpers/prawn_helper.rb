@@ -3,16 +3,16 @@
 module PrawnHelper
   def shrimpy_document(title: nil)
     # Sensible defaults for Prawn::Document
-    document = Prawn::Document.new(margin: 30, page_size: 'A4', page_layout: :portrait)
+    document = Prawn::Document.new(margin: 30, page_size: "A4", page_layout: :portrait)
 
-    document.font_families.update('DejaVu' => {
+    document.font_families.update("DejaVu" => {
                                     normal: "#{Rails.root}/fonts/dejavu/ttf/DejaVuSans.ttf",
                                     bold: "#{Rails.root}/fonts/dejavu/ttf/DejaVuSans-Bold.ttf",
                                     italic: "#{Rails.root}/fonts/dejavu/ttf/DejaVuSans-Oblique.ttf",
                                     bold_italic: "#{Rails.root}/fonts/dejavu/ttf/DejaVuSans-BoldOblique.ttf"
                                   })
 
-    document.font 'DejaVu'
+    document.font "DejaVu"
 
     return document unless title.present?
 

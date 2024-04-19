@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -28,6 +28,6 @@ module KucharkaOnRails
     config.i18n.default_locale = :cs
     config.i18n.available_locales = :cs, :en
 
-    config.action_dispatch.rescue_responses.merge!('CanCan::AccessDenied' => :not_found)
+    config.action_dispatch.rescue_responses.merge!("CanCan::AccessDenied" => :not_found)
   end
 end

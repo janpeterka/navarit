@@ -1,53 +1,54 @@
 - content_for :title, @recipe.name
 
-- content_for :header_right do
-  = button_link_to "upravit", edit_recipe_path(@recipe), class: "mt-0" if can? :update, @recipe
-
-  - if can? :delete, @recipe
-    - if @recipe.deletable?
-      = action_button_to "smazat", recipe_path(@recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }
-    - else
-      = action_button_to "nelze smazat", recipe_path(@recipe), method: :delete, disabled: true
-
-  - if can? :update, @recipe
-    - if @recipe.published?
-      = action_button_to "zrušit zveřejnění", published_recipe_path(@recipe), method: :delete
-    - else
-      = action_button_to "zveřejnit", published_recipes_path(recipe_id: @recipe.id), method: :post
+= render "breadcrumbs", recipe: @recipe
 
 #details.mt-3.mb-4
-  p.italic = @recipe.category&.name
-  / p.italic = @recipe.author.email
-  div.mt-2
-    div.flex.flex-wrap id="#{dom_id(@recipe)}-labels"
+  p
+    span.font-bold = @recipe.category&.name
+    - if @recipe.author != current_user
+      = ", vytvořil/a "
+      span.font-bold = "#{@recipe.author.name}"
+  .mt-2.flex.justify-between
+    .flex.flex-wrap id="#{dom_id(@recipe)}-labels"
       - @recipe.labels.sort_by(&:id).each do |label|
-        div.mb-2 = label_badge(label)
+        .mb-2 = label_badge(label)
 
-  div 
+    div
       span.float-right
       - if @recipe.liked_by?(current_user)
-        = action_button_to "odebrat z oblíbených", liked_recipe_path(@recipe), method: :delete
+        = action_button_to "odebrat z oblíbených", liked_recipe_path(@recipe), method: :delete, icon: :heart, type: :plain
       - else
-        = action_button_to "přidat do oblíbených", liked_recipes_path(recipe_id: @recipe), method: :post, icon: "heart"
+        = action_button_to "přidat do oblíbených", liked_recipes_path(recipe_id: @recipe), method: :post, icon: :heart, type: :plain
+
+      - unless @recipe.author == current_user
+        = action_button_to "zkopírovat do mých receptů", recipe_duplications_path(@recipe), method: :post, icon: :copy, type: :plain
+
+      = render "more_options_dropdown", recipe: @recipe
 
 .md:grid.md:grid-cols-3
-  - if @edited_section == :ingredients
-    = render "ingredients_edit", recipe: @recipe, recipe_ingredients: @recipe.recipe_ingredients
-  - else
-    = render "ingredients", recipe: @recipe
+  .pr-16
+    - if @edited_section == :ingredients
+      = render "ingredients_edit", recipe: @recipe, recipe_ingredients: @recipe.recipe_ingredients
+    - else
+      = render "ingredients", recipe: @recipe
 
-
-  div.col-span-2
-    #procedure.mb-3 
-      h2.text-2xl.inline-block.me-2 = "Popis"
+  .pl-6.col-span-2.sm:border-l.sm:border-ocean-700
+    #procedure.mb-3
+      h2.text-2xl.inline-block.me-2 = "postup"
       - if @edited_section == :procedure
         = form_for @recipe do |form|
           = form.rich_text_area :procedure, data: { controller: "trix" }, value: @recipe.procedure.presence
-          = form.submit "uložit", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+          = form.submit "uložit", class: "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
       - else
-        span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure) if can? :update, @recipe
-        = @recipe.procedure
+        - if can? :update, @recipe
+          span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure)
 
+        - if @recipe.procedure?
+          = @recipe.procedure
+        - else
+          = render CardComponent.new(class: "sm:w-1/3 border-gray-300") do |c|
+            = c.with_body do
+              span.italic = "recept nemá zadaný postup"
 
     - if @edited_section == :tasks
       = render "tasks_edit", recipe: @recipe, tasks: @recipe.tasks
@@ -55,5 +56,3 @@
       = render "tasks", recipe: @recipe
 
 / = button_link_to "pdf", recipe_path(@recipe, format: :pdf)
-
-= action_button_to 'vytvořit kopii', recipe_duplications_path(@recipe), method: :post 
