@@ -3,12 +3,12 @@
 class PublishedRecipesController < PublicApplicationController
   def index
     # @published_recipes = Recipe.published.includes(:category, :labels, :reactions)
-    @published_recipes = Recipe.published.includes(:category, :labels, :reactions)
+    @published_recipes = Recipe.published.includes(:category, :labels, :reactions, :ingredients)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
-      @published_recipes = @published_recipes.where("LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ? OR LOWER(labels.visible_name) LIKE ?",
-                                                    query, query, query).references(:category, :labels, :reactions)
+      @published_recipes = @published_recipes.where("LOWER(recipes.name) LIKE ? OR LOWER(ingredients.name) LIKE ?",
+                                                    query, query).references(:category, :ingredients)
     end
 
     @published_recipes = @published_recipes.where(category_id: params[:category_id]) if params[:category_id].present?
