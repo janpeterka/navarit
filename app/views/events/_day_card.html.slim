@@ -17,7 +17,7 @@
   - if daily_plan.present?
     .pb-2 id="#{day_dom_id}-recipes"
       ul.space-y-2.first:mt-2.last:mb-3 data-controller="#{"sortable" if can? :update, day.daily_plan}" data-sortable-group-value="daily-plan-recipes" data-sortable-list-id=day.daily_plan.id data-sortable-dragging-classes="bg-peach-500"
-        li.h-12.invisible.hidden.last:block
+        / li.h-12.invisible.hidden.last:block
         - daily_plan.daily_plan_recipes.each do |daily_recipe|
           = render "day_recipe", daily_recipe:
 

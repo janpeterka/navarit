@@ -24,7 +24,7 @@ class DailyPlanRecipesController < ApplicationController
     end
 
     if @daily_plan_recipe.update(daily_plan_recipe_params)
-      redirect_back_or_to @daily_plan_recipe.daily_plan, notice: "Daily plan recipe was successfully updated."
+      redirect_back_or_to @daily_plan_recipe.daily_plan, notice: "recept upraven."
     else
       render :edit, status: :unprocessable_entity
     end

@@ -84,3 +84,7 @@ cs:
       event_portion_type:
         count: počet
         size: velikost
+      daily_plan_recipe:
+        portion_count: "počet porcí"
+        meal_type: "typ jídla"
+        recipe: "recept"

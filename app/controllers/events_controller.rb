@@ -35,11 +35,13 @@ class EventsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /events/1
   def update
-    render :edit, status: :unprocessable_entity unless @event.update(event_params)
-
-    redirect_to @event
+    if @event.update(event_params)
+      # TODO: add or remove daily plans
+      redirect_to @event, status: :see_other, notice: "akce byla upravena"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   # DELETE /events/1
