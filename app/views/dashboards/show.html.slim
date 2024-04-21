@@ -22,6 +22,6 @@ h2.mt-2
 
 .sm:grid.sm:grid-cols-3.gap-4.mt-4
     - @showcased_public_recipes.each do |recipe|
-        = render "recipes/recipe_card", recipe:, class: "h-full"
+        = render "recipes/card", recipe:, classes: "h-full"
 
     = link_to("další recepty", published_recipes_path)

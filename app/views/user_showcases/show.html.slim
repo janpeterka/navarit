@@ -1,0 +1,14 @@
+- content_for :title, "Profil #{@user.full_name}"
+
+= "#{@user.full_name} zveřejnili #{@user.recipes.published.size} receptů!"
+= icon(:confetti)
+
+h2 Zveřejněné recepty
+.md:grid.md:grid-cols-3.md:gap-4
+  - @user.recipes.published.each do |recipe|
+    = render "recipes/card", recipe:, classes: "h-full"
+
+h2.mt-4 Zveřejněné akce
+.md:grid.md:grid-cols-3.md:gap-4
+  - @user.events.published.each do |event|
+    = render "events/card", event:
