@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 class PublishedRecipesController < PublicApplicationController
   def index
-    # @published_recipes = Recipe.published.includes(:category, :labels, :reactions)
-    @published_recipes = Recipe.published.includes(:category, :labels, :reactions, :ingredients)
+    @published_recipes = Recipe.published.includes(:category, :labels, :reactions)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
