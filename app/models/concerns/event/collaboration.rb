@@ -14,7 +14,7 @@ module Event::Collaboration
     if user == author
       :author
     else
-      user_event_roles.find_by(user: user).role.to_sym
+      user_event_roles.find_by(user:)&.role&.to_sym
     end
   end
 end
