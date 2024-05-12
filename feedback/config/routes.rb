@@ -7,4 +7,6 @@ Feedback::Engine.routes.draw do
     post :synchronize
     resources :comments, only: %i[index new create]
   end
+
+  resources :notifications
 end

@@ -18,4 +18,6 @@ nav.mb-4.hidden.sm:block
             div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
                 ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton"
                     li.ps-2
+                        = link_to "feedback", feedback_path, class: "hover:underline hover:emerald-600 hover:decoration-emerald-700 hover:decoration-4"
+                    li.ps-2
                         = button_to "odhlásit se", destroy_user_session_path, method: :delete, class: "hover:underline hover:emerald-600 hover:decoration-emerald-700 hover:decoration-4"

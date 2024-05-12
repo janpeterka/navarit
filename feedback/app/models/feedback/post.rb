@@ -1,8 +1,8 @@
 class Feedback::Post < Feedback::ApplicationRecord
   has_many :comments
-  belongs_to :creator, class_name: 'User', foreign_key: :user_id
+  belongs_to :creator, class_name: Feedback.creator_class.to_s, foreign_key: :creator_id
 
-  scope :created_by, ->(user) { where(creator: user) }
+  scope :created_by, ->(creator) { where(creator: creator) }
 
   validates :description, presence: true
 
