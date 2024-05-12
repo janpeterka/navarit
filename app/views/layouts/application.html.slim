@@ -3,15 +3,16 @@ html
   head
     title
       = "DEV | " if Rails.env.development?
-      | navařit | 
+      = "navařit | "
       = yield(:title).presence
 
     meta name="viewport" content="width=device-width,initial-scale=1"
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    = combobox_style_tag
     / <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.turbo.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.turbo.min.js"></script>
 
@@ -22,26 +23,37 @@ html
     / meta name="turbo-refresh-method" content="morph"
     / meta name="turbo-refresh-scroll" content="preserve"
 
-  body.mx-2.sm:mx-auto.sm:px-4.max-w-screen-2xl
+  body
     = render("shared/flash")
 
     / TODO: this is here because Devise is using this layout, not public
-    - if current_user.present?
+    - if request.path.include?("/lookbook/")
+      = ""
+    - elsif current_user.present?
       = render("shared/navbar")
     - else
       = render("shared/public_navbar")
 
-    - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
-      div
-        h1.text-3xl.text-strong.mb-2 class="#{local_assigns[:header_class]} #{'inline-block' if content_for?(:header_right) }"
-          - if content_for?(:header)
-            = yield(:header)
-          - else
-            = yield(:title)
-        span.float-right
-          - if content_for?(:header_right)
-            = yield(:header_right)
-          - else
-            = yield(:header_right)
-    = yield
+    .md:container.md:mx-auto.mx-3.mb-24.mt-3.sm:mt-auto
+      - if content_for?(:breadcrumbs)
+
+        .mb-5.font-bolder
+          = yield(:breadcrumbs)
+
+      - unless local_assigns[:override_title].present? && local_assigns[:override_title] == true
+        div
+          h1.text-3xl.text-strong.mb-2 class="#{@header_class.presence} #{"inline-block" if content_for?(:header_right) }"
+            - if content_for?(:header)
+              = yield(:header)
+            - else
+              = yield(:title)
+
+          span.float-right
+            - if content_for?(:header_right)
+              = yield(:header_right)
+            - else
+              = yield(:header_right)
+
+      = yield
+
     = render("shared/mobile_navbar") if current_user.present?

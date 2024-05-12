@@ -10,3 +10,8 @@ import "trix"
 import "@rails/actiontext"
 
 // import 'flowbite';
+
+import { application } from "controllers/application" // or equivalent
+
+import HwComboboxController from "controllers/hw_combobox_controller"
+application.register("hw-combobox", HwComboboxController)

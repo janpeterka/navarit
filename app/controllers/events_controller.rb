@@ -5,12 +5,12 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = current_user.events
+    @events = current_user.collaborable_events
 
     return unless params[:query].present?
 
     query = "%#{params[:query].downcase}%"
-    @events = @events.where('LOWER(events.name) LIKE ?', query)
+    @events = @events.where("LOWER(events.name) LIKE ?", query)
   end
 
   # GET /events/1
@@ -29,23 +29,25 @@ class EventsController < ApplicationController
     current_user.events.new(event_params)
 
     if @event.save
-      redirect_to @event, notice: 'Event was successfully created.'
+      redirect_to @event, notice: "Event was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /events/1
   def update
-    render :edit, status: :unprocessable_entity unless @event.update(event_params)
-
-    redirect_to @event
+    if @event.update(event_params)
+      # TODO: add or remove daily plans
+      redirect_to @event, status: :see_other, notice: "akce byla upravena"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   # DELETE /events/1
   def destroy
     @event.destroy!
-    redirect_to events_url, notice: 'Event was successfully destroyed.', status: :see_other
+    redirect_to events_url, notice: "Event was successfully destroyed.", status: :see_other
   end
 
   private

@@ -48,11 +48,11 @@ cs:
   activerecord:
     errors:
       models:
-        recipe: 
+        recipe:
           attributes:
             portion_count:
               blank: "počet porcí musí být nastaven"
-            
+
     models:
       ingredient:
         one: surovina
@@ -84,3 +84,7 @@ cs:
       event_portion_type:
         count: počet
         size: velikost
+      daily_plan_recipe:
+        portion_count: "počet porcí"
+        meal_type: "typ jídla"
+        recipe: "recept"

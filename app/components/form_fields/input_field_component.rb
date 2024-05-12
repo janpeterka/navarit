@@ -24,11 +24,11 @@ module FormFields
     def size_classes(size: :base)
       case size
       when :small
-        'p-2 sm:text-xs'
+        "p-2 sm:text-xs"
       when :base
-        'p-2.5 text-sm'
+        "p-2.5 text-sm"
       when :large
-        'p-4 sm:text-md'
+        "p-4 sm:text-md"
       else
         raise "Unknown size: #{size.inspect}"
       end

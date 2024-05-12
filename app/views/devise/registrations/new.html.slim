@@ -6,7 +6,7 @@
     = form.input :email, required: true, autofocus: true, col_span: :full, input_html: { autocomplete: "email" }
     = form.input :password, required: true, col_span: :full, hint: ("minimálně #{@minimum_password_length} znaků" if @minimum_password_length),
                 input_html: { autocomplete: "new-password" }
-    = form.input :password_confirmation, required: true, col_span: :full, input_html: { autocomplete: "new-password" } 
+    = form.input :password_confirmation, required: true, col_span: :full, input_html: { autocomplete: "new-password" }
     .block.content-center.col-span-full
       = form.button :submit, t("sign_up"), class: "w-1/2 py-5"
 

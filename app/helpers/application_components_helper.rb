@@ -6,12 +6,21 @@ module ApplicationComponentsHelper
     render MenuComponent.new(**kwargs), &
   end
 
-  def button_link_to(name, path, **, &)
-    render Buttons::ButtonLinkComponent.new(name:, path:, **), &
+  def button_link_to(name, path, icon: nil, **, &)
+    icon ||= :pencil if path.include?("/edit")
+    icon ||= :plus if path.include?("/new")
+
+    render Buttons::ButtonLinkComponent.new(name:, path:, icon:, **), &
   end
 
-  def action_button_to(name, path, **, &)
-    render Buttons::ButtonToComponent.new(name:, path:, **), &
+  def action_button_to(name, path, icon: nil, **kwargs, &)
+    case kwargs[:method]
+    when :delete
+      kwargs[:type] ||= :dangerous
+      icon ||= :trash
+    end
+
+    render Buttons::ButtonToComponent.new(name:, path:, icon:, **kwargs), &
   end
 
   def table(records, **, &)
@@ -30,11 +39,25 @@ module ApplicationComponentsHelper
     render SearchboxComponent.new(placeholder:, path:, target_turbo_frame:), &
   end
 
-  def heading(content, level = :h2, **kwargs)
-    default_classes = { h2: 'text-xl font-bold mb-2', h3: 'font-bold mb-2' }
+  def heading(content, level = :h2, **kwargs, &)
+    default_classes = {}
     classes = "#{default_classes[level]} #{kwargs[:class]}"
 
     "<#{level} class='#{classes}'>#{content}</#{level}>".html_safe
+  end
+
+  ALLOWED_ICON_STYLES = %i[regular bold light duotone fill thin].freeze
+
+  def icon(name, style: :regular, **options)
+    # allowed styles: regular (default), bold, light, duotone, fill and thin.
+
+    unless style.in?(ALLOWED_ICON_STYLES)
+      raise ArgumentError, "Invalid icon style: #{style}. Valid styles are #{ALLOWED_ICON_STYLES.join(', ')}."
+    end
+
+    default_classes = "inline mr-1"
+
+    phosphor_icon(name.to_s.dasherize, class: "#{default_classes} #{options.delete(:class)}", style:, **options)
   end
 
   # def admin_detail(record, **kwargs, &)
@@ -118,14 +141,14 @@ module ApplicationComponentsHelper
     class_key = :"#{prefix}class"
 
     if kwargs[remove_key].present?
-      classes = (classes.split - kwargs[remove_key].split).join(' ')
+      classes = (classes.split - kwargs[remove_key].split).join(" ")
       kwargs.delete(remove_key)
     end
 
     # simple_form sometimes uses array of classes instead of strings
-    kwargs[class_key] = kwargs[class_key].map(&:to_s).join(' ') if kwargs[class_key].is_a?(Array)
+    kwargs[class_key] = kwargs[class_key].map(&:to_s).join(" ") if kwargs[class_key].is_a?(Array)
 
-    kwargs[class_key] = (classes.split + kwargs[class_key].to_s.split).join(' ')
+    kwargs[class_key] = (classes.split + kwargs[class_key].to_s.split).join(" ")
     kwargs
   end
 end

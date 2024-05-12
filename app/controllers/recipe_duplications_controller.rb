@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 class RecipeDuplicationsController < ApplicationController
   def create
     original_recipe = Recipe.find(params[:recipe_id])
-    recipe = original_recipe.duplicate
+    recipe = original_recipe.duplicate(author: current_user)
     recipe.save!
 
-    flash[:notice] = 'recept byl úspěšně zkopírován.'
+    flash[:notice] = "recept byl úspěšně zkopírován."
 
     redirect_to recipe_path(recipe)
   end

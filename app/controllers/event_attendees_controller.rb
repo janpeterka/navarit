@@ -25,7 +25,7 @@ class EventAttendeesController < ApplicationController
     @event_attendee = EventAttendee.new(event_attendee_params)
 
     if @event_attendee.save
-      redirect_to @event_attendee, notice: 'Event attendee was successfully created.'
+      redirect_to @event_attendee, notice: "Event attendee was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class EventAttendeesController < ApplicationController
   # PATCH/PUT /event_attendees/1
   def update
     if @event_attendee.update(event_attendee_params)
-      redirect_to @event_attendee, notice: 'Event attendee was successfully updated.', status: :see_other
+      redirect_to @event_attendee, notice: "Event attendee was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class EventAttendeesController < ApplicationController
   # DELETE /event_attendees/1
   def destroy
     @event_attendee.destroy!
-    redirect_to event_attendees_url, notice: 'Event attendee was successfully destroyed.', status: :see_other
+    redirect_to event_attendees_url, notice: "Event attendee was successfully destroyed.", status: :see_other
   end
 
   private

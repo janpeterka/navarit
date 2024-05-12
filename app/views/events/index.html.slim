@@ -1,33 +1,32 @@
-- content_for :title, 'akce'
+- content_for :title, "akce"
 
-- content_for :header_right do
-  = button_link_to "přidat akci", new_event_path, class: "float-right"
-
-div.me-5.mb-2
-  - placeholder = current_user.events.order("RAND()").limit(1).first&.name
-  = searchbox(path: events_path, placeholder: placeholder, target_turbo_frame: "events")
+/ div.me-5.mb-2.float-right
+/   - placeholder = current_user.events.order("RAND()").limit(1).first&.name
+/   = searchbox(path: events_path, placeholder: placeholder, target_turbo_frame: "events")
 
 = turbo_frame_tag :events
   #future-events
-    h2.text-xl.text-bold.mb-2 budoucí akce
-    = table @events.active.future do |t|
-      = t.column :název do |event|
-        = link_to event.name, event, class: "font-bold", data: {turbo_frame: "_top"}
-      = t.column :datum do |event|
-        = "od #{event.date_from} do #{event.date_to}"
-      
+    .flex.justify-between
+      h2.mt-6.mb-3p
+        = icon(:calendar, class: "mr-2")
+        = "nadcházející akce".upcase
+
+      = button_link_to "nová akce", new_event_path, data: { turbo_frame: "_top" }
+
+    .md:grid.grid-cols-2.gap-2
+      - @events.active.future.each do |event|
+        = render "events/card", event:
+
   #past-events
-    h2.text-xl.text-bold.mb-2 skončené akce
-    = table @events.active.past do |t|
-      = t.column :název do |event|
-        = link_to event.name, event, data: {turbo_frame: "_top"}
-      = t.column :datum do |event|
-        = "od #{event.date_from} do #{event.date_to}"
+    h2.mt-4.mb-3
+      = icon(:archive, class: "mr-2")
+      = "skončené akce".upcase
+    .md:grid.grid-cols-2.gap-2
+      - @events.active.past.each do |event|
+        = render "events/card", event:
 
   #archived-events
-    h2.text-xl.text-bold.mb-2 archivované akce
-    = table @events.archived do |t|
-      = t.column :název do |event|
-        = link_to event.name, event, data: {turbo_frame: "_top"}
-      = t.column :datum do |event|
-        = "od #{event.date_from} do #{event.date_to}"
+    = heading("archivované akce", :h2)
+    .md:grid.grid-cols-2.gap-2
+      - @events.archived.each do |event|
+        = render "events/card", event:

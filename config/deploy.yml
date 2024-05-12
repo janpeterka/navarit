@@ -70,7 +70,7 @@ accessories:
       secret:
         - MYSQL_ROOT_PASSWORD
         - MYSQL_PASSWORD
-      
+
     # files:
       # - config/mysql/production.cnf:/etc/mysql/my.cnf
       # - db/production.sql:/docker-entrypoint-initdb.d/setup.sql

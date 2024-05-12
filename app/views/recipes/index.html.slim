@@ -3,14 +3,14 @@
 - content_for :header_right do
   = button_link_to "přidat recept", new_recipe_path
 
-div.me-5
+.me-5
   - placeholder = current_user.recipes.order("RAND()").limit(1).first&.name
   = searchbox(placeholder: placeholder, path: recipes_path, target_turbo_frame: :recipes)
 
 = turbo_frame_tag :recipes
   = table @recipes do |t|
     = t.column :recept do |recipe|
-      = link_to recipe.name, recipe, class: "font-bold text-emerald-600", data: {turbo_frame: "_top"}
+      = link_to recipe.name, recipe, class: "font-bold text-emerald-600", data: { turbo_frame: "_top" }
       = " (rozpracováno)" if recipe.draft?
     = t.column :kategorie do |recipe|
       = recipe.category&.name
@@ -18,4 +18,3 @@ div.me-5
       - recipe.labels.each do |label|
         = label_badge(label, class: "text-black")
     = t.pager @pagy
-

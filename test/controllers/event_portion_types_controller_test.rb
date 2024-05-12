@@ -17,7 +17,7 @@ class EventPortionTypesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create event_portion_type" do
     assert_difference("EventPortionType.count") do
-      post event_portion_types_url, params: { event_portion_type: {  } }
+      post event_portion_types_url, params: { event_portion_type: {} }
     end
 
     assert_redirected_to event_portion_type_url(EventPortionType.last)
@@ -34,7 +34,7 @@ class EventPortionTypesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update event_portion_type" do
-    patch event_portion_type_url(@event_portion_type), params: { event_portion_type: {  } }
+    patch event_portion_type_url(@event_portion_type), params: { event_portion_type: {} }
     assert_redirected_to event_portion_type_url(@event_portion_type)
   end
 

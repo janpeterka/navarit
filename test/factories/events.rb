@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :event do
     id { 1 }
-    name { 'Random event' }
+    name { "Random event" }
     created_by { 1 }
     people_count { 5 }
     date_from { 3.days.from_now.to_date }
@@ -12,7 +12,7 @@ FactoryBot.define do
 
   factory :event_with_shoppings, class: Event do
     id { 2 }
-    name { 'Event with shoppings' }
+    name { "Event with shoppings" }
     created_by { 1 }
     people_count { 5 }
     date_from { 3.days.from_now.to_date }

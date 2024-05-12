@@ -31,7 +31,7 @@ class DailyPlanTasksController < ApplicationController
   # PATCH/PUT /daily_plan_tasks/1
   def update
     if @daily_plan_task.update(daily_plan_task_params)
-      flash[:notice] = 'Daily plan task was successfully updated.'
+      flash[:notice] = "Daily plan task was successfully updated."
     else
       flash[:error] = @daily_plan_task.errors.full_messages.to_sentence
     end

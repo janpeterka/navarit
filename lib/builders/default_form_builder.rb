@@ -3,27 +3,28 @@ module Builders
     # This is the basic method for rendering `<input>` tags and their variants.
     def input(attribute_name, options = {}, &block)
       # The default Tailwind classes for the various parts of the Simple Form wrapper layout.
+      input_class = "block px-2.5 pb-2.5 pt-3 w-full"
+      input_class += " rounded-2xl"
+      # input_class = "block px-2.5 pb-2.5 pt-5 w-full dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none peer"
+      # input_class += " sm:text-sm rounded-md"
+      # input_class += " focus:outline-none focus:ring-0 focus:border-emerald-700"
+      # input_class += " text-gray-500 bg-gray-200" if options.dig(:input_html, :disabled) || options.dig(:disabled)
 
-      input_class = 'block px-2.5 pb-2.5 pt-5 w-full dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none peer'
-      input_class += ' sm:text-sm rounded-md'
-      input_class += ' focus:outline-none focus:ring-0 focus:border-emerald-700'
-      input_class += ' text-gray-500 bg-gray-200' if options.dig(:input_html, :disabled) || options.dig(:disabled)
-
-      input_wrapper_class = 'mt-1'
-      wrapper_class = ''
-      label_wrapper_class = ''
-      hint_class = 'mt-2 text-sm ...'
-      error_class = 'mt-2 text-sm text-red-700 ...'
+      input_wrapper_class = "mt-1"
+      wrapper_class = ""
+      label_wrapper_class = ""
+      hint_class = "mt-2 text-sm ..."
+      error_class = "mt-2 text-sm text-red-700 ..."
 
       # set "empty" (but not nil) placeholder for floating labels
       unless options[:placeholder].present?
         options[:input_html] =
-          { placeholder: '' }.merge(options[:input_html] || {})
+          { placeholder: "" }.merge(options[:input_html] || {})
       end
 
       case options[:as]
       when :boolean
-        input_class = 'focus:ring-indigo-500 ...'
+        input_class = "focus:ring-indigo-500 ..."
 
         options[:boolean_style] ||= :inline
         # options[:wrapper] ||= :plain_boolean
@@ -31,7 +32,7 @@ module Builders
         # input_wrapper_class = 'flex h-10 ...'
 
       when :file
-        input_class = 'block w-full file:px-4 file:py-2 ...'
+        input_class = "block w-full file:px-4 file:py-2 ..."
 
       when :date, :datetime
         options[:html5] = options.fetch(:html5, true) # use HTML5 date/time inputs by default
@@ -55,12 +56,12 @@ module Builders
     def label(attribute_name, *args, &block)
       options = args.extract_options!.dup
 
-      default_class = 'absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-emerald-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+      default_class = "absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-emerald-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
 
       # default_class = 'block text-sm font-medium'
       options = arguments_with_updated_default_class(default_class, **options)
 
-      super(attribute_name, *[args.first, options], &block)
+      super(attribute_name, *[ args.first, options ], &block)
     end
 
     # Renders a generic button. A submit button is handled by the method below instead.
@@ -68,7 +69,7 @@ module Builders
       return super(type, *args, &block) if type == :submit # submit buttons are delegated to the `submit` method below
 
       button_options = args.extract_options!.dup
-      default_classes = 'px-4 py-2 text-sm font-medium bg-white rounded-md ...'
+      default_classes = "px-4 py-2 text-sm font-medium bg-white rounded-md ..."
 
       button_options = convert_col_span_argument_to_class(key: nil, **button_options)
       button_options = arguments_with_updated_default_class(default_classes, **button_options)
@@ -79,7 +80,8 @@ module Builders
 
     # Renders a submit button.
     def submit(value = nil, options = {})
-      default_classes = Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
+      default_classes = Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]
+      default_classes += " #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
       # default_classes = 'px-4 py-2 text-sm font-medium border border-emerald-700 rounded-md ...'
 
       button_options = convert_col_span_argument_to_class(key: nil, **options)
@@ -89,7 +91,7 @@ module Builders
     end
 
     def buttons_section(**buttons_options, &block)
-      default_classes = 'flex justify-end sm:col-span-full gap-x-3 sm:py-3 sm:px-4 sm:px-6 sm:-mx-6 sm:-mb-6 sm:rounded-b-md'
+      default_classes = "flex justify-end sm:col-span-full gap-x-3 sm:py-3 sm:px-4 sm:px-6 sm:-mx-6 sm:-mb-6 sm:rounded-b-md"
 
       @template.content_tag(:div, arguments_with_updated_default_class(default_classes, **buttons_options)) do
         simple_fields_for(object_name, object, &block)
@@ -101,7 +103,7 @@ module Builders
     # This helper converts the `col_span` parameter to a Tailwind `col-span-X` class in the keyword args.
     # By default, it adds the class to the wrapper element (see the `key` parameter) and not on mobile devices
     # (see the `class_prefix` parameter). It returns amended (and dup-ed) kw arguments.
-    def convert_col_span_argument_to_class(key: :wrapper_html, class_prefix: 'sm:', **kwargs)
+    def convert_col_span_argument_to_class(key: :wrapper_html, class_prefix: "sm:", **kwargs)
       kwargs = kwargs.dup
       return kwargs unless kwargs.key?(:col_span)
 
@@ -109,11 +111,11 @@ module Builders
 
       css_class = if key
                     kwargs.dig(key, :class).to_s
-                  else
+      else
                     kwargs[:class]
-                  end
+      end
 
-      css_class = ((css_class || '').split << "#{class_prefix}col-span-#{col_span}").join(' ')
+      css_class = ((css_class || "").split << "#{class_prefix}col-span-#{col_span}").join(" ")
 
       if key
         kwargs[key] ||= {}
@@ -163,14 +165,14 @@ module Builders
       class_key = :"#{prefix}class"
 
       if kwargs[remove_key].present?
-        classes = (classes.split - kwargs[remove_key].split).join(' ')
+        classes = (classes.split - kwargs[remove_key].split).join(" ")
         kwargs.delete(remove_key)
       end
 
       # simple_form sometimes uses array of classes instead of strings
-      kwargs[class_key] = kwargs[class_key].map(&:to_s).join(' ') if kwargs[class_key].is_a?(Array)
+      kwargs[class_key] = kwargs[class_key].map(&:to_s).join(" ") if kwargs[class_key].is_a?(Array)
 
-      kwargs[class_key] = (classes.split + kwargs[class_key].to_s.split).join(' ')
+      kwargs[class_key] = (classes.split + kwargs[class_key].to_s.split).join(" ")
       kwargs
     end
 

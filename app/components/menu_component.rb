@@ -1,13 +1,13 @@
 # This component renders a menu with multiple items.
 class MenuComponent < ApplicationComponent
   renders_many :items, lambda { |name = nil, path, **kwargs, &block|
-    default_classes = 'text-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+    default_classes = "text-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
 
     if current_path.to_s.start_with?(path)
-      default_classes.gsub!('text-gray-500', '')
-      default_classes << ' text-emerald-700 border-emerald-700'
+      default_classes.gsub!("text-gray-500", "")
+      default_classes << " text-emerald-700 border-emerald-700"
     else
-      default_classes << ' border-transparent hover:border-gray-300 hover:text-gray-700'
+      default_classes << " border-transparent hover:border-gray-300 hover:text-gray-700"
     end
 
     if block

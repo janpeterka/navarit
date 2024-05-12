@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RecipeIngredient < ApplicationRecord
-  self.table_name = 'recipes_have_ingredients'
+  self.table_name = "recipes_have_ingredients"
 
   belongs_to :recipe
   belongs_to :ingredient

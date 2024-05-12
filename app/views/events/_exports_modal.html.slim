@@ -1,0 +1,5 @@
+= render "shared/modal", id: "#{dom_id(event)}-exports", title: "Exportovat", buttons: false do
+  div.mt-2
+    = button_link_to "nákupní seznam", event_shopping_list_path(event), target: "_blank"
+    = button_link_to "nákupní seznam (pdf)", event_shopping_list_path(event, format: :pdf), target: "_blank"
+    = button_link_to "kuchařka (pdf)", event_cookbook_path(event, format: :pdf), target: "_blank"
