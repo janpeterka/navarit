@@ -11,3 +11,13 @@
 <p style="margin-top: 2rem;">
 
 <%= link_to t("My feedback"), posts_path %>
+
+<p style="margin-bottom: 2rem;"></p>
+
+<% if current_user.feedback_notifications.unread.any? %>
+    <h2> <%= t("Unread notifications") %>: </h2>
+
+    <% current_user.feedback_notifications.unread.each do |notification| %>
+        <%= render notification %>
+    <% end %>
+<% end %>

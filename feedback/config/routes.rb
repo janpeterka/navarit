@@ -8,5 +8,5 @@ Feedback::Engine.routes.draw do
     resources :comments, only: %i[index new create]
   end
 
-  resources :notifications
+  resources :notifications, only: %i[index show destroy]
 end

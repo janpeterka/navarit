@@ -132,11 +132,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_184538) do
 
   create_table "feedback_notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
-    t.text "text"
     t.integer "user_id", null: false
     t.datetime "read_at"
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_feedback_notifications_on_notifiable"
     t.index ["user_id"], name: "index_feedback_notifications_on_user_id"
   end
 

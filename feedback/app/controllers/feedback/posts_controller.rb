@@ -16,14 +16,15 @@ class Feedback::PostsController < Feedback::ApplicationController
       redirect_to feedback.posts_path, status: :unprocessable_entity
     end
 
-    @post.upload!
+    @post.upload! if Feedback.synchronization_backend.present?
   end
 
   def show; end
 
   def synchronize
     @post = Feedback::Post.find(params[:post_id])
-    @post.synchronize!
+
+    @post.synchronize! if Feedback.synchronization_backend.present?
 
     redirect_back_or_to @post, status: :see_other
   end

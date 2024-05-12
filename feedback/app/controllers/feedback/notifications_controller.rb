@@ -16,7 +16,7 @@ module Feedback
 
       @notification.mark_read!
 
-      redirect_to notifications_url, notice: "Notification was marked read.", status: :see_other
+      redirect_back_or_to index_url, notice: "Notification was marked read.", status: :see_other
     end
   end
 end

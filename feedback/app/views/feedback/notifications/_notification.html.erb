@@ -1,22 +1,20 @@
 <div id="<%= dom_id notification %>">
   <p>
-    <strong>Title:</strong>
+    <strong>
+      <%= t("Title") %>:
+    </strong>
+
     <%= notification.title %>
   </p>
 
   <p>
-    <strong>Text:</strong>
-    <%= notification.text %>
+    <strong>
+      <%= t("Description") %>:
+    </strong>
+
+    <%= link_to(notification.notifiable.description.truncate(20) , notification.notifiable) %>
   </p>
 
-  <p>
-    <strong>Recipient:</strong>
-    <%= notification.recipient_id %>
-  </p>
-
-  <p>
-    <strong>Read at:</strong>
-    <%= notification.read_at %>
-  </p>
+  <%= button_to(t("Mark read"), notification_path(notification), method: :delete, class: "feedback-button") %>
 
 </div>

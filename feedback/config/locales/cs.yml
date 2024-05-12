@@ -1,10 +1,15 @@
 cs:
   synchronize: "Synchronizovat"
   Welcome: "Vítejte na stránce se zpětnou vazbou!"
-  "Send feedback": "Poslat novou zpětnou vazbu"
+  "Send feedback": "Přidat novou zpětnou vazbu"
   "My feedback": "Moje zpětná vazba"
   "Show more": "Zobrazit více"
   Back: "Zpět"
+  "Mark read": "Označit jako přečtené"
+  "Unread notifications": "Nepřečtená upozornění"
+
+  "Title": "Název"
+  "Description": "Popis"
 
   activerecord:
     models:
@@ -19,4 +24,3 @@ cs:
         description: "Obsah"
       feedback/comment:
         content: "Obsah"
-    
