@@ -40,9 +40,13 @@
   margin-bottom: 1rem;
  }
 
-div.feedback--comment-row:has(.feedback--my-comment) {
+div.feedback--comment-row {
   display: flex;
   justify-content: flex-end;
+
+  &:has(.feedback--my-comment){
+    justify-content: flex-start;
+  }
 }
 
 div.feedback--comment {

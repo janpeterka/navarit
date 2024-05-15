@@ -21,6 +21,6 @@ nav.mb-4.hidden.sm:block
                         = link_to feedback_path, class: "hover:underline hover:emerald-600 hover:decoration-emerald-700 hover:decoration-4" do
                             = "feedback"
                             - if current_user.feedback_notifications.unread.any?
-                                = " (#{current_user.feedback_notifications.unread.count} novinka)"
+                                = " (#{current_user.feedback_notifications.unread.count} upozornění)"
                     li.ps-2
                         = button_to "odhlásit se", destroy_user_session_path, method: :delete, class: "hover:underline hover:emerald-600 hover:decoration-emerald-700 hover:decoration-4"
