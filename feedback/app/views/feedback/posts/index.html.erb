@@ -1,4 +1,11 @@
+<% if current_user.admin? %>
+    <div>
+        <%= link_to("admin", admin_posts_path) %>
+    </div>
+<% end %>
+
 <%= t("My feedback") %> :
+
 
 <% @posts.each do |post| %>
     <%= render "post", post: %>

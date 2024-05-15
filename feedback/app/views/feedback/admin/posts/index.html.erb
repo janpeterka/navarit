@@ -1,0 +1,7 @@
+<%= t("All feedback") %> :
+
+<% @posts.each do |post| %>
+    <%= render "post", post: %>
+<% end %>
+
+<%= link_to(t("Back"), feedback_path) %>

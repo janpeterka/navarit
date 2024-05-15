@@ -11,4 +11,14 @@ Feedback::Engine.routes.draw do
   resources :comments, only: %i[show]
 
   resources :notifications, only: %i[index show destroy]
+
+  namespace :admin do
+    resources :posts, only: %i[index] do
+      member do
+        post :close
+        post :complete
+        post :reopen
+      end
+    end
+  end
 end

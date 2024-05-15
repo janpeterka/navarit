@@ -24,6 +24,24 @@ class Feedback::Post < Feedback::ApplicationRecord
     Feedback::PostUploader.new.perform(id)
   end
 
+  def close
+    status_closed!
+
+    Feedback::Notification.create!(title: "Your feedback has been closed", notifiable: self, recipient: creator)
+  end
+
+  def complete
+    status_completed!
+
+    Feedback::Notification.create!(title: "Your feedback has been completed", notifiable: self, recipient: creator)
+  end
+
+  def reopen
+    status_open!
+
+    Feedback::Notification.create!(title: "Your feedback has been reopened", notifiable: self, recipient: creator)
+  end
+
   def mark_notifications_read(recipient:)
     notifications.where(recipient:).mark_all_read!
 

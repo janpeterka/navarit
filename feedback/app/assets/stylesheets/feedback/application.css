@@ -23,3 +23,8 @@
  .feedback-button:hover {
   background-color: #f1f1f1;
  }
+
+ form:has(.feedback-button) {
+  display: inline;
+  margin-right: 0.2rem;
+ }
