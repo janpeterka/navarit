@@ -1,11 +1,10 @@
-/ code for showing flashes using tailwindcss:
 - flash.each do |type, message|
     - if type.to_sym == :notice
         - color_classes = "bg-blue-100 border-blue-500"
     - elsif type.to_sym == :error
         - color_classes = "bg-red-100 border-red-500"
 
-    div class="absolute border-t-4 rounded-b px-4 py-3 shadow-md #{color_classes} right-10" role="alert"
+    div class="absolute border-t-4 rounded-b px-4 py-3 shadow-md #{color_classes} right-10" role="alert" data-controller="flash" data-action="click->flash#hide"
         div class="flex"
             div class="py-1"
                 / svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
