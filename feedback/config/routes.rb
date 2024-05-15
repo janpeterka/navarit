@@ -17,6 +17,7 @@ Feedback::Engine.routes.draw do
       member do
         post :close
         post :complete
+        post :open
         post :reopen
       end
     end

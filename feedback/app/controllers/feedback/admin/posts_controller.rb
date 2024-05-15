@@ -4,6 +4,8 @@ module Feedback
 
     def index
       @posts = Feedback::Post.all
+
+      @posts = @posts.where(status: params[:status].to_sym) if params[:status].present?
     end
 
     def close

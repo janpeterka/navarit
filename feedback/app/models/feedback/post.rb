@@ -8,7 +8,7 @@ class Feedback::Post < Feedback::ApplicationRecord
 
   validates :description, presence: true
 
-  enum :status, %i[open closed completed], default: :open, prefix: true
+  enum :status, %i[new open closed completed], default: :new, prefix: true
 
   after_save :notify_admins
 
@@ -34,6 +34,12 @@ class Feedback::Post < Feedback::ApplicationRecord
     status_completed!
 
     Feedback::Notification.create!(title: "Your feedback has been completed", notifiable: self, recipient: creator)
+  end
+
+  def open
+    status_open!
+
+    Feedback::Notification.create!(title: "Your feedback has been taken into consideration by admins", notifiable: self, recipient: creator)
   end
 
   def reopen

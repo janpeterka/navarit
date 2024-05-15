@@ -1,31 +1,35 @@
 <div style="border: solid 0.1rem; padding: 0.4rem; margin-bottom: 1rem;">
-    Details: <%= link_to(t("Show more"), post) %>
-    <br>
-    What: <%= post.description %>
-    <br>
-    Status: <%= post.status %>
-    <br>
-    By: <%= post.creator.name %>
-    <br>
-    <% if Feedback.synchronization_backend.present? %>
-        Last synchronized: <%= post.last_synchronized_at %>
-        <br>
-    <% end %>
+  Details: <%= link_to(t("Show more"), post) %>
+  <br>
+  What: <%= post.description %>
+  <br>
+  Status: <%= post.status %>
+  <br>
+  By: <%= post.creator.name %>
+  <br>
+  <% if Feedback.synchronization_backend.present? %>
+      Last synchronized: <%= post.last_synchronized_at %>
+      <br>
+  <% end %>
 
-    <% if post.issue_url.present? %>
-        You can see it <a href=<%= post.issue_url %>> here </a><br>
-    <% end %>
+  <% if post.issue_url.present? %>
+      You can see it <a href=<%= post.issue_url %>> here </a><br>
+  <% end %>
 
-    <% if Feedback.synchronization_backend.present? %>
-      <%= button_to t("synchronize"), post_synchronize_path(post), class: "feedback-button" %>
-    <% end %>
+  <% if Feedback.synchronization_backend.present? %>
+    <%= button_to t("synchronize"), post_synchronize_path(post), class: "feedback--button" %>
+  <% end %>
 
 
-    <strong>Actions:</strong><br>
-    <% if post.status_open? %>
-      <%= button_to "close", close_admin_post_path(post), class: "feedback-button" %>
-      <%= button_to "complete", complete_admin_post_path(post), class: "feedback-button" %>
-    <% elsif post.status_closed? || post.status_completed? %>
-      <%= button_to "reopen", reopen_admin_post_path(post), class: "feedback-button" %>
-    <% end %>
+  <strong>Actions:</strong><br>
+  <% if post.status_new? %>
+    <%= button_to "open", open_admin_post_path(post), class: "feedback--button-to" %>
+    <%= button_to "close", close_admin_post_path(post), class: "feedback--button-to" %>
+    <%= button_to "complete", complete_admin_post_path(post), class: "feedback--button-to" %>
+  <% elsif post.status_open? %>
+    <%= button_to "close", close_admin_post_path(post), class: "feedback--button-to" %>
+    <%= button_to "complete", complete_admin_post_path(post), class: "feedback--button-to" %>
+  <% elsif post.status_closed? || post.status_completed? %>
+    <%= button_to "reopen", reopen_admin_post_path(post), class: "feedback--button-to" %>
+  <% end %>
 </div>

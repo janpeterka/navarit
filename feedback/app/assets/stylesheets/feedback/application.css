@@ -14,17 +14,21 @@
  *= require_self
  */
 
- .feedback-button {
+ .feedback--button, .feedback--button-to {
   border: 1px solid #ccc;
   padding: 0.1rem 0.5rem;
   border-radius: 0.2rem;
  }
 
- .feedback-button:hover {
+ .feedback--button:hover {
   background-color: #f1f1f1;
  }
 
- form:has(.feedback-button) {
+ form:has(.feedback--button-to) {
   display: inline;
   margin-right: 0.2rem;
+ }
+
+ form.feedback--filter-form {
+  margin-bottom: 1rem;
  }
