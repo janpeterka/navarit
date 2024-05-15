@@ -8,5 +8,9 @@ module Feedback
     def mark_read!
       update!(read_at: Time.zone.now)
     end
+
+    def self.mark_all_read!
+      update_all(read_at: Time.zone.now)
+    end
   end
 end

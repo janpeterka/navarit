@@ -1,9 +1,15 @@
 class Feedback::CommentsController < Feedback::ApplicationController
-  before_action :load_post
+  def show
+    @comment = Feedback::Comment.find(params[:id])
+
+    redirect_to @comment.post
+  end
 
   def index; end
 
   def create
+    @post = Feedback::Post.find(params[:post_id])
+
     @comment = @post.comments.new(comment_params.merge(creator: current_user))
 
     if @comment.save
@@ -12,14 +18,10 @@ class Feedback::CommentsController < Feedback::ApplicationController
       redirect_to @post, alert: 'Comment could not be created.', status: :unprocessable_entity
     end
 
-    @comment.upload!
+    @comment.upload! if Feedback.synchronization_backend.present?
   end
 
   private
-
-  def load_post
-    @post = Feedback::Post.find(params[:post_id])
-  end
 
   def comment_params
     params.require(:comment).permit(:content)

@@ -24,11 +24,17 @@ class Feedback::Post < Feedback::ApplicationRecord
     Feedback::PostUploader.new.perform(id)
   end
 
+  def mark_notifications_read(recipient:)
+    notifications.where(recipient:).mark_all_read!
+
+    comments.each do |comment|
+      comment.notifications.where(recipient:).mark_all_read!
+    end
+  end
+
   private
 
   def notify_admins
-    p "Notifying admins"
-    p Feedback.notifiable_admins
     Feedback.notifiable_admins.each do |admin|
       Feedback::Notification.create!(title: "New feedback from ##{creator.id}", notifiable: self, recipient: admin)
     end

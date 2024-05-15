@@ -5,11 +5,14 @@
     <br>
     Status: <%= post.status %>
     <br>
-    Last synchronized: <%= post.last_synchronized_at %>
-    <br>
+    <% if Feedback.synchronization_backend.present? %>
+        Last synchronized: <%= post.last_synchronized_at %>
+        <br>
+    <% end %>
+
     <% if post.issue_url.present? %>
         You can see it <a href=<%= post.issue_url %>> here </a>
     <% end %>
 
-    <%= button_to t("synchronize"), post_synchronize_path(post) %>
+    <%= button_to t("synchronize"), post_synchronize_path(post) if Feedback.synchronization_backend.present? %>
 </div>

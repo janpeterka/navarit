@@ -12,7 +12,7 @@
       <%= t("Description") %>:
     </strong>
 
-    <%= link_to(notification.notifiable.description.truncate(20) , notification.notifiable) %>
+    <%= link_to(notification.notifiable.description.truncate(20), notification.notifiable) %>
   </p>
 
   <%= button_to(t("Mark read"), notification_path(notification), method: :delete, class: "feedback-button") %>

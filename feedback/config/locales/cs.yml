@@ -17,6 +17,10 @@ cs:
         one: "příspěvek"
         few: "příspěvky"
         other: "příspěvků"
+      feedback/comment:
+        one: "komentář"
+        few: "komentáře"
+        other: "komentářů"
 
     attributes:
       feedback/post:
