@@ -44,8 +44,12 @@ div.feedback--comment-row {
   display: flex;
   justify-content: flex-end;
 
-  &:has(.feedback--my-comment){
+  &:has(.feedback--my-comment) {
     justify-content: flex-start;
+  }
+
+  &:not(:has(.feedback--my-comment)) > div.feedback--comment {
+    background-color: lightblue;
   }
 }
 
@@ -61,8 +65,4 @@ div.feedback--comment {
     font-size: 0.8rem;
     color: #666;
   }
-}
-
-div.feedback--my-comment {
-  background-color: lightblue;
 }
