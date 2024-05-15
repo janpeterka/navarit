@@ -34,6 +34,6 @@ class Feedback::Comment < Feedback::ApplicationRecord
   end
 
   def admins_in_thread
-    Feedback.notifiable_admins.intersection(post.comments.map(&:creator).uniq)
+    Feedback.notifiable_admins.to_a.intersection(post.comments.map(&:creator).uniq)
   end
 end

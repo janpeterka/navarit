@@ -32,3 +32,33 @@
  form.feedback--filter-form {
   margin-bottom: 1rem;
  }
+
+ div.feedback--post-card {
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+ }
+
+div.feedback--comment-row:has(.feedback--my-comment) {
+  display: flex;
+  justify-content: flex-end;
+}
+
+div.feedback--comment {
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+  padding: 0.4rem 1rem;
+
+  margin-bottom: 1rem;
+  display: inline-block;
+
+  span.feedback--comment-date {
+    font-size: 0.8rem;
+    color: #666;
+  }
+}
+
+div.feedback--my-comment {
+  background-color: lightblue;
+}

@@ -5,11 +5,18 @@ cs:
   "My feedback": "Moje zpětná vazba"
   "Show more": "Zobrazit více"
   Back: "Zpět"
+  "Back to feedbacks": "Zpět na mou zpětnou vazbu"
   "Mark read": "Označit jako přečtené"
   "Unread notifications": "Nepřečtená upozornění"
 
   "Title": "Název"
   "Description": "Popis"
+  "Status": "Stav"
+
+  "Comments": "Komentáře"
+  "Add comment": "Přidat komentář"
+
+  "Show admin": "Zobrazit administraci"
 
   activerecord:
     models:
@@ -26,5 +33,10 @@ cs:
       feedback/post:
         title: "Název"
         description: "Obsah"
+        statuses:
+          new: "Nový"
+          closed: "Uzavřený"
+          open: "Otevřený"
+          completed: "Dokončený"
       feedback/comment:
         content: "Obsah"

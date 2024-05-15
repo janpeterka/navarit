@@ -2,10 +2,12 @@
 
 <br>
 
-<h2> Comments </h2>
+<h2>
+    <%= t("Comments") %>
+</h2>
 
 <% @post.comments.each do |comment| %>
-    <%= render "feedback/comments/comment", comment: %>
+    <%= render comment %>
 <% end %>
 
 <br>
@@ -14,4 +16,4 @@
 
 <br>
 
-Back to <%== link_to("feedbacks", posts_path) %>
+<%= link_to(t("Back to feedbacks"), posts_path) %>

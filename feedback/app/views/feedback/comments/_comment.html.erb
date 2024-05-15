@@ -1,8 +1,11 @@
-<div class="comment">
+<div class="feedback--comment-row">
+    <div class="feedback--comment <%= "feedback--my-comment" if comment.creator == current_user %>">
+        <strong> <%= comment.creator&.name || "App Admin" %> </strong>:
+        <%= comment.content %>
+        <br>
 
-    On <%= comment.created_at.strftime("%A, %B %e, %Y at %l:%M %p") %>
-
-    <strong> <%= comment.creator&.name || "App Admin" %> </strong> said:
-
-    <%= comment.content %>
+        <span class="feedback--comment-date">
+            <%= comment.created_at.strftime("%A, %B %e, %Y at %l:%M %p") %>
+        </span>
+    </div>
 </div>

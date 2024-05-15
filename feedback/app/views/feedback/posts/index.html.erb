@@ -1,14 +1,15 @@
-<% if current_user.admin? %>
-    <div>
-        <%= link_to("admin", admin_posts_path) %>
-    </div>
-<% end %>
 
-<%= t("My feedback") %> :
-
+<h1> <%= t("My feedback") %>: </h1>
 
 <% @posts.each do |post| %>
     <%= render "post", post: %>
 <% end %>
 
-<%= link_to(t("Back"), feedback_path) %>
+<%= link_to(t("Send feedback"), feedback_path) %>
+
+<% if current_user.admin? %>
+    <hr style="margin-top: 1rem;">
+    <div>
+        <%= link_to(t("Show admin"), admin_posts_path) %>
+    </div>
+<% end %>
