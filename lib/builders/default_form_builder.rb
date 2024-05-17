@@ -90,6 +90,21 @@ module Builders
       super(value, button_options)
     end
 
+    def cancel_link(path: nil, target: nil, **)
+      href = if path
+               path
+             elsif target
+               Rails.application.routes.url_helpers.polymorphic_path(target)
+             else
+               Rails.application.routes.url_helpers.polymorphic_path(object)
+             end
+
+      default_classes = Buttons::ButtonDefaults::DEFAULT_CLASSES[:secondary]
+      default_classes += " #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
+
+      @template.content_tag(:a, "zrušit", href:, class: default_classes, **)
+    end
+
     def buttons_section(**buttons_options, &block)
       default_classes = "flex justify-end sm:col-span-full gap-x-3 sm:py-3 sm:px-4 sm:px-6 sm:-mx-6 sm:-mb-6 sm:rounded-b-md"
 

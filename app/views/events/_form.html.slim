@@ -4,5 +4,5 @@
   = form.input :date_to, as: :date, col_span: 3
   = form.input :people_count, col_span: 3, disabled: event.persisted?
   = form.buttons_section
-    = form.cancel_link(path: request.referrer)
+    = form.cancel_link
     = form.submit
