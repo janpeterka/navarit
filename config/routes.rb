@@ -6,6 +6,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   resource :dashboard, only: :show
   resource :index, only: :show
 
+  resource :user_settings, only: :show
+
   resources :daily_plan_recipes, only: %i[create update destroy] do
     patch :sort
     patch :move

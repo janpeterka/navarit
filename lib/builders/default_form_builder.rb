@@ -113,6 +113,20 @@ module Builders
       end
     end
 
+    def cancel_link(path: nil, target: nil, **options)
+      href = if path
+              path
+             elsif target
+              Rails.application.routes.url_helpers.polymorphic_path(target)
+             else
+              Rails.application.routes.url_helpers.polymorphic_path(object)
+             end
+
+      classes = "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:plain]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
+
+      @template.content_tag(:a, "zrušit", href:, class: classes, **options)
+    end
+
     private
 
     # This helper converts the `col_span` parameter to a Tailwind `col-span-X` class in the keyword args.

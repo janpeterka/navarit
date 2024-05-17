@@ -16,7 +16,7 @@ class PublishedEventsController < PublicApplicationController
     @event.publish!
     flash[:notice] = "akce byla zveřejněna"
 
-    redirect_back_or_to @event
+    redirect_back_or_to @event, status: :see_other
   end
 
   # DELETE /events/1
@@ -24,7 +24,7 @@ class PublishedEventsController < PublicApplicationController
     @event.unpublish!
     flash[:notice] = "akce byla skryta"
 
-    redirect_back_or_to @event
+    redirect_back_or_to @event, status: :see_other
   end
 
   private

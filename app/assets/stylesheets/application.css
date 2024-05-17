@@ -13,6 +13,8 @@ h2 {
   line-height: 1.75rem;
   /* @apply mb-2 */
   margin-bottom: 0.5rem;
+  /* @apply mt-2 */
+  margin-top: 0.5rem;
 }
 
 h3 {
