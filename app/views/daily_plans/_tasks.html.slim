@@ -21,4 +21,4 @@
                 = form.input :name, col_span: 3, data: { action: "change->form#submit" }
                 = form.input :description, col_span: 6, as: :hidden
                 = form.input :daily_plan_id, as: :hidden, input_html: { value: daily_plan.id }
-                / = form.submit "přidat"
+                = form.submit "přidat"
