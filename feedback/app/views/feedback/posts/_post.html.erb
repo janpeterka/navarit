@@ -14,7 +14,7 @@
     <% end %>
 
     <% if post.issue_url.present? %>
-        You can see it <a href=<%= post.issue_url %>> here </a>
+        You can see it <a href=<%= post.issue_url %>> here </a><br>
     <% end %>
 
     <%= link_to(t("Show more"), post) unless request.path.include?("posts/") %>
