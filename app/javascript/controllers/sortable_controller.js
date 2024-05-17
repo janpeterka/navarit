@@ -1,7 +1,6 @@
 import Sortable from 'stimulus-sortable'
 import { patch } from '@rails/request.js'
 
-
 export default class extends Sortable {
   initialize() {
     super.initialize()

@@ -9,6 +9,9 @@ application.register("form", FormController)
 import SortableController from "controllers/sortable_controller"
 application.register("sortable", SortableController)
 
+import TurboModalController from "controllers/turbo_modal_controller"
+application.register("turbo-modal", TurboModalController)
+
 import LabelBadgeController from "controllers/label_badge_controller"
 application.register("label-badge", LabelBadgeController)
 
