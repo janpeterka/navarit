@@ -56,4 +56,6 @@ html
 
       = yield
 
+    = turbo_frame_tag "modal", class: "hidden flex justify-center"
+
     = render("shared/mobile_navbar") if current_user.present?

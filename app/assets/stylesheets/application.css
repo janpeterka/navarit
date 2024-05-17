@@ -104,3 +104,21 @@ button.dropdown-button:has( + div > ul:empty) {
     }
   }
 }
+
+#modal {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  top: 2rem;
+  bottom: 2rem;
+  word-break: break-word;
+}
+
+.modal-content {
+  border: 0.2rem solid #F8A66B; /* peach-500 */
+  border-radius: 2rem;
+  padding: 2rem;
+  background-color: #F5D7C4; /* peach-200 */
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
