@@ -28,7 +28,6 @@ class EventTimetable
     @days.each do |day|
       if day.daily_plan.present?
         day.tasks = day.daily_plan.day_tasks.to_a
-        # day.tasks = day.daily_plan.tasks
       else
         day.tasks = []
       end
