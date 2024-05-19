@@ -3,6 +3,9 @@ import { application } from "controllers/application"
 import ClickableController from "controllers/clickable_controller"
 application.register("clickable", ClickableController)
 
+import DebugTurboController from "controllers/debug_turbo_controller"
+application.register("debug-turbo", DebugTurboController)
+
 import FormController from "controllers/form_controller"
 application.register("form", FormController)
 
