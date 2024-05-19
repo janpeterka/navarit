@@ -285,6 +285,7 @@ GEM
       activesupport (>= 7.0.0)
       rack
       railties (>= 7.0.0)
+    prosopite (1.4.2)
     psych (5.1.2)
       stringio
     public_suffix (5.0.5)
@@ -292,6 +293,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (3.0.11)
+    rack-mini-profiler (3.3.1)
+      rack (>= 1.2.0)
     rack-protection (4.0.0)
       base64 (>= 0.1.0)
       rack (>= 3.0.0, < 4)
@@ -504,7 +507,9 @@ DEPENDENCIES
   prawn-grouping
   prawn-markup
   propshaft
+  prosopite
   puma (>= 5.0)
+  rack-mini-profiler
   rails (~> 7.1.3)
   rails-i18n
   rails_best_practices
