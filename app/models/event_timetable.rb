@@ -13,7 +13,7 @@ class EventTimetable
     date_range = (@event.date_from.beginning_of_week..@event.date_to.end_of_week)
 
     @days = date_range.map do |date|
-      event_day.new(date, @event.daily_plans.find { _1.date == date })
+      event_day.new(date, @event.daily_plans.find { _1.date == date }, [])
     end
 
     load_day_tasks
@@ -26,18 +26,13 @@ class EventTimetable
   def load_day_tasks
     # Add daily tasks
     @days.each do |day|
-      if day.daily_plan.present?
-        day.tasks = day.daily_plan.day_tasks.to_a
-      else
-        day.tasks = []
-      end
+      day.tasks = day.daily_plan.day_tasks.to_a if day.daily_plan.present?
     end
 
     # Add recipe tasks
     @event.daily_plans.includes(daily_plan_recipes: [ recipe: :tasks ]).each do |plan|
       plan.daily_plan_recipes.each do |day_recipe|
         day_recipe.recipe.tasks.each do |task|
-          # day.tasks << recipe.tasks.where(days_before_cooking: plan.date - day.date)
           assign_task(day_recipe, task)
         end
       end
