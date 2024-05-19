@@ -14,7 +14,9 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1
-  def show; end
+  def show
+    @event = Event.includes(daily_plans: [ :day_tasks, daily_plan_recipes: :recipe ]).find(params[:id])
+  end
 
   # GET /events/new
   def new

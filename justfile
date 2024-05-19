@@ -9,7 +9,7 @@ run:
   bin/dev
 
 test spec:
-  bundle exec rspec {{spec}}
+  bundle exec rails test {{spec}}
 
 deploy:
   kamal deploy
