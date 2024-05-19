@@ -7,22 +7,20 @@ html
       = yield(:title).presence
 
     meta name="viewport" content="width=device-width,initial-scale=1"
+    = turbo_refreshes_with method: :morph, scroll: :preserve
+    = yield :head
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
     = combobox_style_tag
-    / <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.turbo.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.turbo.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 
-    / = turbo_refreshes_with method: :morph, scroll: :preserve
-    / meta name="turbo-refresh-method" content="morph"
-    / meta name="turbo-refresh-scroll" content="preserve"
-
+  / data-controller="#{'debug-turbo' if Rails.env.development?}"
   body
     = render("shared/flash")
 
@@ -36,7 +34,6 @@ html
 
     .md:container.md:mx-auto.mx-3.mb-24.mt-3.sm:mt-auto
       - if content_for?(:breadcrumbs)
-
         .mb-5.font-bolder
           = yield(:breadcrumbs)
 
