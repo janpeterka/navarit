@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DailyPlan < ApplicationRecord
-  belongs_to :event
+  belongs_to :event, touch: true
   belongs_to :author, class_name: "User", foreign_key: "created_by", default: -> { event.author } # TODO: remove
 
   has_many :day_tasks, class_name: "DailyPlanTask", dependent: :destroy
