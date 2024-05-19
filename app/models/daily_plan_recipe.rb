@@ -4,7 +4,7 @@ class DailyPlanRecipe < ApplicationRecord
   MEAL_TYPES = [ "snídaně", "dopolední svačina", "oběd", "odpolední svačina", "večeře", "programové", "jiné" ].freeze
 
   belongs_to :recipe
-  belongs_to :daily_plan
+  belongs_to :daily_plan, touch: true
   acts_as_list scope: :daily_plan
   has_many :tasks, through: :recipe
 
