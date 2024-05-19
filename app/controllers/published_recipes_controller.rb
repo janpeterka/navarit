@@ -1,6 +1,6 @@
 class PublishedRecipesController < PublicApplicationController
   def index
-    @published_recipes = Recipe.published.includes(:category, :labels, :reactions)
+    @published_recipes = Recipe.published.includes(:category, :labels, :reactions, author: :recipe_reactions)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
