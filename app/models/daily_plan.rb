@@ -2,7 +2,7 @@
 
 class DailyPlan < ApplicationRecord
   belongs_to :event
-  belongs_to :author, class_name: "User", foreign_key: "created_by"
+  belongs_to :author, class_name: "User", foreign_key: "created_by", default: -> { event.author } # TODO: remove
 
   has_many :day_tasks, class_name: "DailyPlanTask", dependent: :destroy
   has_many :daily_plan_recipes, -> { order(position: :asc) }, dependent: :destroy
