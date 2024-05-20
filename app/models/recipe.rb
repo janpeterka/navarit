@@ -34,6 +34,9 @@ class Recipe < ApplicationRecord
   scope :created_by, ->(user) { where(author: user) }
   scope :not_created_by, ->(user) { where.not(author: user) }
   # scope :draft, -> {joins(:ingredients).where.not("ingredients.id IS NULL").distinct.any? }
+  scope :with_labels, ->(labels) {
+    joins(:recipe_labels).where(recipe_labels: { label_id: labels.map(&:id) }).group(:id).having("COUNT(DISTINCT recipe_labels.label_id) = ?", labels.size)
+  }
 
   def self.shopping
     Recipe.find(167)

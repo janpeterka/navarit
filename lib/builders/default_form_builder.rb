@@ -36,6 +36,9 @@ module Builders
 
       when :date, :datetime
         options[:html5] = options.fetch(:html5, true) # use HTML5 date/time inputs by default
+
+      when :combobox
+        input_class = ""
       end
 
       options = convert_col_span_argument_to_class(**options)

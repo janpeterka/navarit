@@ -1,18 +1,27 @@
 class PublishedRecipesController < PublicApplicationController
   def index
-    @published_recipes = Recipe.published.includes(:category, :labels, :reactions, author: :recipe_reactions)
+    @published_recipes = Recipe.published.includes(:category, :labels, :reactions, :ingredients, author: :recipe_reactions)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
       @published_recipes = @published_recipes.where("LOWER(recipes.name) LIKE ? OR LOWER(ingredients.name) LIKE ?",
-                                                    query, query).references(:category, :ingredients)
+                                                    query, query).references(:ingredients)
     end
 
-    @published_recipes = @published_recipes.where(category_id: params[:category_id]) if params[:category_id].present?
-
-    if params[:dietary_label_id].present?
-      @published_recipes = @published_recipes.joins(:labels).where(labels: Label.find(params[:dietary_label_id]))
+    if params[:category_ids].present?
+      @published_recipes = @published_recipes.where(category_id: params[:category_ids].split(","))
     end
+
+    if params[:dietary_label_ids].present?
+      dietary_labels = Label.where(id: params[:dietary_label_ids].split(","))
+    end
+
+    if params[:difficulty_label_ids].present?
+      difficulty_labels = Label.where(id: params[:difficulty_label_ids].split(","))
+    end
+
+    labels = (difficulty_labels || []) + (dietary_labels || [])
+    @published_recipes = @published_recipes.with_labels(labels)
 
     case params[:sorting]&.to_sym
     when :favorite

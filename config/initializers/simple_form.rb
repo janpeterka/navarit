@@ -54,6 +54,7 @@ SimpleForm.setup do |config|
 
     ## Inputs
     # b.use :input, class: 'input', error_class: 'is-invalid', valid_class: 'is-valid'
+    # This builds floating input
     b.wrapper :input_wrapper, tag: :div, class: "relative" do |component|
       component.use :input
       component.use :label
