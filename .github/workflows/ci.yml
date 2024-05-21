@@ -44,4 +44,4 @@ jobs:
       - name: Prepare assets
         run: bin/rails assets:precompile
       - name: Run controller tests selectively
-        run: bin/rails test test/system/events_test
+        run: bin/rails test test/system/events_test test/controllers/published_recipes_controller_test

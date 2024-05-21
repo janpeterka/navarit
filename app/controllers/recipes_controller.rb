@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class RecipesController < ApplicationController
-  load_and_authorize_resource
-  before_action :set_recipe, only: %i[show edit update destroy]
+  before_action :set_recipe, only: %i[edit update destroy]
+  authorize_resource
 
-  # GET /recipes
   def index
     @recipes = current_user.recipes.includes(:category, :labels, :ingredients).order(:name)
 
@@ -19,6 +18,8 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @recipe = Recipe.includes(:ingredients, :tasks).find(params[:id])
+
     @portion_count = if params[:portion_count].present?
                       params[:portion_count].to_i
                      else
@@ -28,12 +29,10 @@ class RecipesController < ApplicationController
     @edited_section = params[:edited_section]&.to_sym if can? :edit, @recipe
   end
 
-  # GET /recipes/new
   def new
     @recipe = Recipe.new
   end
 
-  # GET /recipes/1/edit
   def edit; end
 
   # POST /recipes
