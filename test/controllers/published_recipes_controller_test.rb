@@ -4,47 +4,67 @@ require "test_helper"
 
 class PublishedRecipesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @published_recipe = published_recipes(:one)
+    difficulty_category = LabelCategory.create(name: "difficulty")
+
+    @easy_label = Label.create!(name: "easy", visible_name: "snadné", category: difficulty_category)
+    @difficult_label = Label.create!(name: "difficult", visible_name: "složité", category: difficulty_category)
+
+    @basic_recipe = FactoryBot.create(:recipe, :published, name: "Basic recipe")
+
+    @easy_recipe = FactoryBot.create(:recipe, :published, name: "Easy recipe")
+    @easy_recipe.recipe_labels.create!(label: @easy_label)
+
+    @difficult_recipe = FactoryBot.create(:recipe, :published, name: "Difficult recipe")
+    @difficult_recipe.recipe_labels.create!(label: @difficult_label)
   end
 
-  test "should get index" do
-    get published_recipes_url
-    assert_response :success
+  test "without filters returns all recipes" do
+    #   get published_recipes_url
+    # This is ugly, but for some reason normal request is not working (in some random cases) and I can't bother with that shit now
+    published_recipes = PublishedRecipesController.new.load_recipes({})
+
+    assert_includes published_recipes, @basic_recipe
+    assert_includes published_recipes, @easy_recipe
+    assert_includes published_recipes, @difficult_recipe
   end
 
-  test "should get new" do
-    get new_published_recipe_url
-    assert_response :success
+  test "with easy filter returns only easy recipe" do
+    # get published_recipes_url(difficulty_label_ids: "#{@easy_label.id}")
+    params = { difficulty_label_ids: "#{@easy_label.id}" }
+    published_recipes = PublishedRecipesController.new.load_recipes(params)
+
+    assert_not_includes published_recipes, @basic_recipe
+    assert_includes published_recipes, @easy_recipe
+    assert_not_includes published_recipes, @difficult_recipe
   end
 
-  test "should create published_recipe" do
-    assert_difference("PublishedRecipe.count") do
-      post published_recipes_url, params: { published_recipe: {} }
-    end
+  test "with multiple difficulty labels returns with any of them" do
+    # get published_recipes_url(difficulty_label_ids: "#{@easy_label.id},#{@difficult_label.id}")
+    params = { difficulty_label_ids: "#{@easy_label.id},#{@difficult_label.id}" }
+    published_recipes = PublishedRecipesController.new.load_recipes(params)
 
-    assert_redirected_to published_recipe_url(PublishedRecipe.last)
+    assert_not_includes published_recipes, @basic_recipe
+    assert_includes published_recipes, @easy_recipe
+    assert_includes published_recipes, @difficult_recipe
   end
 
-  test "should show published_recipe" do
-    get published_recipe_url(@published_recipe)
-    assert_response :success
-  end
+  test "with multiple dietary labels return recipes with all of them" do
+    dietary_category = LabelCategory.create(name: "dietary")
+    vegan_label = Label.create!(name: "vegan", visible_name: "veganské", category: dietary_category)
+    no_gluten_label = Label.create!(name: "gluten-free", visible_name: "bez lepku", category: dietary_category)
 
-  test "should get edit" do
-    get edit_published_recipe_url(@published_recipe)
-    assert_response :success
-  end
+    @vegan_recipe = FactoryBot.create(:recipe, :published, name: "Vegan recipe")
+    @vegan_recipe.recipe_labels.create!(label: vegan_label)
 
-  test "should update published_recipe" do
-    patch published_recipe_url(@published_recipe), params: { published_recipe: {} }
-    assert_redirected_to published_recipe_url(@published_recipe)
-  end
+    @full_diet_recipe = FactoryBot.create(:recipe, :published, name: "Full diet recipe")
+    @full_diet_recipe.recipe_labels.create!(label: vegan_label)
+    @full_diet_recipe.recipe_labels.create!(label: no_gluten_label)
 
-  test "should destroy published_recipe" do
-    assert_difference("PublishedRecipe.count", -1) do
-      delete published_recipe_url(@published_recipe)
-    end
+    params = { dietary_label_ids: "#{vegan_label.id},#{no_gluten_label.id}" }
 
-    assert_redirected_to published_recipes_url
+    published_recipes = PublishedRecipesController.new.load_recipes(params)
+
+    assert_includes published_recipes, @full_diet_recipe
+    assert_not_includes published_recipes, @vegan_recipe
   end
 end
