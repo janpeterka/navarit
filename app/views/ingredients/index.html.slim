@@ -11,7 +11,7 @@ div.me-5
   = table @ingredients do |t|
     = t.column :name do |ingredient|
       = link_to ingredient.name, ingredient, class: "font-bold text-emerald-600", data: {turbo_frame: "_top"}
-      - if ingredient.published?
+      - if ingredient.common?
         span.ms-1
           = svg("user-group")
     = t.column :category do |ingredient|
@@ -19,4 +19,3 @@ div.me-5
     = t.column :measurement do |ingredient|
       = ingredient.measurement&.name
     = t.pager @pagy
-

@@ -12,10 +12,13 @@ class Ingredient < ApplicationRecord
 
   scope :lasting, -> { where(is_lasting: true) }
   scope :used, -> { joins(:recipe_ingredients).where("recipe_ingredients.id IS NOT NULL").distinct.any? }
-  scope :published, -> { where(is_public: true) }
-  scope :not_published, -> { where(is_public: false) }
+  scope :common, -> { where(is_public: true) }
 
   delegate :lasting?, to: :category, allow_nil: true
+
+  def common?
+    is_public
+  end
 
   def name_with_unit
     if measurement.present?
