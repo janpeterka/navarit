@@ -34,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    true
+    id == 1
   end
 
   def valid_password?(password)
