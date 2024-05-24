@@ -12,6 +12,8 @@
   #details.mb-3
     = @ingredient.description
     br
+    - if @ingredient.common?
+      p veřejná surovina
 
     span
       | měřeno na:
@@ -20,7 +22,6 @@
     span
       | v kategorii:
       = @ingredient.category&.name
-
 
   div
     - current_user_recipes = @ingredient.recipes.created_by(current_user)
@@ -36,6 +37,3 @@
     /   ul
     /   - other_user_recipes.each do |recipe|
     /     li = link_to recipe.name, recipe
-
-
-
