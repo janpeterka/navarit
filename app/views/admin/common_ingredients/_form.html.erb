@@ -1,0 +1,17 @@
+<%= form_with(model: admin_common_ingredient, class: "contents") do |form| %>
+  <% if admin_common_ingredient.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(admin_common_ingredient.errors.count, "error") %> prohibited this admin_common_ingredient from being saved:</h2>
+
+      <ul>
+        <% admin_common_ingredient.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
