@@ -4,7 +4,7 @@ require "application_system_test_case"
 
 class EventsTest < ApplicationSystemTestCase
   setup do
-    @event = FactoryBot.create(:event)
+    @event = FactoryBot.create(:event, author: User.first)
   end
 
   test "visiting the index" do
