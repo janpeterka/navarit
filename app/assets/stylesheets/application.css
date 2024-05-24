@@ -92,6 +92,7 @@ button.dropdown-button:has( + div > ul:empty) {
     border-radius: 1rem;
     background-color: white;
     border-color: #6b7280;
+    padding-top: 0.75rem;
 
     & input {
       border-width: 0;

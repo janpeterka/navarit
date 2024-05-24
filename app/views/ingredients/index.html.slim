@@ -3,19 +3,19 @@
 - content_for :header_right do
   = button_link_to "přidat surovinu", new_ingredient_path, class: "float-right"
 
-div.me-5
+.me-5
   - placeholder = current_user.ingredients.order("RAND()").limit(1).first&.name
-  = searchbox(placeholder: , path: ingredients_path, target_turbo_frame: :ingredients)
+  = searchbox(placeholder:, path: ingredients_path, target_turbo_frame: :ingredients)
 
 = turbo_frame_tag :ingredients
   = table @ingredients do |t|
-    = t.column :name do |ingredient|
+    = t.column :jméno do |ingredient|
       = link_to ingredient.name, ingredient, class: "font-bold text-emerald-600", data: {turbo_frame: "_top"}
       - if ingredient.common?
         span.ms-1
           = svg("user-group")
-    = t.column :category do |ingredient|
+    = t.column :kategorie do |ingredient|
       = ingredient.category&.name
-    = t.column :measurement do |ingredient|
+    = t.column :míra do |ingredient|
       = ingredient.measurement&.name
     = t.pager @pagy
