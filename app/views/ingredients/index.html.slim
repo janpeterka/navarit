@@ -10,8 +10,8 @@
 = turbo_frame_tag :ingredients
   = table @ingredients do |t|
     = t.column :jméno do |ingredient|
-      = link_to ingredient.name, ingredient, class: "font-bold text-emerald-600", data: { turbo_frame: "_top" }
-      - if ingredient.published?
+      = link_to ingredient.name, ingredient, class: "font-bold text-emerald-600", data: {turbo_frame: "_top"}
+      - if ingredient.common?
         span.ms-1
           = svg("user-group")
     = t.column :kategorie do |ingredient|

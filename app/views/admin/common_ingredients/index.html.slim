@@ -1,0 +1,20 @@
+- content_for :title, "ADMIN | společné suroviny"
+
+- content_for :header_right do
+  = button_link_to "přidat společnou surovinu", new_admin_common_ingredient_path, class: "float-right"
+
+.me-5
+  = searchbox(placeholder: "", path: admin_common_ingredients_path, target_turbo_frame: :common_ingredients)
+
+= turbo_frame_tag :common_ingredients
+  = table @common_ingredients do |t|
+    = t.column :name do |ingredient|
+      = link_to ingredient.name, ingredient, class: "font-bold text-emerald-600", data: { turbo_frame: "_top" }
+      - if ingredient.common?
+        span.ms-1
+          = svg("user-group")
+    = t.column :category do |ingredient|
+      = ingredient.category&.name
+    = t.column :measurement do |ingredient|
+      = ingredient.measurement&.name
+    = t.pager @pagy

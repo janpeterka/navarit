@@ -14,25 +14,11 @@
       = default_form_for "", url: recipe_ingredients_path(recipe_id: recipe.id), method: :post do |form|
         - unused_ingredients = current_user.ingredients - recipe.ingredients
         = form.input :ingredient_id, :as => :grouped_select, collection: [['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
-                                             ['veřejné', Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }]],
+                                             ['veřejné', Ingredient.common.collect {|v| [ v.name_with_unit, v.id ] }]],
                                              col_span: 4, :group_method => :last, label: false, allow_blank: false
         = form.input :amount, col_span: 3, label: false
         = form.input :comment, col_span: 3, required: false, label: false
         .col-span-2
           = form.submit "přidat surovinu"
-
-      / = form_tag recipe_ingredients_path(recipe_id: recipe.id), method: :post do
-      /   .grid.grid-cols-4
-      /     - unused_ingredients = current_user.ingredients - recipe.ingredients
-      /     div.grid.grid-cols-2
-      /       = select_tag :ingredient_id, grouped_options_for_select([['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
-      /                                                           ['veřejné',  Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }],
-      /                                                           ]),
-      /                   class: "w-80"
-
-
-      /     div = number_field_tag :amount
-      /     div = text_area_tag :comment
-      /     div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
 
   = button_link_to "hotovo!", recipe_path(recipe)
