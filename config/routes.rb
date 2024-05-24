@@ -23,7 +23,9 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     # resource :attendance, controller: 'event_attendances', only: %i[index]
     resources :attendees, controller: "event_attendees", only: %i[index new create update destroy]
     resources :portion_types, controller: "event_portion_types", only: %i[index new create update destroy]
+    resources :collaboration, controller: "event_collaboration", only: %i[index create destroy]
   end
+
   resources :published_events, only: %i[show create destroy]
   resources :archived_events, only: %i[create destroy]
 

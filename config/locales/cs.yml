@@ -24,6 +24,10 @@ cs:
       - pá
       - so
 
+  viewer: "zobrazení"
+  collaborator: "úprava"
+  permission: "práva"
+
   helpers:
     select:
       prompt: prosím vyber si
