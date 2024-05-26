@@ -3,6 +3,19 @@ class PublishedRecipesController < PublicApplicationController
     load_recipes(params)
   end
 
+  def show
+    @recipe = Recipe.published.find(params[:id])
+
+    redirect_to published_recipes_path if @recipe.blank?
+    redirect_to @recipe if user_signed_in?
+
+    @portion_count = if params[:portion_count].present?
+      params[:portion_count].to_i
+     else
+      @recipe.portion_count
+     end
+  end
+
   def create
     recipe = Recipe.find(params[:recipe_id])
     authorize! :publish, recipe

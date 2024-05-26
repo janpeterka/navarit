@@ -34,7 +34,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     resources :tasks, controller: "recipe_tasks"
   end
 
-  resources :published_recipes, only: %i[index create destroy]
+  resources :published_recipes, only: %i[index show create destroy]
   resources :liked_recipes, only: %i[index create destroy]
 
   resources :recipe_ingredients
