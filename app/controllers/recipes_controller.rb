@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RecipesController < ApplicationController
   before_action :set_recipe, only: %i[edit update destroy]
   authorize_resource
@@ -63,12 +61,10 @@ class RecipesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def recipe_params
     params.fetch(:recipe, {}).permit(:name, :procedure, :category_id, :portion_count, :difficulty_label_ids,
                                      dietary_label_ids: [])
