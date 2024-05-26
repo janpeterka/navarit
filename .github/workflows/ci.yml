@@ -29,7 +29,7 @@ jobs:
       DATABASE_URL: "mysql2://kucharka:kucharka@127.0.0.1:3306/kucharka_test"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1 # v1.146.0
