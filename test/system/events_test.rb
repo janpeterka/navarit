@@ -3,11 +3,9 @@
 require "application_system_test_case"
 
 class EventsTest < ApplicationSystemTestCase
-  setup do
-    @event = FactoryBot.create(:event, author: User.first)
-  end
-
   test "visiting the index" do
+    @event = FactoryBot.create(:event, author: User.first)
+
     visit events_url
     assert_selector "h2", text: "NADCHÁZEJÍCÍ AKCE"
     assert_selector "a", text: "Random event"
