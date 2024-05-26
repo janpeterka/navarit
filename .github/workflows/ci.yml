@@ -45,3 +45,17 @@ jobs:
         run: bin/rails assets:precompile
       - name: Run controller tests selectively
         run: bin/rails test test/system/events_test test/controllers/published_recipes_controller_test
+      - name: Upload Code Coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage
+          path: coverage/
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Formatting and Security Checks
+        run: |
+          bundle exec brakeman -z
+          bundle-audit update
+          bundle-audit
