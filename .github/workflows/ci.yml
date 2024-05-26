@@ -45,8 +45,10 @@ jobs:
         run: bin/rails assets:precompile
       - name: Run controller tests selectively
         run: bin/rails test test/system/events_test test/controllers/published_recipes_controller_test
-      - name: Upload Code Coverage
-        uses: actions/upload-artifact@v2
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: code-coverage
-          path: coverage/
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/screenshots
+          if-no-files-found: ignore
