@@ -56,6 +56,13 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1 # v1.146.0
+        with:
+          bundler-cache: true
       - name: Formatting and Security Checks
         run: |
           bundle exec brakeman -z
