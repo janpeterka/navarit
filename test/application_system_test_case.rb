@@ -7,7 +7,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 1400 ]
 
   setup do
-    sign_in User.find_by(id: 1) || FactoryBot.create(:user)
+    sign_in User.find_by(id: 1) || FactoryBot.create(:user, id: 1)
   end
 
   teardown do

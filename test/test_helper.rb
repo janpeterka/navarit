@@ -14,7 +14,7 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
     setup do
-      @current_user = User.find_by(id: 1) || FactoryBot.create(:user)
+      @current_user = User.find_by(id: 1) || FactoryBot.create(:user, id: 1)
     end
   end
 end
