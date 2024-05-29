@@ -2,13 +2,13 @@ require "test_helper"
 
 class RecipeTest < ActiveSupport::TestCase
   def setup
-    @recipe = FactoryBot.build(:hummus_with_carrot, author: User.first)
+    @recipe = FactoryBot.build(:hummus_with_carrot, author: User.find(1))
     @recipe.tasks.new(name: "task 1")
   end
 
 
   test "duplication" do
-    another_user = FactoryBot.create(:user)
+    another_user = FactoryBot.create(:user, id: 100)
     new_recipe = @recipe.duplicate(author: another_user)
 
     assert_equal new_recipe.name, "#{@recipe.name} (kopie)"
