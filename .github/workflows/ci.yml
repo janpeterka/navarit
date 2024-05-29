@@ -66,5 +66,5 @@ jobs:
       - name: Formatting and Security Checks
         run: |
           bundle exec brakeman -z
-          bundle-audit update
-          bundle-audit
+          bundle exec bundle-audit update
+          bundle exec bundle-audit
