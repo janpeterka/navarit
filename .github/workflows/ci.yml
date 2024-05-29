@@ -31,21 +31,34 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1 # v1.146.0
         with:
           bundler-cache: true
+
       # Add or replace database setup steps here
       - name: Set up database schema
-        run: bin/rails db:drop db:setup db:schema:load
+        run: bin/rails db:reset
+
+      - name: Debug database contents
+        run: |
+          echo "Listing users:"
+          bin/rails runner 'puts User.all.to_json'
+          echo "Listing events:"
+          bin/rails runner 'puts Event.all.to_json'
+
       # Add or replace test runners here
       - name: Run model tests
         run: bin/rails test test/models
+
       - name: Prepare assets
         run: bin/rails assets:precompile
+
       - name: Run controller tests selectively
         run: bin/rails test test/system/events_test test/controllers/published_recipes_controller_test
+
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
         if: failure()
