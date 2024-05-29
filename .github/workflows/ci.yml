@@ -55,7 +55,7 @@ jobs:
 
   security:
     runs-on: ubuntu-latest
-    steps:
+    steps: # This was corrected to address https://github.com/actions/starter-workflows/issues/2159
       - name: Checkout code
         uses: actions/checkout@v4
       # Add or replace dependency steps here

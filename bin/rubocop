@@ -1,9 +1,0 @@
-# As seen in rails main 29.5.2024 https://github.com/rails/rails/blob/ea757ae7023fd0f89b6c086831a6f34c80f61f1c/railties/lib/rails/generators/rails/app/templates/bin/rubocop.tt#L4
-
-require "rubygems"
-require "bundler/setup"
-
-# explicit rubocop config increases performance slightly while avoiding config confusion.
-ARGV.unshift("--config", File.expand_path("../.rubocop.yml", __dir__))
-
-load Gem.bin_path("rubocop", "rubocop")
