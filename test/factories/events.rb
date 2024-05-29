@@ -8,6 +8,7 @@ FactoryBot.define do
     people_count { 5 }
     date_from { 3.days.from_now.to_date }
     date_to { 5.days.from_now.to_date }
+    is_archived { false }
   end
 
   factory :event_with_shoppings, class: Event do
