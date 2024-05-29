@@ -1,6 +1,7 @@
 class EventPortionTypesController < ApplicationController
   before_action :set_event_portion_type, only: %i[show edit update destroy]
   before_action :set_event
+  authorize_resource :event
 
   # GET /event_portion_types
   def index
@@ -19,7 +20,6 @@ class EventPortionTypesController < ApplicationController
   # GET /event_portion_types/1/edit
   def edit; end
 
-  # POST /event_portion_types
   def create # rubocop:disable Metrics/AbcSize
     @portion_type = PortionType.find_by(id: params[:portion_type_id])
 
@@ -41,7 +41,7 @@ class EventPortionTypesController < ApplicationController
                                                       status: :see_other
     else
       flash[:error] = "něco se nepovedlo"
-      redirect_back_or_to @event.event_portion_types, status: :see_other
+      redirect_back_or_to @event.event_portion_types, status: :unprocessable_entity
       # this will be back with turbo-frame added
       # render :new, status: :unprocessable_entity
     end
