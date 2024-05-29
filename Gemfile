@@ -89,6 +89,6 @@ group :test do
 
   # github action checks
   gem "brakeman"
-  gem "bundler-audit"
+  gem "bundle-audit"
   gem "rails_best_practices"
 end
