@@ -4,17 +4,18 @@ require "test_helper"
 
 class PublishedRecipesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @author = User.find(1)
     difficulty_category = LabelCategory.create(name: "difficulty")
 
     @easy_label = Label.create!(name: "easy", visible_name: "snadné", category: difficulty_category)
     @difficult_label = Label.create!(name: "difficult", visible_name: "složité", category: difficulty_category)
 
-    @basic_recipe = FactoryBot.create(:recipe, :published, name: "Basic recipe")
+    @basic_recipe = FactoryBot.create(:recipe, :published, name: "Basic recipe", author: @author)
 
-    @easy_recipe = FactoryBot.create(:recipe, :published, name: "Easy recipe")
+    @easy_recipe = FactoryBot.create(:recipe, :published, name: "Easy recipe", author: @author)
     @easy_recipe.recipe_labels.create!(label: @easy_label)
 
-    @difficult_recipe = FactoryBot.create(:recipe, :published, name: "Difficult recipe")
+    @difficult_recipe = FactoryBot.create(:recipe, :published, name: "Difficult recipe", author: @author)
     @difficult_recipe.recipe_labels.create!(label: @difficult_label)
   end
 
@@ -53,10 +54,10 @@ class PublishedRecipesControllerTest < ActionDispatch::IntegrationTest
     vegan_label = Label.create!(name: "vegan", visible_name: "veganské", category: dietary_category)
     no_gluten_label = Label.create!(name: "gluten-free", visible_name: "bez lepku", category: dietary_category)
 
-    @vegan_recipe = FactoryBot.create(:recipe, :published, name: "Vegan recipe")
+    @vegan_recipe = FactoryBot.create(:recipe, :published, name: "Vegan recipe", author: @author)
     @vegan_recipe.recipe_labels.create!(label: vegan_label)
 
-    @full_diet_recipe = FactoryBot.create(:recipe, :published, name: "Full diet recipe")
+    @full_diet_recipe = FactoryBot.create(:recipe, :published, name: "Full diet recipe", author: @author)
     @full_diet_recipe.recipe_labels.create!(label: vegan_label)
     @full_diet_recipe.recipe_labels.create!(label: no_gluten_label)
 
