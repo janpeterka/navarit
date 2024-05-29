@@ -27,6 +27,7 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "mysql2://kucharka:kucharka@127.0.0.1:3306/kucharka_test"
+      RAILS_MAX_THREADS: 1
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
