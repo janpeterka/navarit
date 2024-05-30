@@ -6,6 +6,11 @@ module ApplicationComponentsHelper
     render MenuComponent.new(**kwargs), &
   end
 
+  def link_to_modal(*, **options, &)
+    options[:data] = (options[:data] || {}).merge({ "turbo_frame": "modal" })
+    link_to(*, **options, &)
+  end
+
   def button_link_to(name, path, icon: nil, **, &)
     icon ||= :pencil if path.include?("/edit")
     icon ||= :plus if path.include?("/new")

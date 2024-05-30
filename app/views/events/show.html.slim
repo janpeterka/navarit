@@ -15,7 +15,7 @@
 
   / WIP - sharing, collaborations
   .sm:inline-block
-    button.px-3.py-2.m-2.rounded-3xl.bg-peach-300 data-modal-target="#{dom_id(@event)}-sharing-modal" data-modal-toggle="#{dom_id(@event)}-sharing-modal"
+    = render Buttons::ButtonLinkComponent.new(path: event_collaboration_index_path(@event), class: "px-3 py-3 m-2 rounded-3xl bg-peach-300", override_classes: true, data: { turbo_frame: "modal" }) do
       - if @event.published?
         = icon("eye", class: "mr-1")
         = "zveřejněná akce"
@@ -23,35 +23,14 @@
         = icon("lock", class: "mr-1")
         = "soukromá akce"
 
-    = render "shared/modal", id: "#{dom_id(@event)}-sharing-modal", title: "nastavení sdílení", buttons: false do
-      - if can? :update, @event
-        - if @event.published?
-          p = "Tato akce je zveřejněná, může si ji prohlédnout kdokoli s patřičným odkazem. Zde je veřejný odkaz:"
-
-          p data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno"}
-            span.hidden data={ "clipboard-target": "source" } = @event.public_url
-            = button_tag "veřejný odkaz", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
-
-          = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
-        - else
-          p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s patřičným odkazem."
-          = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
-
-        - if @event.user_event_roles.any?
-          h2.text-lg.mt-4 = "kdo další má práva?"
-          - @event.user_event_roles.each do |role|
-            div = "#{role.user.name} (#{role.role})"
-      - else
-        p = "nemáš práva k této akci"
-
     span
       - @event.involved_users.each do |user|
         span.p-3.me-1.rounded-full.border.border-peach-300
           = user.initials
 
       span.p-3.rounded-full.border.border-peach-300
-        = link_to "přehled", event_collaboration_index_path(@event)
         = icon("user-plus")
+        = link_to_modal "sdílení", event_collaboration_index_path(@event)
 
 #details.sm:flex.sm:justify-between.mb-3
   div
