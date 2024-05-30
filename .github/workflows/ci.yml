@@ -52,3 +52,19 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+  security:
+    runs-on: ubuntu-latest
+    steps: # This was corrected to address https://github.com/actions/starter-workflows/issues/2159
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1 # v1.146.0
+        with:
+          bundler-cache: true
+      - name: Formatting and Security Checks
+        run: |
+          bundle exec brakeman -z
+          bundle exec bundle-audit update
+          bundle exec bundle-audit
