@@ -13,7 +13,9 @@
     = @ingredient.description
     br
     - if @ingredient.common?
-      p veřejná surovina
+      p
+        = icon(:globe)
+        | veřejná surovina
 
     span
       | měřeno na:
