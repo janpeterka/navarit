@@ -6,7 +6,7 @@ module Buttons
 
     attr_reader :name, :path, :icon, :type, :updated_options, :options, :size
 
-    def initialize(name:, path:, icon: nil, type: :primary, size: :default, **options)
+    def initialize(name: nil, path: nil, icon: nil, type: :primary, size: :default, override_classes: false, **options)
       raise ArgumentError, "Unsupported button type" if DEFAULT_BUTTON_CLASSES.keys.exclude?(type)
       raise ArgumentError, "Unsupported button size" if DEFAULT_SIZE_CLASSES.keys.exclude?(size)
 
@@ -18,7 +18,11 @@ module Buttons
       @type = type
       @size = size
       @options = options || {} # this is passed to ButtonToComponent
-      @updated_options = arguments_with_updated_default_class(classes, **options)
+      @updated_options = if override_classes
+                            options
+                         else
+                            arguments_with_updated_default_class(classes, **options)
+                         end
     end
 
     private

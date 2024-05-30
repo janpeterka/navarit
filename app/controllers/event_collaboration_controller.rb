@@ -12,10 +12,10 @@ class EventCollaborationController < ApplicationController
 
     if @event.add_collaborator(user, permission: params[:permission])
       flash[:notice] = "přidáno!"
-      redirect_back_or_to event_collaboration_index_path(@event)
+      redirect_to event_collaboration_index_path(@event)
     else
-      flash[:error] = "Něco se nepovedlo"
-      redirect_back_or_to event_collaboration_index_path(@event)
+      flash[:error] = "něco se nepovedlo"
+      redirect_to event_collaboration_index_path(@event)
     end
   end
 
@@ -25,7 +25,7 @@ class EventCollaborationController < ApplicationController
     role = @event.user_event_roles.find_by(user_id: params[:id].to_i)
     role.destroy
 
-    redirect_back_or_to event_collaboration_index_path(@event)
+    redirect_to event_collaboration_index_path(@event)
   end
 
   private

@@ -7,6 +7,15 @@ body {
   background-color: var(--background-color);
 }
 
+h1 {
+   font-size: 1.75rem;
+   line-height: 1.75rem;
+   /* @apply mb-2 */
+   margin-bottom: 0.5rem;
+   /* @apply mt-2 */
+   margin-top: 0.5rem;
+}
+
 h2 {
   /* @apply text-xl */
   font-size: 1.25rem;
