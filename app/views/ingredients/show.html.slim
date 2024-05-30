@@ -17,13 +17,11 @@
         = icon(:globe)
         | veřejná surovina
 
-    span
-      | měřeno na:
-      = @ingredient.measurement&.name
-    br
-    span
-      | v kategorii:
-      = @ingredient.category&.name
+    p
+      = "měřeno na: #{@ingredient.measurement&.name}"
+
+    p
+      = "kategorie: #{@ingredient.category&.name}"
 
   div
     - current_user_recipes = @ingredient.recipes.created_by(current_user)
@@ -34,8 +32,12 @@
     - current_user_recipes.each do |recipe|
       li = link_to recipe.name, recipe
 
-    / - if current_user.admin?
-    /   h3.text-xl.mt-3 recepty se surovinou ostatních
-    /   ul
-    /   - other_user_recipes.each do |recipe|
-    /     li = link_to recipe.name, recipe
+    - if current_user.admin?
+
+      h3.text-xl.mt-3
+        | recepty se surovinou ostatních
+        = render Badges::BadgeComponent.new(value: "admin", color: "peach")
+
+      ul
+      - other_user_recipes.each do |recipe|
+        li = link_to recipe.name, recipe
