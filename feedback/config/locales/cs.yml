@@ -18,6 +18,12 @@ cs:
 
   "Show admin": "Zobrazit administraci"
 
+  # Notifications
+  "Your feedback has been taken into consideration by admins": "Tvou zpětnou vazbu viděli tvůrci aplikace"
+  "Your feedback has been completed": "Tvoje zpětná vazba byla vyřešena"
+  "Your feedback has been closed": "Tvoje zpětná vazba byla uzavřena"
+  "Your feedback has been reopened": "Tvoje zpětná vazba byla znovuotevřena"
+
   activerecord:
     models:
       feedback/post:

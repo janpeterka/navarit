@@ -1,11 +1,17 @@
 module Feedback
   class Admin::PostsController < AdminController
-    before_action :load_post, only: %i[close complete reopen]
+    before_action :load_post, only: %i[open close complete reopen]
 
     def index
       @posts = Feedback::Post.all
 
       @posts = @posts.where(status: params[:status].to_sym) if params[:status].present?
+    end
+
+    def open
+      @post.open!
+
+      redirect_back_or_to feedback.admin_posts_path, status: :see_other, notice: "Post has been opened."
     end
 
     def close

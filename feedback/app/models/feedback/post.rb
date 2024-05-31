@@ -10,7 +10,7 @@ class Feedback::Post < Feedback::ApplicationRecord
 
   enum :status, %i[new open closed completed], default: :new, prefix: true
 
-  after_save :notify_admins
+  after_create :notify_admins
 
   def title
     "Feedback ##{id} from #{creator.name}"
@@ -36,7 +36,7 @@ class Feedback::Post < Feedback::ApplicationRecord
     Feedback::Notification.create!(title: "Your feedback has been completed", notifiable: self, recipient: creator)
   end
 
-  def open
+  def open!  # ok, this is weird, but it seems like there's some private method `open` on ActiveRecord element or something
     status_open!
 
     Feedback::Notification.create!(title: "Your feedback has been taken into consideration by admins", notifiable: self, recipient: creator)
