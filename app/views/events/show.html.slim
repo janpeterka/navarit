@@ -1,3 +1,5 @@
+= turbo_stream_from @event
+
 - content_for :title, @event.name
 - local_assigns[:override_title] = true
 
@@ -13,34 +15,13 @@
 
   / WIP - sharing, collaborations
   .sm:inline-block
-    button.px-3.py-2.m-2.rounded-3xl.bg-peach-300 data-modal-target="#{dom_id(@event)}-sharing-modal" data-modal-toggle="#{dom_id(@event)}-sharing-modal"
+    = render Buttons::ButtonLinkComponent.new(path: event_collaboration_index_path(@event), class: "px-3 py-3 m-2 rounded-3xl bg-peach-300", override_classes: true, data: { turbo_frame: "modal" }) do
       - if @event.published?
         = icon("eye", class: "mr-1")
         = "zveřejněná akce"
       - else
         = icon("lock", class: "mr-1")
         = "soukromá akce"
-
-    = render "shared/modal", id: "#{dom_id(@event)}-sharing-modal", title: "nastavení sdílení", buttons: false do
-      - if can? :update, @event
-        - if @event.published?
-          p = "Tato akce je zveřejněná, může si ji prohlédnout kdokoli s patřičným odkazem. Zde je veřejný odkaz:"
-
-          p data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno"}
-            span.hidden data={ "clipboard-target": "source" } = @event.public_url
-            = button_tag "veřejný odkaz", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
-
-          = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
-        - else
-          p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s patřičným odkazem."
-          = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
-
-        - if @event.user_event_roles.any?
-          h2.text-lg.mt-4 = "kdo další má práva?"
-          - @event.user_event_roles.each do |role|
-            div = "#{role.user.name} (#{role.role})"
-      - else
-        p = "nemáš práva k této akci"
 
     span
       - @event.involved_users.each do |user|
@@ -49,6 +30,7 @@
 
       span.p-3.rounded-full.border.border-peach-300
         = icon("user-plus")
+        = link_to_modal "sdílení", event_collaboration_index_path(@event)
 
 #details.sm:flex.sm:justify-between.mb-3
   div
@@ -69,17 +51,17 @@
 
       div id="eventMoreOptionsDropdown" class="z-10 hidden bg-peach-100 rounded-lg shadow"
         ul class="p-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
-          li = button_link_to "zkopírovat akci", new_event_duplication_path(event_id: @event.id)
+          li = button_link_to "zkopírovat akci", new_event_duplication_path(event_id: @event.id), type: :plain
           - if can? :update, @event
-            li = button_link_to "upravit", edit_event_path(@event)
+            li = button_link_to "upravit", edit_event_path(@event), type: :plain
           - if can? :destroy, @event
             li = action_button_to "smazat akci", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, type: :plain, disabled: !@event.destroyable?
           - if can? :update, @event
             li
               - if @event.archived?
-                = action_button_to "odarchivovat", archived_event_path(@event), method: :delete
+                = action_button_to "odarchivovat", archived_event_path(@event), method: :delete, type: :plain
               - else
-                = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post
+                = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post, type: :plain
 
 #attendance.mb-3
   details.border.border-gray-500.rounded-lg.p-3.border-2.hover:border-ocean-700
@@ -96,15 +78,14 @@
 
     = button_link_to "upravit", event_portion_types_path(@event) if can? :update, @event
 
-= turbo_frame_tag id="#{dom_id(@event)}-days"
-  .md:grid-cols-7.md:gap-0.md:border.border-b-0.border-gray-500.mb-7.hidden.md:grid
-    - @event.timetable.days.in_groups_of(7) do |day_batch|
-      - day_batch.each do |day|
-        = render("day_card", day:)
-      - day_batch.each do |day|
-        = render("day_task_card", day:)
-
-  .grid.md:hidden
-    - @event.timetable.days.each do |day|
+.md:grid-cols-7.md:gap-0.md:border.border-b-0.border-gray-500.mb-7.hidden.md:grid
+  - @event.timetable.days.in_groups_of(7) do |day_batch|
+    - day_batch.each do |day|
       = render("day_card", day:)
+    - day_batch.each do |day|
       = render("day_task_card", day:)
+
+.grid.md:hidden
+  - @event.timetable.days.each do |day|
+    = render("day_card", day:)
+    = render("day_task_card", day:)

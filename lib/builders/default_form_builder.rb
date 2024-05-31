@@ -36,6 +36,9 @@ module Builders
 
       when :date, :datetime
         options[:html5] = options.fetch(:html5, true) # use HTML5 date/time inputs by default
+
+      when :combobox
+        input_class = ""
       end
 
       options = convert_col_span_argument_to_class(**options)
@@ -90,12 +93,41 @@ module Builders
       super(value, button_options)
     end
 
+    def cancel_link(path: nil, target: nil, **)
+      href = if path
+               path
+             elsif target
+               Rails.application.routes.url_helpers.polymorphic_path(target)
+             else
+               Rails.application.routes.url_helpers.polymorphic_path(object)
+             end
+
+      default_classes = Buttons::ButtonDefaults::DEFAULT_CLASSES[:secondary]
+      default_classes += " #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
+
+      @template.content_tag(:a, "zrušit", href:, class: default_classes, **)
+    end
+
     def buttons_section(**buttons_options, &block)
       default_classes = "flex justify-end sm:col-span-full gap-x-3 sm:py-3 sm:px-4 sm:px-6 sm:-mx-6 sm:-mb-6 sm:rounded-b-md"
 
       @template.content_tag(:div, arguments_with_updated_default_class(default_classes, **buttons_options)) do
         simple_fields_for(object_name, object, &block)
       end
+    end
+
+    def cancel_link(path: nil, target: nil, **options)
+      href = if path
+              path
+             elsif target
+              Rails.application.routes.url_helpers.polymorphic_path(target)
+             else
+              Rails.application.routes.url_helpers.polymorphic_path(object)
+             end
+
+      classes = "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:plain]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
+
+      @template.content_tag(:a, "zrušit", href:, class: classes, **options)
     end
 
     private

@@ -12,22 +12,20 @@
           div = "množství (na #{@recipe.portion_count} porcí)"
           div = "poznámka"
       - @recipe_ingredients.each do |recipe_ingredient|
-        = render partial: "recipe_ingredient", locals: {recipe_ingredient: }
+        = render partial: "recipe_ingredient", locals: { recipe_ingredient: }
 
     #add-ingredient.mb-4
       h2.text-xl.font-bold.mb-2 přidat surovinu
       = form_tag recipe_ingredients_path(recipe_id: @recipe.id), method: :post do
         .grid.grid-cols-4
           - unused_ingredients = current_user.ingredients - @recipe.ingredients
-          div.grid.grid-cols-2
-            = select_tag :ingredient_id, grouped_options_for_select([['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
-                                                                ['veřejné',  Ingredient.published.collect {|v| [ v.name_with_unit, v.id ] }],
-                                                                ]),
+          .grid.grid-cols-2
+            = select_tag :ingredient_id, grouped_options_for_select([ [ "moje",  unused_ingredients.collect { |v| [ v.name_with_unit, v.id ] } ],
+                                                                [ "veřejné",  Ingredient.common.collect { |v| [ v.name_with_unit, v.id ] } ] ]),
                         class: "w-80"
-
 
           div = number_field_tag :amount
           div = text_area_tag :comment
           div = submit_tag "přidat", class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:primary]
 
-  = button_link_to "hotovo!", recipe_path(@recipe), data: {turbo: false}
+  = button_link_to "hotovo!", recipe_path(@recipe), data: { turbo: false }

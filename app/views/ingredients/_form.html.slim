@@ -1,12 +1,10 @@
-= default_form_for @ingredient do |form|
+/# locals: (ingredient:)
+
+= default_form_for ingredient do |form|
   = form.input :name, col_span: :full, autofocus: true
   = form.input :description, col_span: :full
   = form.association :measurement, col_span: 6
   = form.association :category, col_span: 6
   = form.buttons_section
-    - path = ingredient.persisted? ? ingredient_path(ingredient) : ingredients_path
-    = button_link_to "", path, type: :secondary do
-      = svg("left-caret", class: "h-4 w-4 mr-2")
-      | zpět
-
+    = form.cancel_link
     = form.submit

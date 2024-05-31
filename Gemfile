@@ -66,12 +66,10 @@ group :development do
   gem "web-console"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "rack-mini-profiler"
 
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
+  gem "prosopite" # N+1 query detection
   gem "methodz"
   gem "rubocop"
   gem "rubocop-capybara"

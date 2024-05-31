@@ -24,4 +24,4 @@
       - if can? :update, daily_plan
         ul
           li.px-3.invisible.group-hover:visible
-            = button_link_to "přidat recept", daily_plan_path(daily_plan), icon: :plus, type: :secondary, data: { turbo_frame: "_top" }
+            = button_link_to "přidat recept", daily_plan_path(daily_plan), icon: :plus, type: :secondary, data: { turbo_frame: "modal" }

@@ -1,21 +1,21 @@
 /# locals: (day_recipe:)
 - if can? :update, day_recipe.daily_plan
-    li class="mb-1 border-b-2 py-4 text-xl" data={ "sortable-update-url": daily_plan_recipe_sort_path(daily_plan_recipe_id: day_recipe.id) }
+    li class="mb-1 py-4 text-xl" data={ "sortable-update-url": daily_plan_recipe_sort_path(daily_plan_recipe_id: day_recipe.id) }
         = default_form_for day_recipe, method: :patch, html: { class: "inline", data: { controller: "form" } } do |form|
-            .cursor-move.col-span-1
+            .cursor-move.sm:col-span-1
                 / = day_recipe.position
                 = icon(:equals, height: 36)
-            .col-span-4
+            .sm:col-span-4
                 - if day_recipe.recipe.shopping?
                     span = day_recipe.recipe.name
                 - else
-                    = link_to day_recipe.recipe.name, day_recipe.recipe
+                    = link_to day_recipe.recipe.name, day_recipe.recipe, data: { turbo_frame: "_top" }
             = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES,
                             label: false, include_blank: true, col_span: 3,
                             input_html: { data: { action: "change->form#submit" } } unless day_recipe.shopping?
 
             = form.input :portion_count, col_span: 2, input_html: { data: { action: "change->form#submit" } } unless day_recipe.shopping?
-            .col-span-2
+            .sm:col-span-2
                 = action_button_to "smazat", day_recipe, type: :dangerous, formmethod: :delete, data: { turbo_confirm: "opravdu smazat?" }, icon: :trash, type: :plain
 
 - else

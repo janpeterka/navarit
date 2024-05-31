@@ -14,7 +14,9 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1
-  def show; end
+  def show
+    @event = Event.includes(daily_plans: [ :day_tasks, daily_plan_recipes: :recipe ]).find(params[:id])
+  end
 
   # GET /events/new
   def new
@@ -37,7 +39,6 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      # TODO: add or remove daily plans
       redirect_to @event, status: :see_other, notice: "akce byla upravena"
     else
       render :edit, status: :unprocessable_entity

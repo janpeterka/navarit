@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :recipe do
+    sequence(:name) { |n| "Recipe ##{n}" }
+    portion_count { 10 }
+    author { FactoryBot.build(:user) }
+
+    trait :published do
+      is_shared { true }
+    end
+  end
+
   factory :hummus_with_carrot, class: Recipe do
     id { 1 }
     name { "Hummus with carrot" }

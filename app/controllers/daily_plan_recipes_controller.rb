@@ -14,7 +14,7 @@ class DailyPlanRecipesController < ApplicationController
       flash[:error] = "recept nebyl přidán: #{@daily_plan_recipe.errors.full_messages.join(', ')}"
     end
 
-    redirect_back_or_to @daily_plan_recipe.daily_plan
+    redirect_to @daily_plan_recipe.daily_plan
   end
 
   def update
@@ -24,7 +24,7 @@ class DailyPlanRecipesController < ApplicationController
     end
 
     if @daily_plan_recipe.update(daily_plan_recipe_params)
-      redirect_back_or_to @daily_plan_recipe.daily_plan, notice: "recept upraven."
+      redirect_to @daily_plan_recipe.daily_plan, notice: "recept upraven."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,7 +38,7 @@ class DailyPlanRecipesController < ApplicationController
 
     @daily_plan_recipe.destroy
 
-    redirect_back_or_to @daily_plan_recipe.daily_plan, notice: "recept byl odebrán"
+    redirect_to @daily_plan_recipe.daily_plan, notice: "recept byl odebrán", status: :see_other
   end
 
   def sort

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Event < ApplicationRecord
+  broadcasts_refreshes
+
   include Publishable
   include Archivable
   include Event::HasPortionTypes
