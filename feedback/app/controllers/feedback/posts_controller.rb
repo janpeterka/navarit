@@ -1,6 +1,6 @@
 class Feedback::PostsController < Feedback::ApplicationController
   def index
-    @posts = Feedback::Post.created_by(current_user)
+    @posts = Feedback::Post.created_by(current_user).order(created_at: :desc)
   end
 
   def new; end
@@ -38,6 +38,6 @@ class Feedback::PostsController < Feedback::ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:description)
+    params.require(:post).permit(:description, attachments: [])
   end
 end

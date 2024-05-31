@@ -12,9 +12,11 @@ cs:
   "Title": "Název"
   "Description": "Popis"
   "Status": "Stav"
+  "Created at": "Vytvořeno"
 
   "Comments": "Komentáře"
   "Add comment": "Přidat komentář"
+  "Attachments": "Přílohy"
 
   "Show admin": "Zobrazit administraci"
 

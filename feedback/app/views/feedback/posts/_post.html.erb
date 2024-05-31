@@ -5,6 +5,10 @@
     </p>
 
     <p>
+        <strong><%= t("Created at") %>:</strong> <%= l(post.created_at, format: "%A, %e %B, %Y • %l:%M").downcase %>
+    </p>
+
+    <p>
         <strong><%= t("Status") %>:</strong> <%= Feedback::Post.human_enum_name(:status, post.status) %>
     </p>
 

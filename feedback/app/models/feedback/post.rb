@@ -3,6 +3,7 @@ class Feedback::Post < Feedback::ApplicationRecord
 
   has_many :comments
   has_many :notifications, as: :notifiable
+  has_many_attached :attachments
 
   scope :created_by, ->(creator) { where(creator: creator) }
 
