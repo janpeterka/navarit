@@ -3,6 +3,7 @@ module Publishable
 
   included do
     scope :published, -> { where(is_shared: true) }
+    scope :not_published, -> { where(is_shared: false) }
   end
 
   class_methods do

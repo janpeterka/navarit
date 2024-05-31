@@ -24,20 +24,22 @@
       = "kategorie: #{@ingredient.category&.name}"
 
   div
-    - current_user_recipes = @ingredient.recipes.created_by(current_user)
-    - other_user_recipes = @ingredient.recipes.not_created_by(current_user)
-
-    h3.text-xl moje recepty se surovinou
+    = heading("moje recepty se surovinou", :h2)
     ul
-    - current_user_recipes.each do |recipe|
+    - @ingredient.recipes.created_by(current_user).each do |recipe|
       li = link_to recipe.name, recipe
+
+    = heading("sdílené recepty se surovinou", :h2)
+    ul
+      - @ingredient.recipes.published.not_created_by(current_user).each do |recipe|
+        li = link_to recipe.name, recipe
 
     - if current_user.admin?
 
-      h3.text-xl.mt-3
+      h2.text-xl.mt-3
         | recepty se surovinou ostatních
         = render Badges::BadgeComponent.new(value: "admin", color: "peach")
 
       ul
-      - other_user_recipes.each do |recipe|
-        li = link_to recipe.name, recipe
+        - @ingredient.recipes.not_created_by(current_user).not_published.each do |recipe|
+          li = link_to recipe.name, recipe

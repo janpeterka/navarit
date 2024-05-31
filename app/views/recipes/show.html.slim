@@ -16,7 +16,9 @@
     div
       span.float-right
       - if @recipe.liked_by?(current_user)
-        = action_button_to "odebrat z oblíbených", liked_recipe_path(@recipe), method: :delete, icon: :heart, type: :plain
+        = action_button_to "odebrat z oblíbených", liked_recipe_path(@recipe), method: :delete, icon: :none, type: :plain do
+          = icon(:heart, style: :fill)
+          = "odebrat z oblíbených"
       - else
         = action_button_to "přidat do oblíbených", liked_recipes_path(recipe_id: @recipe), method: :post, icon: :heart, type: :plain
 
