@@ -22,8 +22,10 @@ module ApplicationComponentsHelper
     case kwargs[:method]
     when :delete
       kwargs[:type] ||= :dangerous
-      icon ||= :trash
+      icon ||= :trash unless icon == :none
     end
+
+    icon = nil if icon == :none
 
     render Buttons::ButtonToComponent.new(name:, path:, icon:, **kwargs), &
   end
