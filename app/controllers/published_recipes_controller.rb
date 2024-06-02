@@ -61,6 +61,10 @@ class PublishedRecipesController < PublicApplicationController
       labels = Label.where(id: params[:dietary_label_ids].split(","))
       diet_compliant_recipes = Recipe.joins(:recipe_labels).where(recipe_labels: { label_id: labels.map(&:id) }).group(:id).having("COUNT(DISTINCT recipe_labels.label_id) = ?", labels.size)
       @published_recipes = @published_recipes.where(id: diet_compliant_recipes.map(&:id))
+      end
+
+    if params[:favorite].to_i.positive?
+      @published_recipes = @published_recipes.where(id: Recipe.published.liked_by(current_user).map(&:id))
     end
 
     case params[:sorting]&.to_sym
