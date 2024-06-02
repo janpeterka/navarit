@@ -3,7 +3,7 @@
 div
     = heading("suroviny", :h2)
 
-    form class="max-w-xs ms-2" url=recipe_path(recipe) method="get" data-controller="form" data-action="value-changed@window->form#submit" data-form-debounce-timeout-value=100
+    form class="max-w-xs" url=recipe_path(recipe) method="get" data-controller="form" data-action="value-changed@window->form#submit" data-form-debounce-timeout-value=100
         <label for="portion_count" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Počet porcí:</label>
         <div class="relative flex items-center max-w-[8rem]" data-controller="input-value">
             <button type="button" id="decrement-button" data-input-value-target="decrementer" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none disabled:bg-gray-200 disabled:hover:bg-gray-200">

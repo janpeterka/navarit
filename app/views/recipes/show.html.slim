@@ -27,14 +27,14 @@
 
       = render "more_options_dropdown", recipe: @recipe
 
-.md:grid.md:grid-cols-3
-  .pr-16
+.md:grid.md:grid-cols-2
+  .pr-16.md:col-span-1
     - if @edited_section == :ingredients
-      = render "ingredients_edit", recipe: @recipe, recipe_ingredients: @recipe.recipe_ingredients
+      = render "ingredients_edit", recipe: @recipe
     - else
       = render "ingredients", recipe: @recipe
 
-  .pl-6.col-span-2.sm:border-l.sm:border-ocean-700
+  .pl-6.md:col-span-1.sm:border-l.sm:border-ocean-700
     #procedure.mb-3
       h2.text-2xl.inline-block.me-2 = "postup"
       - if @edited_section == :procedure
