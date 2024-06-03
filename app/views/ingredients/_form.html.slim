@@ -1,11 +1,11 @@
 /# locals: (ingredient:, recipe_id: nil)
 
-= default_form_for ingredient do |form|
+= default_form_for ingredient, data: { action: "submit->turbo-modal#justHideModal" } do |form|
   = form.input :recipe_id, as: :hidden, input_html: { value: recipe_id }
   = form.input :name, col_span: :full, autofocus: true
   = form.input :description, col_span: :full
   = form.association :measurement, col_span: 6
   = form.association :category, col_span: 6
   = form.buttons_section
-    = form.cancel_link
+    = form.cancel_link if recipe_id.nil?
     = form.submit
