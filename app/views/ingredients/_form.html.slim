@@ -1,6 +1,7 @@
-/# locals: (ingredient:)
+/# locals: (ingredient:, recipe_id: nil)
 
 = default_form_for ingredient do |form|
+  = form.input :recipe_id, as: :hidden, input_html: { value: recipe_id }
   = form.input :name, col_span: :full, autofocus: true
   = form.input :description, col_span: :full
   = form.association :measurement, col_span: 6
