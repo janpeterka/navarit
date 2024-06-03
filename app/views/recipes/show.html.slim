@@ -28,7 +28,7 @@
       = render "more_options_dropdown", recipe: @recipe
 
 .md:grid.md:grid-cols-2
-  .pr-16.md:col-span-1
+  .pr-2.md:col-span-1
     - if @edited_section == :ingredients
       = render "ingredients_edit", recipe: @recipe
     - else
@@ -48,7 +48,7 @@
         - if @recipe.procedure?
           = @recipe.procedure
         - else
-          = render CardComponent.new(class: "sm:w-1/3 border-gray-300") do |c|
+          = render CardComponent.new(class: "sm:w-1/3 border-gray-300", shadow: false) do |c|
             = c.with_body do
               span.italic = "recept nemá zadaný postup"
 

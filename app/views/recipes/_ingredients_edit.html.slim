@@ -32,7 +32,7 @@
     #add-ingredient.mb-4
       = default_form_for "", url: recipe_ingredients_path(recipe_id: recipe.id), method: :post do |form|
         - unused_ingredients = current_user.ingredients - recipe.ingredients
-        = form.input :ingredient_id, as: :grouped_select, collection: [ [ "moje",  unused_ingredients.collect { |v| [ v.name_with_unit, v.id ] } ],
+        = form.input :ingredient_id, as: :combobox, collection: [ [ "moje",  unused_ingredients.collect { |v| [ v.name_with_unit, v.id ] } ],
                                              [ "veřejné", Ingredient.common.collect { |v| [ v.name_with_unit, v.id ] } ] ],
                                              col_span: 4, group_method: :last, label: false, allow_blank: false
         = form.input :amount, col_span: 3, label: false

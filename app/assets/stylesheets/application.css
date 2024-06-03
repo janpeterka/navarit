@@ -88,15 +88,16 @@ button.dropdown-button:has( + div > ul:empty) {
   display: none;
 }
 
+#published-recipes-index-form .hw-combobox__main__wrapper {
+  width: 120%;
+}
 
-.hw-combobox {
+div .hw-combobox {
   /* z-index: 1000; */
+  /* margin-right: 2rem; */
 
   & .hw-combobox__main__wrapper {
-    /* width: 10px; */
-    max-width: 23rem;
-    /* width: 100%; */
-    /* height: 3rem; */
+    width: 90%;
     margin-top: 0.25rem;
     border-radius: 1rem;
     background-color: white;
