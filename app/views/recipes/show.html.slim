@@ -30,7 +30,7 @@
 .md:grid.md:grid-cols-2
   .pr-2.md:col-span-1
     - if @edited_section == :ingredients
-      = render "ingredients_edit", recipe: @recipe
+      = render "ingredients_edit", recipe: @recipe, preselected_ingredient_id: params[:preselected_ingredient_id]
     - else
       = render "ingredients", recipe: @recipe
 
