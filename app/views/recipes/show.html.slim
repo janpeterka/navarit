@@ -8,7 +8,7 @@
     - if @recipe.author != current_user
       = ", vytvořil/a "
       span.font-bold = "#{@recipe.author.name}"
-  .mt-2.flex.justify-between
+  .mt-2.sm:flex.justify-between
     .flex.flex-wrap id="#{dom_id(@recipe)}-labels"
       - @recipe.labels.sort_by(&:id).each do |label|
         .mb-2 = label_badge(label)
@@ -30,7 +30,7 @@
 .md:grid.md:grid-cols-2
   .pr-2.md:col-span-1
     - if @edited_section == :ingredients
-      = render "ingredients_edit", recipe: @recipe, preselected_ingredient_id: params[:preselected_ingredient_id]
+      = render "ingredients_edit", recipe: @recipe
     - else
       = render "ingredients", recipe: @recipe
 
@@ -53,7 +53,7 @@
               span.italic = "recept nemá zadaný postup"
 
     - if @edited_section == :tasks
-      = render "tasks_edit", recipe: @recipe
+      = render "tasks_edit", recipe: @recipe, tasks: @recipe.tasks
     - else
       = render "tasks", recipe: @recipe
 
