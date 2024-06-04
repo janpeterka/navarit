@@ -53,7 +53,7 @@
               span.italic = "recept nemá zadaný postup"
 
     - if @edited_section == :tasks
-      = render "tasks_edit", recipe: @recipe, tasks: @recipe.tasks
+      = render "tasks_edit", recipe: @recipe
     - else
       = render "tasks", recipe: @recipe
 
