@@ -3,13 +3,13 @@
 - @header_class = "mt-6"
 - content_for :header, "vítej ve Skautské kuchařce"
 
-.grid.grid-cols-3
+.sm:grid.sm:grid-cols-3
     .mt-8.flex.justify-between.group
         h2.mt-2
             = icon(:calendar)
             = "nadcházející akce".upcase
 
-        span.group-hover:visible class="#{ "invisible" if @nearest_future_event.present?}"
+        span.group-hover:visible class="#{ "sm:invisible" if @nearest_future_event.present?}"
             = button_link_to "nová akce", new_event_path, type: :plain, data: { turbo_frame: "_top" }
 
 .sm:grid.sm:grid-cols-3.gap-4.mt-4
