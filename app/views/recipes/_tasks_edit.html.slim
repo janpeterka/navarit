@@ -4,19 +4,12 @@ div
   h2.text-2xl.inline-block.me-3 = "úkoly"
   span.float-end = button_link_to "hotovo!", recipe_path(recipe)
 
-  .grid.grid-cols-5.font-bold
-    .col-span-4
-      .grid.grid-cols-3.gap-2
-        span = "název"
-        span = "dní před vařením"
-        span = "popis"
-
   - recipe.tasks.each do |task|
-    .h-24
+    .sm:h-24
       = default_form_for task, url: recipe_task_path(recipe_id: recipe.id, id: task.id), method: :patch, html: { class: "inline", data: { controller: "form" } } do |form|
-        = form.input :name, label: false, col_span: 3, input_html: { data: { action: "change->form#submit" } }
-        = form.input :days_before_cooking, col_span: 3, label: false, input_html: { data: { action: "change->form#submit" } }
-        = form.input :description, label: false, col_span: 4, input_html: { data: { action: "change->form#submit" } }
+        = form.input :name, col_span: 3, input_html: { data: { action: "change->form#submit" } }
+        = form.input :days_before_cooking, col_span: 3, input_html: { data: { action: "change->form#submit" } }
+        = form.input :description, col_span: 4, input_html: { data: { action: "change->form#submit" } }
         .sm:col-span-2
           = action_button_to "smazat", task, formaction: recipe_task_path(recipe_id: recipe.id, id: task.id), formmethod: :delete, data: { turbo_confirm: "opravdu chceš smazat úkol?" }, type: :dangerous, class: "w-full"
 
