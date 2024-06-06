@@ -90,6 +90,15 @@ button.dropdown-button:has( + div > ul:empty) {
 
 #published-recipes-index-form .hw-combobox__main__wrapper {
   width: 120%;
+  max-width: 20vw;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  #published-recipes-index-form .hw-combobox__main__wrapper {
+    max-width: 95vw;
+    box-sizing: border-box;
+  }
 }
 
 div .hw-combobox {
