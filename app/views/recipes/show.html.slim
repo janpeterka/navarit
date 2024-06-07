@@ -27,14 +27,14 @@
 
       = render "more_options_dropdown", recipe: @recipe
 
-.md:grid.md:grid-cols-2
-  .pr-2.md:col-span-1
+.sm:grid.sm:grid-cols-2
+  .pr-2.sm:col-span-1
     - if @edited_section == :ingredients
       = render "ingredients_edit", recipe: @recipe
     - else
       = render "ingredients", recipe: @recipe
 
-  .pl-6.md:col-span-1.sm:border-l.sm:border-ocean-700
+  .pl-6.sm:col-span-1.sm:border-l.sm:border-ocean-700
     #procedure.mb-3
       h2.text-2xl.inline-block.me-2 = "postup"
       - if @edited_section == :procedure
@@ -43,7 +43,7 @@
           = form.submit "uložit", class: "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
       - else
         - if can? :update, @recipe
-          span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure)
+          span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure), type: :secondary
 
         - if @recipe.procedure?
           = @recipe.procedure
