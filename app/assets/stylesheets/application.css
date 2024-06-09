@@ -90,6 +90,15 @@ button.dropdown-button:has( + div > ul:empty) {
 
 #published-recipes-index-form .hw-combobox__main__wrapper {
   width: 120%;
+  max-width: 20vw;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  #published-recipes-index-form .hw-combobox__main__wrapper {
+    max-width: 95vw;
+    box-sizing: border-box;
+  }
 }
 
 div .hw-combobox {
@@ -144,8 +153,18 @@ div .hw-combobox {
 .modal-content {
   border: 0.2rem solid #F8A66B; /* peach-500 */
   border-radius: 2rem;
-  padding: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2rem;
   background-color: #F5D7C4; /* peach-200 */
   overflow-y: scroll;
   overflow-x: hidden;
+  max-width: 75%;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    max-width: 97%;
+    width: 95%;
+  }
 }

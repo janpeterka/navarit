@@ -14,7 +14,7 @@
     = " (archivováno)" if @event.archived?
 
   / WIP - sharing, collaborations
-  .sm:inline-block
+  .sm:inline-block.my-3.sm:my-0
     = render Buttons::ButtonLinkComponent.new(path: event_collaboration_index_path(@event), class: "px-3 py-3 m-2 rounded-3xl bg-peach-300", override_classes: true, data: { turbo_frame: "modal" }) do
       - if @event.published?
         = icon("eye", class: "mr-1")

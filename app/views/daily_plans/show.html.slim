@@ -6,34 +6,15 @@
 = render "breadcrumbs", daily_plan: @daily_plan
 
 = turbo_frame_tag "modal" do
-  .modal-content data-controller="turbo-modal"
+  .modal-content.pb-16 data-controller="turbo-modal"
     .flex.justify-end
+      / = link_to daily_plan_path(@daily_plan, full_page: "true"), data: { turbo: "_top", action: "click->turbo-modal#hideModal" } do
+        = icon(:arrows_out_simple)
       button data-action="click->turbo-modal#hideModal keyup@window->turbo-modal#closeWithKeyboard click@window->turbo-modal#closeBackground"
         = icon(:x, height: 24)
 
-    .mt-3.mb-16.text-xl id="#{dom_id(@daily_plan)}-recipes"
-      .mb-5
-        .sm:grid.sm:grid-cols-12
-          .sm:col-span-2.text-2xl
-            = icon("fork-knife")
-            = "jídlo"
-          / div = "typ jídla"
-          .sm:col-span-8
-          .sm:col-span-2
-            - if can? :update, @daily_plan
-              = action_button_to "přidat nákup", daily_plan_recipes_path(daily_plan_id: @daily_plan, recipe_id: Recipe.shopping, portion_count: 0), icon: :shopping_cart, type: :plain
-      ul data-controller="sortable"
-        - @daily_plan.daily_plan_recipes.each do |day_recipe|
-          = render "day_recipe", day_recipe:
+    = render "show_daily_plan", daily_plan: @daily_plan
 
-      - if can? :update, @daily_plan
-        #add-recipe
-          = default_form_for DailyPlanRecipe.new(daily_plan: @daily_plan, portion_count: @daily_plan.portion_count), url: daily_plan_recipes_path(daily_plan_id: @daily_plan), html: { data: { controller: "form" } } do |form|
-            .sm:col-span-1
-            .sm:col-span-4
-              = combobox_tag "recipe_id", @usable_recipes, data: { action: "hw-combobox:selection->form#submitIfValue" }
-            = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES, include_blank: true, col_span: 3, label: false
-            = form.input :portion_count, col_span: 2
-            = form.submit "přidat", col_span: 2
-
-    = render "tasks", daily_plan: @daily_plan
+/ - if params[:full_page].presence == "true"
+/   = render "show_daily_plan", daily_plan: @daily_plan
+/ - else
