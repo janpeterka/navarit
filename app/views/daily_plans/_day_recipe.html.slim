@@ -1,6 +1,7 @@
 /# locals: (day_recipe:)
+
 - if can? :update, day_recipe.daily_plan
-    li class="mb-1 py-4 text-xl" data={ "sortable-update-url": daily_plan_recipe_sort_path(daily_plan_recipe_id: day_recipe.id) }
+    li.sortable-item.mb-1.py-4.text-xl data={ "sortable-update-url": daily_plan_recipe_sort_path(daily_plan_recipe_id: day_recipe.id) }
         = default_form_for day_recipe, method: :patch, html: { class: "inline", data: { controller: "form" } } do |form|
             .cursor-move.sm:col-span-1
                 / = day_recipe.position
