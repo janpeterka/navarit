@@ -153,7 +153,9 @@ div .hw-combobox {
 .modal-content {
   border: 0.2rem solid #F8A66B; /* peach-500 */
   border-radius: 2rem;
-  padding: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2rem;
   background-color: #F5D7C4; /* peach-200 */
   overflow-y: scroll;
   overflow-x: hidden;
@@ -162,6 +164,7 @@ div .hw-combobox {
 
 @media (max-width: 600px) {
   .modal-content {
-    width: 98%;
+    max-width: 97%;
+    width: 95%;
   }
 }

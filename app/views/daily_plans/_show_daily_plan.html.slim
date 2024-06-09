@@ -2,15 +2,13 @@
 
 .mt-3.mb-16.text-xl id="#{dom_id(daily_plan)}-recipes"
   .mb-5
-    .sm:grid.sm:grid-cols-12
-      .sm:col-span-2.text-2xl
+    .flex.justify-between
+      span
         = icon("fork-knife")
         = "jídlo"
-      / div = "typ jídla"
-      .sm:col-span-8
-      .sm:col-span-2
-        - if can? :update, daily_plan
-          = action_button_to "přidat nákup", daily_plan_recipes_path(daily_plan_id: daily_plan, recipe_id: Recipe.shopping, portion_count: 0), icon: :shopping_cart, type: :plain
+
+      - if can? :update, daily_plan
+        = action_button_to "přidat nákup", daily_plan_recipes_path(daily_plan_id: daily_plan, recipe_id: Recipe.shopping, portion_count: 0), icon: :shopping_cart, type: :plain
 
   ul data-controller="sortable"
     - daily_plan.daily_plan_recipes.each do |day_recipe|

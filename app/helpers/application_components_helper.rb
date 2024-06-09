@@ -110,6 +110,7 @@ module ApplicationComponentsHelper
   # def admin_badge(value, **kwargs, &)
   #   render Badges::BadgeComponent.new(value:, **kwargs), &
   # end
+
   # This helper can be used to define a default set of CSS classes but replace / remove some of them when needed.
   # The <tt>default_class</tt> argument defines the initial set of (default) classes.
   # The helper then recognizes two parameter in the keyword arguments:

@@ -6,7 +6,7 @@
 = render "breadcrumbs", daily_plan: @daily_plan
 
 = turbo_frame_tag "modal" do
-  .modal-content data-controller="turbo-modal"
+  .modal-content.pb-16 data-controller="turbo-modal"
     .flex.justify-end
       / = link_to daily_plan_path(@daily_plan, full_page: "true"), data: { turbo: "_top", action: "click->turbo-modal#hideModal" } do
         = icon(:arrows_out_simple)
