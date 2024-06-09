@@ -157,4 +157,11 @@ div .hw-combobox {
   background-color: #F5D7C4; /* peach-200 */
   overflow-y: scroll;
   overflow-x: hidden;
+  max-width: 75%;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 98%;
+  }
 }

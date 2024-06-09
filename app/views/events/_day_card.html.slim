@@ -6,7 +6,7 @@
 .group id="#{day_dom_id}-card" class="#{daily_plan.present? ? "bg-peach-200" : "bg-peach-100 hidden md:inline"}"
   .text-xl.mt-2.ps-2
     - if daily_plan.present?
-      = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-ocean-700", data: { turbo: false } do
+      = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-ocean-700", data: { turbo_frame: "modal" } do
         = weekday_name(day.date)
         = day.date.strftime(" %d.%m.")
 
