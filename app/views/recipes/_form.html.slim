@@ -7,6 +7,9 @@
   = form.association :difficulty_labels, col_span: 6, collection: Label.of_category(:difficulty).map { |l| [ l.visible_name, l.id, { "data-label-color-class": l.color } ] },
                      input_wrapper_html: { data: { controller: "label-badge" } }, input_html: { multiple: false, data: { label_badge_target: "select" } }, allow_blank: false
 
+  - if current_user.teams.any?
+    = form.input :owner_sgid, collection: current_user.teams.map { [ _1.name, _1.to_sgid(for: :polymorphic_select) ] }, col_span: 6, allow_blank: true
+
   = form.buttons_section
     = form.cancel_link
     = form.submit

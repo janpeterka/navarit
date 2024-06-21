@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   has_many :roles, through: :user_roles
   has_many :daily_plans
-  has_many :recipes, foreign_key: :created_by
+  has_many :owned_recipes, as: :owner, class_name: "Recipe"
   has_many :ingredients, foreign_key: :created_by
   has_many :events, foreign_key: :created_by
   has_many :user_event_roles
@@ -23,6 +23,13 @@ class User < ApplicationRecord
   has_many :recipe_reactions, class_name: "UserRecipeReaction"
 
   before_validation :set_legacy_columns, on: :create
+
+  def to_s = name
+
+  def recipes
+    Recipe.where(id: owned_recipes.pluck(:id) + teams.joins(:owned_recipes).pluck("recipes.id"))
+    # owned_recipes + teams.map
+  end
 
   def collaborable_events
     Event.where(id: (self.events.pluck(:id) + self.events_in_role.pluck(:id)))

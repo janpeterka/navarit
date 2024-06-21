@@ -8,6 +8,8 @@
     - if @recipe.author != current_user
       = ", vytvořil/a "
       span.font-bold = "#{@recipe.author.name}"
+  p
+    = "vlastní: #{@recipe.owner.name}"
   .mt-2.sm:flex.justify-between
     .flex.flex-wrap id="#{dom_id(@recipe)}-labels"
       - @recipe.labels.sort_by(&:id).each do |label|

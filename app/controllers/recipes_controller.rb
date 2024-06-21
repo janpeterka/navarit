@@ -44,7 +44,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /recipes/1
   def update
     if @recipe.update(recipe_params)
       redirect_to @recipe, notice: "recept byl upraven.", status: :see_other
@@ -66,7 +65,7 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.fetch(:recipe, {}).permit(:name, :procedure, :category_id, :portion_count, :difficulty_label_ids,
+    params.fetch(:recipe, {}).permit(:name, :procedure, :category_id, :portion_count, :owner_sgid, :difficulty_label_ids,
                                      dietary_label_ids: [])
   end
 end
