@@ -72,6 +72,10 @@ cs:
         other: akcí
       event_portion_type:
         one: "typ porce"
+      team:
+        one: tým
+        few: týmy
+        other: týmů
     attributes:
       ingredient:
         measurement: míra
@@ -92,6 +96,8 @@ cs:
         portion_count: "počet porcí"
         meal_type: "typ jídla"
         recipe: "recept"
+      teams:
+        name: "název"
 
   # flashes
   notice: "info"

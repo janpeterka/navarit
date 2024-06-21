@@ -1,0 +1,7 @@
+- content_for :title, "týmy"
+
+- content_for :header_right do
+  = button_link_to "přidat tým", new_team_path
+
+- @teams.each do |team|
+  = link_to team

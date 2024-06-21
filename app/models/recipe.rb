@@ -2,6 +2,7 @@
 
 class Recipe < ApplicationRecord
   include Publishable
+  include Owned
   include Recipes::Likeable
   include Recipes::Prawnable
 

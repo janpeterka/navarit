@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_21_163340) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -117,6 +117,43 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
     t.index ["updated_by"], name: "fk_events_updated_by_users"
   end
 
+  create_table "feedback_comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "content"
+    t.bigint "post_id", null: false
+    t.bigint "user_id"
+    t.datetime "last_synchronized_at"
+    t.integer "comment_id"
+    t.string "comment_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_feedback_comments_on_post_id"
+    t.index ["user_id"], name: "index_feedback_comments_on_user_id"
+  end
+
+  create_table "feedback_notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title"
+    t.integer "user_id", null: false
+    t.datetime "read_at"
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_feedback_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_feedback_notifications_on_user_id"
+  end
+
+  create_table "feedback_posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "last_synchronized_at"
+    t.integer "status"
+    t.integer "issue_id"
+    t.string "issue_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_feedback_posts_on_user_id"
+  end
+
   create_table "files", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "extension", null: false
@@ -207,6 +244,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
     t.index ["to_measurement_id"], name: "to_measurement_id"
   end
 
+  create_table "memberships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.bigint "team_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_memberships_on_team_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "portion_types", id: :integer, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.float "size", null: false
@@ -231,6 +277,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
   create_table "recipes", id: :integer, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "created_by", null: false
+    t.bigint "owner_id", null: false
+    t.string "owner_type", null: false
     t.datetime "created_at", precision: nil
     t.datetime "last_updated_at", precision: nil
     t.text "description", size: :long
@@ -240,6 +288,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
     t.integer "portion_count"
     t.index ["category_id"], name: "category_id"
     t.index ["created_by"], name: "ix_recipes_created_by"
+    t.index ["owner_type", "owner_id"], name: "index_recipes_on_owner"
   end
 
   create_table "recipes_have_ingredients", primary_key: ["recipe_id", "ingredient_id"], charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -276,6 +325,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
     t.text "permissions"
     t.datetime "update_datetime", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["name"], name: "uq_roles_name", unique: true
+  end
+
+  create_table "teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tips", id: :integer, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -375,6 +430,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
   add_foreign_key "event_has_portion_type", "portion_types", name: "fk_event_has_portion_type_portion_type_id_portion_types"
   add_foreign_key "events", "users", column: "created_by", name: "events_ibfk_1"
   add_foreign_key "events", "users", column: "updated_by", name: "fk_events_updated_by_users"
+  add_foreign_key "feedback_notifications", "users"
   add_foreign_key "files", "recipes", name: "files_ibfk_2"
   add_foreign_key "files", "users", column: "created_by", name: "files_ibfk_1"
   add_foreign_key "files", "users", name: "files_ibfk_3"
@@ -386,6 +442,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_211404) do
   add_foreign_key "labels", "label_categories", column: "category_id", name: "labels_ibfk_1"
   add_foreign_key "measurements_to_measurements", "ingredients", name: "measurements_to_measurements_ibfk_1"
   add_foreign_key "measurements_to_measurements", "measurements", column: "to_measurement_id", name: "measurements_to_measurements_ibfk_2"
+  add_foreign_key "memberships", "teams"
+  add_foreign_key "memberships", "users"
   add_foreign_key "portion_types", "users", column: "created_by", name: "fk_portion_types_created_by_users"
   add_foreign_key "recipe_tasks", "recipes", name: "fk_recipe_tasks_recipe_id_recipes"
   add_foreign_key "recipes", "recipe_categories", column: "category_id", name: "recipes_ibfk_2"
