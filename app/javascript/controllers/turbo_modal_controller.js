@@ -5,6 +5,12 @@ export default class extends Controller {
     this.element.parentElement.classList.remove("hidden")
   }
 
+  justHideModal() {
+    this.element.parentElement.removeAttribute("src") // it might be nice to also remove the modal SRC
+    this.element.parentElement.classList.add("hidden")
+    this.element.remove()
+  }
+
   hideModal() {
     this.element.parentElement.removeAttribute("src") // it might be nice to also remove the modal SRC
     this.element.parentElement.classList.add("hidden")

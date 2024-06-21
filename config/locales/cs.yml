@@ -92,3 +92,8 @@ cs:
         portion_count: "počet porcí"
         meal_type: "typ jídla"
         recipe: "recept"
+
+  # flashes
+  notice: "info"
+  # warning: "varování"
+  error: "chyba"

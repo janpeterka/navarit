@@ -1,6 +1,6 @@
 h1.text-4xl.text-center.mt-4.mb-4 skautská kuchařka
 
-div.text-center
+.text-center
     | tvůj pomocník při vaření pro hodně lidí.
     br
     span.italic
@@ -10,10 +10,9 @@ div.text-center
     br
     | pro skauty i neskauty
 
-
 = heading("s čím ti pomůže?", class: "text-center mt-4 mb-4")
-div#features.text-center
-    div#meal-plan.grid.grid-cols-1.md:grid-cols-2.mt-3
+#features.text-center
+    #meal-plan.grid.grid-cols-1.md:grid-cols-2.mt-3
         div
             = heading("poskládat si jídelníček", :h3)
             p
@@ -25,8 +24,7 @@ div#features.text-center
 
     hr
 
-
-    div#shopping-list.grid.grid-cols-1.md:grid-cols-2.mt-3
+    #shopping-list.grid.grid-cols-1.md:grid-cols-2.mt-3
         div
             = heading("naplánovat nákup", :h3)
             p
@@ -36,7 +34,7 @@ div#features.text-center
 
     hr
 
-    div#recipes.grid.grid-cols-1.md:grid-cols-2.mt-3
+    #recipes.grid.grid-cols-1.md:grid-cols-2.mt-3
         div
             = heading("mít zásobárnu receptů", :h3)
             p
@@ -46,17 +44,15 @@ div#features.text-center
 
     hr
 
-    div#public-recipes.grid.grid-cols-1.md:grid-cols-2.mt-3.mb-20
+    #public-recipes.grid.grid-cols-1.md:grid-cols-2.mt-3.mb-20
         div
             = heading("nechat se inspirovat", :h3)
             p
                 | nebo použij recepty ze
-                = link_to "společné databáze", published_recipes_path, style: "font-weight: 550;"
+                = link_to " společné databáze", published_recipes_path, style: "font-weight: 550;"
                 | .
         div
             = image_tag "frontpage/public_recipes.png", class: "img-fluid"
-
-	/ hr
 
 /     <div class="mb-5">
 /         <div class="row">
@@ -77,8 +73,8 @@ div#features.text-center
 / </div>
 
 footer.fixed.w-full.bottom-0.pb-3.pt-7.text-sm.ms-2.bg-gradient-to-b.from-transparent.via-white.to-white
-    div.pt-2
+    .pt-2
         | s 💚 vyrobil
-        = link_to "Obr ", "https://jpeterka.cz", target: "_blank", class: "text-emerald-900"
+        = link_to " Obr ", "https://jpeterka.cz", target: "_blank", class: "text-emerald-900"
         | pro
-        = link_to "Fons Beníšky", "https://fons.skauting.cz", target: "_blank", class: "text-emerald-900"
+        = link_to " Fons Beníšky", "https://fons.skauting.cz", target: "_blank", class: "text-emerald-900"

@@ -28,7 +28,13 @@ class IngredientsController < ApplicationController
     @ingredient = current_user.ingredients.new(ingredient_params)
 
     if @ingredient.save
-      redirect_to ingredient_url(@ingredient)
+      if params[:ingredient][:recipe_id].present?
+        # Ad hoc adding of ingredient
+        redirect_to recipe_url(Recipe.find(params[:ingredient][:recipe_id]), edited_section: :ingredients, preselected_ingredient_id: @ingredient.id)
+      else
+        redirect_to ingredient_url(@ingredient)
+      end
+
     else
       render :new, status: :unprocessable_entity
     end

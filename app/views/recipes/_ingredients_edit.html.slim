@@ -1,24 +1,44 @@
-.col-span-12
-  #recipe-ingredient.mt-3.mb-4
-    ul.col-span-2
-      li.font-bold.mb-1
-        .grid.grid-cols-12
-          .col-span-4 = "surovina"
-          .col-span-3.ms-2 = "množství (na #{ recipe.portion_count } porcí)"
-          .col-span-3.ms-2 = "poznámka"
+/# locals: (recipe:, preselected_ingredient_id: nil)
 
-      - recipe_ingredients.each do |recipe_ingredient|
-        = render partial: "recipe_ingredients/recipe_ingredient", locals: { recipe_ingredient: }
+= heading("suroviny", :h2)
 
-    #add-ingredient.mb-4
-      = default_form_for "", url: recipe_ingredients_path(recipe_id: recipe.id), method: :post do |form|
-        - unused_ingredients = current_user.ingredients - recipe.ingredients
-        = form.input :ingredient_id, :as => :grouped_select, collection: [['moje',  unused_ingredients.collect {|v| [ v.name_with_unit, v.id ] }],
-                                             ['veřejné', Ingredient.common.collect {|v| [ v.name_with_unit, v.id ] }]],
-                                             col_span: 4, :group_method => :last, label: false, allow_blank: false
-        = form.input :amount, col_span: 3, label: false
-        = form.input :comment, col_span: 3, required: false, label: false
-        .col-span-2
-          = form.submit "přidat surovinu"
+<label for="portion_count" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Počet porcí:</label>
+  <div class="relative flex items-center max-w-[8rem]" data-controller="input-value">
+    <button disabled type="button" id="decrement-button" data-input-value-target="decrementer" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 border border-gray-300 rounded-s-lg p-3 h-11 disabled:bg-gray-200 disabled:hover:bg-gray-200">
+        <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+        </svg>
+    </button>
+    <input disabled type="number" name="portion_count" id="portion_count" min="1" data-input-value-target="input" data-action="change->form#submit" aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="#{params[:portion_count] || recipe.portion_count}" />
+    <button disabled type="button" id="increment-button" data-input-value-target="incrementer" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none disabled:bg-gray-200 disabled:hover:bg-gray-200">
+        <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+        </svg>
+    </button>
+  </div>
 
-  = button_link_to "hotovo!", recipe_path(recipe)
+.mt-3.mb-4
+  ul.sm:col-span-2
+    li.font-bold.mb-1
+      .sm:grid.sm:grid-cols-12
+        .sm:col-span-4 = "surovina"
+        .sm:col-span-3.ms-2 = "množství (na #{ recipe.portion_count } porcí)"
+        .sm:col-span-3.ms-2 = "poznámka"
+
+    - recipe.recipe_ingredients.each do |recipe_ingredient|
+      = render partial: "recipe_ingredients/recipe_ingredient", locals: { recipe_ingredient: }
+
+  #add-ingredient.mb-4
+    = default_form_for "", url: recipe_ingredients_path(recipe_id: recipe.id), method: :post do |form|
+      - unused_ingredients = current_user.ingredients.includes(:measurement) - recipe.ingredients.includes(:measurement)
+      = form.input :ingredient_id, as: :grouped_select, collection: [ [ "moje",  unused_ingredients.collect { |v| [ v.name_with_unit, v.id ] } ],
+                                            [ "veřejné", Ingredient.common.collect { |v| [ v.name_with_unit, v.id ] } ] ],
+                                            col_span: 4, group_method: :last, allow_blank: false, input_html: { value: preselected_ingredient_id.to_i }
+      = form.input :amount, col_span: 3
+      = form.input :comment, col_span: 3, required: false
+      .sm:col-span-2
+        = form.submit "přidat", class: "mt-2"
+
+  = button_link_to "přidat ad-hoc surovinu", new_ingredient_path(recipe_id: recipe.id), data: { turbo_frame: "modal" }
+
+= button_link_to "hotovo!", recipe_path(recipe), type: :secondary

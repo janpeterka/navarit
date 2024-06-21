@@ -8,7 +8,7 @@
     - if @recipe.author != current_user
       = ", vytvořil/a "
       span.font-bold = "#{@recipe.author.name}"
-  .mt-2.flex.justify-between
+  .mt-2.sm:flex.justify-between
     .flex.flex-wrap id="#{dom_id(@recipe)}-labels"
       - @recipe.labels.sort_by(&:id).each do |label|
         .mb-2 = label_badge(label)
@@ -27,14 +27,14 @@
 
       = render "more_options_dropdown", recipe: @recipe
 
-.md:grid.md:grid-cols-3
-  .pr-16
+.sm:grid.sm:grid-cols-2
+  .pr-2.sm:col-span-1
     - if @edited_section == :ingredients
-      = render "ingredients_edit", recipe: @recipe, recipe_ingredients: @recipe.recipe_ingredients
+      = render "ingredients_edit", recipe: @recipe
     - else
       = render "ingredients", recipe: @recipe
 
-  .pl-6.col-span-2.sm:border-l.sm:border-ocean-700
+  .pl-6.sm:col-span-1.sm:border-l.sm:border-ocean-700
     #procedure.mb-3
       h2.text-2xl.inline-block.me-2 = "postup"
       - if @edited_section == :procedure
@@ -43,17 +43,17 @@
           = form.submit "uložit", class: "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
       - else
         - if can? :update, @recipe
-          span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure)
+          span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure), type: :secondary
 
         - if @recipe.procedure?
           = @recipe.procedure
         - else
-          = render CardComponent.new(class: "sm:w-1/3 border-gray-300") do |c|
+          = render CardComponent.new(class: "sm:w-1/3 border-gray-300", shadow: false) do |c|
             = c.with_body do
               span.italic = "recept nemá zadaný postup"
 
     - if @edited_section == :tasks
-      = render "tasks_edit", recipe: @recipe, tasks: @recipe.tasks
+      = render "tasks_edit", recipe: @recipe
     - else
       = render "tasks", recipe: @recipe
 

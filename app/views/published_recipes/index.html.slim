@@ -2,7 +2,7 @@
 
 .mb-6
   - placeholder = Recipe.published.order("RAND()").limit(1).first&.name
-  = default_form_for "", url: published_recipes_path, method: :get, html: { class: "inline-block", data: { "controller": "form", "turbo-frame": "published_recipes" } } do |f|
+  = default_form_for "", url: published_recipes_path, method: :get, html: { id: "published-recipes-index-form", data: { "controller": "form", "turbo-frame": "published_recipes" } } do |f|
     = f.input :query, label: false, placeholder: "hledej např. #{placeholder}", input_html: { class: "rounded-md focus:ring-green-700 focus:border-green-700", data: { action: "input->form#submit" }, value: params[:name] }, autofocus: true, col_span: 9
     = f.input :sorting, label: "řazení", collection: [ [ "od nejoblíbenějších", :favorite ], [ "A -> Z", :alphabetically ], [ "od nejnovějších", :newest ], [ "od nejstarších", :oldest ] ],
                         col_span: 3, input_html: { data: { action: "change->form#submit" } }, required: false, include_blank: false
@@ -11,8 +11,9 @@
     = f.input :dietary_label_ids, as: :combobox, label: "dietní omezení", collection: Label.of_category(:dietary).map { [ _1.visible_name, _1.id ] }, col_span: 3, required: false, input_html: { data: { action: "change->form#submit hw-combobox:preselection->form#submitIfValue" } }, multiselect_chip_src: multiselect_chips_labels_path
     = f.input :difficulty_label_ids, as: :combobox, label: "náročnost", collection: Label.of_category(:difficulty).map { [ _1.visible_name, _1.id ] }, col_span: 3, required: false, input_html: { data: { action: "change->form#submit hw-combobox:preselection->form#submitIfValue" } }, multiselect_chip_src: multiselect_chips_labels_path
     .sm:col-span-3
-      = "zobrazit pouze oblíbené?"
-      = f.input :favorite, as: :boolean, label: false, input_html: { checked: params[:favorite] }
+      - if user_signed_in?
+        = "zobrazit pouze oblíbené?"
+        = f.input :favorite, as: :boolean, label: false, input_html: { checked: params[:favorite] }
     = f.submit "Hledat", col_span: 3, class: "py-4"
 
 = turbo_frame_tag :published_recipes
@@ -23,9 +24,7 @@
           .text-center
             h2.text-bold.mb-2
               / TODO: add empty pot image/icon here
-              svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-8 w-8 mx-auto text-gray-400"
-                path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-
+              / = icon(:placeholder)
               = "nemůžu nic najít :("
 
     - @published_recipes.each do |recipe|
