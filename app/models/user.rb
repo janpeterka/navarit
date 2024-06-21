@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   has_many :roles, through: :user_roles
   has_many :daily_plans
+  has_many :created_recipes, class_name: "Recipe", foreign_key: "created_by"
   has_many :owned_recipes, as: :owner, class_name: "Recipe"
   has_many :ingredients, foreign_key: :created_by
   has_many :events, foreign_key: :created_by

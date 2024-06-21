@@ -6,7 +6,7 @@ module Ownership
   end
 
   def owner_sgid
-    to_sgid(for: :polymorphic_select)
+    owner&.to_sgid(for: :polymorphic_select, expires_in: nil)
   end
 
   def owner_sgid=(new_owner_sgid)

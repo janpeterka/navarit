@@ -8,7 +8,7 @@
                      input_wrapper_html: { data: { controller: "label-badge" } }, input_html: { multiple: false, data: { label_badge_target: "select" } }, allow_blank: false
 
   - if current_user.teams.any?
-    = form.input :owner_sgid, collection: current_user.teams.map { [ _1.name, _1.to_sgid(for: :polymorphic_select) ] }, col_span: 6, allow_blank: true
+    = form.input :owner_sgid, label: "vlastník", hint: "nech prázdné pokud nechceš aby recept patřil nějakému tvému týmu", collection: current_user.teams.map { [ _1.name, _1.to_sgid(for: :polymorphic_select, expires_in: nil) ] }, input_html: { value: recipe.owner_sgid }, col_span: 6, allow_blank: true
 
   = form.buttons_section
     = form.cancel_link

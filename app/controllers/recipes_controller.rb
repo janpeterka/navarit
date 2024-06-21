@@ -35,11 +35,12 @@ class RecipesController < ApplicationController
 
   # POST /recipes
   def create
-    @recipe = current_user.recipes.new(recipe_params)
+    @recipe = current_user.created_recipes.new(recipe_params)
 
     if @recipe.save
       redirect_to recipe_path(@recipe, edited_section: :ingredients)
     else
+      @recipe.errors
       render :new, status: :unprocessable_entity
     end
   end
@@ -65,7 +66,10 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.fetch(:recipe, {}).permit(:name, :procedure, :category_id, :portion_count, :owner_sgid, :difficulty_label_ids,
+    temp = params.fetch(:recipe, {}).permit(:name, :procedure, :category_id, :portion_count, :owner_sgid, :difficulty_label_ids,
                                      dietary_label_ids: [])
+    temp[:owner_sgid] = temp[:owner_sgid].presence || current_user.to_sgid(for: :polymorphic_select).to_s
+
+    temp
   end
 end
