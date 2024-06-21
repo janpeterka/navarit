@@ -11,6 +11,7 @@ export default class extends Controller {
   visitURL(event) {
     if (event.target.dataset.bsToggle == "modal") { return; } // prevent this when clicking modal button
     if (event.target.tagName == "A") { return; } // prevent this when clicking a link
+    if (event.target.closest('form')) { return; } // prevent this when submiting a form
 
     Turbo.visit(this.urlValue, { action: "replace" })
   }
