@@ -16,6 +16,9 @@ class User < ApplicationRecord
   has_many :user_event_roles
   has_many :events_in_role, through: :user_event_roles, source: :event
 
+  has_many :memberships
+  has_many :teams, through: :memberships
+
   has_many :portion_types, foreign_key: :created_by
   has_many :recipe_reactions, class_name: "UserRecipeReaction"
 
