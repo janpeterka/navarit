@@ -8,20 +8,20 @@ button.dropdown-button id="eventMoreOptionsDropdownButton" data-dropdown-toggle=
 div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
   ul class="px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
     - if can? :update, recipe
-      li = button_link_to "upravit", edit_recipe_path(recipe), class: "mt-0"
+      li = button_link_to "upravit", edit_recipe_path(recipe), class: "w-full", type: :plain
 
     - if can? :delete, recipe
-      li = action_button_to "smazat", recipe_path(recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }, disabled: !recipe.deletable?
+      li = action_button_to "smazat", recipe_path(recipe), type: :plain, method: :delete, form: { class: "w-full" }, class: "w-full", data: { turbo_confirm: "Opravdu chceš smazat recept? Akce je nevratná!" }, disabled: !recipe.deletable?
 
     - if can? :update, recipe
       li
         - if recipe.published?
-          = action_button_to "zrušit zveřejnění", published_recipe_path(recipe), method: :delete
+          = action_button_to "zrušit zveřejnění", published_recipe_path(recipe), icon: :cloud_arrow_up, method: :delete, type: :plain, form: { class: "w-full" }, class: "w-full"
         - else
-          = action_button_to "zveřejnit", published_recipes_path(recipe_id: recipe.id), method: :post
+          = action_button_to "zveřejnit", published_recipes_path(recipe_id: recipe.id), icon: :cloud_arrow_up, method: :post, type: :plain, form: { class: "w-full" }, class: "w-full"
 
     - if recipe.author == current_user
-      li = action_button_to "vytvořit kopii", recipe_duplications_path(recipe), method: :post
+      li = action_button_to "vytvořit kopii", recipe_duplications_path(recipe), icon: :copy_simple, method: :post, type: :plain, form: { class: "w-full" }, class: "w-full"
 
 // Using hover, not working on phiner
   div class="group relative cursor-pointer inline"
