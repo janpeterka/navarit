@@ -14,8 +14,8 @@ servers:
       # "network": "kucharka-network"
 
 
-networks:
-  - kucharka-network
+# networks: This is not supported now (24.6.2024)
+  # - kucharka-network
 
 # Credentials for your image host.
 registry:
