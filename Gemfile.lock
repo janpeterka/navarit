@@ -516,7 +516,7 @@ DEPENDENCIES
   prosopite
   puma (>= 5.0)
   rack-mini-profiler
-  rails (~> 7.1.3)
+  rails (~> 7.1.3.4)
   rails-i18n
   rails_best_practices
   redis (>= 4.0.1)
