@@ -13,7 +13,6 @@ class EventsController < ApplicationController
     @events = @events.where("LOWER(events.name) LIKE ?", query)
   end
 
-  # GET /events/1
   def show
     @event = Event.includes(daily_plans: [ :day_tasks, daily_plan_recipes: :recipe ]).find(params[:id])
   end
@@ -31,7 +30,7 @@ class EventsController < ApplicationController
     current_user.events.new(event_params)
 
     if @event.save
-      redirect_to @event, notice: "Event was successfully created."
+      redirect_to @event
     else
       render :new, status: :unprocessable_entity
     end
@@ -45,10 +44,10 @@ class EventsController < ApplicationController
     end
   end
 
-  # DELETE /events/1
   def destroy
     @event.destroy!
-    redirect_to events_url, notice: "Event was successfully destroyed.", status: :see_other
+
+    redirect_to events_url, notice: "akce byla smazána", status: :see_other
   end
 
   private

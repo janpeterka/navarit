@@ -39,6 +39,6 @@
       .sm:col-span-2
         = form.submit "přidat", class: "mt-2"
 
-  = button_link_to "přidat ad-hoc surovinu", new_ingredient_path(recipe_id: recipe.id), data: { turbo_frame: "modal" }
+  = button_link_to "přidat novou surovinu", new_ingredient_path(recipe_id: recipe.id), data: { turbo_frame: "modal" }
 
 = button_link_to "hotovo!", recipe_path(recipe), type: :secondary
