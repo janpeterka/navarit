@@ -39,8 +39,8 @@ class EventShoppingList
   def pdf
     document = shrimpy_document(title: "Nákupní seznam na #{@event.name}")
 
-    shoppings.each do |shopping|
-      shopping.shrimpy_print(document)
+    shoppings.each_with_index do |shopping, ix|
+      shopping.shrimpy_print(document, start_new_page: ix > 0)
     end
 
     document
@@ -78,8 +78,8 @@ class Shopping
     ingredients_with_usage
   end
 
-  def shrimpy_print(document)
-    document.start_new_page unless document.page_number == 1
+  def shrimpy_print(document, start_new_page: true)
+    document.start_new_page if start_new_page
 
     document.text name, size: 18, style: :bold
 
