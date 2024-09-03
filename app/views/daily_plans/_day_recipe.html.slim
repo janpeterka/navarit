@@ -8,7 +8,7 @@
                 - if day_recipe.recipe.shopping?
                     span = day_recipe.recipe.name
                 - else
-                    = link_to day_recipe.recipe.name, day_recipe.recipe, data: { turbo_frame: "_top" }
+                    = link_to day_recipe.recipe.name, day_recipe.recipe, data: { turbo: false }
 
             = form.input :meal_type, collection: DailyPlanRecipe::MEAL_TYPES,
                             label: false, include_blank: true, col_span: 3,
@@ -27,7 +27,7 @@
                     - if day_recipe.recipe.shopping?
                         span = day_recipe.recipe.name
                     - else
-                        = link_to day_recipe.recipe.name, day_recipe.recipe
+                        = link_to day_recipe.recipe.name, day_recipe.recipe, data: { turbo: false }
 
                 div = day_recipe.meal_type
                 div = day_recipe.portion_count unless day_recipe.shopping?
