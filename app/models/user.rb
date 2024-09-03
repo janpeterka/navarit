@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :recipes, foreign_key: :created_by
   has_many :ingredients, foreign_key: :created_by
   has_many :events, foreign_key: :created_by
-  has_many :user_event_roles
+  has_many :user_event_roles, dependent: :destroy
   has_many :events_in_role, through: :user_event_roles, source: :event
 
   has_many :portion_types, foreign_key: :created_by

@@ -42,12 +42,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
     add_index :users, :reset_password_token, unique: true
     add_index :users, :confirmation_token,   unique: true
     # # add_index :users, :unlock_token,         unique: true
+
     User.all.each do |user|
       user.update!(legacy_password: user.read_attribute(:password),
                    encrypted_password: user.read_attribute(:password) || 'x')
     end
-
-    rename_column :users, :temp_password, :password
   end
 
   def down; end
