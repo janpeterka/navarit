@@ -27,7 +27,7 @@ class DailyPlanRecipe < ApplicationRecord
     ingredients_with_amounts = {}
 
     recipe.recipe_ingredients.each do |recipe_ingredient|
-      ingredients_with_amounts[recipe_ingredient.ingredient] = recipe_ingredient.amount * portion_count
+      ingredients_with_amounts[recipe_ingredient.ingredient] = (recipe_ingredient.amount || 0) * portion_count
     end
 
     ingredients_with_amounts
