@@ -58,23 +58,13 @@ class User < ApplicationRecord
   private
 
   def legacy_valid_password?(password)
-    p "Checking for legacy password"
     require "bcrypt"
-
-    p password
-    p self.read_attribute(:password)
-
     bcrypt_password = BCrypt::Password.new(legacy_password)
 
-    p bcrypt_password
-
-    hmaced_password = User.get_hmac(self.get_attribute(:password))
-
-    p hmaced_password
+    hmaced_password = User.get_hmac(password)
     hashed_password = BCrypt::Engine.hash_secret(hmaced_password, bcrypt_password.salt)
-    p hashed_password
 
-    Devise.secure_compare(hashed_password, self.read_attribute(:password))
+    Devise.secure_compare(hashed_password, legacy_password)
   rescue BCrypt::Errors::InvalidHash
     false
   end

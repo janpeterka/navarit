@@ -45,8 +45,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
     # # add_index :users, :unlock_token,         unique: true
 
     User.all.each do |user|
-      p "updated user #{user.email}"
-      user.update!(encrypted_password: user.legacy_password || 'x')
+      ActiveRecord::Base.connection.execute("UPDATE users SET encrypted_password = '#{user.legacy_password || 'x'}' WHERE id = #{user.id}")
     end
   end
 

@@ -5,6 +5,7 @@ class ConvertDescriptionToProcedure < ActiveRecord::Migration[7.1]
         recipe.name = "!Nevyplněno"
       end
 
+      # Sets ActionText :procedure
       recipe.update!(procedure: recipe.description)
     end
   end
