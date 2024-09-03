@@ -5,7 +5,7 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = current_user.collaborable_events
+    @events = current_user.collaborable_events.order(date_to: :desc)
 
     return unless params[:query].present?
 
