@@ -4,7 +4,7 @@
   - placeholder = current_user.events.order("RAND()").limit(1).first&.name
   = searchbox(path: events_path, placeholder: placeholder, target_turbo_frame: "events")
 
-= turbo_frame_tag :events
+= turbo_frame_tag :events, target: "_top"
   #future-events
     .flex.justify-between.mt-6
       h2.mb-3
