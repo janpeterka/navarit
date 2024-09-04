@@ -34,6 +34,14 @@ class Event < ApplicationRecord
 
   after_create :create_daily_plans
 
+  scope :search, lambda { |query|
+    return all if query.blank?
+
+    where("LOWER(events.name) LIKE ?", "%#{query.downcase}%")
+  }
+
+
+
   def update(params)
     update_date_from(params[:date_from].to_date) if params[:date_from].present?
     update_date_to(params[:date_to].to_date) if params[:date_to].present?

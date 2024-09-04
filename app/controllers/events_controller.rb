@@ -5,12 +5,7 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = current_user.collaborable_events.order(date_to: :desc)
-
-    return unless params[:query].present?
-
-    query = "%#{params[:query].downcase}%"
-    @events = @events.where("LOWER(events.name) LIKE ?", query)
+    @events = current_user.collaborable_events.search(params[:query]).order(date_to: :desc)
   end
 
   def show

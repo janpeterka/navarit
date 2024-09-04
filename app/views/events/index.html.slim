@@ -1,31 +1,32 @@
 - content_for :title, "akce"
 
-/ div.me-5.mb-2.float-right
-/   - placeholder = current_user.events.order("RAND()").limit(1).first&.name
-/   = searchbox(path: events_path, placeholder: placeholder, target_turbo_frame: "events")
+.mb-2
+  - placeholder = current_user.events.order("RAND()").limit(1).first&.name
+  = searchbox(path: events_path, placeholder: placeholder, target_turbo_frame: "events")
 
-#future-events
-  .flex.justify-between.mt-6
-    h2.mb-3
-      = icon(:calendar, class: "mr-2")
-      = "nadcházející akce".upcase
+= turbo_frame_tag :events
+  #future-events
+    .flex.justify-between.mt-6
+      h2.mb-3
+        = icon(:calendar, class: "mr-2")
+        = "nadcházející akce".upcase
 
-    = button_link_to "nová akce", new_event_path
+      = button_link_to "nová akce", new_event_path
 
-  .md:grid.grid-cols-2.gap-2
-    - @events.active.future.each do |event|
-      = render "events/card", event:
+    .md:grid.grid-cols-2.gap-2
+      - @events.active.future.each do |event|
+        = render "events/card", event:
 
-#past-events
-  h2.mt-4.mb-3
-    = icon(:archive, class: "mr-2")
-    = "skončené akce".upcase
-  .md:grid.grid-cols-2.gap-2
-    - @events.active.past.each do |event|
-      = render "events/card", event:
+  #past-events
+    h2.mt-4.mb-3
+      = icon(:archive, class: "mr-2")
+      = "skončené akce".upcase
+    .md:grid.grid-cols-2.gap-2
+      - @events.active.past.each do |event|
+        = render "events/card", event:
 
-#archived-events
-  = heading("archivované akce", :h2)
-  .md:grid.grid-cols-2.gap-2
-    - @events.archived.each do |event|
-      = render "events/card", event:
+  #archived-events
+    = heading("archivované akce", :h2)
+    .md:grid.grid-cols-2.gap-2
+      - @events.archived.each do |event|
+        = render "events/card", event:
