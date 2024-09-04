@@ -363,6 +363,7 @@ GEM
       railties (>= 5.2)
     rexml (3.3.6)
       strscan
+    rorvswild (1.8.0)
     rouge (4.3.0)
     rubocop (1.64.1)
       json (~> 2.3)
@@ -518,6 +519,7 @@ DEPENDENCIES
   rails-i18n
   rails_best_practices
   redis (>= 4.0.1)
+  rorvswild
   rubocop
   rubocop-capybara
   rubocop-performance
