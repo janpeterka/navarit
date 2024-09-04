@@ -75,7 +75,7 @@ Rails.application.configure do
     port:            587,
     # domain:          "google.com",
     user_name:       Rails.application.credentials.dig(:google, :smtp, :username),
-    password:        Rails.application.credentials.dig(:google, :smtp, :username),
+    password:        Rails.application.credentials.dig(:google, :smtp, :password),
     authentication:  "plain",
     enable_starttls: true,
     open_timeout:    5,
