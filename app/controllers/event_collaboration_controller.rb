@@ -1,5 +1,5 @@
 class EventCollaborationController < ApplicationController
-  before_action :load_event, only: %i[index create destroy]
+  before_action :load_event, only: %i[index create update destroy]
 
   def index
     @event = current_user.collaborable_events.find(params[:event_id])
@@ -12,11 +12,18 @@ class EventCollaborationController < ApplicationController
 
     if @event.add_collaborator(user, permission: params[:permission])
       flash[:notice] = "přidáno!"
-      redirect_to event_collaboration_index_path(@event)
     else
       flash[:error] = "něco se nepovedlo"
-      redirect_to event_collaboration_index_path(@event)
     end
+
+    redirect_to event_collaboration_index_path(@event)
+  end
+
+  def update
+    role = @event.user_event_roles.find_by(user_id: params[:id])
+    role.update(role: params[:option].to_sym)
+
+    redirect_to event_collaboration_index_path(@event)
   end
 
   def destroy

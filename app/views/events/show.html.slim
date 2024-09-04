@@ -14,7 +14,7 @@
     = " (archivováno)" if @event.archived?
 
   / WIP - sharing, collaborations
-  .sm:inline-block.my-3.sm:my-0
+  / .sm:inline-block.my-3.sm:my-0
     = render Buttons::ButtonLinkComponent.new(path: event_collaboration_index_path(@event), class: "px-3 py-3 m-2 rounded-3xl bg-peach-300", override_classes: true, data: { turbo_frame: "modal" }) do
       - if @event.published?
         = icon("eye", class: "mr-1")
@@ -22,15 +22,18 @@
       - else
         = icon("lock", class: "mr-1")
         = "soukromá akce"
-
     span
       - @event.involved_users.each do |user|
         span.p-3.me-1.rounded-full.border.border-peach-300
           = user.initials
-
       span.p-3.rounded-full.border.border-peach-300
         = icon("user-plus")
         = link_to_modal "sdílení", event_collaboration_index_path(@event)
+
+  .sm:inline-block.my.3.sm:my-0
+    = render Buttons::ButtonLinkComponent.new(path: event_collaboration_index_path(@event), size: :big, data: { turbo_frame: "modal" }) do
+      = icon(:user)
+      | sdílení
 
 #details.sm:flex.sm:justify-between.mb-3
   div

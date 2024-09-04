@@ -22,7 +22,8 @@
       = t.column :jméno do |event_role|
         = event_role.user.name
       = t.column :práva do |event_role|
-        = t(event_role.role)
+        = default_form_for "", url: event_collaboration_path(id: event_role.user_id), method: :patch, data: { controller: "form" } do |form|
+          = form.input :option, label: false, collection: [ [ "zobrazení", "viewer" ], [ "úpravy", "collaborator" ] ], col_span: :full, selected: event_role.role, input_html: { data: { action: "change->form#submit" } }
       = t.column :akce do |event_role|
         - if can? :update, @event
           = action_button_to "odebrat", event_collaboration_path(id: event_role.user_id), method: :delete
@@ -50,8 +51,3 @@
     - else
       p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s odkazem."
       = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
-
-    - if @event.user_event_roles.any?
-      h2.text-lg.mt-4 = "kdo další má práva?"
-      - @event.user_event_roles.each do |role|
-        div = "#{role.user.name} (#{role.role})"
