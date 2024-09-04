@@ -73,7 +73,7 @@ class User < ApplicationRecord
     require "openssl"
     require "base64"
 
-    salt = Rails.application.credentials.LEGACY_SECURITY_SALT || ENV["LEGACY_SECURITY_SALT"]
+    salt = Rails.application.credentials.LEGACY_SECURITY_SALT
 
     raise "The configuration value `LEGACY_SECURITY_SALT` must not be None" if salt.nil?
 
