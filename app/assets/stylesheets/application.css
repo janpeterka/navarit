@@ -84,6 +84,17 @@ input[type=number]::-webkit-outer-spin-button {
   animation: heartbeat 2s infinite;
 }
 
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.animate-fadeout {
+  animation: fade-out 2s;
+  animation-delay: 5s;
+  animation-fill-mode: forwards;
+}
+
 button.dropdown-button:has( + div > ul:empty) {
   display: none;
 }

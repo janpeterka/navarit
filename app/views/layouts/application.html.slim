@@ -22,7 +22,7 @@ html
 
   / data-controller="#{'debug-turbo' if Rails.env.development?}"
   body
-    = render("shared/flash")
+    = render "shared/flash"
 
     / TODO: this is here because Devise is using this layout, not public
     - if request.path.include?("/lookbook/")

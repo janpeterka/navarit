@@ -1,14 +1,16 @@
-- flash.each do |type, message|
+.absolute.right-10.pt-4
+  - flash.each do |type, message|
     - if type.to_sym == :notice
-        - color_classes = "bg-blue-100 border-blue-500"
+      - color_classes = "bg-blue-200"
+      - icon_symbol = :bell
     - elsif type.to_sym.in?([ :error, :alert ])
-        - color_classes = "bg-red-100 border-red-500"
+      - color_classes = "bg-red-500 text-xl"
+      - icon_symbol = :warning_circle
     - else
-        - color_classes = "bg-white"
+      - color_classes = "bg-white"
+      - icon_symbol = :bell
 
-    div class="absolute border-t-4 rounded-b px-4 py-3 shadow-md #{color_classes} right-10" role="alert" data-controller="flash" data-action="click->flash#hide"
-        div class="flex"
-            div class="py-1"
-                = icon(:bell)
-            div
-                p = message
+    div class="rounded-md mb-2 px-4 py-3 shadow-md #{color_classes} animate-fadeout" role="alert" data-controller="flash" data-action="click->flash#destroy animationend->flash#destroy"
+        .flex.align-middle
+            div = icon(icon_symbol)
+            div = message
