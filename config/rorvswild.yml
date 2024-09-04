@@ -10,7 +10,8 @@ development:
 
 production:
   api_key: jeBhfs-lT8fDy-KTX0WI
-  # ignore_requests: # Do not monitor the following actions
+  ignore_requests: # Do not monitor the following actions
+    - Rails::HealthController#show
   #   - SecretController#index
   # ignore_jobs: # Do not monitor the following jobs
   #   - SecretJob
