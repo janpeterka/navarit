@@ -69,6 +69,19 @@ Rails.application.configure do
   # config.active_job.queue_adapter = :solid_queue
   # config.active_job.queue_name_prefix = "kucharka_on_rails_production"
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:         "smtp.gmail.com",
+    port:            587,
+    # domain:          "google.com",
+    user_name:       Rails.application.credentials.google.smtp.username,
+    password:        Rails.application.credentials.google.smtp.username,
+    authentication:  "plain",
+    enable_starttls: true,
+    open_timeout:    5,
+    read_timeout:    5
+  }
+
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
   config.action_mailer.perform_caching = false
