@@ -29,6 +29,8 @@ h2 {
 h3 {
   /* @apply mb-2 */
   margin-bottom: 0.5rem;
+
+  font-weight: bolder;
 }
 
 a {
