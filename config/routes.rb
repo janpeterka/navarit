@@ -3,6 +3,12 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  concern :multiselect_chips do
+    collection do
+      post :multiselect_chips
+    end
+  end
+
   resource :dashboard, only: :show
   resource :index, only: :show
 
@@ -40,17 +46,9 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :recipe_ingredients
   resources :ingredients
 
-  resources :recipe_categories do
-    collection do
-      post :multiselect_chips
-    end
-  end
+  resources :recipe_categories, concerns: :multiselect_chips
 
-  resources :labels do
-    collection do
-      post :multiselect_chips
-    end
-  end
+  resources :labels, concerns: :multiselect_chips
 
   namespace :admin do
     root to: "common_ingredients#index"
