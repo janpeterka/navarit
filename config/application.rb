@@ -26,6 +26,10 @@ module KucharkaOnRails
     config.i18n.default_locale = :cs
     config.i18n.available_locales = :cs, :en
 
+    # Show component previews on production to share with other people
+    config.view_component.show_previews = true
+
+
     config.action_dispatch.rescue_responses.merge!("CanCan::AccessDenied" => :not_found)
   end
 end
