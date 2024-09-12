@@ -17,8 +17,10 @@ class Ability
 
     can %i[manage publish], Recipe, author: user
     can %i[manage publish], Ingredient, author: user
-    can %i[manage publish], Event, author: user
+    can %i[manage publish archive unarchive], Event, author: user
+    cannot :archive, Event, is_archived: true
     cannot %i[update], Event, is_archived: true
+    cannot :unarchive, Event, is_archived: false
     can %i[manage publish], DailyPlan, author: user
     cannot %i[update], DailyPlan, event: { is_archived: true }
   end

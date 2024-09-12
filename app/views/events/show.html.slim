@@ -54,17 +54,15 @@
 
       div id="eventMoreOptionsDropdown" class="z-10 hidden bg-peach-100 rounded-lg shadow"
         ul class="p-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
-          li = button_link_to "zkopírovat akci", new_event_duplication_path(event_id: @event.id), type: :plain
+          li = button_link_to "zkopírovat akci", new_event_duplication_path(event_id: @event.id), type: :plain, icon: :plus
           - if can? :update, @event
             li = button_link_to "upravit", edit_event_path(@event), type: :plain
           - if can? :destroy, @event
             li = action_button_to "smazat akci", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, type: :plain, disabled: !@event.destroyable?
-          - if can? :update, @event
-            li
-              - if @event.archived?
-                = action_button_to "odarchivovat", archived_event_path(@event), method: :delete, type: :plain
-              - else
-                = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post, type: :plain
+          - if can? :archive, @event
+            li = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post, type: :plain, icon: :archive
+          - if can? :unarchive, @event
+            li = action_button_to "odarchivovat", archived_event_path(@event), method: :delete, type: :plain, icon: :archive
 
 #attendance.mb-3
   details.border.border-gray-500.rounded-lg.p-3.border-2.hover:border-ocean-700
