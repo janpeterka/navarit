@@ -6,7 +6,7 @@ image: janpeterka/kucharka
 
 # Deploy to these servers.
 servers:
-  - kucharka
+  - navarit
   # web:
     # hosts:
       # - kucharka
