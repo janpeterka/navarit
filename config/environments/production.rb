@@ -73,7 +73,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:         "smtp.gmail.com",
     port:            587,
-    # domain:          "google.com",
+    domain:          "navarit.cz",
     user_name:       Rails.application.credentials.dig(:google, :smtp, :username),
     password:        Rails.application.credentials.dig(:google, :smtp, :password),
     authentication:  "plain",
