@@ -1,0 +1,11 @@
+.text-center.mt-5
+  h1.text-2xl.font-bold
+    = t("devise.passwords.forgotten")
+
+  = default_form_for(resource, as: resource_name, url: password_path(resource_name)) do |form|
+    = form.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }, col_span: :full
+    .block.content-center.col-span-full
+      = form.button :submit, t("devise.passwords.send_reset_instructions"), class: "w-1/2 py-5"
+
+.mt-4
+  = render "devise/shared/links"
