@@ -33,6 +33,14 @@ class User < ApplicationRecord
     full_name.split(" ").map(&:first).join.upcase
   end
 
+  def email_salutation
+    if full_name.present?
+      full_name
+    else
+      e_mail
+    end
+  end
+
   def admin?
     id.in? [ 1, 565 ]
   end

@@ -6,7 +6,7 @@ cs:
     confirmations:
       confirmed: "Váš účet byl úspěšně potvrzen. Nyní jste přihlášen(a)."
       send_instructions: "Za několik minut obdržíte email s instrukcemi k potvrzení vašeho účtu."
-      send_paranoid_instructions: "Pokud je e-mailová adresa v naší databázi, obdržíte na ní instrukce pro potvrzení vašeho účtu."
+      send_paranoid_instructions: "Pfokud je e-mailová adresa v naší databázi, obdržíte na ní instrukce pro potvrzení vašeho účtu."
     failure:
       already_authenticated: "Přihlášení již proběhlo."
       inactive: "Váš účet ještě nebyl aktivován."
@@ -37,6 +37,8 @@ cs:
       send_paranoid_instructions: "Pokud je e-mailová adresa v naší databázi, obdržíte na ni e-mail pro obnovení hesla."
       updated: "Vaše heslo bylo úspěšně změněno. Nyní jste přihlášen(a)."
       updated_not_active: "Vaše heslo bylo změněno."
+      send_reset_instructions: "Odeslat pokyny k nastavení nového hesla"
+      forgotten: "Zapomněli jste své heslo?"
     registrations:
       destroyed: "Nashle! Váš účet byl úspěšně zrušen. Doufáme, že se brzy opět uvidíme."
       signed_up: "Vítejte! Registrace byla úspěšná."
