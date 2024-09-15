@@ -81,4 +81,4 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 end
 
-Rails.application.routes.default_url_options[:host] = "dev.skautskakucharka.cz"
+Rails.application.routes.default_url_options[:host] = "navarit.cz"

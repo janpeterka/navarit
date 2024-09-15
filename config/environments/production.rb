@@ -108,8 +108,8 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  config.action_mailer.default_url_options = { host: "skautskakucharka.cz" }
+  config.action_mailer.default_url_options = { host: "navarit.cz" }
 end
 
 # config/environments/production.rb
-Rails.application.routes.default_url_options[:host] = "skautskakucharka.cz"
+Rails.application.routes.default_url_options[:host] = "navarit.cz"
