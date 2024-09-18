@@ -52,7 +52,7 @@
         = icon("dots-three-circle", class: "mr-1")
         = "další možnosti"
 
-      div id="eventMoreOptionsDropdown" class="z-10 hidden bg-peach-100 rounded-lg shadow"
+      div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white rounded-lg shadow"
         ul class="p-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
           li = button_link_to "zkopírovat akci", new_event_duplication_path(event_id: @event.id), type: :plain, icon: :plus
           - if can? :update, @event
