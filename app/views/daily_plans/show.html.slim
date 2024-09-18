@@ -8,7 +8,7 @@
 = turbo_frame_tag "modal" do
   .modal-content.pb-16 data-controller="turbo-modal"
     .flex.justify-between
-      h2
+      h2.text-3xl
         = I18n.translate("date.day_names")[@daily_plan.date.wday]
         = " "
         = @daily_plan.date.to_formatted_s(:date)

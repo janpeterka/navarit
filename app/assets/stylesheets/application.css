@@ -164,12 +164,12 @@ div .hw-combobox {
 }
 
 .modal-content {
-  border: 0.2rem solid #F8A66B; /* peach-500 */
+  /* border: 0.2rem solid #F8A66B; peach-500 */
   border-radius: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 2rem;
-  background-color: #F5D7C4; /* peach-200 */
+  background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
   max-width: 75%;
