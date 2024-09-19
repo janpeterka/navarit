@@ -83,15 +83,15 @@
   - @event.timetable.days.in_groups_of(7).each_with_index do |day_batch, row_index|
     - day_batch.each_with_index do |day, index|
       - if row_index == 0 && index == 0
-        - card_class = "rounded-tl-xl"
+        - card_class = "md:rounded-tl-xl"
       - elsif row_index == 0 && index == 6
-        - card_class = "rounded-tr-xl"
+        - card_class = "md:rounded-tr-xl"
       = render("day_card", day:, classes: card_class)
     - day_batch.each_with_index do |day, index|
       - if row_index == (@event.timetable.days.size / 7) - 1 and index == 0
-        - card_class = "rounded-bl-xl"
+        - card_class = "md:rounded-bl-xl"
       - elsif row_index == (@event.timetable.days.size / 7) - 1 and index == 6
-        - card_class = "rounded-br-xl"
+        - card_class = "md:rounded-br-xl"
 
       = render("day_task_card", day:, classes: card_class)
 
