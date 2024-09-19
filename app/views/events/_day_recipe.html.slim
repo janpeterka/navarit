@@ -1,6 +1,6 @@
 /# locals: (daily_recipe:)
 - recipe = daily_recipe.recipe
 
-li.bg-white.overflow-hidden.p-2.m-2.rounded-md.card-shadow.cursor-move.sortable-item data-sortable-update-url=daily_plan_recipe_sort_path(daily_plan_recipe_id: daily_recipe.id) data-sortable-move-url=daily_plan_recipe_move_path(daily_plan_recipe_id: daily_recipe.id)
+li.bg-white.overflow-hidden.p-2.m-2.rounded-md.recipe-card-shadow.cursor-move.sortable-item data-sortable-update-url=daily_plan_recipe_sort_path(daily_plan_recipe_id: daily_recipe.id) data-sortable-move-url=daily_plan_recipe_move_path(daily_plan_recipe_id: daily_recipe.id)
     = icon(:shopping_cart) if recipe.shopping?
     = recipe.name
