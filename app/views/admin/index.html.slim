@@ -1,0 +1,21 @@
+- content_for :title, "administrace"
+
+.content-center.text-center
+  h1.mb-3 app management
+  .grid.grid-cols-2.gap-4.mb-4
+    .col-span-1  data={ "controller": "clickable", "clickable-url-value": admin_common_ingredients_path }
+      = render CardComponent.new(class: "h-24 content-center text-center bg-peach-200") do |c|
+        = c.with_heading do
+          h2.text-2xl společné suroviny
+
+  h1.mb-3 app development
+  .grid.grid-cols-2.gap-4
+    .col-span-1 data={ "controller": "clickable", "clickable-url-value": "/a/solid_errors" }
+      = render CardComponent.new(class: "h-24 content-center text-center") do |c|
+        = c.with_heading do
+          h2.text-2xl errors
+
+    .col-span-1 data={ "controller": "clickable", "clickable-url-value": "/a/lookbook" }
+      = render CardComponent.new(class: "h-24 content-center text-center") do |c|
+        = c.with_heading do
+          h2.text-2xl design system

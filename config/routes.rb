@@ -51,12 +51,13 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :labels, concerns: :multiselect_chips
 
   namespace :admin do
-    root to: "common_ingredients#index"
-
     resources :common_ingredients, only: %i[index new create destroy]
   end
 
+
   get "a/error", to: "admin#error"
+  get "a/", to: "admin#index"
+
 
   resources :common_ingredients, only: %i[show]
 
