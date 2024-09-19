@@ -424,6 +424,13 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
+    solid_errors (0.6.1)
+      actionmailer (>= 7.0)
+      actionpack (>= 7.0)
+      actionview (>= 7.0)
+      activerecord (>= 7.0)
+      activesupport (>= 7.0)
+      railties (>= 7.0)
     sqlite3 (2.0.2-aarch64-linux-gnu)
     sqlite3 (2.0.2-x86_64-linux-gnu)
     sshkit (1.22.2)
@@ -529,6 +536,7 @@ DEPENDENCIES
   simple_form
   slim-rails
   slim_lint
+  solid_errors (~> 0.6.1)
   sqlite3
   stimulus-rails
   tailwind-sorter (~> 0.3.0)

@@ -109,6 +109,14 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.action_mailer.default_url_options = { host: "navarit.cz" }
+
+  # Configure Solid Errors
+  config.solid_errors.connects_to = { database: { writing: :errors } }
+  config.solid_errors.send_emails = true
+  config.solid_errors.email_from = ""
+  config.solid_errors.email_to = ""
+  config.solid_errors.username = Rails.application.credentials.dig(:solid_errors, :username)
+  config.solid_errors.password = Rails.application.credentials.dig(:solid_errors, :password)
 end
 
 # config/environments/production.rb
