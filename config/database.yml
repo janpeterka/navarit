@@ -70,6 +70,6 @@ production:
     host: 10.0.60.33
 
   errors:
-    # <<: *default
-    database: storage/production_errors.sqlite3
+    adapter: sqlite3
+    database: storage/errors.sqlite3
     migrations_paths: db/errors_migrate
