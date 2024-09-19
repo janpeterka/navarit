@@ -2,12 +2,18 @@
   h1.text-2xl.font-bold
     = t("sign_in")
 
-  = default_form_for(resource, as: resource_name, url: session_path(resource_name)) do |form|
-    = form.input :email, autofocus: true, input_html: { autocomplete: "email" }, col_span: :full
-    = form.input :password, input_html: { autocomplete: "current-password" }, col_span: :full
-    = form.input :remember_me, as: :boolean, col_span: :full if devise_mapping.rememberable?
-    .block.content-center.col-span-full
-      = form.button :submit, t("sign_in"), class: "w-1/2 py-5"
+  .mb-8
+    = default_form_for(resource, as: resource_name, url: session_path(resource_name)) do |form|
+      .hidden.md:block.md:col-span-3
+      = form.input :email, autofocus: true, input_html: { autocomplete: "email" }, col_span: 6
+      .hidden.md:block.md:col-span-3
+      .hidden.md:block.md:col-span-3
+      = form.input :password, input_html: { autocomplete: "current-password" }, col_span: 6
+      .hidden.md:block.md:col-span-3
+      .hidden.md:block.md:col-span-3
+      = form.input :remember_me, as: :boolean, col_span: 6 if devise_mapping.rememberable?
+      .block.col-span-full
+        = form.button :submit, t("sign_in"), class: "w-1/2 py-5"
 
-.mt-4
-  = render "devise/shared/links"
+  div
+    = render "devise/shared/links"
