@@ -13,6 +13,8 @@ servers:
     # options:
       # "network": "kucharka-network"
 
+volumes:
+  - "/root/storage:/rails/storage"
 
 # networks: This is not supported now (24.6.2024)
   # - kucharka-network
@@ -76,12 +78,6 @@ accessories:
       - data:/var/lib/mysql
     options:
       network: "kucharka-network"
-#   redis:
-#     image: redis:7.0
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
 
 # Configure custom arguments for Traefik
 traefik:
