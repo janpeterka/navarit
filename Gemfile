@@ -42,6 +42,7 @@ gem "view_component"
 gem "kamal"
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "rorvswild"
+gem "solid_errors", "~> 0.6.1"
 
 
 # other

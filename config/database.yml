@@ -18,10 +18,15 @@ default: &default
   port: 3306
 
 development:
-  <<: *default
-  database: kucharka
-  username: kucharka
-  password: kucharka
+  primary:
+    <<: *default
+    database: kucharka
+    username: kucharka
+    password: kucharka
+  errors:
+    adapter: sqlite3
+    database: storage/errors.sqlite3
+    migrations_paths: db/errors_migrate
 
 
 # Warning: The database defined as "test" will be erased and
@@ -56,9 +61,15 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: kucharka
-  username: kucharka
-  password: <%= ENV["MYSQL_PASSWORD"] %>
-  # host: kucharka-db
-  host: 10.0.60.33
+  primary:
+    <<: *default
+    database: kucharka
+    username: kucharka
+    password: <%= ENV["MYSQL_PASSWORD"] %>
+    # host: kucharka-db
+    host: 10.0.60.33
+
+  errors:
+    adapter: sqlite3
+    database: storage/errors.sqlite3
+    migrations_paths: db/errors_migrate
