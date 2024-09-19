@@ -79,12 +79,21 @@
 
     = button_link_to "upravit", event_portion_types_path(@event) if can? :update, @event
 
-.md:grid-cols-7.md:gap-0.md:border.border-b-0.border-gray-500.mb-7.hidden.md:grid
-  - @event.timetable.days.in_groups_of(7) do |day_batch|
-    - day_batch.each do |day|
-      = render("day_card", day:)
-    - day_batch.each do |day|
-      = render("day_task_card", day:)
+.md:grid-cols-7.md:gap-0.md:border.border-b-0.border-gray-500.rounded-xl.mb-7.hidden.md:grid.event-days-grid
+  - @event.timetable.days.in_groups_of(7).each_with_index do |day_batch, row_index|
+    - day_batch.each_with_index do |day, index|
+      - if row_index == 0 && index == 0
+        - card_class = "rounded-tl-xl"
+      - elsif row_index == 0 && index == 6
+        - card_class = "rounded-tr-xl"
+      = render("day_card", day:, classes: card_class)
+    - day_batch.each_with_index do |day, index|
+      - if row_index == (@event.timetable.days.size / 7) - 1 and index == 0
+        - card_class = "rounded-bl-xl"
+      - elsif row_index == (@event.timetable.days.size / 7) - 1 and index == 6
+        - card_class = "rounded-br-xl"
+
+      = render("day_task_card", day:, classes: card_class)
 
 .grid.md:hidden
   - @event.timetable.days.each do |day|
