@@ -13,6 +13,6 @@ export default class extends Controller {
     if (event.target.tagName == "A") { return; } // prevent this when clicking a link
     if (event.target.closest('form')) { return; } // prevent this when submiting a form
 
-    Turbo.visit(this.urlValue, { action: "replace" })
+    Turbo.visit(this.urlValue, { action: "advance" })
   }
 }
