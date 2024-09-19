@@ -56,6 +56,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     resources :common_ingredients, only: %i[index new create destroy]
   end
 
+  get "a/error", to: "admin#error"
+
   resources :common_ingredients, only: %i[show]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
