@@ -27,7 +27,10 @@ div
 
     = table recipe.recipe_ingredients.sort_by(&:recipe_amount).reverse do |t|
         = t.column :název do |r_ingredient|
-            = link_to r_ingredient.ingredient.name, r_ingredient.ingredient
+            - if can? :show, r_ingredient.ingredient
+                = link_to r_ingredient.ingredient.name, r_ingredient.ingredient
+            - else
+                = r_ingredient.ingredient.name
         = t.column "množství na #{@portion_count} porcí" do |r_ingredient|
             - if r_ingredient.amount&.positive?
                 = formatted_amount_with_unit(r_ingredient, @portion_count)
