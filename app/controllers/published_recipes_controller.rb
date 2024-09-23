@@ -9,24 +9,16 @@ class PublishedRecipesController < PublicApplicationController
     redirect_to published_recipes_path if @recipe.blank?
     redirect_to @recipe if user_signed_in?
 
-    @portion_count = if params[:portion_count].present?
-      params[:portion_count].to_i
-     else
-      @recipe.portion_count
-     end
+    @portion_count = params[:portion_count].presence&.to_i || @recipe.portion_count
   end
 
   def create
     recipe = Recipe.find(params[:recipe_id])
     authorize! :publish, recipe
 
-    if recipe.publish!
-      flash[:notice] = "recept byl zveřejněn"
-    else
-      flash[:error] = "recept nebyl zveřejněn"
-    end
+    recipe.publish!
 
-    redirect_back_or_to recipe
+    redirect_back_or_to recipe, notice: "recept byl zveřejněn"
   end
 
   def destroy
@@ -61,7 +53,7 @@ class PublishedRecipesController < PublicApplicationController
       labels = Label.where(id: params[:dietary_label_ids].split(","))
       diet_compliant_recipes = Recipe.joins(:recipe_labels).where(recipe_labels: { label_id: labels.map(&:id) }).group(:id).having("COUNT(DISTINCT recipe_labels.label_id) = ?", labels.size)
       @published_recipes = @published_recipes.where(id: diet_compliant_recipes.map(&:id))
-      end
+    end
 
     if params[:favorite].to_i.positive?
       @published_recipes = @published_recipes.where(id: Recipe.published.liked_by(current_user).map(&:id))

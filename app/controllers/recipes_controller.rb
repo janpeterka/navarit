@@ -5,25 +5,15 @@ class RecipesController < ApplicationController
   def index
     @recipes = current_user.recipes.includes(:category, :labels, :ingredients).order(:name)
 
-    if params[:query].present?
-      query = "%#{params[:query].downcase}%"
-      @recipes = @recipes.where('LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ?
-                                          OR LOWER(labels.visible_name) LIKE ?',
-                                query, query, query).references(:category, :labels)
-    end
+    @recipes = @recipes.search(params[:query]) if params[:query].present?
 
     @pagy, @recipes = pagy(@recipes)
   end
 
   def show
     @recipe = Recipe.includes(:tasks, ingredients: :measurement).find(params[:id])
-    authorize! :read, @recipe
 
-    @portion_count = if params[:portion_count].present?
-                      params[:portion_count].to_i
-                     else
-                      @recipe.portion_count
-                     end
+    @portion_count = params[:portion_count].presence&.to_i || @recipe.portion_count
 
     @edited_section = params[:edited_section]&.to_sym if can? :edit, @recipe
   end
@@ -34,7 +24,6 @@ class RecipesController < ApplicationController
 
   def edit; end
 
-  # POST /recipes
   def create
     @recipe = current_user.recipes.new(recipe_params)
 
@@ -45,7 +34,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /recipes/1
   def update
     if @recipe.update(recipe_params)
       redirect_to @recipe, notice: "recept byl upraven.", status: :see_other
@@ -54,7 +42,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # DELETE /recipes/1
   def destroy
     @recipe.destroy!
     redirect_to recipes_url, notice: "recept byl smazán.", status: :see_other
@@ -62,12 +49,12 @@ class RecipesController < ApplicationController
 
   private
 
-  def set_recipe
-    @recipe = Recipe.find(params[:id])
-  end
+    def set_recipe
+      @recipe = Recipe.find(params[:id])
+    end
 
-  def recipe_params
-    params.fetch(:recipe, {}).permit(:name, :procedure, :category_id, :portion_count, :difficulty_label_ids,
-                                     dietary_label_ids: [])
-  end
+    def recipe_params
+      params.fetch(:recipe, {}).permit(:name, :procedure, :category_id, :portion_count, :difficulty_label_ids,
+                                      dietary_label_ids: [])
+    end
 end

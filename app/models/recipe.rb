@@ -39,6 +39,12 @@ class Recipe < ApplicationRecord
     joins(:recipe_labels).where(recipe_labels: { label_id: labels.map(&:id) })
   }
 
+  def self.search(query)
+    query = "%#{query.downcase}%"
+    includes(:category, :labels).where("LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ? OR LOWER(labels.visible_name) LIKE ?",
+                                query, query, query).references(:category, :labels)
+  end
+
   def self.shopping
     Recipe.find(167)
   end
