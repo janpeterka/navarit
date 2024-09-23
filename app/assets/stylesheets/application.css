@@ -197,3 +197,22 @@ div .hw-combobox {
     width: 95%;
   }
 }
+
+#event-grid {
+  .day-card:nth-child(1) {
+    border-top-left-radius: 12px;
+  }
+
+  .day-card:nth-child(7) {
+    border-top-right-radius: 12px;
+  }
+
+  /* Rounded corners for the bottom-left and bottom-right cards */
+  .day-task-card:nth-last-child(7) {
+    border-bottom-left-radius: 12px;
+  }
+
+  .day-task-card:nth-last-child(1) {
+    border-bottom-right-radius: 12px;
+  }
+}

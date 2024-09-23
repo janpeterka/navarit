@@ -3,7 +3,7 @@
 - daily_plan = day.daily_plan.presence
 - day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
 
-.group id="#{day_dom_id}-card" class="#{daily_plan.present? ? "bg-gravel-200" : "bg-gravel-100 hidden md:inline"} #{classes}"
+.group.day-card id="#{day_dom_id}-card" class="#{daily_plan.present? ? "bg-gravel-200" : "bg-gravel-100 hidden md:inline"} #{classes}"
   .text-xl.mt-2.ps-2
     - if daily_plan.present?
       = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-ocean-700", data: { turbo_frame: "modal" } do
