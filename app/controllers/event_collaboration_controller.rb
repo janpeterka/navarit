@@ -4,8 +4,6 @@ class EventCollaborationController < ApplicationController
   def index; end
 
   def create
-    authorize! :manage, @event
-
     user = User.find_by(email: params[:email])
 
     if @event.add_collaborator(user, permission: params[:permission])
@@ -18,8 +16,6 @@ class EventCollaborationController < ApplicationController
   end
 
   def update
-    authorize! :manage, @event
-
     role = @event.user_event_roles.find_by(user_id: params[:id])
     role.update(role: params[:option].to_sym)
 
@@ -27,8 +23,6 @@ class EventCollaborationController < ApplicationController
   end
 
   def destroy
-    authorize! :manage, @event
-
     role = @event.user_event_roles.find_by(user_id: params[:id].to_i)
     role.destroy
 
@@ -38,6 +32,7 @@ class EventCollaborationController < ApplicationController
   private
 
     def load_event
-      @event = current_user.collaborable_events.find(params[:event_id])
+      @event = current_user.viewable_events.find(params[:event_id])
+      authorize! :manage, @event
     end
 end

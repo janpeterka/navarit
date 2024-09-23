@@ -7,16 +7,11 @@ class EventPortionTypesController < ApplicationController
     @unused_portion_types = current_user.portion_types - @event_portion_types.map(&:portion_type)
   end
 
-  def show; end
-
   def new
     @event_portion_type = EventPortionType.new(event: @event, portion_type: PortionType.new)
   end
 
-  # GET /event_portion_types/1/edit
-  def edit; end
-
-  def create # rubocop:disable Metrics/AbcSize
+  def create
     authorize! :update, @event
 
     @portion_type = PortionType.find_by(id: params[:portion_type_id])

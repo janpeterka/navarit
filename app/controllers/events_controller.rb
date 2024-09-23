@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @events = current_user.collaborable_events.search(params[:query]).order(date_to: :desc)
+    @events = current_user.viewable_events.search(params[:query]).order(date_to: :desc)
   end
 
   def show

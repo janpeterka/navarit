@@ -14,16 +14,23 @@ class User < ApplicationRecord
   has_many :ingredients, foreign_key: :created_by
   has_many :events, foreign_key: :created_by
   has_many :user_event_roles, dependent: :destroy
-  has_many :events_in_role, through: :user_event_roles, source: :event
+  has_many :events_in_role, through: :user_event_roles, source: :event do
+    def collaborable
+      where(users_have_event_roles: { role: :collaborator })
+    end
+  end
 
   has_many :portion_types, foreign_key: :created_by
   has_many :recipe_reactions, class_name: "UserRecipeReaction"
 
   before_validation :set_legacy_columns, on: :create
 
-  # !even view-only!
-  def collaborable_events
+  def viewable_events
     Event.where(id: (self.events.pluck(:id) + self.events_in_role.pluck(:id)))
+  end
+
+  def collaborable_events
+    Event.where(id: self.events.pluck(:id) + self.events_in_role.collaborable.pluck(:id))
   end
 
   def name

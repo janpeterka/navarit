@@ -3,12 +3,15 @@
 class EventAttendeesController < ApplicationController
   before_action :set_event
   before_action :set_event_attendee, only: %i[show edit update destroy]
+  before_action :authorize, only: %i[edit create update destroy]
 
   def index
     @event_attendees = @event.attendees
   end
 
-  def show; end
+  def show
+    authorize! :show, @event
+  end
 
   def new
     @event_attendee = EventAttendee.new
@@ -17,8 +20,6 @@ class EventAttendeesController < ApplicationController
   def edit; end
 
   def create
-    authorize! :update, @event
-
     @event_attendee = EventAttendee.new(event_attendee_params)
 
     if @event_attendee.save
@@ -29,8 +30,6 @@ class EventAttendeesController < ApplicationController
   end
 
   def update
-    authorize! :update, @event
-
     if @event_attendee.update(event_attendee_params)
       redirect_to @event_attendee, notice: "Event attendee was successfully updated.", status: :see_other
     else
@@ -39,8 +38,6 @@ class EventAttendeesController < ApplicationController
   end
 
   def destroy
-    authorize! :update, @event
-
     @event_attendee.destroy!
 
     redirect_to event_attendees_url, notice: "Event attendee was successfully destroyed.", status: :see_other
@@ -58,5 +55,9 @@ class EventAttendeesController < ApplicationController
 
     def event_attendee_params
       params.fetch(:event_attendee, {})
+    end
+
+    def authorize
+      authorize! :update, @event
     end
 end

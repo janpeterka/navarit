@@ -1,4 +1,4 @@
-- event_portion_type ||= EventPortionType.new(portion_type: portion_type, event: event)
+- event_portion_type ||= EventPortionType.new(portion_type:, event:)
 - portion_type ||= event_portion_type.portion_type
 - method = event_portion_type.persisted? ? :patch : :post
 - url = event_portion_type.persisted? ? event_portion_type_path(event_id: event_portion_type.event_id, id: event_portion_type.portion_type_id) : event_portion_types_path(event_id: event_portion_type.event_id, portion_type_id: event_portion_type.portion_type_id)
