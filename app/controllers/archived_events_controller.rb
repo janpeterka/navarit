@@ -1,32 +1,23 @@
 # frozen_string_literal: true
 
 class ArchivedEventsController < ApplicationController
-  before_action :set_event, only: %i[create destroy]
-
-  # POST /events
   def create
+    @event = Event.find(params[:event_id])
+
+    authorize! :archive, @event
+
     @event.archive!
-    flash[:notice] = "akce byla archivována"
 
-    redirect_back_or_to @event
+    redirect_back_or_to @event, notice: "akce byla archivována"
   end
 
-  # DELETE /events/1
   def destroy
+    @event = Event.find(params[:id])
+
+    authorize! :unarchive, @event
+
     @event.restore!
-    flash[:notice] = "akce byla obnovena"
 
-    redirect_back_or_to @event
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_event
-    if params[:id].present?
-      @event = Event.find(params[:id])
-    elsif params[:event_id].present?
-      @event = Event.find(params[:event_id])
-    end
+    redirect_back_or_to @event, notice: "akce byla obnovena"
   end
 end

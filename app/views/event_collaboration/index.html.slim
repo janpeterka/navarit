@@ -22,36 +22,34 @@
       = t.column :jméno do |event_role|
         = event_role.user.name
       = t.column :práva do |event_role|
-        = t(event_role.role)
+        = default_form_for "", url: event_collaboration_path(id: event_role.user_id), method: :patch, data: { controller: "form" } do |form|
+          = form.input :option, label: false, collection: [ [ "zobrazení", "viewer" ], [ "úpravy", "collaborator" ] ], col_span: :full, selected: event_role.role, input_html: { disabled: cannot?(:update, @event), data: { action: "change->form#submit" } }
       = t.column :akce do |event_role|
         - if can? :update, @event
           = action_button_to "odebrat", event_collaboration_path(id: event_role.user_id), method: :delete
 
-    h2 přidat spolupracovníky
-    p.italic
-      | pro přidání spolupracovníků musíte znát email kterým se registrovali do aplikace
-    = default_form_for "", event_collaboration_index_path(id: @event.id) do |form|
-      = form.input :email, label: "email", col_span: 3
-      = form.input :permission, label: "práva", collection: [ [ "zobrazení", "viewer" ], [ "úpravy", "collaborator" ] ], col_span: 3, selected: "viewer"
-      = form.submit "přidat"
+    - if can? :update, @event
+      h2 přidat spolupracovníky
+      p.italic
+        | pro přidání spolupracovníků musíte znát email kterým se registrovali do aplikace
+      = default_form_for "", event_collaboration_index_path(id: @event.id) do |form|
+        = form.input :email, label: "email", col_span: 3
+        = form.input :permission, label: "práva", collection: [ [ "zobrazení", "viewer" ], [ "úpravy", "collaborator" ] ], col_span: 3, selected: "viewer"
+        = form.submit "přidat"
 
-    hr.my-8.border-top.border-peach-900
+    - if can? :publish, @event
+      hr.my-8.border-top.border-peach-900
 
-    h2 zveřejnění akce
+      h2 zveřejnění akce
 
-    - if @event.published?
-      p = "Tato akce je zveřejněná, může si ji prohlédnout kdokoli s odkazem. Zde je veřejný odkaz:"
+      - if @event.published?
+        p = "Tato akce je zveřejněná, může si ji prohlédnout kdokoli s odkazem. Zde je veřejný odkaz:"
 
-      p data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno #{icon(:check)}"}
-        span.hidden data={ "clipboard-target": "source" } = @event.public_url
-        = button_tag "veřejný odkaz", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
+        p data={ controller: "clipboard", "clipboard-success-content-value": "zkopírováno #{icon(:check)}"}
+          span.hidden data={ "clipboard-target": "source" } = @event.public_url
+          = button_tag "veřejný odkaz", data: { clipboard_target: "button", action: "clipboard#copy" }, class: Buttons::ButtonDefaults::DEFAULT_BUTTON_CLASSES[:secondary]
 
-      = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
-    - else
-      p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s odkazem."
-      = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post
-
-    - if @event.user_event_roles.any?
-      h2.text-lg.mt-4 = "kdo další má práva?"
-      - @event.user_event_roles.each do |role|
-        div = "#{role.user.name} (#{role.role})"
+        = action_button_to "zrušit zveřejnění", published_event_path(@event), method: :delete
+      - else
+        p = "Tato akce je soukromá. Akci je možné zveřejnit, pak si ji mohou prohlédnout všichni s odkazem."
+        = action_button_to "zveřejnit", published_events_path(event_id: @event.id), method: :post

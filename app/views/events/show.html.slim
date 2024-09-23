@@ -12,25 +12,13 @@
   h1.text-3xl.text-strong.mb-2.sm:inline-block
     = @event.name
     = " (archivováno)" if @event.archived?
+    = event_collaboration_icon(@event)
 
-  / WIP - sharing, collaborations
-  .sm:inline-block.my-3.sm:my-0
-    = render Buttons::ButtonLinkComponent.new(path: event_collaboration_index_path(@event), class: "px-3 py-3 m-2 rounded-3xl bg-peach-300", override_classes: true, data: { turbo_frame: "modal" }) do
-      - if @event.published?
-        = icon("eye", class: "mr-1")
-        = "zveřejněná akce"
-      - else
-        = icon("lock", class: "mr-1")
-        = "soukromá akce"
-
-    span
-      - @event.involved_users.each do |user|
-        span.p-3.me-1.rounded-full.border.border-peach-300
-          = user.initials
-
-      span.p-3.rounded-full.border.border-peach-300
-        = icon("user-plus")
-        = link_to_modal "sdílení", event_collaboration_index_path(@event)
+  - if can? :manage, @event
+    .sm:inline-block.my.3.sm:my-0
+      = render Buttons::ButtonLinkComponent.new(path: event_collaboration_index_path(@event), size: :big, data: { turbo_frame: "modal" }) do
+        = icon(:user)
+        | sdílení
 
 #details.sm:flex.sm:justify-between.mb-3
   div
@@ -49,19 +37,17 @@
         = icon("dots-three-circle", class: "mr-1")
         = "další možnosti"
 
-      div id="eventMoreOptionsDropdown" class="z-10 hidden bg-peach-100 rounded-lg shadow"
-        ul class="p-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
-          li = button_link_to "zkopírovat akci", new_event_duplication_path(event_id: @event.id), type: :plain
+      div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white rounded-lg shadow"
+        ul class="align-left p-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
+          li = button_link_to "zkopírovat akci", new_event_duplication_path(event_id: @event.id), type: :plain, icon: :plus
           - if can? :update, @event
             li = button_link_to "upravit", edit_event_path(@event), type: :plain
           - if can? :destroy, @event
             li = action_button_to "smazat akci", event_path(@event), method: :delete, data: { confirm: "Opravdu smazat?" }, type: :plain, disabled: !@event.destroyable?
-          - if can? :update, @event
-            li
-              - if @event.archived?
-                = action_button_to "odarchivovat", archived_event_path(@event), method: :delete, type: :plain
-              - else
-                = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post, type: :plain
+          - if can? :archive, @event
+            li = action_button_to "archivovat", archived_events_path(event_id: @event.id), method: :post, type: :plain, icon: :archive
+          - if can? :unarchive, @event
+            li = action_button_to "odarchivovat", archived_event_path(@event), method: :delete, type: :plain, icon: :archive
 
 #attendance.mb-3
   details.border.border-gray-500.rounded-lg.p-3.border-2.hover:border-ocean-700
@@ -78,12 +64,21 @@
 
     = button_link_to "upravit", event_portion_types_path(@event) if can? :update, @event
 
-.md:grid-cols-7.md:gap-0.md:border.border-b-0.border-gray-500.mb-7.hidden.md:grid
-  - @event.timetable.days.in_groups_of(7) do |day_batch|
-    - day_batch.each do |day|
-      = render("day_card", day:)
-    - day_batch.each do |day|
-      = render("day_task_card", day:)
+.md:grid-cols-7.md:gap-0.md:border.border-b-0.border-gray-500.rounded-xl.mb-7.hidden.md:grid.event-days-grid
+  - @event.timetable.days.in_groups_of(7).each_with_index do |day_batch, row_index|
+    - day_batch.each_with_index do |day, index|
+      - if row_index == 0 && index == 0
+        - card_class = "md:rounded-tl-xl"
+      - elsif row_index == 0 && index == 6
+        - card_class = "md:rounded-tr-xl"
+      = render("day_card", day:, classes: card_class)
+    - day_batch.each_with_index do |day, index|
+      - if row_index == (@event.timetable.days.size / 7) - 1 and index == 0
+        - card_class = "md:rounded-bl-xl"
+      - elsif row_index == (@event.timetable.days.size / 7) - 1 and index == 6
+        - card_class = "md:rounded-br-xl"
+
+      = render("day_task_card", day:, classes: card_class)
 
 .grid.md:hidden
   - @event.timetable.days.each do |day|

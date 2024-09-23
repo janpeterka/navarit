@@ -2,6 +2,8 @@
 
 class EventShoppingListsController < ApplicationController
   def show
+    authorize! :show, @event
+
     @event = Event.find(params[:event_id])
     @shopping_list = EventShoppingList.new(@event)
 

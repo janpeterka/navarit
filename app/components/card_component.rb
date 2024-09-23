@@ -12,7 +12,7 @@ class CardComponent < ApplicationComponent
     super
     # @object = object
     @name = object if object.is_a? String
-    @classes = options[:class]
+    @classes = options[:class] || ""
     @classes += " card-shadow" if shadow
   end
 end

@@ -2,11 +2,11 @@
 
 h2 o mě
 .grid.grid-cols-2.gap-4
-  p jméno
+  h3.font-bold jméno
   p = current_user.full_name
 
-  p email
+  h3.font-bold email
   p = current_user.email
 
-h2 změnit heslo
-= link_to "změnit heslo", edit_user_password_path
+/ h2 změnit heslo
+/ = link_to "změnit heslo", edit_user_password_path

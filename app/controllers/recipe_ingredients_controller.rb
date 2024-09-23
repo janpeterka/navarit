@@ -2,24 +2,21 @@ class RecipeIngredientsController < ApplicationController
   before_action :set_recipe_ingredient, only: %i[show edit update destroy]
   before_action :set_recipe, only: %i[index create update]
 
-  # GET /recipe_ingredients
   def index
     @recipe_ingredients = @recipe.recipe_ingredients.sort_by(&:recipe_amount).reverse
   end
 
-  # GET /recipe_ingredients/1
   def show; end
 
-  # GET /recipe_ingredients/new
   def new
     @recipe_ingredient = RecipeIngredient.new
   end
 
-  # GET /recipe_ingredients/1/edit
   def edit; end
 
-  # POST /recipe_ingredients
   def create
+    authorize! :update, @recipe
+
     @recipe_ingredient = RecipeIngredient.new(updated_params)
 
     flash[:error] = "nepovedlo se přidat surovinu" unless @recipe_ingredient.save
@@ -27,8 +24,9 @@ class RecipeIngredientsController < ApplicationController
     redirect_back_or_to recipe_path(@recipe)
   end
 
-  # PATCH/PUT /recipe_ingredients/1
   def update
+    authorize! :update, @recipe
+
     if @recipe_ingredient.update(updated_params)
       flash[:notice] = "upraveno"
     else
@@ -38,8 +36,9 @@ class RecipeIngredientsController < ApplicationController
     redirect_back_or_to recipe_path(@recipe)
   end
 
-  # DELETE /recipe_ingredients/1
   def destroy
+    authorize! :update, @recipe
+
     @recipe_ingredient.destroy!
 
     redirect_back_or_to recipe_path(@recipe_ingredient.recipe), status: :see_other
@@ -47,30 +46,30 @@ class RecipeIngredientsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_recipe_ingredient
-    # TODO: add id to RecipeIngredient
-    recipe_id, ingredient_id = params[:id].split("_")
-    @recipe_ingredient = RecipeIngredient.where(recipe_id:, ingredient_id:).first
-  end
-
-  def set_recipe
-    if params[:recipe_id].present?
-      @recipe = Recipe.find(params[:recipe_id])
-    elsif @recipe_ingredient.present?
-      @recipe = @recipe_ingredient.recipe
+    # Use callbacks to share common setup or constraints between actions.
+    def set_recipe_ingredient
+      # TODO: add id to RecipeIngredient
+      recipe_id, ingredient_id = params[:id].split("_")
+      @recipe_ingredient = RecipeIngredient.where(recipe_id:, ingredient_id:).first
     end
-  end
 
-  # Only allow a list of trusted parameters through.
-  def recipe_ingredient_params
-    params.fetch(:recipe_ingredient, params).permit(:recipe_id, :ingredient_id, :amount, :comment)
-          .transform_values(&:presence).transform_values { _1&.strip }
-  end
+    def set_recipe
+      if params[:recipe_id].present?
+        @recipe = Recipe.find(params[:recipe_id])
+      elsif @recipe_ingredient.present?
+        @recipe = @recipe_ingredient.recipe
+      end
+    end
 
-  def updated_params
-    recipe_ingredient_params.merge({
-                                     amount: recipe_ingredient_params[:amount].to_f / @recipe.portion_count
-                                   })
-  end
+    # Only allow a list of trusted parameters through.
+    def recipe_ingredient_params
+      params.fetch(:recipe_ingredient, params).permit(:recipe_id, :ingredient_id, :amount, :comment)
+            .transform_values(&:presence).transform_values { _1&.strip }
+    end
+
+    def updated_params
+      recipe_ingredient_params.merge({
+                                      amount: recipe_ingredient_params[:amount].to_f / @recipe.portion_count
+                                    })
+    end
 end

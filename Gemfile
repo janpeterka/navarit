@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.3.0"
 
-gem "rails", "~> 7.1.3"
+gem "rails", "~> 7.2.0"
 
 # back-end
 gem "acts_as_list" # ActsAsList is a small extension to the ActiveRecord::Base class to allow easy creation of sortable lists
@@ -18,6 +18,7 @@ gem "pagy", "~> 6.1" # Pagination support
 gem "propshaft"
 gem "rails-i18n" # Add support for internationalization (i18n) to Rails
 gem "trilogy" # Use trilogy as the database for Active Record
+gem "solid_cable", "~> 3.0"
 
 # front-end
 gem "importmap-rails" # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -41,13 +42,16 @@ gem "view_component"
 # devops
 gem "kamal"
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
+gem "rorvswild"
+gem "solid_errors", "~> 0.6.1"
+
 
 # other
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", ">= 4.0.1"
+# gem "redis", ">= 4.0.1"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

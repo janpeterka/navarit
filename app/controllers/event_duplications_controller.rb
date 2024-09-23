@@ -3,10 +3,13 @@
 class EventDuplicationsController < ApplicationController
   def new
     @event = Event.find(params[:event_id])
+    authorize! :read, @event
   end
 
   def create
     original_event = Event.find(params[:event_id])
+    authorize! :read, original_event
+
     date_offset = (event_params[:date_from] - original_event.date_from).to_i
 
     new_date_to = original_event.date_to + date_offset

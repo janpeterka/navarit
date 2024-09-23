@@ -1,27 +1,27 @@
 /# locals: (recipe: )
 
 / Using flowbite dropdown JS
-button.dropdown-button id="eventMoreOptionsDropdownButton" data-dropdown-toggle="eventMoreOptionsDropdown" class="font-medium rounded-lg px-5 py-2.5 text-center" type="button"
+button.dropdown-button id="recipeMoreOptionsDropdownButton" data-dropdown-toggle="recipeMoreOptionsDropdown" class="font-medium rounded-lg px-5 py-2.5 text-center" type="button"
   = icon("dots-three-circle", class: "mr-1")
   = "další možnosti"
 
-div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-  ul class="px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
+div id="recipeMoreOptionsDropdown" class="z-10 hidden bg-white divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+  ul class="px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="recipeMoreOptionsDropdown"
     - if can? :update, recipe
-      li = button_link_to "upravit", edit_recipe_path(recipe), class: "mt-0"
+      li = button_link_to "upravit", edit_recipe_path(recipe), type: :plain
 
     - if can? :delete, recipe
-      li = action_button_to "smazat", recipe_path(recipe), type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu chcete smazat recept?" }, disabled: !recipe.deletable?
+      li = action_button_to "smazat", recipe_path(recipe), type: :plain, method: :delete, data: { turbo_confirm: "Opravdu chceš smazat recept? Akce je nevratná!" }, disabled: !recipe.deletable?
 
     - if can? :update, recipe
       li
         - if recipe.published?
-          = action_button_to "zrušit zveřejnění", published_recipe_path(recipe), method: :delete
+          = action_button_to "zrušit zveřejnění", published_recipe_path(recipe), icon: :cloud_arrow_up, method: :delete, type: :plain
         - else
-          = action_button_to "zveřejnit", published_recipes_path(recipe_id: recipe.id), method: :post
+          = action_button_to "zveřejnit", published_recipes_path(recipe_id: recipe.id), icon: :cloud_arrow_up, method: :post, type: :plain
 
     - if recipe.author == current_user
-      li = action_button_to "vytvořit kopii", recipe_duplications_path(recipe), method: :post
+      li = action_button_to "vytvořit kopii", recipe_duplications_path(recipe), icon: :copy_simple, method: :post, type: :plain
 
 // Using hover, not working on phiner
   div class="group relative cursor-pointer inline"
@@ -29,7 +29,7 @@ div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white divide-y divide-gr
     = icon("dots-three-circle", class: "mr-1")
     = "další možnosti"
 
-  / ul class="absolute invisible group-hover:visible bg-peach-100 z-50 px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
+  / ul class="absolute invisible group-hover:visible bg-peach-100 z-50 px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="recipeMoreOptionsDropdown"
   /   - if can? :update, recipe
   /     li = button_link_to "upravit", edit_recipe_path(recipe), class: "mt-0"
 
@@ -54,7 +54,7 @@ div id="eventMoreOptionsDropdown" class="z-10 hidden bg-white divide-y divide-gr
 /     = "další možnosti"
 
 /   div class="relative z-10 rounded-lg shadow dark:bg-gray-700"
-/     ul class="absolute px-2 py-2 bg-peach-100 opacity-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="eventMoreOptionsDropdown"
+/     ul class="absolute px-2 py-2 bg-peach-100 opacity-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="recipeMoreOptionsDropdown"
 /       - if can? :update, recipe
 /         li = button_link_to "upravit", edit_recipe_path(recipe), class: "mt-0"
 

@@ -8,7 +8,7 @@ module Builders
       # input_class = "block px-2.5 pb-2.5 pt-5 w-full dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none peer"
       # input_class += " sm:text-sm rounded-md"
       # input_class += " focus:outline-none focus:ring-0 focus:border-emerald-700"
-      # input_class += " text-gray-500 bg-gray-200" if options.dig(:input_html, :disabled) || options.dig(:disabled)
+      input_class += " text-gray-500 bg-gray-200" if options.dig(:input_html, :disabled) || options.dig(:disabled)
 
       input_wrapper_class = "mt-1"
       wrapper_class = ""

@@ -7,14 +7,12 @@
 
 = turbo_frame_tag "modal" do
   .modal-content.pb-16 data-controller="turbo-modal"
-    .flex.justify-end
-      / = link_to daily_plan_path(@daily_plan, full_page: "true"), data: { turbo: "_top", action: "click->turbo-modal#hideModal" } do
-        = icon(:arrows_out_simple)
+    .flex.justify-between
+      h2.text-3xl
+        = I18n.translate("date.day_names")[@daily_plan.date.wday]
+        = " "
+        = @daily_plan.date.to_formatted_s(:date)
       button data-action="click->turbo-modal#hideModal keyup@window->turbo-modal#closeWithKeyboard click@window->turbo-modal#closeBackground"
         = icon(:x, height: 24)
 
     = render "show_daily_plan", daily_plan: @daily_plan
-
-/ - if params[:full_page].presence == "true"
-/   = render "show_daily_plan", daily_plan: @daily_plan
-/ - else

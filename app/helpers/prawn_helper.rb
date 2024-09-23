@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module PrawnHelper
   def shrimpy_document(title: nil)
     # Sensible defaults for Prawn::Document
@@ -22,7 +20,7 @@ module PrawnHelper
     document
   end
 
-  def shrimpy_table(data, document:, same_size_columns: true, keep_together: true, table_options: {}) # rubocop:disable Metrics/AbcSize
+  def shrimpy_table(data, document:, same_size_columns: true, keep_together: true, table_options: {})
     if same_size_columns && table_options[:column_widths].nil?
       table_options[:column_widths] = Array.new(data.first.size, document.bounds.width / data.first.size)
     end

@@ -16,10 +16,10 @@ class EventCookbook
   def pdf # rubocop:disable Metrics/AbcSize
     document = shrimpy_document(title: "Kuchařka na #{event.name}")
 
-    @event.daily_plans.each do |day|
-      document.start_new_page unless document.page_number == 1
+    @event.daily_plans.each_with_index do |day, ix|
+      document.start_new_page
 
-      document.text "#{weekday_name(day.date)} #{formatted_date(day.date)}", size: 18, style: :bold
+      document.text "#{weekday_name(day.date)} #{formatted_date(day.date)}", size: 18, style: :bold, align: :center
       document.move_down 15
 
       day.daily_plan_recipes.each do |daily_recipe|
@@ -35,6 +35,14 @@ class EventCookbook
         recipe.shrimpy_ingredients_table(document, daily_recipe:) if recipe.recipe_ingredients.any?
       end
       document.move_down 20
+
+      document.text "Úkoly na dnešní den", style: :bold
+      document.move_down 15
+
+      day.tasks.each do |task|
+        document.text task.name, size: 12
+        document.text "(na #{task.recipe.name})", size: 10 if task.is_a?(RecipeTask)
+      end
     end
 
     document.number_pages "<page> / <total>", {

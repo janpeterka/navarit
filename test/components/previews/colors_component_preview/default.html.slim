@@ -1,0 +1,21 @@
+.grid.grid-cols-3.gap-4
+  .col-span-1
+    h1 peach
+    - [ 100, 200, 300, 400, 500, 600, 700, 800, 900 ].each do |step|
+      .p-2.flex.justify-between class="bg-peach-#{step}"
+        = "bg-peach-#{step}"
+        .text-white = "bg-peach-#{step}"
+
+  .col-span-1
+    h1 ocean
+    - [ 100, 200, 300, 400, 500, 600, 700, 800, 900 ].each do |step|
+      .p-2.flex.justify-between class="bg-ocean-#{step}"
+        div = "bg-ocean-#{step}"
+        .text-white = "bg-ocean-#{step}"
+
+  .col-span-1
+    h1 gravel
+    - [ 100, 200 ].each do |step|
+      .p-2.flex.justify-between class="bg-gravel-#{step}"
+        div = "bg-gravel-#{step}"
+        .text-white = "bg-gravel-#{step}"

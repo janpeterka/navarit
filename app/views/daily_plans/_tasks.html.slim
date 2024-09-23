@@ -10,9 +10,10 @@
       - daily_plan.day_tasks.each do |task|
         li.mb-1
           = default_form_for task, url: daily_plan_task_path(daily_plan_id: daily_plan.id, id: task.id), method: :patch, html: { class: "inline", data: { controller: "form" } } do |form|
-            = form.input :name, col_span: 3, input_html: { data: { action: "change->form#submit" } }
-            = form.input :description, col_span: 6, input_html: { class: "italic", data: { action: "change->form#submit" } }
-            = action_button_to "smazat", task, formaction: daily_plan_task_path(daily_plan_id: daily_plan.id, id: task.id), formmethod: :delete, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"
+            = form.input :name, col_span: 3, input_html: { disabled: cannot?(:update, daily_plan), data: { action: "change->form#submit" } }
+            = form.input :description, col_span: 6, input_html: { class: "italic", data: { action: "change->form#submit" }, disabled: cannot?(:update, daily_plan) }
+            - if can? :update, daily_plan
+              = action_button_to "smazat", task, formaction: daily_plan_task_path(daily_plan_id: daily_plan.id, id: task.id), formmethod: :delete, type: :dangerous, method: :delete, data: { turbo_confirm: "Opravdu smazat?" }, class: "btn btn-danger"
 
   - if can? :update, daily_plan
     #add-task

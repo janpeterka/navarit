@@ -29,6 +29,8 @@ h2 {
 h3 {
   /* @apply mb-2 */
   margin-bottom: 0.5rem;
+
+  font-weight: bolder;
 }
 
 a {
@@ -43,8 +45,24 @@ a {
   background-color: darkgreen;
 }
 
+.card-shadow {
+  /* box-shadow: 0 0.15rem 0 0px rgba(0, 0, 0, 0.25); */
+  border: solid 0.1rem rgba(0, 0, 0, 0.25);
+}
+
 .card-shadow:hover {
+  box-shadow: 0 0.25rem 0 0px rgba(0, 0, 0, 0.25);
+  border: solid 0.1rem rgba(0, 0, 0, 0.25);
+}
+
+.recipe-card-shadow {
+  box-shadow: 0 0.15rem 0 0px rgba(0, 0, 0, 0.25);
+  border: solid 0.1rem transparent;
+}
+
+.recipe-card-shadow:hover {
   box-shadow: 0 0.2rem 0 0px rgba(0, 0, 0, 0.25);
+  border: solid 0.1rem rgba(0, 0, 0, 0.25);
 }
 
 /* This hides stepper on number input */
@@ -82,6 +100,17 @@ input[type=number]::-webkit-outer-spin-button {
 
 .animate-heartbeat:hover {
   animation: heartbeat 2s infinite;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.animate-fadeout {
+  animation: fade-out 2s;
+  animation-delay: 5s;
+  animation-fill-mode: forwards;
 }
 
 button.dropdown-button:has( + div > ul:empty) {
@@ -143,7 +172,7 @@ div .hw-combobox {
 
 #modal {
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   top: 2rem;
   bottom: 2rem;
@@ -151,12 +180,12 @@ div .hw-combobox {
 }
 
 .modal-content {
-  border: 0.2rem solid #F8A66B; /* peach-500 */
+  /* border: 0.2rem solid #F8A66B; peach-500 */
   border-radius: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 2rem;
-  background-color: #F5D7C4; /* peach-200 */
+  background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
   max-width: 75%;

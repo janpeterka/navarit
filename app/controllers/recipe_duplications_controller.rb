@@ -1,6 +1,8 @@
 class RecipeDuplicationsController < ApplicationController
   def create
     original_recipe = Recipe.find(params[:recipe_id])
+    authorize! :read, original_recipe
+
     recipe = original_recipe.duplicate(author: current_user)
     recipe.save!
 

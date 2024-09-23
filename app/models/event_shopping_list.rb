@@ -39,9 +39,17 @@ class EventShoppingList
   def pdf
     document = shrimpy_document(title: "Nákupní seznam na #{@event.name}")
 
-    shoppings.each do |shopping|
-      shopping.shrimpy_print(document)
+    shoppings.each_with_index do |shopping, ix|
+      shopping.shrimpy_print(document, start_new_page: ix > 0)
     end
+
+    document.number_pages "<page> / <total>", {
+      start_count_at: 1,
+      page_filter: :all,
+      at: [ document.bounds.right - 30, 0 ],
+      align: :center,
+      size: 10
+    }
 
     document
   end
@@ -62,12 +70,12 @@ class Shopping
     @day_recipes = []
   end
 
-  def ingredients_with_usage(with_lasting: false)
+  def ingredients_with_usage(without_lasting: true)
     ingredients_with_usage = {}
 
     day_recipes.each do |day_recipe|
       day_recipe.ingredients_with_amounts.each do |ingredient, amount|
-        next if with_lasting && ingredient.lasting?
+        next if without_lasting && ingredient.lasting?
 
         ingredients_with_usage[ingredient] ||= { amount: 0, recipes: {} }
         ingredients_with_usage[ingredient][:amount] += amount
@@ -78,8 +86,8 @@ class Shopping
     ingredients_with_usage
   end
 
-  def shrimpy_print(document)
-    document.start_new_page unless document.page_number == 1
+  def shrimpy_print(document, start_new_page: true)
+    document.start_new_page if start_new_page
 
     document.text name, size: 18, style: :bold
 

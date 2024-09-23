@@ -1,4 +1,16 @@
-h1.text-4xl.text-center.mt-4.mb-4 skautská kuchařka
+.rounded-md.border-red-600.border-2.p-8.m-4.text-xl.bg-gradient-to-r.from-red-400.to-red-200
+    = icon(:warning_circle)
+    p
+        | Dostali jste na se novou verzi aplikace
+        em.font-bold = " navařit "
+        | (dříve skautská kuchařka).
+    p
+        | Už brzy poběžíme naplno, ale ještě jsme v testovacím provozu. Pokud chcete použít kuchařku, jděte na
+        = link_to(" původní web (skautskakucharka.cz)", "https://skautskakucharka.cz")
+    p
+        | Pokud budete něco dělat na tomto webu, během pár dní o to přijdete!
+
+h1.text-4xl.text-center.mt-4.mb-4 navařit
 
 .text-center
     | tvůj pomocník při vaření pro hodně lidí.
@@ -78,3 +90,4 @@ footer.fixed.w-full.bottom-0.pb-3.pt-7.text-sm.ms-2.bg-gradient-to-b.from-transp
         = link_to " Obr ", "https://jpeterka.cz", target: "_blank", class: "text-emerald-900"
         | pro
         = link_to " Fons Beníšky", "https://fons.skauting.cz", target: "_blank", class: "text-emerald-900"
+        |  a další kuchařstvo

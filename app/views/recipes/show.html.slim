@@ -1,6 +1,9 @@
 - content_for :title, @recipe.name
 
-= render "breadcrumbs", recipe: @recipe
+- content_for :breadcrumbs do
+  = link_to("recepty", recipes_path, class: "hover:underline text-ocean-800")
+  = " > "
+  = @recipe.name
 
 #details.mt-3.mb-4
   p

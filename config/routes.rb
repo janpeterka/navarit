@@ -3,6 +3,12 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  concern :multiselect_chips do
+    collection do
+      post :multiselect_chips
+    end
+  end
+
   resource :dashboard, only: :show
   resource :index, only: :show
 
@@ -23,7 +29,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     # resource :attendance, controller: 'event_attendances', only: %i[index]
     resources :attendees, controller: "event_attendees", only: %i[index new create update destroy]
     resources :portion_types, controller: "event_portion_types", only: %i[index new create update destroy]
-    resources :collaboration, controller: "event_collaboration", only: %i[index create destroy]
+    resources :collaboration, controller: "event_collaboration", only: %i[index create update destroy]
   end
 
   resources :published_events, only: %i[show create destroy]
@@ -40,23 +46,18 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :recipe_ingredients
   resources :ingredients
 
-  resources :recipe_categories do
-    collection do
-      post :multiselect_chips
-    end
-  end
+  resources :recipe_categories, concerns: :multiselect_chips
 
-  resources :labels do
-    collection do
-      post :multiselect_chips
-    end
-  end
+  resources :labels, concerns: :multiselect_chips
 
   namespace :admin do
-    root to: "common_ingredients#index"
-
     resources :common_ingredients, only: %i[index new create destroy]
   end
+
+
+  get "a/error", to: "admin#error"
+  get "a/", to: "admin#index"
+
 
   resources :common_ingredients, only: %i[show]
 
@@ -69,5 +70,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   mount Feedback::Engine, at: '/feedback'
 
-  mount Lookbook::Engine, at: "/a/lookbook"
+  authenticate :user, ->(user) { user.admin? } do
+    mount Lookbook::Engine, at: "/a/lookbook"
+    mount SolidErrors::Engine, at: "/a/solid_errors"
+  end
 end

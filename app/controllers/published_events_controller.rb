@@ -11,16 +11,18 @@ class PublishedEventsController < PublicApplicationController
     redirect_to @event
   end
 
-  # POST /events
   def create
+    authorize! :publish, @event
+
     @event.publish!
     flash[:notice] = "akce byla zveřejněna"
 
     redirect_to event_collaboration_index_path(@event), status: :see_other
   end
 
-  # DELETE /events/1
   def destroy
+    authorize! :publish, @event
+
     @event.unpublish!
     flash[:notice] = "akce byla skryta"
 
@@ -29,12 +31,11 @@ class PublishedEventsController < PublicApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_event
-    if params[:id].present?
-      @event = Event.find(params[:id])
-    elsif params[:event_id].present?
-      @event = Event.find(params[:event_id])
+    def set_event
+      if params[:id].present?
+        @event = Event.find(params[:id])
+      elsif params[:event_id].present?
+        @event = Event.find(params[:event_id])
+      end
     end
-  end
 end

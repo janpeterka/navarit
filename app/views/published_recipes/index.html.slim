@@ -1,5 +1,6 @@
 - content_for :title, "sdílené recepty"
 
+span.italic = "hurá, máme už #{Recipe.published.size} sdílených receptů!"
 .mb-6
   - placeholder = Recipe.published.order("RAND()").limit(1).first&.name
   = default_form_for "", url: published_recipes_path, method: :get, html: { id: "published-recipes-index-form", data: { "controller": "form", "turbo-frame": "published_recipes" } } do |f|
@@ -12,7 +13,7 @@
     = f.input :difficulty_label_ids, as: :combobox, label: "náročnost", collection: Label.of_category(:difficulty).map { [ _1.visible_name, _1.id ] }, col_span: 3, required: false, input_html: { data: { action: "change->form#submit hw-combobox:preselection->form#submitIfValue" } }, multiselect_chip_src: multiselect_chips_labels_path
     .sm:col-span-3
       - if user_signed_in?
-        = "zobrazit pouze oblíbené?"
+        = "zobrazit pouze moje oblíbené?"
         = f.input :favorite, as: :boolean, label: false, input_html: { checked: params[:favorite] }
     = f.submit "Hledat", col_span: 3, class: "py-4"
 

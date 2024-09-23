@@ -27,6 +27,7 @@ module Buttons
     }.freeze
 
     DEFAULT_SIZE_CLASSES = {
+      big: "py-2 px-4".freeze,
       default: "py-1 px-3 ps-2 pe-2".freeze,
       small: "py-0.5 px-2 ps-1 pe-1".freeze
     }

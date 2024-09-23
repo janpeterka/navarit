@@ -1,8 +1,12 @@
-= turbo_frame_tag dom_id(recipe)
-    = render CardComponent.new(recipe, class: local_assigns[:class]) do |card|
+/# locals: (recipe:, class: "", published: true)
+
+- path_to_recipe = published ? published_recipe_path(id: recipe.id) : recipe_path(recipe)
+
+= turbo_frame_tag dom_id(recipe), data: { "controller": "clickable", "clickable-url-value": path_to_recipe }
+    = render CardComponent.new(recipe, class:) do |card|
         = card.with_heading do
             .grid.grid-cols-2
-                = link_to(recipe.name, published_recipe_path(id: recipe.id), data: { turbo_frame: "_top" })
+                = link_to(recipe.name, path_to_recipe, data: { turbo_frame: "_top" })
                 .text-right
                     - if recipe.liked_by?(current_user)
                         = button_to liked_recipe_path(recipe), method: :delete, class: "inline-block" do

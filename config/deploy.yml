@@ -6,16 +6,18 @@ image: janpeterka/kucharka
 
 # Deploy to these servers.
 servers:
-  - kucharka
+  - navarit
   # web:
     # hosts:
       # - kucharka
     # options:
       # "network": "kucharka-network"
 
+volumes:
+  - "/root/storage:/rails/storage"
 
-networks:
-  - kucharka-network
+# networks: This is not supported now (24.6.2024)
+  # - kucharka-network
 
 # Credentials for your image host.
 registry:
@@ -35,8 +37,6 @@ env:
     - RAILS_MASTER_KEY
     - MYSQL_ROOT_PASSWORD
     - MYSQL_PASSWORD
-    - LEGACY_SECURITY_SALT
-
 
 # Use a different ssh user than root
 # ssh:
@@ -78,12 +78,6 @@ accessories:
       - data:/var/lib/mysql
     options:
       network: "kucharka-network"
-#   redis:
-#     image: redis:7.0
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
 
 # Configure custom arguments for Traefik
 traefik:

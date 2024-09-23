@@ -3,7 +3,7 @@
 li.mb-1
     = default_form_for recipe_ingredient, method: :patch, html: { data: { controller: "form" } } do |form|
         = form.input :name, label: false, disabled: true, col_span: 4
-        = form.input :amount, label: false, input_html: { data: { action: "change->form#submit" }, value: recipe_ingredient.recipe_amount }, col_span: 3
+        = form.input :amount, label: false, input_html: { data: { action: "change->form#submit" }, value: formatted_amount(recipe_ingredient.recipe_amount) }, col_span: 3
         = form.input :comment, label: false, input_html: { data: { action: "change->form#submit" } }, col_span: 3
         .sm:col-span-2
             = action_button_to "smazat", recipe_ingredient, type: :dangerous, formaction: recipe_ingredient_path(recipe_ingredient), formmethod: :delete, data: { turbo_confirm: "Opravdu smazat?" }

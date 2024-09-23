@@ -40,9 +40,9 @@ module RecipeIngredientsHelper
 
     digits = if amount.floor.zero?
                0
-    else
+             else
                Math.log10(amount.floor).to_i + 1
-    end
+             end
 
     case digits
     when 0, 1

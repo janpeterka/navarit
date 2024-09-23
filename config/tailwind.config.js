@@ -20,6 +20,10 @@ module.exports = {
       pattern: /-skew-y-(1|2|3)/
     },
     {
+      // suppor all the colors out of the box
+      pattern: /bg-(peach|ocean|gravel)-[0-9]+/
+    },
+    {
       pattern: /m(r|l)-[0-9]+/
     },
      // these are used dynamically in DefaultFormBuilder
@@ -51,6 +55,10 @@ module.exports = {
           700: "#085366",
           800: "#064959",
           900: "#04374D"
+        },
+        gravel: {
+          100: "#EDE9E6",
+          200: "#F7F3F0"
         }
       },
       fontFamily: {
