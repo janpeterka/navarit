@@ -2,7 +2,6 @@
 
 class IngredientsController < ApplicationController
   load_and_authorize_resource
-  # before_action :set_ingredient, only: %i[show edit update destroy]
 
   def index
     @ingredients = current_user.ingredients.includes(:category, :measurement).order(:name)
@@ -56,11 +55,11 @@ class IngredientsController < ApplicationController
 
   private
 
-  def set_ingredient
-    @ingredient = Ingredient.find(params[:id])
-  end
+    def set_ingredient
+      @ingredient = Ingredient.find(params[:id])
+    end
 
-  def ingredient_params
-    params.require(:ingredient).permit(:name, :description, :category_id, :measurement_id)
-  end
+    def ingredient_params
+      params.require(:ingredient).permit(:name, :description, :category_id, :measurement_id)
+    end
 end

@@ -7,6 +7,8 @@ class LikedRecipesController < ApplicationController
 
   def create
     recipe = Recipe.find(params[:recipe_id])
+    authorize! :show, recipe
+
     recipe.like!(current_user)
 
     redirect_back_or_to recipe

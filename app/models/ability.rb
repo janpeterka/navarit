@@ -28,5 +28,7 @@ class Ability
     can %i[manage publish], DailyPlan, author: user
     cannot %i[update], DailyPlan, event: { is_archived: true }
     can %i[update], DailyPlan, event: { id: UserEventRole.where(user_id: user.id, role: "collaborator").pluck(:event_id) }
+
+    can :manage, EventPortionType, author: user
   end
 end

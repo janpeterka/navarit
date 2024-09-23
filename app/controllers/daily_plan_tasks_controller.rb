@@ -19,12 +19,16 @@ class DailyPlanTasksController < ApplicationController
   def create
     @daily_plan_task = DailyPlanTask.new(daily_plan_task_params)
 
+    authorize! :update, @daily_plan_task.daily_plan
+
     flash[:error] = @daily_plan_task.errors.full_messages.to_sentence unless @daily_plan_task.save
 
     redirect_to @daily_plan_task.daily_plan
   end
 
   def update
+    authorize! :update, @daily_plan_task.daily_plan
+
     if @daily_plan_task.update(daily_plan_task_params)
       flash[:notice] = "Daily plan task was successfully updated."
     else
@@ -35,6 +39,8 @@ class DailyPlanTasksController < ApplicationController
   end
 
   def destroy
+    authorize! :update, @daily_plan_task.daily_plan
+
     @daily_plan_task.destroy!
 
     redirect_to @daily_plan_task.daily_plan, status: :see_other

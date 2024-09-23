@@ -1,12 +1,10 @@
 class EventCollaborationController < ApplicationController
   before_action :load_event, only: %i[index create update destroy]
 
-  def index
-    @event = current_user.collaborable_events.find(params[:event_id])
-  end
+  def index; end
 
   def create
-    return unless can? :update, @event
+    authorize! :manage, @event
 
     user = User.find_by(email: params[:email])
 
@@ -20,6 +18,8 @@ class EventCollaborationController < ApplicationController
   end
 
   def update
+    authorize! :manage, @event
+
     role = @event.user_event_roles.find_by(user_id: params[:id])
     role.update(role: params[:option].to_sym)
 
@@ -27,7 +27,7 @@ class EventCollaborationController < ApplicationController
   end
 
   def destroy
-    return unless can? :update, @event
+    authorize! :manage, @event
 
     role = @event.user_event_roles.find_by(user_id: params[:id].to_i)
     role.destroy
@@ -37,7 +37,7 @@ class EventCollaborationController < ApplicationController
 
   private
 
-  def load_event
-    @event = current_user.collaborable_events.find(params[:event_id])
-  end
+    def load_event
+      @event = current_user.collaborable_events.find(params[:event_id])
+    end
 end

@@ -17,6 +17,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.includes(:tasks, ingredients: :measurement).find(params[:id])
+    authorize! :read, @recipe
 
     @portion_count = if params[:portion_count].present?
                       params[:portion_count].to_i
