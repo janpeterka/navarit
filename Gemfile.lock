@@ -350,10 +350,6 @@ GEM
     rdoc (6.7.0)
       psych (>= 4.0.0)
     redcarpet (3.6.0)
-    redis (5.2.0)
-      redis-client (>= 0.22.0)
-    redis-client (0.22.2)
-      connection_pool
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
@@ -530,7 +526,6 @@ DEPENDENCIES
   rails (~> 7.2.0)
   rails-i18n
   rails_best_practices
-  redis (>= 4.0.1)
   rorvswild
   rubocop
   rubocop-capybara
