@@ -73,3 +73,8 @@ production:
     adapter: sqlite3
     database: storage/errors.sqlite3
     migrations_paths: db/errors_migrate
+
+  cable:
+    adapter: sqlite3
+    database: storage/production_cable.sqlite3
+    migrations_paths: db/cable_migrate

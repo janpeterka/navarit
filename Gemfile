@@ -95,3 +95,5 @@ group :test do
   gem "bundler-audit"
   gem "rails_best_practices"
 end
+
+gem "solid_cable", "~> 3.0"
