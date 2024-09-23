@@ -424,6 +424,11 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
+    solid_cable (3.0.0)
+      actioncable (>= 7.2)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     solid_errors (0.6.1)
       actionmailer (>= 7.0)
       actionpack (>= 7.0)
@@ -536,6 +541,7 @@ DEPENDENCIES
   simple_form
   slim-rails
   slim_lint
+  solid_cable (~> 3.0)
   solid_errors (~> 0.6.1)
   sqlite3
   stimulus-rails
