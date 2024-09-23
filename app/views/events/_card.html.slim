@@ -6,7 +6,9 @@ div data={ "controller": "clickable", "clickable-url-value": event_path(event) }
             = link_to event.name, event
 
             - if event.role_for(current_user) == :viewer
-                = icon("eye", class: "ml-2 text-ocean-500")
+                = icon(:eye, class: "ml-2 text-ocean-500")
+            - elsif event.role_for(current_user) == :collaborator
+                = icon("users-three", class: "ml-2 text-ocean-500")
 
         = card.with_body do
             .mb-2

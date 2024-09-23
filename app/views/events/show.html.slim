@@ -12,6 +12,10 @@
   h1.text-3xl.text-strong.mb-2.sm:inline-block
     = @event.name
     = " (archivováno)" if @event.archived?
+    - if @event.role_for(current_user) == :viewer
+        = icon(:eye, class: "ml-2 text-ocean-500")
+    - elsif @event.role_for(current_user) == :collaborator
+        = icon("users-three", class: "ml-2 text-ocean-500")
 
   / WIP - sharing, collaborations
   / .sm:inline-block.my-3.sm:my-0

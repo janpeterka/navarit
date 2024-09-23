@@ -21,6 +21,7 @@ class User < ApplicationRecord
 
   before_validation :set_legacy_columns, on: :create
 
+  # !even view-only!
   def collaborable_events
     Event.where(id: (self.events.pluck(:id) + self.events_in_role.pluck(:id)))
   end
