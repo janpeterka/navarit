@@ -21,3 +21,7 @@
         <%= render notification %>
     <% end %>
 <% end %>
+
+<% if current_user.respond_to?(:admin?) && current_user.admin? %>
+    <%= link_to "administrace", admin_posts_path %>
+<% end %>

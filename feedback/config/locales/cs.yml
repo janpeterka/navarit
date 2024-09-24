@@ -25,6 +25,9 @@ cs:
   "Your feedback has been completed": "Tvoje zpětná vazba byla vyřešena"
   "Your feedback has been closed": "Tvoje zpětná vazba byla uzavřena"
   "Your feedback has been reopened": "Tvoje zpětná vazba byla znovuotevřena"
+  "Admin commented your feedback!": "Máš komentář od admina ke svému příspěvku!"
+
+  # "Author reacted to your comment"
 
   activerecord:
     models:
