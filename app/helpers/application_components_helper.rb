@@ -6,16 +6,13 @@ module ApplicationComponentsHelper
     render MenuComponent.new(**kwargs), &
   end
 
-  def link_to_modal(*, **options, &)
-    options[:data] = (options[:data] || {}).merge({ "turbo_frame": "modal" })
-    link_to(*, **options, &)
-  end
+  def button_link_to(name, path_or_object, icon: nil, **, &)
+    if path_or_object.is_a? String
+      icon ||= :pencil if path_or_object.include?("/edit")
+      icon ||= :plus if path_or_object.include?("/new")
+    end
 
-  def button_link_to(name, path, icon: nil, **, &)
-    icon ||= :pencil if path.include?("/edit")
-    icon ||= :plus if path.include?("/new")
-
-    render Buttons::ButtonLinkComponent.new(name:, path:, icon:, **), &
+    render Buttons::ButtonLinkComponent.new(name:, path: path_or_object, icon:, **), &
   end
 
   def action_button_to(name, path, icon: nil, **kwargs, &)
@@ -65,6 +62,10 @@ module ApplicationComponentsHelper
     default_classes = "inline mr-1"
 
     phosphor_icon(name.to_s.dasherize, class: "#{default_classes} #{options.delete(:class)}", style:, **options)
+  end
+
+  def modal(header: nil, &)
+    render ModalComponent.new(header:), &
   end
 
   # def admin_detail(record, **kwargs, &)

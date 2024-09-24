@@ -11,10 +11,10 @@
         = action_button_to "přidat nákup", daily_plan_recipes_path(daily_plan_id: daily_plan, recipe_id: Recipe.shopping, portion_count: 0), icon: :shopping_cart, type: :plain
 
   ul data-controller="sortable"
-    hr.mb-2
+    / hr.mb-2 - TODO: this was messing up sorting, will need to look into it
     - daily_plan.daily_plan_recipes.each do |day_recipe|
       = render "day_recipe", day_recipe:
-      hr.mb-2
+      / hr.mb-2
 
   - if can? :update, daily_plan
     #add-recipe

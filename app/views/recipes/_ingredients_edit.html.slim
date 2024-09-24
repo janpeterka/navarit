@@ -1,4 +1,4 @@
-/# locals: (recipe:, preselected_ingredient_id: nil)
+/# locals: (recipe:)
 
 = heading("suroviny", :h2)
 
@@ -31,14 +31,15 @@
   #add-ingredient.mb-4
     = default_form_for "", url: recipe_ingredients_path(recipe_id: recipe.id), method: :post do |form|
       - unused_ingredients = current_user.ingredients.includes(:measurement) - recipe.ingredients.includes(:measurement)
-      = form.input :ingredient_id, as: :grouped_select, collection: [ [ "moje",  unused_ingredients.collect { |v| [ v.name_with_unit, v.id ] } ],
-                                            [ "veřejné", Ingredient.common.collect { |v| [ v.name_with_unit, v.id ] } ] ],
-                                            col_span: 4, group_method: :last, allow_blank: false, input_html: { value: preselected_ingredient_id.to_i }
+      .col-span-4
+        = form.combobox :ingredient_id, [ [ "moje",  unused_ingredients.collect { |v| [ v.name_with_unit, v.id ] } ],
+                                                                [ "veřejné", Ingredient.common.collect { |v| [ v.name_with_unit, v.id ] } ] ],
+                                            col_span: 4, group_method: :last, allow_blank: false, value: params[:preselected_ingredient_id].presence&.to_i
       = form.input :amount, col_span: 3
       = form.input :comment, col_span: 3, required: false
       .sm:col-span-2
         = form.submit "přidat", class: "mt-2"
 
-  = button_link_to "přidat novou surovinu", new_ingredient_path(recipe_id: recipe.id), data: { turbo_frame: "modal" }
+  = button_link_to "přidat novou surovinu", new_ingredient_path(recipe_id: recipe.id), data: { turbo_frame: "modal" }, type: :secondary
 
 = button_link_to "hotovo!", recipe_path(recipe), type: :secondary

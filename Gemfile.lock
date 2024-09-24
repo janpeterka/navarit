@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/josefarias/hotwire_combobox.git
+  revision: db54f7e0ba24bbb72a6721d7f947319a2efbba5e
+  branch: main
+  specs:
+    hotwire_combobox (0.3.2)
+      rails (>= 7.0.7.2)
+      stimulus-rails (>= 1.2)
+      turbo-rails (>= 1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -140,10 +150,6 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
-    hotwire_combobox (0.3.1)
-      rails (>= 7.0.7.2)
-      stimulus-rails (>= 1.2)
-      turbo-rails (>= 1.2)
     htmlbeautifier (1.4.3)
     htmlentities (4.3.4)
     i18n (1.14.5)
@@ -504,7 +510,7 @@ DEPENDENCIES
   devise-i18n
   error_highlight (>= 0.4.0)
   factory_bot_rails
-  hotwire_combobox
+  hotwire_combobox!
   image_processing (~> 1.2)
   importmap-rails
   kamal

@@ -6,6 +6,7 @@ class ArchivedEventsControllerTest < ActionDispatch::IntegrationTest
   setup do
     sign_in @current_user
   end
+
   test "cannot archive others events" do
     event = FactoryBot.create(:event, author: FactoryBot.create(:user))
 
