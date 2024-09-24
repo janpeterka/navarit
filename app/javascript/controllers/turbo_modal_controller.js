@@ -2,28 +2,26 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect(){
-    this.element.parentElement.classList.remove("hidden")
+    this.modalElement = this.element.parentElement
+    this.modalElement.showModal()
   }
 
-  justHideModal() {
-    this.element.parentElement.removeAttribute("src") // it might be nice to also remove the modal SRC
-    this.element.parentElement.classList.add("hidden")
-    this.element.remove()
+  disconnect(){
+    this.modalElement.close()
+    this.element.remove() // it needs to be "emptied", as it's kept between requests by data-turbo-permanent
   }
 
-  hideModal() {
-    this.element.parentElement.removeAttribute("src") // it might be nice to also remove the modal SRC
-    this.element.parentElement.classList.add("hidden")
+  close(e){
+    this.modalElement.close()
     this.element.remove()
-
-    Turbo.visit(window.location, { action: "replace" } )
   }
 
   // hide modal when clicking ESC
   // action: "keyup@window->turbo-modal#closeWithKeyboard"
   closeWithKeyboard(e) {
     if (e.code == "Escape") {
-      this.hideModal()
+      this.modalElement.close()
+      this.element.remove()
     }
   }
 
@@ -33,6 +31,8 @@ export default class extends Controller {
     if (e && this.element.contains(e.target)) {
       return
     }
-    this.hideModal()
+
+    // this.modalElement.close()
+    this.element.remove()
   }
 }

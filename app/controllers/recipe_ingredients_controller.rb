@@ -37,7 +37,7 @@ class RecipeIngredientsController < ApplicationController
   end
 
   def destroy
-    authorize! :update, @recipe
+    authorize! :update, @recipe_ingredient.recipe
 
     @recipe_ingredient.destroy!
 

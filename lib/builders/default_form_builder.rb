@@ -38,6 +38,7 @@ module Builders
         options[:html5] = options.fetch(:html5, true) # use HTML5 date/time inputs by default
 
       when :combobox
+        # WIP: passing value doesn't work
         input_class = ""
       end
 
