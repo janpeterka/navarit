@@ -7,14 +7,7 @@
   = " > "
   = "práva"
 
-= turbo_frame_tag "modal" do
-  .modal-content data-controller="turbo-modal"
-    .flex.justify-end
-      button data-action="click->turbo-modal#hideModal keyup@window->turbo-modal#closeWithKeyboard click@window->turbo-modal#closeBackground"
-        = icon(:x, height: 24)
-
-    = heading("Nastavení sdílení pro #{@event.name}", :h1)
-
+= modal(header: "Nastavení sdílení pro #{@event.name}") do
     = "Autor: #{@event.author.full_name}"
 
     h2.text-lg.mt-4 = "kdo další má práva?"

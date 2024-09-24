@@ -1,0 +1,11 @@
+= helpers.turbo_frame_tag :modal
+  dialog
+    .modal-content.pb-16 data-controller="turbo-modal"
+      .sticky.top-0
+        .flex.justify-between
+          h2.text-3xl
+            = header
+          button data-action="click->turbo-modal#close keyup@window->turbo-modal#closeWithKeyboard click@window->turbo-modal#closeBackground"
+            = icon(:x, height: 24)
+
+      = content

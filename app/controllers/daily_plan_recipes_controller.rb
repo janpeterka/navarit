@@ -52,6 +52,8 @@ class DailyPlanRecipesController < ApplicationController
     new_position = params[:position].to_i
 
     daily_plan_recipe.insert_at(new_position)
+
+    redirect_to daily_plan_recipe.daily_plan, status: :see_other
   end
 
   def move
@@ -59,7 +61,7 @@ class DailyPlanRecipesController < ApplicationController
 
     unless can? :update, daily_plan_recipe.daily_plan
       flash[:error] = "Nemáte oprávnění přesunout recept v tomto plánu"
-      return redirect_back_or_to ddaily_plan_recipe.daily_plan
+      return redirect_back_or_to daily_plan_recipe.daily_plan
     end
 
     new_plan = DailyPlan.find(params[:daily_plan_id])
@@ -68,6 +70,8 @@ class DailyPlanRecipesController < ApplicationController
     daily_plan_recipe.remove_from_list
     daily_plan_recipe.update(daily_plan: new_plan)
     daily_plan_recipe.insert_at(new_position)
+
+    redirect_to daily_plan_recipe.daily_plan, status: :see_other
   end
 
   private

@@ -15,7 +15,6 @@ class DailyPlanTasksController < ApplicationController
 
   def edit; end
 
-  # POST /daily_plan_tasks
   def create
     @daily_plan_task = DailyPlanTask.new(daily_plan_task_params)
 

@@ -77,6 +77,11 @@ input[type=number]::-webkit-outer-spin-button {
       margin: 0;
 }
 
+dialog::backdrop {
+  background-color: gray;
+  opacity: 0.2;
+}
+
 /* Animations */
 @keyframes heartbeat {
   0% {
@@ -170,30 +175,36 @@ div .hw-combobox {
   margin-right: 0.5rem;
 }
 
-#modal {
-  position: fixed;
-  z-index: 10;
-  width: 100%;
-  top: 2rem;
-  bottom: 2rem;
-  word-break: break-word;
-}
-
-.modal-content {
-  /* border: 0.2rem solid #F8A66B; peach-500 */
+dialog {
   border-radius: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 2rem;
   background-color: white;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-width: 75%;
 }
 
 @media (max-width: 600px) {
-  .modal-content {
+  dialog {
     max-width: 97%;
     width: 95%;
+  }
+}
+
+#event-grid {
+  .day-card:nth-child(1) {
+    border-top-left-radius: 12px;
+  }
+
+  .day-card:nth-child(7) {
+    border-top-right-radius: 12px;
+  }
+
+  /* Rounded corners for the bottom-left and bottom-right cards */
+  .day-task-card:nth-last-child(7) {
+    border-bottom-left-radius: 12px;
+  }
+
+  .day-task-card:nth-last-child(1) {
+    border-bottom-right-radius: 12px;
   }
 }

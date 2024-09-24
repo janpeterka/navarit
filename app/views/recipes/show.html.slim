@@ -41,9 +41,11 @@
     #procedure.mb-3
       h2.text-2xl.inline-block.me-2 = "postup"
       - if @edited_section == :procedure
+        = button_link_to "zrušit úpravy", @recipe, type: :secondary, class: "float-end"
         = form_for @recipe do |form|
           = form.rich_text_area :procedure, data: { controller: "trix" }, value: @recipe.procedure.presence
           = form.submit "uložit", class: "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
+
       - else
         - if can? :update, @recipe
           span.float-right = button_link_to "upravit popis", recipe_path(@recipe, edited_section: :procedure), type: :secondary

@@ -58,6 +58,6 @@ html
 
       = yield
 
-    = turbo_frame_tag "modal", class: "hidden flex justify-center", data: { "turbo-permanent": "true" }
+    = turbo_frame_tag :modal, data: { "turbo-permanent": "true" }
 
     = render("shared/mobile_navbar") if current_user.present?

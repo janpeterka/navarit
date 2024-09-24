@@ -31,7 +31,7 @@ gem "slim-rails"
 gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "tailwindcss-rails"
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "hotwire_combobox"
+gem "hotwire_combobox", github: "josefarias/hotwire_combobox", branch: "main"
 
 gem "lookbook"
 gem "view_component"
@@ -44,7 +44,6 @@ gem "kamal"
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "rorvswild"
 gem "solid_errors", "~> 0.6.1"
-
 
 # other
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
