@@ -131,7 +131,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.12.1)
       devise (>= 4.9.0)
-    dotenv (2.8.1)
+    dotenv (3.1.4)
     drb (2.2.1)
     ed25519 (1.3.0)
     error_highlight (0.6.0)
@@ -166,22 +166,22 @@ GEM
       railties (>= 6.0.0)
     iniparse (1.5.0)
     io-console (0.7.2)
-    irb (1.14.0)
+    irb (1.14.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     json (2.7.2)
     jwt (2.9.1)
       base64
-    kamal (1.8.3)
+    kamal (2.0.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
       concurrent-ruby (~> 1.2)
-      dotenv (~> 2.8)
+      dotenv (~> 3.1)
       ed25519 (~> 1.2)
       net-ssh (~> 7.0)
       sshkit (>= 1.23.0, < 2.0)
-      thor (~> 1.2)
+      thor (~> 1.3)
       zeitwerk (~> 2.5)
     language_server-protocol (3.17.0.3)
     logger (1.6.1)
@@ -421,14 +421,14 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 6.0, != 5.0.0)
-    slim_lint (0.29.0)
+    slim_lint (0.30.0)
       rexml (~> 3.2)
       rubocop (>= 1.0, < 2.0)
       slim (>= 3.0, < 6.0)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    solid_cable (3.0.0)
+    solid_cable (3.0.1)
       actioncable (>= 7.2)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -440,8 +440,8 @@ GEM
       activerecord (>= 7.0)
       activesupport (>= 7.0)
       railties (>= 7.0)
-    sqlite3 (2.0.4-aarch64-linux-gnu)
-    sqlite3 (2.0.4-x86_64-linux-gnu)
+    sqlite3 (2.1.0-aarch64-linux-gnu)
+    sqlite3 (2.1.0-x86_64-linux-gnu)
     sshkit (1.23.1)
       base64
       net-scp (>= 1.1.2)
@@ -472,7 +472,7 @@ GEM
     uri (0.13.1)
     useragent (0.16.10)
     version_gem (1.1.4)
-    view_component (3.14.0)
+    view_component (3.15.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -554,7 +554,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.3.5p100
 
 BUNDLED WITH
-   2.4.18
+   2.5.16
