@@ -131,7 +131,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.12.1)
       devise (>= 4.9.0)
-    dotenv (3.1.4)
+    dotenv (2.8.1)
     drb (2.2.1)
     ed25519 (1.3.0)
     error_highlight (0.6.0)
@@ -172,16 +172,16 @@ GEM
     json (2.7.2)
     jwt (2.9.1)
       base64
-    kamal (2.0.0)
+    kamal (1.9.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
       concurrent-ruby (~> 1.2)
-      dotenv (~> 3.1)
+      dotenv (~> 2.8)
       ed25519 (~> 1.2)
       net-ssh (~> 7.0)
       sshkit (>= 1.23.0, < 2.0)
-      thor (~> 1.3)
+      thor (~> 1.2)
       zeitwerk (~> 2.5)
     language_server-protocol (3.17.0.3)
     logger (1.6.1)
@@ -512,7 +512,7 @@ DEPENDENCIES
   hotwire_combobox!
   image_processing (~> 1.2)
   importmap-rails
-  kamal
+  kamal (= 1.9)
   lookbook
   methodz
   mysql2
