@@ -20,8 +20,10 @@
         = card.with_body do
             .grid.grid-cols-2
                 = recipe.category&.name || "bez kategorie"
-                .text-right
-                    = recipe.author.name
+                - if recipe.author.name
+                    .text-right = recipe.author.name
+                - else
+                    .text-right.italic neuvedeno
 
             .mt-2.flex.flex-wrap
                 - recipe.labels.each do |label|
