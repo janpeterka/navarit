@@ -3,8 +3,8 @@ require_relative 'lib/feedback/version'
 Gem::Specification.new do |spec|
   spec.name        = 'feedback'
   spec.version     = Feedback::VERSION
-  spec.authors     = ['Jan Peterka']
-  spec.email       = ['jan.peterka@hey.com']
+  spec.authors     = [ 'Jan Peterka' ]
+  spec.email       = [ 'jan.peterka@hey.com' ]
   spec.homepage    = 'https://github.com/janpeterka/kucharka-on-rails'
   spec.summary     = 'Plugin for collecting feedback from users.'
   spec.description = 'Collectiong feedback made easy. Store feedback in your app and synchronize it with your issue tracker'
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
     Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   end
 
-  spec.add_dependency 'gitlab', '>= 4.19.0'
-  spec.add_dependency 'octokit', '>= 8.0.0'
+  # spec.add_dependency 'gitlab', '>= 4.19.0'
+  # spec.add_dependency 'octokit', '>= 8.0.0'
   spec.add_dependency 'rails', '>= 7.1.1'
 end
