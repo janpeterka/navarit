@@ -96,4 +96,4 @@ group :test do
   gem "rails_best_practices"
 end
 
-gem 'feedback', path: 'feedback'
+gem "feedback", path: "feedback"

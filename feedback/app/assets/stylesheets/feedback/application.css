@@ -14,6 +14,10 @@
  *= require_self
  */
 
+ :root {
+  --feedback--primary-color: hsl(203, 43%, 50%)
+ }
+
  form.feedback--form div.actions {
   margin-top: 1rem;
  }
@@ -43,10 +47,11 @@
  }
 
  div.feedback--post-card {
-  border: solid 0.1rem;
-  border-radius: 0.2rem;
   padding: 0.4rem;
   margin-bottom: 1rem;
+  border: solid 0.1rem;
+  border-radius: 0.4rem;
+  box-shadow: 0.15rem 0.15rem 0.07rem var(--feedback--primary-color);
  }
 
 div.feedback--comment-row {
@@ -74,4 +79,13 @@ div.feedback--comment {
     font-size: 0.8rem;
     color: #666;
   }
+}
+
+.feedback--notification-card {
+  width: fit-content;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: solid 0.1rem;
+  border-radius: 0.4rem;
+  box-shadow: 0.15rem 0.15rem 0.07rem var(--feedback--primary-color);
 }
