@@ -131,7 +131,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.12.1)
       devise (>= 4.9.0)
-    dotenv (2.8.1)
+    dotenv (3.1.4)
     drb (2.2.1)
     ed25519 (1.3.0)
     error_highlight (0.6.0)
@@ -172,16 +172,16 @@ GEM
     json (2.7.2)
     jwt (2.9.1)
       base64
-    kamal (1.9.0)
+    kamal (2.1.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
       concurrent-ruby (~> 1.2)
-      dotenv (~> 2.8)
+      dotenv (~> 3.1)
       ed25519 (~> 1.2)
       net-ssh (~> 7.0)
       sshkit (>= 1.23.0, < 2.0)
-      thor (~> 1.2)
+      thor (~> 1.3)
       zeitwerk (~> 2.5)
     language_server-protocol (3.17.0.3)
     logger (1.6.1)
@@ -231,7 +231,7 @@ GEM
       net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.0)
       net-protocol
-    net-ssh (7.2.3)
+    net-ssh (7.3.0)
     nio4r (2.7.3)
     nokogiri (1.16.7-aarch64-linux)
       racc (~> 1.4)
@@ -288,7 +288,7 @@ GEM
       prawn-table
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
-    propshaft (1.0.0)
+    propshaft (1.1.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
@@ -365,7 +365,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.3.7)
+    rexml (3.3.8)
     rorvswild (1.8.0)
     rouge (4.4.0)
     rubocop (1.66.1)
@@ -428,7 +428,7 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    solid_cable (3.0.1)
+    solid_cable (3.0.2)
       actioncable (>= 7.2)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -472,7 +472,7 @@ GEM
     uri (0.13.1)
     useragent (0.16.10)
     version_gem (1.1.4)
-    view_component (3.15.0)
+    view_component (3.16.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -512,7 +512,7 @@ DEPENDENCIES
   hotwire_combobox!
   image_processing (~> 1.2)
   importmap-rails
-  kamal (= 1.9)
+  kamal (>= 2.0)
   lookbook
   methodz
   mysql2

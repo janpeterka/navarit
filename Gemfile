@@ -39,7 +39,7 @@ gem "view_component"
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 
 # devops
-gem "kamal", "= 1.9"
+gem "kamal", ">= 2.0"
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "rorvswild"
 gem "solid_errors", "~> 0.6.1"
