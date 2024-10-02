@@ -366,7 +366,6 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.3.8)
-    rorvswild (1.8.0)
     rouge (4.4.0)
     rubocop (1.66.1)
       json (~> 2.3)
@@ -531,7 +530,6 @@ DEPENDENCIES
   rails (~> 7.2.0)
   rails-i18n
   rails_best_practices
-  rorvswild
   rubocop
   rubocop-capybara
   rubocop-performance
