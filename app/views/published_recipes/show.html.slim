@@ -4,7 +4,10 @@
   p
     span.font-bold = @recipe.category&.name
     = ", vytvořil/a "
-    span.font-bold = "#{@recipe.author.name}"
+    - if @recipe.author.name.present?
+      span.font-bold = @recipe.author.name
+    - else
+      span.italic neuvedeno
 
   .mt-2.flex.justify-between
     .flex.flex-wrap id="#{dom_id(@recipe)}-labels"
