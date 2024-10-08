@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 class EventCookbooksController < ApplicationController
-  authorize_resource :event
+  before_action :load_event
 
   def show
-    @event = Event.find(params[:event_id])
+    authorize! :show, @event
+
     @cookbook = EventCookbook.new(@event)
 
     respond_to do |format|
-      # format.html
+      format.html
       format.pdf do
         send_data @cookbook.pdf.render,
                   filename: "#{@event.name.underscore.gsub(' ', '_')}_cookbook.pdf",
@@ -17,4 +18,10 @@ class EventCookbooksController < ApplicationController
       end
     end
   end
+
+  private
+
+    def load_event
+      @event = Event.find(params[:event_id])
+    end
 end
