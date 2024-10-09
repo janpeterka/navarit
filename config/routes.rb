@@ -56,6 +56,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
 
   get "a/error", to: "admin#error"
+  get "a/deny", to: "admin#access_denied"
   get "a/", to: "admin#index"
 
 

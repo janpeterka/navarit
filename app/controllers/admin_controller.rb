@@ -8,6 +8,10 @@ class AdminController < ApplicationController
     p 1/0
   end
 
+  def access_denied
+    raise CanCan::AccessDenied
+  end
+
   private
 
   def authenticate_admin
