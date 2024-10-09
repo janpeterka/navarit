@@ -6,7 +6,7 @@ class PublicApplicationController < ActionController::Base
   layout "application"
 
   rescue_from CanCan::AccessDenied do |exception|
-    Rails.error.handle(context: { message: "Forbidden access", url: request.url  }, severity: :info)
+    Rails.error.handle(context: { message: "Forbidden access", url: request.url, user_id: current_user&.nil }, severity: :info)
 
     raise CanCan::AccessDenied
   end
