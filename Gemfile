@@ -72,7 +72,7 @@ group :development do
 
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
   gem "prosopite" # N+1 query detection
-  gem "methodz"
+  gem "methodz" # human readable methods
   gem "rubocop"
   gem "rubocop-capybara"
   gem "rubocop-performance"
