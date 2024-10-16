@@ -7,11 +7,6 @@ image: janpeterka/kucharka
 # Deploy to these servers.
 servers:
   - navarit
-  # web:
-    # hosts:
-      # - kucharka
-    # options:
-      # "network": "kucharka-network"
 
 volumes:
   - "/root/storage:/rails/storage"
@@ -77,8 +72,6 @@ accessories:
       # - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     directories:
       - data:/var/lib/mysql
-    options:
-      network: "kucharka-network"
 
 proxy:
   app_port: 3000
