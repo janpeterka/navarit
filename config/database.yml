@@ -31,7 +31,7 @@ test:
     password: kucharka
   errors:
     adapter: sqlite3
-    database: storage/errors.sqlite3
+    database: storage/errors_test.sqlite3
     migrations_paths: db/errors_migrate
 
 # As with config/credentials.yml, you never want to store sensitive information,
