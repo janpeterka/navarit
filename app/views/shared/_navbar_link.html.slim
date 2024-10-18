@@ -1,7 +1,7 @@
 /# locals: (link:, classes: "", icon: nil, text: nil)
 
-a href=link class=classes
-    li.rounded-md.py-2.px-2.hover:bg-ocean-400
-        span.block.py-4.pl-3.pr-4.text-white.font-bold.rounded.md:border-0.md:p-0
+li.group.rounded-md.py-2.px-2.hover:bg-peach-200
+    a href=link class=classes label=text
+        span.block.py-4.pl-3.pr-4.font-bold.rounded.md:border-0.md:p-0.text-white.group-hover:text-black
             = icon(icon.to_s, class: "inline me-1") if icon.present?
             = text if text.present?
