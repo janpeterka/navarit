@@ -5,7 +5,7 @@ class MenuComponent < ApplicationComponent
 
     if current_path.to_s.start_with?(path)
       default_classes.gsub!("text-gray-500", "")
-      default_classes << " text-emerald-700 border-emerald-700"
+      default_classes << " text-ocean-700 border-ocean-700"
     else
       default_classes << " border-transparent hover:border-gray-300 hover:text-gray-700"
     end

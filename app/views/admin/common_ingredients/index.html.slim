@@ -9,7 +9,7 @@
 = turbo_frame_tag :common_ingredients
   = table @common_ingredients do |t|
     = t.column :name do |ingredient|
-      = link_to ingredient.name, ingredient, class: "font-bold text-emerald-600", data: { turbo_frame: "_top" }
+      = link_to ingredient.name, ingredient, class: "font-bold", data: { turbo_frame: "_top" }
       - if ingredient.common?
         span.ms-1
           = svg("user-group")

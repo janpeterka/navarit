@@ -4,7 +4,7 @@ span.italic = "hurá, máme už #{Recipe.published.size} sdílených receptů!"
 .mb-6
   - placeholder = Recipe.published.order("RAND()").limit(1).first&.name
   = default_form_for "", url: published_recipes_path, method: :get, html: { id: "published-recipes-index-form", data: { "controller": "form", "turbo-frame": "published_recipes" } } do |f|
-    = f.input :query, label: false, placeholder: "hledej např. #{placeholder}", input_html: { class: "rounded-md focus:ring-green-700 focus:border-green-700", data: { action: "input->form#submit" }, value: params[:name] }, autofocus: true, col_span: 9
+    = f.input :query, label: false, placeholder: "hledej např. #{placeholder}", input_html: { class: "rounded-md focus:ring-ocean-700 focus:border-ocean-700", data: { action: "input->form#submit" }, value: params[:name] }, autofocus: true, col_span: 9
     = f.input :sorting, label: "řazení", collection: [ [ "od nejoblíbenějších", :favorite ], [ "A -> Z", :alphabetically ], [ "od nejnovějších", :newest ], [ "od nejstarších", :oldest ] ],
                         col_span: 3, input_html: { data: { action: "change->form#submit" } }, required: false, include_blank: false
 
