@@ -11,9 +11,6 @@ servers:
 volumes:
   - "/root/storage:/rails/storage"
 
-# networks: This is not supported now (24.6.2024)
-  # - kucharka-network
-
 # Credentials for your image host.
 registry:
   server: ghcr.io
@@ -63,3 +60,9 @@ accessories:
 
 proxy:
   app_port: 3000
+
+
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
