@@ -33,27 +33,15 @@ env:
     - MYSQL_ROOT_PASSWORD
     - MYSQL_PASSWORD
 
-# Use a different ssh user than root
-# ssh:
-#   user: app
-
 # Configure builder setup.
 builder:
   arch: amd64
-  # multiarch: false
-#   args:
-#     RUBY_VERSION: 3.2.0
-#   secrets:
-#     - GITHUB_TOKEN
-#   remote:
-#     arch: amd64
-#     host: ssh://app@192.168.0.1
 
 # Use accessory services (secrets come from .env).
 accessories:
   db:
     image: mysql
-    host: kucharka
+    host: navarit
     port: 3306
     # TODO: dont tunnel port
     # port: 127.0.0.1:3306:3306
