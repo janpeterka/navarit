@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.3.5"
 
-gem "rails", "~> 7.2.0"
+gem "rails", "~> 8.0.0rc"
 
 # back-end
 gem "acts_as_list" # ActsAsList is a small extension to the ActiveRecord::Base class to allow easy creation of sortable lists
