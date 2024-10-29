@@ -63,6 +63,7 @@ proxy:
 
 
 aliases:
+  shell: app exec --reuse --interactive /bin/bash
   console: app exec --interactive --reuse "bin/rails console"
-  logs: app logs -f
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
+  logs: app logs -f
