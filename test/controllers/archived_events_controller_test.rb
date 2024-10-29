@@ -4,6 +4,9 @@ class ArchivedEventsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
+    # TODO Remove when Devise fixes https://github.com/heartcombo/devise/issues/5705
+    Rails.application.reload_routes_unless_loaded
+
     sign_in @current_user
   end
 
