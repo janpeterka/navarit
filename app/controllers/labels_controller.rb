@@ -1,4 +1,6 @@
 class LabelsController < ApplicationController
+  skip_before_action :authenticate_user!, only: :multiselect_chips
+
   def multiselect_chips
     return unless params.include?(:combobox_values)
 
