@@ -7,7 +7,7 @@ module Builders
       input_class += " rounded-2xl"
       # input_class = "block px-2.5 pb-2.5 pt-5 w-full dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none peer"
       # input_class += " sm:text-sm rounded-md"
-      # input_class += " focus:outline-none focus:ring-0 focus:border-emerald-700"
+      # input_class += " focus:outline-none focus:ring-0 focus:border-ocean-700"
       input_class += " text-gray-500 bg-gray-200" if options.dig(:input_html, :disabled) || options.dig(:disabled)
 
       input_wrapper_class = "mt-1"
@@ -60,7 +60,7 @@ module Builders
     def label(attribute_name, *args, &block)
       options = args.extract_options!.dup
 
-      default_class = "absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-emerald-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+      default_class = "absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-ocean-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
 
       # default_class = 'block text-sm font-medium'
       options = arguments_with_updated_default_class(default_class, **options)
@@ -86,7 +86,7 @@ module Builders
     def submit(value = nil, options = {})
       default_classes = Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]
       default_classes += " #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
-      # default_classes = 'px-4 py-2 text-sm font-medium border border-emerald-700 rounded-md ...'
+      # default_classes = 'px-4 py-2 text-sm font-medium border border-ocean-700 rounded-md ...'
 
       button_options = convert_col_span_argument_to_class(key: nil, **options)
       button_options = arguments_with_updated_default_class(default_classes, **button_options)

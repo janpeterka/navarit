@@ -16,12 +16,12 @@
     - @event.timetable.days.each do |day|
         - daily_plan = day.daily_plan.presence
         - day_dom_id = daily_plan.present? ? dom_id(day.daily_plan) : nil
-        - border_color_class = daily_plan.present? ? "border-emerald-600" : "border-gray-300"
+        - border_color_class = daily_plan.present? ? "border-ocean-600" : "border-gray-300"
 
         .border.border-2.rounded-xl.shadow.text-center id="#{day_dom_id}-card" class=border_color_class
             .text-xl.mt-2
                 - if daily_plan.present?
-                    = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-emerald-700" do
+                    = link_to daily_plan_path(daily_plan), class: "hover:font-bold hover:text-ocean-700" do
                         = weekday_name(day.date)
 
                 - else
@@ -32,7 +32,7 @@
                 .mb-3 id="#{day_dom_id}-recipes"
                     ul.space-y-2.first:mt-2.last:mb-3
                         - daily_plan.daily_plan_recipes.each do |daily_recipe|
-                            li.overflow-hidden.p-2.m-2.border.border-emerald-700.rounded.shadow
+                            li.overflow-hidden.p-2.m-2.border.border-ocean-700.rounded.shadow
                                 span.truncate = daily_recipe.recipe.name
 
             - if day.tasks.any?

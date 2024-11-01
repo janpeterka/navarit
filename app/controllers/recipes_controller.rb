@@ -13,6 +13,8 @@ class RecipesController < ApplicationController
   def show
     @recipe = Recipe.includes(:tasks, ingredients: :measurement).find(params[:id])
 
+    authorize! :show, @recipe
+
     @portion_count = params[:portion_count].presence&.to_i || @recipe.portion_count
 
     @edited_section = params[:edited_section]&.to_sym if can? :edit, @recipe

@@ -42,7 +42,6 @@ gem "view_component"
 # devops
 gem "kamal", ">= 2.0"
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
-gem "rorvswild"
 gem "solid_errors", "~> 0.6.1"
 
 # other
@@ -58,6 +57,10 @@ gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby] # Windows 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+
+# performance
+gem "rack-mini-profiler" # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mswin mswin64 mingw x64_mingw]
@@ -68,12 +71,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  gem "rack-mini-profiler"
-
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
   gem "prosopite" # N+1 query detection
-  gem "methodz"
+  gem "methodz" # human readable methods
   gem "rubocop"
   gem "rubocop-capybara"
   gem "rubocop-performance"

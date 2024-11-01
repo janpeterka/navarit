@@ -4,4 +4,7 @@ class IndexController < PublicApplicationController
 
     redirect_to dashboard_path
   end
+
+  def changelog
+  end
 end

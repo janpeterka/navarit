@@ -1,5 +1,5 @@
 doctype html
-html
+html lang="cs"
   head
     title
       = "DEV | " if Rails.env.development?
@@ -7,6 +7,8 @@ html
       = yield(:title).presence
 
     meta name="viewport" content="width=device-width,initial-scale=1"
+    meta name="apple-mobile-web-app-capable" content="yes"
+
     = turbo_refreshes_with method: :morph, scroll: :preserve
     = yield :head
     = csrf_meta_tags
@@ -14,17 +16,16 @@ html
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = stylesheet_link_tag "feedback/application"
+
+    link rel="manifest" href="/manifest.json"
+
     = javascript_importmap_tags
     = combobox_style_tag
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.turbo.min.js"></script>
-    <script defer data-domain="navarit.cz" src="https://plausible.jpeterka.cz/js/script.js"></script>
-
-    <script src="https://cdn.rorvswild.com/agent.js"></script>
-    javascript:
-      RorVsWild.start({apiKey: "jeBhfs-lT8fDy-KTX0WI"})
+    - if Rails.env.production?
+      <script defer data-domain="navarit.cz" src="https://plausible.jpeterka.cz/js/script.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
-    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 
   / data-controller="#{'debug-turbo' if Rails.env.development?}"
   body

@@ -1,2 +1,5 @@
-  = simple_form_for "", url: path, method: :get, html: {class: "block", data: {"controller": "form", "turbo-frame": target_turbo_frame}} do |f|
-    = f.input :query, label: false, placeholder: "např. #{placeholder}", input_html: {class: "rounded-md focus:ring-green-700 focus:border-green-700 w-full sm:w-fit", data: {action: "input->form#submit"}, value: params[:name]}, autofocus: true
+  = simple_form_for "", url: path, method: :get, html: { class: "block", data: { "controller": "form", "turbo-frame": target_turbo_frame } } do |f|
+    = f.input :query, label: false, placeholder: "např. #{placeholder}", autofocus: true,
+                      input_html: { class: "rounded-md focus:ring-ocean-600 focus:border-ocean-600 w-full sm:w-fit",
+                                    data: { action: "input->form#submit" },
+                                    value: params[:name] }

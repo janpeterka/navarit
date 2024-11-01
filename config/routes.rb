@@ -3,6 +3,8 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  get "changelog", to: "index#changelog"
+
   concern :multiselect_chips do
     collection do
       post :multiselect_chips
@@ -56,6 +58,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
 
   get "a/error", to: "admin#error"
+  get "a/deny", to: "admin#access_denied"
   get "a/", to: "admin#index"
 
 
@@ -74,4 +77,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     mount Lookbook::Engine, at: "/a/lookbook"
     mount SolidErrors::Engine, at: "/a/solid_errors"
   end
+
+  # Render dynamic PWA files from app/views/pwa/*
+  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 end

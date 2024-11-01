@@ -10,7 +10,7 @@
 = turbo_frame_tag :recipes
   = table @recipes do |t|
     = t.column :recept do |recipe|
-      = link_to recipe.name, recipe, class: "font-bold text-emerald-600", data: { turbo_frame: "_top" }
+      = link_to recipe.name, recipe, class: "font-bold", data: { turbo_frame: "_top" }
       = " (rozpracováno)" if recipe.draft?
     = t.column :kategorie do |recipe|
       = recipe.category&.name

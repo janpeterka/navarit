@@ -1,10 +1,9 @@
-# frozen_string_literal: true
-
 class EventShoppingListsController < ApplicationController
+  before_action :load_event
+
   def show
     authorize! :show, @event
 
-    @event = Event.find(params[:event_id])
     @shopping_list = EventShoppingList.new(@event)
 
     respond_to do |format|
@@ -17,4 +16,10 @@ class EventShoppingListsController < ApplicationController
       end
     end
   end
+
+  private
+
+    def load_event
+      @event = Event.find(params[:event_id])
+    end
 end
