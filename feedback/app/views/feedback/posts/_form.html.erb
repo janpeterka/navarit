@@ -1,5 +1,5 @@
 <%= form_for Feedback::Post.new, html: { class: "feedback--form" } do |f| %>
-  <div class="field">
+  <div>
     <%= f.text_area :description %>
   </div>
 
@@ -8,7 +8,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit class: "feedback--button" %>
+    <%= f.submit class: "feedback--button", value: t("Send feedback") %>
   </div>
 
 <% end %>

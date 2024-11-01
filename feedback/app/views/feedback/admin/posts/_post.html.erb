@@ -12,28 +12,7 @@
         <strong><%= t("Status") %>:</strong> <%= Feedback::Post.human_enum_name(:status, post.status) %>
     </p>
 
-    <% if Feedback.synchronization_backend.present? %>
-        Last synchronized: <%= post.last_synchronized_at %>
-        <br>
-    <% end %>
-
-    <% if post.issue_url.present? %>
-        <strong> Remote link: </strong> <a href=<%= post.issue_url %>> here </a><br>
-    <% end %>
-
-    <strong>Actions:</strong><br>
-
-    <% if post.status_new? %>
-      <%= button_to "open", open_admin_post_path(post), class: "feedback--button-to" %>
-      <%= button_to "close", close_admin_post_path(post), class: "feedback--button-to" %>
-      <%= button_to "complete", complete_admin_post_path(post), class: "feedback--button-to" %>
-    <% elsif post.status_open? %>
-      <%= button_to "close", close_admin_post_path(post), class: "feedback--button-to" %>
-      <%= button_to "complete", complete_admin_post_path(post), class: "feedback--button-to" %>
-    <% elsif post.status_closed? || post.status_completed? %>
-      <%= button_to "reopen", reopen_admin_post_path(post), class: "feedback--button-to" %>
-    <% end %>
-
+    <%= render "admin_actions", post: %>
 
     <%= button_to t("synchronize"), post_synchronize_path(post) if Feedback.synchronization_backend.present? %>
 </div>

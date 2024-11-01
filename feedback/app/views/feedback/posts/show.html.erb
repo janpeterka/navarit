@@ -1,30 +1,37 @@
 <%= render @post %>
 
-<br>
-
 <% if @post.attachments.any? %>
     <h2> <%= t("Attachments") %> </h2>
 
-    <% @post.attachments.each do |file| %>
-        <% if file.representable? %>
-            <%= image_tag main_app.url_for(file.representation(resize_to_limit: [600, 200])), class: "feedback--post-attachment" %>
-        <% else %>
-            <%= link_to rails_blob_path(file, disposition: "attachment") do %>
-                <%= image_tag "placeholder.png", alt: "Download file" %>
+    <div class="feedback--post-card">
+        <% @post.attachments.each do |file| %>
+            <% if file.representable? %>
+                <%= image_tag main_app.url_for(file.representation(resize_to_limit: [600, 200])), class: "feedback--post-attachment" %>
+            <% else %>
+                <%= link_to rails_blob_path(file, disposition: "attachment") do %>
+                    <%= image_tag "placeholder.png", alt: "Download file" %>
+                <% end %>
             <% end %>
         <% end %>
-    <% end %>
+    </div>
 <% end %>
 
 <h2> <%= t("Comments") %> </h2>
 
-<% @post.comments.each do |comment| %>
-    <%= render "feedback/comments/comment", comment:  %>
+<div class="feedback--post-card">
+    <% @post.comments.each do |comment| %>
+        <%= render "feedback/comments/comment", comment:  %>
+    <% end %>
+
+    <%= render "feedback/comments/form", post: @post %>
+</div>
+
+<%- if current_user.admin? %>
+    <div class="feedback--admin-card">
+        <h2> Admin actions </h2>
+        <%= render "feedback/admin/posts/admin_actions", post: @post %>
+    </div>
 <% end %>
-
-<br>
-
-<%= render "feedback/comments/form", post: @post %>
 
 <br>
 

@@ -12,16 +12,5 @@
         <strong><%= t("Status") %>:</strong> <%= Feedback::Post.human_enum_name(:status, post.status) %>
     </p>
 
-    <% if Feedback.synchronization_backend.present? %>
-        Last synchronized: <%= post.last_synchronized_at %>
-        <br>
-    <% end %>
-
-    <% if post.issue_url.present? %>
-        You can see it <a href=<%= post.issue_url %>> here </a><br>
-    <% end %>
-
     <%= link_to(t("Show more"), post) unless request.path.include?("posts/") %>
-
-    <%= button_to t("synchronize"), post_synchronize_path(post) if Feedback.synchronization_backend.present? %>
 </div>

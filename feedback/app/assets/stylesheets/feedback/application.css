@@ -14,37 +14,46 @@
  *= require_self
  */
 
- :root {
-  --feedback--primary-color: hsl(203, 43%, 50%)
- }
+:root {
+  --feedback--primary-color: hsl(203, 43%, 50%);
+  --feedback--secondary-color: oklch(78.68% 0.1135 53.95 / 56.05%);
+  --feedback--admin-color: oklch(48.09% 0.1924 7.94 / 80.83%)
+}
 
- form.feedback--form div.actions {
-  margin-top: 1rem;
- }
+form.feedback--form {
+  & textarea {
+    border-radius: 0.3rem;
+  }
 
- img.feedback--post-attachment {
-  margin-top: 2rem;
+  & div.actions {
+    margin-top: 1rem;
+  }
+}
+
+form.feedback--filter-form {
+  margin-bottom: 1rem;
+}
+
+img.feedback--post-attachment {
+  margin: 0.5rem;
   display: inline-block;
- }
+}
 
- .feedback--button, .feedback--button-to {
+.feedback--button, .feedback--button-to {
   border: 1px solid #ccc;
   padding: 0.1rem 0.5rem;
   border-radius: 0.2rem;
- }
 
- .feedback--button:hover {
-  background-color: #f1f1f1;
- }
+  &:hover {
+    background-color: var(--feedback--secondary-color);
+  }
+}
 
- form:has(.feedback--button-to) {
+/* Admin actions */
+form:has(.feedback--button-to) {
   display: inline;
   margin-right: 0.2rem;
- }
-
- form.feedback--filter-form {
-  margin-bottom: 1rem;
- }
+}
 
  div.feedback--post-card {
   padding: 0.4rem;
@@ -53,6 +62,14 @@
   border-radius: 0.4rem;
   box-shadow: 0.15rem 0.15rem 0.07rem var(--feedback--primary-color);
  }
+
+div.feedback--admin-card {
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+  border: solid 0.2rem;
+  border-radius: 0.4rem;
+  box-shadow: 0.15rem 0.15rem 0.07rem var(--feedback--admin-color);
+}
 
 div.feedback--comment-row {
   display: flex;
@@ -63,7 +80,7 @@ div.feedback--comment-row {
   }
 
   &:not(:has(.feedback--my-comment)) > div.feedback--comment {
-    background-color: lightblue;
+    background-color: var(--feedback--secondary-color)
   }
 }
 
@@ -71,13 +88,14 @@ div.feedback--comment {
   border: solid 0.1rem;
   border-radius: 0.2rem;
   padding: 0.4rem 1rem;
+  box-shadow: 0.15rem 0.15rem 0.07rem var(--feedback--secondary-color);
 
   margin-bottom: 1rem;
   display: inline-block;
 
-  span.feedback--comment-date {
+  & span.feedback--comment-date {
     font-size: 0.8rem;
-    color: #666;
+    opacity: 0.8;
   }
 }
 

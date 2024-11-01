@@ -121,9 +121,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
     t.text "content"
     t.bigint "post_id", null: false
     t.bigint "user_id"
-    t.datetime "last_synchronized_at"
-    t.integer "comment_id"
-    t.string "comment_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_feedback_comments_on_post_id"
@@ -145,10 +142,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
   create_table "feedback_posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "description"
     t.bigint "user_id", null: false
-    t.datetime "last_synchronized_at"
     t.integer "status"
-    t.integer "issue_id"
-    t.string "issue_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_feedback_posts_on_user_id"
@@ -268,6 +262,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
   create_table "recipes", id: :integer, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "created_by", null: false
+    t.bigint "owner_id", null: false
+    t.string "owner_type", null: false
     t.datetime "created_at", precision: nil
     t.datetime "last_updated_at", precision: nil
     t.text "description", size: :long
@@ -278,6 +274,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
     t.integer "reactions_count", default: 0, null: false
     t.index ["category_id"], name: "category_id"
     t.index ["created_by"], name: "ix_recipes_created_by"
+    t.index ["owner_type", "owner_id"], name: "index_recipes_on_owner"
   end
 
   create_table "recipes_have_ingredients", primary_key: ["recipe_id", "ingredient_id"], charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
