@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @notification %>
+<%= render "notification", notification: @notification %>
 
 <div>
   <%= link_to "Edit this notification", edit_notification_path(@notification) %> |

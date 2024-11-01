@@ -1,4 +1,4 @@
-<%= render @post %>
+<%= render "post", post: @post %>
 
 <% if @post.attachments.any? %>
     <h2> <%= t("Attachments") %> </h2>
