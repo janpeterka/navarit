@@ -61,8 +61,7 @@ class PublishedRecipesController < PublicApplicationController
 
     case params[:sorting]&.to_sym
     when :favorite
-      # TODO: this will make trouble with pagination, probably will need to be solved by adding counter cache to reactions
-      @published_recipes = @published_recipes.sort_by { _1.reactions.count }.reverse
+      @published_recipes = @published_recipes.order(:reactions_count).reverse
     when :alphabetically
       @published_recipes = @published_recipes.order(:name)
     when :newest
@@ -70,7 +69,7 @@ class PublishedRecipesController < PublicApplicationController
     when :oldest
       @published_recipes = @published_recipes.order(:created_at)
     else
-      @published_recipes = @published_recipes.sort_by { _1.reactions.count }.reverse
+      @published_recipes = @published_recipes.order(:reactions_count).reverse
     end
 
     # @pagy, @recipes = pagy(@recipes)
