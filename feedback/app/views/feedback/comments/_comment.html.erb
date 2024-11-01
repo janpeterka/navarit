@@ -1,0 +1,11 @@
+<div class="feedback--comment-row">
+    <div class="feedback--comment <%= "feedback--my-comment" if comment.creator == current_user %>">
+        <strong> <%= comment.creator&.name || "App Admin" %> </strong>:
+        <%= comment.content %>
+        <br>
+
+        <span class="feedback--comment-date">
+            <%= l(comment.created_at, format: "%A, %e %B, %Y • %l:%M").downcase %>
+        </span>
+    </div>
+</div>

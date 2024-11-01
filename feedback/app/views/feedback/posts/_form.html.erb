@@ -1,0 +1,14 @@
+<%= form_for Feedback::Post.new, html: { class: "feedback--form" } do |f| %>
+  <div>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.file_field :attachments, multiple: true, accept: "image/*" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: "feedback--button", value: t("Send feedback") %>
+  </div>
+
+<% end %>

@@ -71,6 +71,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Defines the root path route ("/")
   root "index#show"
 
+  mount Feedback::Engine, at: '/feedback'
+
   authenticate :user, ->(user) { user.admin? } do
     mount Lookbook::Engine, at: "/a/lookbook"
     mount SolidErrors::Engine, at: "/a/solid_errors"

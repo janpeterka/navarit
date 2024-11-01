@@ -8,6 +8,12 @@ GIT
       stimulus-rails (>= 1.2)
       turbo-rails (>= 1.2)
 
+PATH
+  remote: feedback
+  specs:
+    feedback (0.1.0)
+      rails (>= 7.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -509,6 +515,7 @@ DEPENDENCIES
   devise-i18n
   error_highlight (>= 0.4.0)
   factory_bot_rails
+  feedback!
   hotwire_combobox!
   image_processing (~> 1.2)
   importmap-rails

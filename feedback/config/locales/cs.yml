@@ -1,0 +1,53 @@
+cs:
+  synchronize: "Synchronizovat"
+  Welcome: "Vítejte na stránce se zpětnou vazbou!"
+  "Send feedback": "Přidat novou zpětnou vazbu"
+  "My feedback": "Moje zpětná vazba"
+  "Show more": "Zobrazit více"
+  Back: "Zpět"
+  "Back to feedbacks": "Zpět na mou zpětnou vazbu"
+  "Mark read": "Označit jako přečtené"
+  "Unread notifications": "Nepřečtená upozornění"
+
+  "Title": "Název"
+  "Description": "Popis"
+  "Status": "Stav"
+  "Created at": "Vytvořeno"
+
+  "Comments": "Komentáře"
+  "Add comment": "Přidat komentář"
+  "Attachments": "Přílohy"
+
+  "Show admin": "Zobrazit administraci"
+
+  # Notifications
+  "Your feedback has been taken into consideration by admins": "Tvou zpětnou vazbu viděli tvůrci aplikace"
+  "Your feedback has been completed": "Tvoje zpětná vazba byla vyřešena"
+  "Your feedback has been closed": "Tvoje zpětná vazba byla uzavřena"
+  "Your feedback has been reopened": "Tvoje zpětná vazba byla znovuotevřena"
+  "Admin commented your feedback!": "Máš komentář od admina ke svému příspěvku!"
+
+  # "Author reacted to your comment"
+
+  activerecord:
+    models:
+      feedback/post:
+        one: "příspěvek"
+        few: "příspěvky"
+        other: "příspěvků"
+      feedback/comment:
+        one: "komentář"
+        few: "komentáře"
+        other: "komentářů"
+
+    attributes:
+      feedback/post:
+        title: "Název"
+        description: "Obsah"
+        statuses:
+          new: "Nový"
+          closed: "Uzavřený"
+          open: "Otevřený"
+          completed: "Dokončený"
+      feedback/comment:
+        content: "Obsah"

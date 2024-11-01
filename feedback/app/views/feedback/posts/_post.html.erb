@@ -1,0 +1,16 @@
+<div class="feedback--post-card">
+    <h2> <%= t("Description") %> </h2>
+    <p>
+        <%= post.description %>
+    </p>
+
+    <p>
+        <strong><%= t("Created at") %>:</strong> <%= l(post.created_at, format: "%A, %e %B, %Y • %l:%M").downcase %>
+    </p>
+
+    <p>
+        <strong><%= t("Status") %>:</strong> <%= Feedback::Post.human_enum_name(:status, post.status) %>
+    </p>
+
+    <%= link_to(t("Show more"), post) unless request.path.include?("posts/") %>
+</div>
