@@ -11,7 +11,12 @@ module Recipes
     end
 
     def liked_by?(user)
-      reactions.where(user:).any?
+      # This is performance hack (mostly for PublishedRecipes#index, where we eager load reactions) to prevent N+1
+      if reactions.loaded?
+        reactions.map(&:user_id).include?(user.id)
+      else
+        reactions.where(user:).exists?
+      end
     end
 
     def like!(user)
