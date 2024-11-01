@@ -9,7 +9,7 @@ GIT
       turbo-rails (>= 1.2)
 
 PATH
-  remote: feedback
+  remote: plugins/feedback
   specs:
     feedback (0.1.0)
       rails (>= 7.1.1)
