@@ -3,6 +3,8 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  get "changelog", to: "index#changelog"
+
   concern :multiselect_chips do
     collection do
       post :multiselect_chips
