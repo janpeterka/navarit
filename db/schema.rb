@@ -262,8 +262,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
   create_table "recipes", id: :integer, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "created_by", null: false
-    t.bigint "owner_id", null: false
-    t.string "owner_type", null: false
     t.datetime "created_at", precision: nil
     t.datetime "last_updated_at", precision: nil
     t.text "description", size: :long
@@ -274,7 +272,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
     t.integer "reactions_count", default: 0, null: false
     t.index ["category_id"], name: "category_id"
     t.index ["created_by"], name: "ix_recipes_created_by"
-    t.index ["owner_type", "owner_id"], name: "index_recipes_on_owner"
   end
 
   create_table "recipes_have_ingredients", primary_key: ["recipe_id", "ingredient_id"], charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
