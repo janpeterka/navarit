@@ -13,11 +13,11 @@ div id="recipeMoreOptionsDropdown" class="z-10 hidden bg-white divide-gray-100 r
     - if can? :delete, recipe
       li = action_button_to "smazat", recipe_path(recipe), type: :plain, method: :delete, data: { turbo_confirm: "Opravdu chceš smazat recept? Akce je nevratná!" }, disabled: !recipe.deletable?
 
-    - if can? :update, recipe
+    - if can? :publish, recipe
       li
         - if recipe.published?
           = action_button_to "zrušit zveřejnění", published_recipe_path(recipe), icon: :cloud_arrow_up, method: :delete, type: :plain
-        - else
+        - elsif recipe.publishable?
           = action_button_to "zveřejnit", published_recipes_path(recipe_id: recipe.id), icon: :cloud_arrow_up, method: :post, type: :plain
 
     - if recipe.author == current_user
