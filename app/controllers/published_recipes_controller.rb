@@ -33,7 +33,8 @@ class PublishedRecipesController < PublicApplicationController
   # private - commented out because of tests
 
   def load_recipes(params)
-    @published_recipes = Recipe.published.includes(:category, :labels, :reactions, :ingredients, :author)
+    @published_recipes = Recipe.published.without_shopping
+                               .includes(:category, :labels, :reactions, :ingredients, :author)
 
     if params[:query].present?
       query = "%#{params[:query].downcase}%"
