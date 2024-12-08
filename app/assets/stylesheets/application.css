@@ -208,3 +208,7 @@ dialog {
     border-bottom-right-radius: 12px;
   }
 }
+
+trix-editor {
+  background-color: white;
+}
