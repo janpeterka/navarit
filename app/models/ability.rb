@@ -7,7 +7,6 @@ class Ability
     can :read, Ingredient, is_public: true
     can :read, Recipe, is_shared: true
     can :read, Event, is_shared: true
-
     can :read, DailyPlan, event: { is_shared: true }
 
     return unless user.present?
