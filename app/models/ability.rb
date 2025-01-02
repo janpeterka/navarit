@@ -21,7 +21,8 @@ class Ability
 
     can %i[manage publish archive unarchive], Event, author: user
     can %i[update archive unarchive], Event, id: user.collaborable_events.pluck(:id)
-    cannot %i[archive, update], Event, is_archived: true
+    cannot :archive, Event, is_archived: true
+    cannot :update, Event, is_archived: true # Not sure why it cannot be in one line
     cannot :unarchive, Event, is_archived: false
 
     can %i[manage publish], DailyPlan, author: user
