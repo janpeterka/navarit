@@ -19,11 +19,19 @@ module Publishable
     is_shared?
   end
 
+  def publishable?
+    procedure.present? && !draft?
+  end
+
   def publish!
+    return unless publishable?
+
     update(is_shared: true)
   end
 
   def unpublish!
+    return unless published?
+
     update(is_shared: false)
   end
 

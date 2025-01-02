@@ -36,7 +36,6 @@
         li = link_to recipe.name, recipe
 
     - if current_user.admin?
-
       h2.text-xl.mt-3
         | recepty se surovinou ostatních
         = render Badges::BadgeComponent.new(value: "admin", color: "peach")
