@@ -24,12 +24,9 @@ module Publishable
   end
 
   def publish!
-    p "trying to publish: #{publishable?}"
     return unless publishable?
 
     update(is_shared: true)
-
-    p "published"
   end
 
   def unpublish!

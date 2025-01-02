@@ -5,7 +5,7 @@ button.dropdown-button id="recipeMoreOptionsDropdownButton" data-dropdown-toggle
   = icon("dots-three-circle", class: "mr-1")
   = "další možnosti"
 
-div id="recipeMoreOptionsDropdown" class="z-10 hidden bg-white divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+div id="recipeMoreOptionsDropdown" class="z-10 hidden bg-white divide-gray-100 rounded-lg shadow w-content dark:bg-gray-700"
   ul class="px-2 py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="recipeMoreOptionsDropdown"
     - if can? :update, recipe
       li = button_link_to "upravit", edit_recipe_path(recipe), type: :plain
