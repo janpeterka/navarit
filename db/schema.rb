@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_02_175119) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -277,7 +277,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
   create_table "recipes_have_ingredients", primary_key: ["recipe_id", "ingredient_id"], charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "recipe_id", null: false
     t.integer "ingredient_id", null: false
-    t.float "amount"
+    t.decimal "amount", precision: 12, scale: 2
     t.string "comment"
     t.index ["ingredient_id"], name: "ix_recipes_have_ingredients_ingredient_id"
     t.index ["recipe_id"], name: "ix_recipes_have_ingredients_recipe_id"
