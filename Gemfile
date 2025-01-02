@@ -71,7 +71,6 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
   gem "prosopite" # N+1 query detection
   gem "methodz" # human readable methods
   gem "rubocop"
