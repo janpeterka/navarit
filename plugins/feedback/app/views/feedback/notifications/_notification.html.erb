@@ -1,0 +1,20 @@
+<div id="<%= dom_id notification %>" class="feedback--notification-card">
+  <p>
+    <strong>
+      <%= t("Title") %>:
+    </strong>
+
+    <%= t(notification.title) %>
+  </p>
+
+  <p>
+    <strong>
+      <%= t("Description") %>:
+    </strong>
+
+    <%= link_to(notification.notifiable.description.truncate(20), notification.notifiable) %>
+  </p>
+
+  <%= button_to(t("Mark read"), notification_path(notification), method: :delete, class: "feedback--button") %>
+
+</div>

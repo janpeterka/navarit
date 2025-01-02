@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_13_175209) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_01_193837) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -115,6 +115,37 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_13_175209) do
     t.integer "updated_by"
     t.index ["created_by"], name: "ix_events_created_by"
     t.index ["updated_by"], name: "fk_events_updated_by_users"
+  end
+
+  create_table "feedback_comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "content"
+    t.bigint "post_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_feedback_comments_on_post_id"
+    t.index ["user_id"], name: "index_feedback_comments_on_user_id"
+  end
+
+  create_table "feedback_notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title"
+    t.integer "user_id", null: false
+    t.datetime "read_at"
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_feedback_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_feedback_notifications_on_user_id"
+  end
+
+  create_table "feedback_posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_feedback_posts_on_user_id"
   end
 
   create_table "files", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -238,6 +269,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_13_175209) do
     t.integer "category_id"
     t.boolean "is_hidden"
     t.integer "portion_count"
+    t.integer "reactions_count", default: 0, null: false
     t.index ["category_id"], name: "category_id"
     t.index ["created_by"], name: "ix_recipes_created_by"
   end
@@ -374,6 +406,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_13_175209) do
   add_foreign_key "event_has_portion_type", "portion_types", name: "fk_event_has_portion_type_portion_type_id_portion_types"
   add_foreign_key "events", "users", column: "created_by", name: "events_ibfk_1"
   add_foreign_key "events", "users", column: "updated_by", name: "fk_events_updated_by_users"
+  add_foreign_key "feedback_notifications", "users"
   add_foreign_key "files", "recipes", name: "files_ibfk_2"
   add_foreign_key "files", "users", column: "created_by", name: "files_ibfk_1"
   add_foreign_key "files", "users", name: "files_ibfk_3"

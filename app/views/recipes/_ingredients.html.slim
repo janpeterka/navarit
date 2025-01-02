@@ -27,7 +27,7 @@ div
 
     = table recipe.recipe_ingredients.sort_by(&:recipe_amount).reverse do |t|
         = t.column :název do |r_ingredient|
-            - if can? :show, r_ingredient.ingredient
+            - if current_user.present? && can?(:show, r_ingredient.ingredient)
                 = link_to r_ingredient.ingredient.name, r_ingredient.ingredient
             - else
                 = r_ingredient.ingredient.name

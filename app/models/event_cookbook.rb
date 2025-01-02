@@ -36,12 +36,14 @@ class EventCookbook
       end
       document.move_down 20
 
-      document.text "Úkoly na dnešní den", style: :bold
-      document.move_down 15
+      if day.tasks.any?
+        document.text "Úkoly na dnešní den", style: :bold
+        document.move_down 15
 
-      day.tasks.each do |task|
-        document.text task.name, size: 12
-        document.text "(na #{task.recipe.name})", size: 10 if task.is_a?(RecipeTask)
+        day.tasks.each do |task|
+          document.text task.name, size: 12
+          document.text "(na #{task.recipe.name})", size: 10 if task.is_a?(RecipeTask)
+        end
       end
     end
 

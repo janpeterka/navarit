@@ -3,6 +3,8 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  get "changelog", to: "index#changelog"
+
   concern :multiselect_chips do
     collection do
       post :multiselect_chips
@@ -68,6 +70,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   # Defines the root path route ("/")
   root "index#show"
+
+  mount Feedback::Engine, at: '/feedback'
 
   authenticate :user, ->(user) { user.admin? } do
     mount Lookbook::Engine, at: "/a/lookbook"

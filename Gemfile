@@ -18,6 +18,7 @@ gem "pagy", "~> 6.1" # Pagination support
 gem "propshaft"
 gem "rails-i18n" # Add support for internationalization (i18n) to Rails
 gem "trilogy" # Use trilogy as the database for Active Record
+gem "solid_cable", "~> 3.0"
 
 # front-end
 gem "importmap-rails" # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -95,4 +96,4 @@ group :test do
   gem "rails_best_practices"
 end
 
-gem "solid_cable", "~> 3.0"
+gem "feedback", path: "plugins/feedback"

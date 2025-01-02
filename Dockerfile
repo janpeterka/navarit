@@ -22,6 +22,7 @@ RUN apt-get update -qq && \
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
+COPY plugins/feedback /rails/plugins/feedback
 
 RUN bundle lock --add-platform aarch64-linux
 

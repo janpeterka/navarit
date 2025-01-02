@@ -5,17 +5,22 @@
 = turbo_frame_tag dom_id(recipe), data: { "controller": "clickable", "clickable-url-value": path_to_recipe }
     = render CardComponent.new(recipe, class:) do |card|
         = card.with_heading do
-            .grid.grid-cols-2
-                = link_to(recipe.name, path_to_recipe, data: { turbo_frame: "_top" })
+            .grid.grid-cols-4
+                .col-span-3
+                    = link_to(recipe.name, path_to_recipe, data: { turbo_frame: "_top" }, class: "font-medium")
                 .text-right
-                    - if recipe.liked_by?(current_user)
-                        = button_to liked_recipe_path(recipe), method: :delete, class: "inline-block" do
-                            = icon("heart", style: :fill, class: "animate-heartbeat")
-                            = recipe.reactions.size
+                    - if current_user
+                        - if recipe.liked_by?(current_user)
+                            = button_to liked_recipe_path(recipe), method: :delete, class: "inline-block" do
+                                = icon("heart", style: :fill, class: "animate-heartbeat")
+                                = recipe.reactions.size
+                        - else
+                            = button_to liked_recipes_path(recipe_id: recipe.id), method: :post, class: "inline-block" do
+                                = icon("heart", class: "animate-heartbeat")
+                                = recipe.reactions.size
                     - else
-                        = button_to liked_recipes_path(recipe_id: recipe.id), method: :post, class: "inline-block" do
-                            = icon("heart", class: "animate-heartbeat")
-                            = recipe.reactions.size
+                        = icon("heart")
+                        = recipe.reactions.size
 
         = card.with_body do
             .grid.grid-cols-2

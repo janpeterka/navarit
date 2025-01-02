@@ -9,6 +9,7 @@ nav.mb-4
       = render "shared/navbar_link", link: new_user_session_path, text: "přihlásit se"
       = render "shared/navbar_link", link: new_user_registration_path, text: "registrovat se"
       = render "shared/navbar_link", link: published_recipes_path, icon: "book-open", text: "recepty"
+      = render "shared/navbar_link", link: changelog_path, icon: "newspaper", text: "co je nového?"
 
     / Mobile - not great, but good enough for now
     ul.grid.grid-cols-12.gap-2.md:hidden

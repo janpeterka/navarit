@@ -1,0 +1,18 @@
+<div class="feedback--post-card">
+    <h2> <%= link_to(t("Feedback ##{post.id}"), post) %> </h2>
+    <p>
+        <%= post.description %>
+    </p>
+
+    <p>
+      <strong>By:</strong> <%= post.creator.name %>
+    </p>
+
+    <p>
+        <strong><%= t("Status") %>:</strong> <%= Feedback::Post.human_enum_name(:status, post.status) %>
+    </p>
+
+    <%= render "admin_actions", post: %>
+
+    <%= button_to t("synchronize"), post_synchronize_path(post) if Feedback.synchronization_backend.present? %>
+</div>

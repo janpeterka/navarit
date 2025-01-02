@@ -2,8 +2,8 @@
 
 class Recipe < ApplicationRecord
   include Publishable
-  include Recipes::Likeable
-  include Recipes::Prawnable
+  include Likeable
+  include Prawnable
 
   belongs_to :category, class_name: "RecipeCategory", optional: true
   belongs_to :author, class_name: "User", foreign_key: "created_by"
@@ -39,6 +39,8 @@ class Recipe < ApplicationRecord
     joins(:recipe_labels).where(recipe_labels: { label_id: labels.map(&:id) })
   }
 
+  scope :without_shopping, -> { where.not(id: 167) }
+
   def self.search(query)
     query = "%#{query.downcase}%"
     includes(:category, :labels).where("LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ? OR LOWER(labels.visible_name) LIKE ?",
@@ -57,13 +59,12 @@ class Recipe < ApplicationRecord
     ingredients.empty?
   end
 
-  def used?
+  def used_in_events?
     events.any?
   end
 
   def deletable?
-    return false if used?
-    return false if published?
+    return false if used_in_events? || published?
 
     true
   end
