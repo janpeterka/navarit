@@ -3,7 +3,7 @@ class RecipePhotosController < ApplicationController
     recipe = Recipe.find(params[:recipe_id])
     photo = recipe.photos.find(params[:id])
 
-    return unless can? :edit, recipe
+    return redirect_back_or_to recipe unless can? :edit, recipe
 
     photo.destroy
     flash[:notice] = "fotka smazána"

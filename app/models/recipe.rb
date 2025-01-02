@@ -45,6 +45,16 @@ class Recipe < ApplicationRecord
 
   scope :without_shopping, -> { where.not(id: 167) }
 
+  def cover_photo
+    return nil if cover_photo_id.nil?
+
+    photos.find(cover_photo_id)
+  end
+
+  def cover_photo=(photo)
+    self.cover_photo_id = photo.id
+  end
+
   def self.search(query)
     query = "%#{query.downcase}%"
     includes(:category, :labels).where("LOWER(recipes.name) LIKE ? OR LOWER(recipe_categories.name) LIKE ? OR LOWER(labels.visible_name) LIKE ?",
