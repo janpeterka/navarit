@@ -54,7 +54,9 @@ class User < ApplicationRecord
   end
 
   def valid_password?(password)
-    if Devise::Encryptor.compare(self.class, encrypted_password, password)
+    if self.encrypted_password == "x" # legacy OAuth account
+      false
+    elsif Devise::Encryptor.compare(self.class, encrypted_password, password)
       true
     elsif legacy_valid_password?(password)
       self.password = password

@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.3.5"
 
-gem "rails", "~> 7.2.0"
+gem "rails", "~> 8.0.1"
 
 # back-end
 gem "acts_as_list" # ActsAsList is a small extension to the ActiveRecord::Base class to allow easy creation of sortable lists
@@ -71,7 +71,6 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
   gem "prosopite" # N+1 query detection
   gem "methodz" # human readable methods
   gem "rubocop"
