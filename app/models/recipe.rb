@@ -23,6 +23,10 @@ class Recipe < ApplicationRecord
 
   has_many :events, through: :daily_plans
 
+  has_many_attached :photos do |attachable|
+    attachable.variant :small, resize_to_limit: [ 400, 400 ]
+  end
+
   has_rich_text :procedure
 
   validates :name, presence: true

@@ -66,4 +66,19 @@
     - else
       = render "tasks", recipe: @recipe
 
+div
+  h2 Fotky
+  - if can? :update, @recipe
+    = form_for @recipe do |form|
+      - @recipe.photos.each do |photo|
+          = form.hidden_field :photos, multiple: true, value: photo.signed_id
+      = form.file_field :photos, multiple: true
+      = form.submit "Nahrát", class: "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
+
+  .grid.md:grid-cols-6.gap-y-2.md:gap-2.pt-2
+    - @recipe.photos.each do |photo|
+      div
+        = image_tag photo.representation(:small)
+        = action_button_to("smazat", recipe_photo_path(photo), method: :delete) if can? :update, @recipe
+
 / = button_link_to "pdf", recipe_path(@recipe, format: :pdf)
