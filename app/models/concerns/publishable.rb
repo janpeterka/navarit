@@ -20,7 +20,11 @@ module Publishable
   end
 
   def publishable?
-    procedure.present? && !draft?
+    if is_a?(Event)
+      true
+    elsif is_a?(Recipe)
+      procedure.present? && !draft?
+    end
   end
 
   def publish!
