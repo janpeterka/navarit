@@ -1,6 +1,13 @@
 - content_for :title, "co je nového?"
 
 .mb-5
+  h2 oprava chyby v načítání úkolů na akci (8. 2. 2025)
+  p
+    | Dneska dorazila zajímavá chyba - pokud byl na akci recept s úkolem, který bylo potřeba udělat dřív než v týdnu, kdy akce začíná (např. akce začíná v pondělí, v pondělí je k jídlu hummus, který má úkol "naložit cizrnu 3 dny předem"), stránka akce se nenačetla.
+    br
+    | Řešení tedy bylo rozsah akce pro vykreslení odvodit ne z rozsahu akce, ale podívat se, kdy jsou v akci nějaké úkoly. To bohužel načítání stránky akce asi o něco zpomalí, ale aspoň bude fungovat i v takovéhle situaci.
+
+.mb-5
   h2 průběžné úpravy a opravy (2. 1. 2025)
   | Nic velkého, ale i
   span.italic =<> "navařit"
