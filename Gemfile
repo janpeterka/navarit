@@ -43,6 +43,7 @@ gem "view_component"
 gem "kamal", ">= 2.0"
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "solid_errors", "~> 0.6.1"
+gem "honeybadger"
 
 # other
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
