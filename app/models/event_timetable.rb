@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class EventTimetable
   include ActiveModel::Model
 
@@ -10,8 +8,6 @@ class EventTimetable
 
     event_day = Struct.new(:date, :daily_plan, :tasks)
 
-    date_range = (@event.date_from.beginning_of_week..@event.date_to.end_of_week)
-
     @days = date_range.map do |date|
       event_day.new(date, @event.daily_plans.find { _1.date == date }, [])
     end
@@ -19,6 +15,25 @@ class EventTimetable
     load_day_tasks
 
     @weeks = @days.to_a.in_groups_of(7)
+  end
+
+
+  def date_range
+    start_date = @event.date_from
+    end_date = @event.date_to
+
+    @event.daily_plans.includes(daily_plan_recipes: [ recipe: :tasks ]).each do |plan|
+      plan.daily_plan_recipes.each do |day_recipe|
+        day_recipe.recipe.tasks.each do |task|
+          date_of_task = day_recipe.daily_plan.date - task.days_before_cooking
+          if date_of_task < start_date
+            start_date = date_of_task
+          end
+        end
+      end
+    end
+
+    (start_date.beginning_of_week..end_date.end_of_week)
   end
 
   private
@@ -40,7 +55,9 @@ class EventTimetable
   end
 
   def assign_task(daily_recipe, task)
-    day = @days.find { _1.date == (daily_recipe.daily_plan.date - task.days_before_cooking) }
+    date_of_task = daily_recipe.daily_plan.date - task.days_before_cooking
+
+    day = @days.find { _1.date == (date_of_task) }
     day.tasks << task
   end
 end

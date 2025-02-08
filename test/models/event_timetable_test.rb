@@ -25,4 +25,14 @@ class EventTimetableTest < ActiveSupport::TestCase
 
     assert @event.timetable.days.find { _1.date == Date.new(2024, 1, 2) }.tasks == [ recipe_task ]
   end
+
+  test "assign recipe task when task is before expected range" do
+    recipe = FactoryBot.create(:hummus_with_carrot, author: @current_user)
+    recipe_task = recipe.tasks.create!(name: "Buy carrot one day before", days_before_cooking: 2)
+
+    date = @event.begins_at
+    @event.daily_plans.find_by(date:).daily_plan_recipes.create!(recipe:, portion_count: 12)
+
+    assert @event.timetable.days.find { _1.date == date - 2.days }.tasks == [ recipe_task ]
+  end
 end

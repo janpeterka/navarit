@@ -23,5 +23,5 @@
 
       - if can? :update, daily_plan
         ul.mt-2
-          li.px-3.invisible.group-hover:visible
+          li.px-3.md:invisible.group-hover:visible
             = button_link_to "přidat jídlo", daily_plan_path(daily_plan), icon: :plus, type: :plain, data: { turbo_frame: "modal" }, class: "border-none hover:bg-ocean-200 py-3"
