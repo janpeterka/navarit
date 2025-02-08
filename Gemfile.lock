@@ -162,6 +162,9 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
+    honeybadger (5.26.2)
+      logger
+      ostruct
     htmlbeautifier (1.4.3)
     htmlentities (4.3.4)
     i18n (1.14.6)
@@ -541,6 +544,7 @@ DEPENDENCIES
   devise-i18n
   factory_bot_rails
   feedback!
+  honeybadger
   hotwire_combobox!
   image_processing (~> 1.2)
   importmap-rails
@@ -586,7 +590,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.3.5p100
+   ruby 3.4.1p0
 
 BUNDLED WITH
    2.5.16
