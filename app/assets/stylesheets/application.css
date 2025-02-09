@@ -212,3 +212,12 @@ dialog {
 trix-editor {
   background-color: white;
 }
+
+#changelog article {
+  padding-bottom: 1rem;
+  border-bottom: #085366 0.1rem solid;
+
+  &:nth-last-child(1) {
+    border-bottom: 0;
+  }
+}
