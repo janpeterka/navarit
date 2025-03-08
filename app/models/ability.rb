@@ -29,5 +29,6 @@ class Ability
     cannot :update, DailyPlan, event: { is_archived: true }
 
     can :manage, EventPortionType, author: user
+    can :manage, PortionType, author: user
   end
 end
