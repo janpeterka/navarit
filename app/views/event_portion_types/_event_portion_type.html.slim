@@ -1,3 +1,5 @@
+/# locals: (event:, portion_type: nil)
+
 - event_portion_type ||= EventPortionType.new(portion_type:, event:)
 - portion_type ||= event_portion_type.portion_type
 - method = event_portion_type.persisted? ? :patch : :post
@@ -19,7 +21,7 @@
             = form.submit "přidat"
 
     - else
-        = default_form_for event_portion_type, url:, method:, html: { data: { controller: "form" } } do |form|
+        = default_form_for event_portion_type, url:, method: do |form|
             / required must be explicitly stated here, as it's param of portion_type, not event_portion_type
             = form.input :name, col_span: 5, required: true
             = form.input :size, col_span: 3, required: true

@@ -17,9 +17,16 @@ class EventPortionTypesController < ApplicationController
     @portion_type = PortionType.find_by(id: params[:portion_type_id])
 
     if @portion_type.nil?
-      @portion_type = current_user.portion_types.create!(name: portion_type_params[:name],
+      @portion_type = current_user.portion_types.create(name: portion_type_params[:name],
                                                          size: portion_type_params[:size])
+
+      unless @portion_type.valid?
+        flash[:error] = "zadejte název i velikost typu porce"
+        return redirect_back_or_to @event.event_portion_types, status: :see_other
+      end
     end
+
+    authorize! :update, @portion_type
 
     if portion_count_difference > @event.portion_type_remaining_attendee_count
       flash[:error] = "nemůžeš přidat víc lidí než je volných míst"
