@@ -45,7 +45,7 @@ class User < ApplicationRecord
     if full_name.present?
       full_name
     else
-      e_mail
+      email
     end
   end
 
