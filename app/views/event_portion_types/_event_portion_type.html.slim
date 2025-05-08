@@ -1,4 +1,5 @@
-/# locals: (event:, portion_type: nil)
+/# locals: (event:, portion_type: nil, event_portion_type: nil)
+/ Either provide portion_type or event_portion_type
 
 - event_portion_type ||= EventPortionType.new(portion_type:, event:)
 - portion_type ||= event_portion_type.portion_type
