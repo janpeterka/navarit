@@ -3,6 +3,8 @@ class EventPortionTypesController < ApplicationController
   before_action :set_event
 
   def index
+    authorize! :show, @event
+
     @event_portion_types = @event.event_portion_types
     @unused_portion_types = current_user.portion_types - @event_portion_types.map(&:portion_type)
   end
