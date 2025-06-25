@@ -4,7 +4,13 @@ class EventTimetable
   attr_reader :event, :weeks, :days
 
   def initialize(event)
-    @event = Event.includes(daily_plans: [ :day_tasks, daily_plan_recipes: :recipe ]).find(event.id)
+    @event = Event.includes(daily_plans: [
+                              :day_tasks,
+                              { daily_plan_recipes: {
+                                  recipe: [ :rich_text_procedure, { recipe_ingredients: { ingredient: :measurement } } ]
+                                }
+                              } ])
+                  .find(event.id)
 
     event_day = Struct.new(:date, :daily_plan, :tasks) do
       def daily_plan_recipes

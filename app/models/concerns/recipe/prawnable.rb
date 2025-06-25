@@ -15,11 +15,10 @@ module Recipe::Prawnable
 
     def ingredients_table_data(daily_recipe)
       ingredient_data = []
-      daily_recipe.recipe.recipe_ingredients.includes(:ingredient).each do |recipe_ingredient|
+      daily_recipe.recipe.recipe_ingredients.includes(ingredient: :measurement).each do |recipe_ingredient|
         ingredient = recipe_ingredient.ingredient
         ingredient_data << [ ingredient.name,
-                            formatted_amount_with_unit(recipe_ingredient,
-                                                        daily_recipe.portion_count),
+                            formatted_amount_with_unit(recipe_ingredient, daily_recipe.portion_count),
                             recipe_ingredient.comment ]
       end
 

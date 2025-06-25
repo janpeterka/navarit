@@ -9,14 +9,13 @@ class EventCookbook
   attr_reader :event
 
   def initialize(event)
-    @event = Event.includes(daily_plans: { daily_plan_recipes: { recipe: { recipe_ingredients: { ingredient: :measurement } } } }) # rubocop:disable Layout/LineLength
-                  .find(event.id)
+    @event = event
   end
 
   def pdf # rubocop:disable Metrics/AbcSize
     document = shrimpy_document(title: "Kuchařka na #{event.name}")
 
-    @event.timetable.days.each_with_index do |day, ix|
+    event.timetable.days.each_with_index do |day, ix|
       next if day.daily_plan_recipes.none? && day.tasks.none? # This is weird way not to show empty days from timetable
 
       document.start_new_page
