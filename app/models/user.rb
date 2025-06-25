@@ -50,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    id.in? [ 1, 565 ]
+    id.in? [ 1 ]
   end
 
   def valid_password?(password)

@@ -30,5 +30,9 @@ class Ability
 
     can :manage, EventPortionType, author: user
     can :manage, PortionType, author: user
+
+    return unless user.admin?
+
+    can :read, Event
   end
 end
