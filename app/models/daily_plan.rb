@@ -13,6 +13,7 @@ class DailyPlan < ApplicationRecord
   delegate :portion_count, to: :event
 
   scope :filled, -> { joins(:recipes).distinct.any? }
+  scope :on, ->(date) { where("daily_plans.date = ?", date).first }
   scope :on_or_after, ->(date) { where("daily_plans.date >= ?", date) }
   scope :before, ->(date) { where("daily_plans.date < ?", date) }
   scope :after, ->(date) { where("daily_plans.date > ?", date) }
@@ -23,18 +24,6 @@ class DailyPlan < ApplicationRecord
     @tasks << tasks_from_recipes
 
     @tasks.flatten!
-  end
-
-  def tasks_from_recipes
-    tasks = []
-
-    event.daily_plans.on_or_after(date).each_with_index do |plan, index|
-      plan.recipes.each do |recipe|
-        tasks << recipe.tasks.where(days_before_cooking: index)
-      end
-    end
-
-    tasks
   end
 
   def duplicate
@@ -49,5 +38,19 @@ class DailyPlan < ApplicationRecord
     end
 
     duplicate_daily_plan
+  end
+
+  private
+
+  def tasks_from_recipes
+    tasks = []
+
+    event.daily_plans.on_or_after(date).each_with_index do |plan, index|
+      plan.recipes.each do |recipe|
+        tasks << recipe.tasks.where(days_before_cooking: index)
+      end
+    end
+
+    tasks
   end
 end

@@ -16,7 +16,9 @@ class EventCookbook
   def pdf # rubocop:disable Metrics/AbcSize
     document = shrimpy_document(title: "Kuchařka na #{event.name}")
 
-    @event.daily_plans.each_with_index do |day, ix|
+    @event.timetable.days.each_with_index do |day, ix|
+      next if day.daily_plan_recipes.none? && day.tasks.none? # This is weird way not to show empty days from timetable
+
       document.start_new_page
 
       document.text "#{weekday_name(day.date)} #{formatted_date(day.date)}", size: 18, style: :bold, align: :center
