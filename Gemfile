@@ -83,6 +83,7 @@ group :development do
   gem "slim_lint"
   gem "tailwind-sorter", "~> 0.3.0", require: false # tailwind class sorter by Matouš Borák
   gem "overcommit"
+  gem "vernier"
 end
 
 group :test do
