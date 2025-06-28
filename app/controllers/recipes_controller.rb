@@ -57,6 +57,6 @@ class RecipesController < ApplicationController
 
     def recipe_params
       params.fetch(:recipe, {}).permit(:name, :procedure, :category_id, :portion_count, :difficulty_label_ids,
-                                      dietary_label_ids: [])
+                                      dietary_label_ids: [], photos: [])
     end
 end
