@@ -8,7 +8,7 @@ module Feedback
       if params[:status].present?
         @posts = @posts.where(status: params[:status].to_sym)
       else
-        @posts = @posts.where(status: [:new, :open])
+        @posts = @posts.where(status: [ :new, :open ])
       end
     end
 
