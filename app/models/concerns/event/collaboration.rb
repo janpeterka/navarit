@@ -13,8 +13,8 @@ module Event::Collaboration
   def role_for(user)
     if user == author
       :author
-    elsif (role = user_event_roles.find_by(user:)).present?
-      role.to_sym
+    elsif (user_event_role = user_event_roles.find_by(user:)).present?
+      user_event_role.tole.to_sym
     elsif user.admin?
       :admin
     end
