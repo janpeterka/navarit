@@ -5,7 +5,11 @@ module Feedback
     def index
       @posts = Feedback::Post.all
 
-      @posts = @posts.where(status: params[:status].to_sym) if params[:status].present?
+      if params[:status].present?
+        @posts = @posts.where(status: params[:status].to_sym)
+      else
+        @posts = @posts.where(status: [:new, :open])
+      end
     end
 
     def open
@@ -34,8 +38,8 @@ module Feedback
 
     private
 
-    def load_post
-      @post = Feedback::Post.find(params[:id])
-    end
+      def load_post
+        @post = Feedback::Post.find(params[:id])
+      end
   end
 end
