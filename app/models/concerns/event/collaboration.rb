@@ -14,7 +14,7 @@ module Event::Collaboration
     if user == author
       :author
     elsif (user_event_role = user_event_roles.find_by(user:)).present?
-      user_event_role.tole.to_sym
+      user_event_role.role.to_sym
     elsif user.admin?
       :admin
     end
