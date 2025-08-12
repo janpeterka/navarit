@@ -1,6 +1,6 @@
 <div class="feedback--comment-row">
     <div class="feedback--comment <%= "feedback--my-comment" if comment.creator == current_user %>">
-        <strong> <%= comment.creator&.name || "App Admin" %> </strong>:
+        <strong> <%= comment.creator&.name || comment.creator.email %> </strong>:
         <%= comment.content %>
         <br>
 
