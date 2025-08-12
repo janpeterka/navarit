@@ -3,6 +3,16 @@ class EventTimetable
 
   attr_reader :event, :weeks, :days
 
+  EventDay = Struct.new(:date, :daily_plan, :tasks) do
+    def daily_plan_recipes
+      daily_plan.present? ? daily_plan.daily_plan_recipes : DailyPlanRecipe.none # This creates empty ActiveRecord::Relation object
+    end
+
+    def empty?
+      daily_plan_recipes.none? && tasks.none?
+    end
+  end
+
   def initialize(event)
     @event = Event.includes(daily_plans: [
                               :day_tasks,
@@ -12,14 +22,8 @@ class EventTimetable
                               } ])
                   .find(event.id)
 
-    event_day = Struct.new(:date, :daily_plan, :tasks) do
-      def daily_plan_recipes
-        daily_plan.present? ? daily_plan.daily_plan_recipes : []
-      end
-    end
-
     @days = date_range.map do |date|
-      event_day.new(date, @event.daily_plans.find { _1.date == date }, [])
+      EventDay.new(date, @event.daily_plans.find { it.date == date }, [])
     end
 
     load_day_tasks
