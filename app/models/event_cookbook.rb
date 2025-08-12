@@ -23,7 +23,7 @@ class EventCookbook
       document.text "#{weekday_name(day.date)} #{formatted_date(day.date)}", size: 18, style: :bold, align: :center
       document.move_down 15
 
-      if daily_recipes.is_a?(ActiveRecord::Relation)
+      if day.daily_plan_recipes.is_a?(ActiveRecord::Relation)
         daily_recipes = day.daily_plan_recipes.includes(recipe: :recipe_ingredients)
       else
         daily_recipes = day.daily_plan_recipes
