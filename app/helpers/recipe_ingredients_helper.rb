@@ -17,7 +17,7 @@ module RecipeIngredientsHelper
 
     case amount
     when 1000..Float::INFINITY
-      "#{formatted_amount(amount / 1000)} #{formatted_unit(amount, measurement)}"
+      "#{(formatted_amount(amount / 1000)).to_f} #{formatted_unit(amount, measurement)}"
     else
       "#{formatted_amount(amount)} #{formatted_unit(amount, measurement)}"
     end

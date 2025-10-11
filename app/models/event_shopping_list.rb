@@ -108,7 +108,7 @@ class Shopping
     data = []
     ingredients_with_usage.each do |ingredient, usage|
       data << [ ingredient.name,
-               formatted_amount_and_unit(amount: usage[:amount].to_i, measurement: ingredient.measurement) ]
+               formatted_amount_and_unit(amount: usage[:amount].to_f, measurement: ingredient.measurement) ]
     end
     data
   end
