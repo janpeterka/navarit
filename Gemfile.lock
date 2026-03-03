@@ -151,12 +151,12 @@ GEM
     factory_bot_rails (6.4.4)
       factory_bot (~> 6.5)
       railties (>= 5.0.0)
-    faraday (2.12.2)
+    faraday (2.14.1)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.0)
-      net-http (>= 0.5.0)
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
     ffi (1.17.1-aarch64-linux-gnu)
     ffi (1.17.1-x86_64-linux-gnu)
     globalid (1.2.1)
@@ -181,7 +181,7 @@ GEM
     irb (1.14.3)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.9.1)
+    json (2.18.1)
     jwt (2.10.1)
       base64
     kamal (2.4.0)
@@ -228,8 +228,8 @@ GEM
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
     mysql2 (0.5.6)
-    net-http (0.6.0)
-      uri
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     net-imap (0.5.7)
       date
       net-protocol
@@ -506,7 +506,7 @@ GEM
     unicode-display_width (3.1.3)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uri (1.0.4)
+    uri (1.1.1)
     useragent (0.16.11)
     vernier (1.8.0)
     version_gem (1.1.4)
