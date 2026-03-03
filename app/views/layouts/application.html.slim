@@ -63,3 +63,6 @@ html lang="cs"
     = turbo_frame_tag :modal, data: { "turbo-permanent": "true" }
 
     = render("shared/mobile_navbar") if current_user.present?
+
+    - if content_for?(:footer)
+      = yield(:footer)
