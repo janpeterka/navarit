@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_02_175119) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_02_225029) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -270,6 +270,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_02_175119) do
     t.boolean "is_hidden"
     t.integer "portion_count"
     t.integer "reactions_count", default: 0, null: false
+    t.integer "cover_photo_id"
     t.index ["category_id"], name: "category_id"
     t.index ["created_by"], name: "ix_recipes_created_by"
   end
