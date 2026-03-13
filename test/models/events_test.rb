@@ -49,4 +49,15 @@ class EventTest < ActiveSupport::TestCase
 
     assert_equal 7, @event.daily_plans.size
   end
+
+  test "update of portion count changes portion count for all recipes where it's same as old value" do
+    another_recipe = FactoryBot.build(:recipe, name: "Another recipe", author: User.first)
+
+    @event.daily_plans.first.daily_plan_recipes.create(daily_plan: @event.daily_plans.first,
+                                                       recipe: another_recipe, position: 2,
+                                                       portion_count: 6)
+    @event.update(people_count: 10) # was 5 originally
+    assert_equal 10, @event.daily_plan_recipes.first.portion_count
+    assert_equal 6, @event.daily_plan_recipes.second.portion_count
+  end
 end

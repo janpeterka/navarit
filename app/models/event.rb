@@ -41,13 +41,15 @@ class Event < ApplicationRecord
   }
 
   def update(params)
-    update_date_from(params[:date_from].to_date) if params[:date_from].present?
-    update_date_to(params[:date_to].to_date) if params[:date_to].present?
+    transaction do
+      update_date_from(params[:date_from].to_date) if params[:date_from].present?
+      update_date_to(params[:date_to].to_date) if params[:date_to].present?
 
-    # TODO: portion count, editing disabled for now
-    # update_portion_count(params[:portion_count].to_i) if params[:portion_count].present?
+      # TODO: portion count, editing disabled for now
+      update_people_count(params[:people_count].to_i) if params[:people_count].present?
 
-    super(params)
+      super(params)
+    end
   end
 
   def duration
@@ -118,6 +120,14 @@ class Event < ApplicationRecord
         date_to.upto(new_date_to) do |date|
           daily_plans.find_or_create_by(date:)
         end
+      end
+    end
+
+    def update_people_count(new_people_count)
+      daily_plan_recipes.each do |dpr|
+        next if dpr.portion_count != people_count
+
+        dpr.update(portion_count: new_people_count)
       end
     end
 end

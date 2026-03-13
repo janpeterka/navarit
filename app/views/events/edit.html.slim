@@ -1,4 +1,9 @@
-= content_for :title do
-  = "upravit #{@event.name}"
+- content_for :breadcrumbs do
+  = link_to("akce", events_path, class: "hover:underline text-ocean-800")
+  = " > "
+  = link_to(@event.name, @event, class: "hover:underline text-ocean-800")
+
+- content_for :title do
+  = "upravit akci"
 
 = render "form", event: @event

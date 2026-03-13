@@ -2,7 +2,7 @@
   = form.input :name, col_span: :full, autofocus: true
   = form.input :date_from, as: :date, col_span: 3
   = form.input :date_to, as: :date, col_span: 3
-  = form.input :people_count, col_span: 3, disabled: event.persisted?
+  = form.input :people_count, col_span: 3, hint: "množství porcí se změní jen u receptů, kde bylo stejné jako původní počet pro celý recept"
   = form.buttons_section
     = form.cancel_link
     = form.submit
