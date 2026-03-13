@@ -45,7 +45,7 @@ module Publishable
 
   private
 
-  def obfuscated_id
-    Base64.urlsafe_encode64(id.to_s)
-  end
+    def obfuscated_id
+      Base64.urlsafe_encode64(id.to_s)
+    end
 end

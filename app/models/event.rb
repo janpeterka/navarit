@@ -40,8 +40,6 @@ class Event < ApplicationRecord
     where("LOWER(events.name) LIKE ?", "%#{query.downcase}%")
   }
 
-
-
   def update(params)
     update_date_from(params[:date_from].to_date) if params[:date_from].present?
     update_date_to(params[:date_to].to_date) if params[:date_to].present?
@@ -85,41 +83,41 @@ class Event < ApplicationRecord
 
   private
 
-  def date_to_after_date_from_validation
-    return unless date_to.present? && date_from.present? && date_to < date_from
+    def date_to_after_date_from_validation
+      return unless date_to.present? && date_from.present? && date_to < date_from
 
-    errors.add(:date_to, "must be after date from")
-  end
-
-  def create_daily_plans
-    (date_from..date_to).each do |date|
-      daily_plans << DailyPlan.new(date:, created_by: author.id)
+      errors.add(:date_to, "must be after date from")
     end
 
-    self
-  end
+    def create_daily_plans
+      (date_from..date_to).each do |date|
+        daily_plans << DailyPlan.new(date:, created_by: author.id)
+      end
 
-  def update_date_from(new_date_from)
-    return if new_date_from == date_from
+      self
+    end
 
-    if new_date_from > date_from
-      daily_plans.before(new_date_from).destroy_all
-    elsif new_date_from < date_from
-      new_date_from.upto(date_from - 1.day) do |date|
-        daily_plans.find_or_create_by(date:)
+    def update_date_from(new_date_from)
+      return if new_date_from == date_from
+
+      if new_date_from > date_from
+        daily_plans.before(new_date_from).destroy_all
+      elsif new_date_from < date_from
+        new_date_from.upto(date_from - 1.day) do |date|
+          daily_plans.find_or_create_by(date:)
+        end
       end
     end
-  end
 
-  def update_date_to(new_date_to)
-    return if new_date_to == date_to
+    def update_date_to(new_date_to)
+      return if new_date_to == date_to
 
-    if new_date_to < date_to
-      daily_plans.after(new_date_to).destroy_all
-    elsif new_date_to > date_to
-      date_to.upto(new_date_to) do |date|
-        daily_plans.find_or_create_by(date:)
+      if new_date_to < date_to
+        daily_plans.after(new_date_to).destroy_all
+      elsif new_date_to > date_to
+        date_to.upto(new_date_to) do |date|
+          daily_plans.find_or_create_by(date:)
+        end
       end
     end
-  end
 end
