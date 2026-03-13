@@ -6,6 +6,8 @@ class RecipeIngredient < ApplicationRecord
 
   delegate :name, to: :ingredient
 
+  validates :ingredient, uniqueness: { scope: :recipe }
+
   def recipe_amount
     return 0 if amount.nil?
 
