@@ -5,6 +5,10 @@
   = " > "
   = @recipe.name
 
+- if @recipe.cover_photo.present?
+  .flex.flex-row-reverse
+    = image_tag @recipe.cover_photo.representation(resize_to_limit: [ 1600, 300 ])
+
 #details.mt-3.mb-4
   p
     span.font-bold = @recipe.category&.name
@@ -65,5 +69,23 @@
       = render "tasks_edit", recipe: @recipe
     - else
       = render "tasks", recipe: @recipe
+
+div
+  h2 Fotky
+  - if can? :update, @recipe
+    = form_for @recipe do |form|
+      - @recipe.photos.each do |photo|
+          = form.hidden_field :photos, multiple: true, value: photo.signed_id
+      = form.file_field :photos, multiple: true
+      = form.submit "Nahrát", class: "#{Buttons::ButtonDefaults::DEFAULT_CLASSES[:primary]} #{Buttons::ButtonDefaults::DEFAULT_SIZE_CLASSES[:default]}"
+
+  .grid.md:grid-cols-6.gap-y-2.md:gap-2.pt-2
+    - @recipe.photos.each do |photo|
+      div style="position: relative;"
+        = image_tag photo.representation(:small)
+        / div style="position: absolute; bottom: 0.1rem; left: 0.6rem;"
+        .flex.justify-between
+          = action_button_to("nastavit jako hlavní", recipe_cover_photos_path(id: photo.id, recipe_id: @recipe.id), method: :post, type: :secondary) if can? :update, @recipe
+          = action_button_to("smazat", recipe_photo_path(id: photo.id, recipe_id: @recipe.id), method: :delete) if can? :update, @recipe
 
 / = button_link_to "pdf", recipe_path(@recipe, format: :pdf)
