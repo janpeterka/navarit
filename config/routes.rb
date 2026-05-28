@@ -40,6 +40,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :recipes do
     resources :duplications, controller: "recipe_duplications", only: %i[create]
     resources :tasks, controller: "recipe_tasks"
+    resources :photos, controller: "recipe_photos", only: %i[destroy]
+    resources :cover_photos, controller: "recipe_cover_photos", only: %i[create]
   end
 
   resources :published_recipes, only: %i[index show create destroy]
@@ -71,7 +73,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Defines the root path route ("/")
   root "index#show"
 
-  mount Feedback::Engine, at: '/feedback'
+  mount Feedback::Engine, at: "/feedback"
 
   authenticate :user, ->(user) { user.admin? } do
     mount Lookbook::Engine, at: "/a/lookbook"

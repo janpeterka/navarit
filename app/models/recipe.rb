@@ -23,6 +23,10 @@ class Recipe < ApplicationRecord
 
   has_many :events, through: :daily_plans
 
+  has_many_attached :photos do |attachable|
+    attachable.variant :small, resize_to_limit: [ 400, 400 ]
+  end
+
   has_rich_text :procedure
 
   validates :name, presence: true
@@ -40,6 +44,16 @@ class Recipe < ApplicationRecord
   }
 
   scope :without_shopping, -> { where.not(id: 167) }
+
+  def cover_photo
+    return nil if cover_photo_id.nil?
+
+    photos.find(cover_photo_id)
+  end
+
+  def cover_photo=(photo)
+    self.cover_photo_id = photo.id
+  end
 
   def self.search(query)
     query = "%#{query.downcase}%"
