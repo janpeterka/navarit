@@ -229,7 +229,6 @@ GEM
       net-smtp
     marcel (1.2.1)
     matrix (0.4.3)
-    method_source (1.1.0)
     methodz (0.1.8)
     mini_magick (5.3.1)
       logger
@@ -539,10 +538,10 @@ GEM
     useragent (0.16.11)
     vernier (1.10.1)
     version_gem (1.1.10)
-    view_component (3.21.0)
-      activesupport (>= 5.2.0, < 8.1)
-      concurrent-ruby (~> 1.0)
-      method_source (~> 1.0)
+    view_component (4.9.0)
+      actionview (>= 7.1.0)
+      activesupport (>= 7.1.0)
+      concurrent-ruby (~> 1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.3.0)
@@ -618,7 +617,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   vernier
-  view_component (~> 3.21.0)
+  view_component (~> 4.9.0)
   web-console
 
 RUBY VERSION

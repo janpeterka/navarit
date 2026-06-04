@@ -34,7 +34,7 @@ gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.
 gem "hotwire_combobox", github: "josefarias/hotwire_combobox", branch: "main"
 
 gem "lookbook"
-gem "view_component", "~> 3.21.0" # 4.6.26 - update to 4+ makes tests fail, must update manually
+gem "view_component", "~> 4.9.0" # 4.6.26 - update to 4+ makes tests fail, must update manually
 
 # security
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
