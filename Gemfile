@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.4.1"
+ruby "3.4.9"
 
 gem "rails", "~> 8.0.1"
 
@@ -29,12 +29,12 @@ gem "prawn-markup" # Render HTML and Markdown in Prawn PDFs
 gem "simple_form" # Use SimpleForm for forms
 gem "slim-rails"
 gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "tailwindcss-rails"
+gem "tailwindcss-rails", "~> 3.3.1" # 4.6.26 - must update to v4 manually
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "hotwire_combobox", github: "josefarias/hotwire_combobox", branch: "main"
 
 gem "lookbook"
-gem "view_component"
+gem "view_component", "~> 3.21.0" # 4.6.26 - update to 4+ makes tests fail, must update manually
 
 # security
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
