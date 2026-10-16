@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 1) do
+ActiveRecord::Schema[8.0].define(version: 1) do
   create_table "solid_errors", force: :cascade do |t|
     t.text "exception_class", null: false
     t.text "message", null: false
